@@ -1,0 +1,19 @@
+<button class="btn btn-default" ng-click="addRow()">Add row</button>
+<button class="btn btn-default" ng-click="save()">Save</button>
+<br/><br/>
+<table class="table-bordered table">
+    <tr 
+        ng-repeat="row in grid.rows" 
+        ng-include="'modules/grids/tpls/row/' + row.type + '.html'" 
+        ng-init="rowIndex = $index"
+        >
+    </tr>
+</table>
+<script>
+    $('.collapse').collapse();
+    $(function () {
+        $('body').on('change', '.row-type', function () {
+            $('.modal-backdrop').remove();
+        });
+    });
+</script>

@@ -57,14 +57,18 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
 
     protected function createFunctionForFile($filename)
     {
-        return create_function('$theme, $data', implode(PHP_EOL, array(
+        $code = implode(PHP_EOL, array(
+            'return function ($theme, $data) {',
             'ob_start();',
             'extract($data);',
             '?>',
             file_get_contents($filename),
             '<?php',
             'return ob_get_clean();',
-        )));
+            '};?>',
+        ));
+        
+        return eval($code);
     }
 
     public function make(array $data)
@@ -90,7 +94,7 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         if (empty($location)) {
             throw new \ExampleCMS\Exception\Metadata(sprintf('undefinedTemplate %s', $defaulTemplatePathString));
         }
-        
+
         $this->parts[$templatePathString] = $this->createFunctionForFile($location);
 
         $assets = $this->tryFetch('assets', array(

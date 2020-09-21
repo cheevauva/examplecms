@@ -139,12 +139,16 @@ class FormManager
             $metadata['form'],
         ));
 
+        if (empty($registredForms)) {
+            $registredForms = [];
+        }
+        
         if (count($registredForms) > $limit) {
             $session->set(array(
                 'forms',
                 $metadata['module'],
                 $metadata['form'],
-                ), array());
+            ), array());
         }
 
         $token = $form->getToken();
@@ -158,7 +162,7 @@ class FormManager
             (string) $form->module,
             $metadata['form'],
             $token,
-            ), $metadata);
+        ), $metadata);
 
         return $token;
     }

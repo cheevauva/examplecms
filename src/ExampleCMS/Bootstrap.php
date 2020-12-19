@@ -36,7 +36,7 @@ class Bootstrap
         $this->appName = $appName;
         $this->basePath = $basePath;
 
-        if (function_exists('xhprof_enable')) {
+        if (function_exists('xhprof_enable') && class_exists('XHProfRuns_Default', true)) {
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 
             register_shutdown_function(function () {

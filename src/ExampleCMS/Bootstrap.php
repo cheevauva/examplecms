@@ -22,7 +22,7 @@ class Bootstrap
     protected $basePath;
 
     /**
-     * @var \ExampleCMS\Contract\Filesystem
+     * @var \ExampleCMS\Filesystem
      */
     protected $filesystem;
 
@@ -67,7 +67,7 @@ class Bootstrap
                 $config->arrayUtil = new \ExampleCMS\Util\Arr;
                 $config->set('base', $config->get('patterns.base'));
             }
-            
+
             $this->config = $config;
         }
 
@@ -80,7 +80,7 @@ class Bootstrap
             $filesystem = $this->getFilesystem();
             $config = $this->getConfig();
 
-            $injections = $filesystem->loadAsPHP($config->get('base.pathToFileWithInjections'));
+            $injections = $filesystem->loadAsPHPByVar('vendor/application/Ext/DI/di.ext.php', 'di');
 
             $container = new \ExampleCMS\Container($injections, array(
                 get_class($filesystem) => $filesystem,
@@ -103,7 +103,7 @@ class Bootstrap
     {
         $app = $this->getContainer()->get('ExampleCMS\\Application');
         $app->prepare();
-        
+
         return $app;
     }
 
@@ -114,4 +114,5 @@ class Bootstrap
     {
         return $this->appName;
     }
+
 }

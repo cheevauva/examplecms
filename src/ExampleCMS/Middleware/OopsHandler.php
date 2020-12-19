@@ -12,8 +12,8 @@ class OopsHandler extends \ExampleCMS\Middleware\Application
         } catch (\ExampleCMS\Exception\Http $exception) {
             $request = $request->withAttribute('exception', $exception);
 
-            $module = $this->moduleFactory->get('default');
-            $layout = $module->getLayout('exception');
+            $module = $this->moduleFactory->get('Default');
+            $layout = $module->responder()->layout('exception');
 
             $data = $layout->getData($request);
             $theme = $this->getTheme($request);

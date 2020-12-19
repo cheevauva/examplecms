@@ -20,7 +20,7 @@ class Application
         $modules = $this->metadata->get([
             'modules'
         ]);
-
+        
         if (empty($modules[$module])) {
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
@@ -28,7 +28,7 @@ class Application
         if (!empty($modules[$module]['hide'])) {
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
-
+        
         return $this->moduleFactory->get($module);
     }
 
@@ -39,7 +39,7 @@ class Application
         if (empty($theme)) {
             $theme = 'default';
         }
-
+        
         return $this->themeFactory->get($theme);
     }
 
@@ -60,7 +60,7 @@ class Application
             $layoutObject = $module->responder()->layout($layout);
 
             $data = $layoutObject->getData($request);
-            $theme = $this->getTheme($request);
+            $theme = $this->getTheme($request, $module);
             $content = $theme->make($data);
 
             $response->getBody()->write($content);

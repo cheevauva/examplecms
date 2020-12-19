@@ -21,6 +21,19 @@ class Filesystem
         return include $this->preparePath($filename);
     }
 
+    /**
+     * @param string $filename
+     * @return mixed
+     */
+    public function loadAsPHPByVar($filename, $var)
+    {
+        $$var = [];
+        
+        include $this->preparePath($filename);
+        
+        return $$var;
+    }
+
     public function isExists($filename)
     {
         return file_exists($this->preparePath($filename));

@@ -9,7 +9,7 @@ class Save extends Action
     {
         $form = $this->context->getForm();
 
-        if ($form->isValid()) {
+        if (!$form->isValid()) {
             return;
         }
 

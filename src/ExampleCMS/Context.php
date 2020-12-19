@@ -125,7 +125,7 @@ class Context implements \ExampleCMS\Contract\Context
 
     public function setContextByDefault()
     {
-        $this->module = 'default';
+        $this->module = 'Default';
         $this->action = 'default';
         $this->id = null;
         $this->layout = 'default';

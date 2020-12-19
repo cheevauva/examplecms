@@ -25,7 +25,7 @@ class Handler extends \ExampleCMS\Factory\Factory
     {
         if (!empty($this->handlers[$handler])) {
             return $this->handlers[$handler];
-        }   
+        }
 
         $this->loadHandlersMetadata();
 
@@ -36,12 +36,16 @@ class Handler extends \ExampleCMS\Factory\Factory
         $component->setType($handler);
         $component->setRoute($handlerMetadata['route']);
 
+        if (!empty($handlerMetadata['switch'])) {
+            $component->setSwitch($handlerMetadata['switch']);
+        }
+        
         if (empty($handlerMetadata['disableCache'])) {
             $cacheComponent = $this->container->create($this->handlersMetadata['cache']['component']);
             $cacheComponent->handler = $component;
 
             $this->handlers[$handler] = $cacheComponent;
-        }  else {
+        } else {
             $this->handlers[$handler] = $component;
         }
 
@@ -51,9 +55,10 @@ class Handler extends \ExampleCMS\Factory\Factory
     protected function loadHandlersMetadata()
     {
         if (empty($this->handlersMetadata)) {
-            $this->handlersMetadata = $this->filesystem->loadAsPHP('metadata/handlers.php');
+            $this->handlersMetadata = $this->filesystem->loadAsPHPByVar('vendor/application/Ext/Handlers/handlers.ext.php', 'handlers');
         }
 
         return $this->handlersMetadata;
     }
+
 }

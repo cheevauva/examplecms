@@ -11,4 +11,4 @@ set_error_handler(function ($error, $message) {
 
 set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__);
 chdir(__DIR__);
-require_once 'vendor/autoload.php';
+require_once 'composer/autoload.php';

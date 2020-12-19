@@ -10,7 +10,8 @@
         "filp/whoops": "1.1.5"
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "vendor-dir": "composer"
     },
     "autoload": {
         "psr-4": {

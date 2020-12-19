@@ -12,7 +12,7 @@ class Metadata implements \ExampleCMS\Contract\Metadata
 {
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Metadata\Handler
+     * @var \ExampleCMS\Factory\Metadata\Handler
      */
     public $metadataHandlerFactory;
 
@@ -24,7 +24,7 @@ class Metadata implements \ExampleCMS\Contract\Metadata
 
         $handler = array_shift($path);
         $handlerComponent = $this->metadataHandlerFactory->get($handler);
-        
+
         return $handlerComponent->get($path);
     }
 }

@@ -15,7 +15,7 @@ class Responder
      * @var \ExampleCMS\Contract\Module
      */
     public $module;
-    
+
     public function __construct(\ExampleCMS\Contract\Module $module)
     {
         $this->module = $module;
@@ -28,7 +28,7 @@ class Responder
         $target = $type . '.' . $component;
 
         $responderMetadata = $this->metadata->get([
-            'responder',
+            'responders',
             (string) $this->module,
         ]);
 

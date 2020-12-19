@@ -2,6 +2,8 @@
 
 namespace ExampleCMS\Metadata\Handler;
 
+use ExampleCMS\Metadata\Handler\Basic\MetadataArray;
+
 class Basic
 {
 
@@ -41,28 +43,37 @@ class Basic
         return $this->type;
     }
 
-    protected function getDefault()
-    {
-        if (!$this->default) {
-            $this->default = $this->get(array('default'));
-        }
-
-        return $this->default;
-    }
-
     public function get(array $path)
     {
         $level = array_shift($path);
 
-        $path = str_replace('$1', $level, $this->path);
+        $module = [];
+        $application = [];
 
-        if (!$this->filesystem->isExists($path)) {
-            return;
+        if (!empty($this->path['module'])) {
+            $modulePath = str_replace('$1', $level, $this->path['module']);
+            $module = $this->filesystem->loadAsPHPByVar($modulePath, $this->type);
+            
+            if (!empty($module[$level])) {
+                $module = $module[$level];
+            }
         }
 
-        $array = $this->filesystem->loadAsPHP($path);
+        if (!empty($this->path['application'])) {
+            $application = $this->filesystem->loadAsPHPByVar($this->path['application'], $this->type);
 
-        return new Basic\MetadataArray($array, $level !== 'default' ? $this->getDefault() : array());
+            if (!empty($application[$level])) {
+                $application = $application[$level];
+            }
+        }
+
+        if (empty($module) && !empty($application)) {
+            $module = $application;
+            $application = [];
+        }
+
+
+        return new MetadataArray($module, $application);
     }
 
 }

@@ -33,11 +33,19 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         'css' => array(),
         'js' => array(),
     );
+    
+    protected $module ;
+
+    public function setModule($module)
+    {
+        $this->module = $module;
+    }
 
     public function setTheme($theme)
     {
         $this->theme = $this->metadata->get(array(
             'themes',
+            (string) $this->module,
             $theme
         ));
     }
@@ -67,7 +75,7 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
             'return ob_get_clean();',
             '};?>',
         ));
-        
+
         return eval($code);
     }
 

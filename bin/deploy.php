@@ -42,6 +42,8 @@ foreach ($extensions as $extension) {
         $mergeFiles::PATH => $extension['extdir'],
         $mergeFiles::LEVEL => !empty($extension['level']) ? $extension['level'] : '',
         $mergeFiles::SECTION => $extension['section'],
+        $mergeFiles::NAME => !empty($extension['name']) ? $extension['name'] : '',
+        $mergeFiles::FILTER => !empty($extension['filter']) ? $extension['filter'] : '',
     ]);
 }
 

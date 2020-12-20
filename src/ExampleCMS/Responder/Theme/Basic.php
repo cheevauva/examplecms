@@ -33,8 +33,7 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         'css' => array(),
         'js' => array(),
     );
-    
-    protected $module ;
+    protected $module;
 
     public function setModule($module)
     {
@@ -47,6 +46,12 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
             'themes',
             (string) $this->module,
             $theme
+        ));
+        
+        $this->languages = $this->metadata->get(array(
+            'languages',
+            (string) $this->module,
+            'ru_RU' // Временно захардкодил
         ));
     }
 
@@ -84,12 +89,14 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         $templatePath = $data['templatePath'];
         $templatePathString = implode('.', $templatePath);
         
+        $data['_'] = $this->languages;
+
         if (!empty($this->parts[$templatePathString])) {
             return $this->parts[$templatePathString]($this, $data);
         }
 
         $defaulTemplatePath = $templatePath;
-        
+
         array_shift($defaulTemplatePath);
         array_unshift($defaulTemplatePath, 'default');
 

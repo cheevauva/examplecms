@@ -1,1 +1,1 @@
-<?= htmlspecialchars($label); ?>
+<?= htmlspecialchars($_[$label]); ?>

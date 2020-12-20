@@ -43,16 +43,28 @@ class Basic
         return $this->type;
     }
 
+    protected function preparePath($sourcePath, $vars)
+    {
+        $index = 0;
+        $path = $sourcePath;
+
+        foreach ($vars as $val) {
+            $index++;
+            $path = str_replace('$' . $index, $val, $path);
+        }
+
+        return $path;
+    }
+
     public function get(array $path)
     {
-        $level = array_shift($path);
+        $level = reset($path);
 
         $module = [];
         $application = [];
 
         if (!empty($this->path['module'])) {
-            $modulePath = str_replace('$1', $level, $this->path['module']);
-            $module = $this->filesystem->loadAsPHP($modulePath);
+            $module = $this->filesystem->loadAsPHP($this->preparePath($this->path['module'], $path));
 
             if (!empty($module[$level])) {
                 $module = $module[$level];
@@ -60,7 +72,7 @@ class Basic
         }
 
         if (!empty($this->path['application'])) {
-            $application = $this->filesystem->loadAsPHP($this->path['application']);
+            $application = $this->filesystem->loadAsPHP($this->preparePath($this->path['application'], $path));
 
             if (!empty($application[$level])) {
                 $application = $application[$level];

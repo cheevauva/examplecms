@@ -69,6 +69,13 @@ foreach (array(
         'route' => 'metadata/session.php',
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),
+    'languages' => array(
+        'route' => [
+            'application' => 'cache/metadata/application/Language/$2.php',
+            'module' => 'cache/metadata/modules/$1/Language/$2.php',
+        ],
+        'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
+    )
 ) as $name => $value) {
     $handlers[$name] = $value;
 }

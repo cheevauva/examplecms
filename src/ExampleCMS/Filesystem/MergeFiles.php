@@ -12,6 +12,8 @@ class MergeFiles
     const LEVEL = 'level';
     const MODULES = 'modules';
     const SECTION = 'section';
+    const FILTER = 'filter';
+    const NAME = 'name';
 
     /**
      * @var array 
@@ -29,6 +31,10 @@ class MergeFiles
             $params[static::MODULES] = [];
         }
 
+        if (empty($params[static::NAME])) {
+            $params[static::NAME] = null;
+        }
+
         $this->params = $params;
 
         $basePaths = array_values($params[static::PATHBASE]);
@@ -36,20 +42,15 @@ class MergeFiles
         $basePathIndex = 0;
 
         while ($basePathIndex < $basePathsCount) {
-            $nextBasePath = '';
             $currentBasePath = $basePaths[$basePathIndex];
 
-            if (!empty($basePaths[$basePathIndex + 1])) {
-                $nextBasePath = $basePaths[$basePathIndex + 1];
-            }
-
-            $this->process($currentBasePath, $nextBasePath);
+            $this->process($currentBasePath);
 
             $basePathIndex++;
         }
     }
 
-    public function process(string $basePath, string $basePathNext)
+    public function process(string $basePath)
     {
         $path = $this->params[static::PATH];
         $modules = $this->params[static::MODULES];
@@ -102,9 +103,15 @@ class MergeFiles
 
     protected function saveExtension($extension, $extpath)
     {
+        $name = $this->params[static::NAME];
         $pathBase = $this->params[static::PATHTARGET];
-        $dir = dirname("$pathBase/$extpath");
-        
+
+        if (empty($name)) {
+            $dir = dirname("$pathBase/$extpath");
+        } else {
+            $dir = dirname("$pathBase/$extpath/$name");
+        }
+
         if (!file_exists($dir)) {
             mkdir($dir, 0775, true);
         }
@@ -116,10 +123,14 @@ class MergeFiles
 
         array_unshift($extension, '$' . $this->params[static::SECTION] . ' = [];');
         array_unshift($extension, '<?php');
-        
+
         $extension[] = 'return $' . $this->params[static::SECTION] . ';';
 
-        file_put_contents("$pathBase/$extpath.php", implode(PHP_EOL, array_filter($extension)));
+        if (empty($name)) {
+            file_put_contents("$pathBase/$extpath.php", implode(PHP_EOL, array_filter($extension)));
+        } else {
+            file_put_contents("$pathBase/$extpath/$name.php", implode(PHP_EOL, array_filter($extension)));
+        }
     }
 
     /**
@@ -129,6 +140,7 @@ class MergeFiles
     protected function isPass(string $file): bool
     {
         $result = true;
+        $result &= (empty($this->params[static::FILTER]) || substr_count($file, $this->params[static::FILTER]) > 0);
         $result &= $file !== '.';
         $result &= $file !== '..';
         $result &= strtolower(substr($file, -4)) === ".php";

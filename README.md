@@ -4,6 +4,11 @@
 
 ## Требования к серверу ##
 
-* Apache или Nginx
-* PHP > 5.4 (PDO)
-* MYSQL
+* PHP > 7.3
+* PDO
+
+## Разворачивание ##
+
+* Установить зависимости с помощью Composer
+* Установить права sudo find ./ -type d -exec chmod 775 {} + -or -type f -exec chmod 664 {} + && sudo chown username:username -R ./
+* Вызвать консольную утилиту из папки проекта php bin/deploy.php

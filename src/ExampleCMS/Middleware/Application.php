@@ -44,18 +44,25 @@ class Application
         return $this->moduleFactory->get($module);
     }
 
+    protected function getTheme($request)
+    {
+        $theme = $request->getAttribute('theme');
+
+        if (empty($theme)) {
+            $theme = 'default';
+        }
+
+        return $theme;
+    }
+
     public function __invoke($request, $response, $next)
     {
         $module = $this->getModule($request);
 
-        $theme = $request->getAttribute('theme');
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
-
-        if (!$theme) {
-            $theme = 'default';
-        }
-
+        $theme = $this->getTheme($request);
+        
         if ($action) {
             $module->action($action)->execute($request);
         }

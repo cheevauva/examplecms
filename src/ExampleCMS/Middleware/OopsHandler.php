@@ -4,7 +4,7 @@ namespace ExampleCMS\Middleware;
 
 class OopsHandler extends \ExampleCMS\Middleware\Application
 {
-    
+
     public function __invoke($request, $response, $next)
     {
         try {
@@ -16,8 +16,7 @@ class OopsHandler extends \ExampleCMS\Middleware\Application
             $layout = $module->responder()->layout('exception');
 
             $data = $layout->getData($request);
-            $theme = $this->getTheme($request);
-            $content = $theme->make($data);
+            $content =  $module->theme($this->getTheme($request))->make($data);
 
             $response->getBody()->write($content);
         }

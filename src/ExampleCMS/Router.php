@@ -38,10 +38,10 @@ class Router implements \ExampleCMS\Contract\Container\Mediator
         $appName = $this->bootstrap->getAppName();
 
         if ($this->config->get('base.setup')) {
-            $appName .= '-setup';
+            $appName .= 'setup';
         }
         $this->routes = $this->metadata->get(['routes', $appName]);
-        
+
         return $this->routes;
     }
 

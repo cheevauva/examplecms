@@ -1,1 +1,1 @@
-<button type="submit" class="btn btn-default"><?= htmlspecialchars($label); ?></button>
+<button type="submit" class="btn btn-default"><?= htmlspecialchars($_[$label]); ?></button>

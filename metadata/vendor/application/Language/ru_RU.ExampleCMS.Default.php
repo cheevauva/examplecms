@@ -5,3 +5,6 @@ $language['languages'] = [
     'en_US' => 'Английский (Американский)'
 ];
 
+$language['send'] = 'Отправить';
+$language['ok'] = 'Ок';
+$language['cancel'] = 'Отмена';

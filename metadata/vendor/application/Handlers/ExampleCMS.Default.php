@@ -34,7 +34,7 @@ foreach (array(
     ),
     'routes' => array(
         'route' => [
-            'application' => 'cache/metadata/application/Routes.php',
+            'application' => 'cache/metadata/application/Routes/$1.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),

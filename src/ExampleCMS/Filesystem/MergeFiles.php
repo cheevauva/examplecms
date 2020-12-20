@@ -52,7 +52,6 @@ class MergeFiles
     public function process(string $basePath, string $basePathNext)
     {
         $path = $this->params[static::PATH];
-        $name = $this->params[static::NAME];
         $modules = $this->params[static::MODULES];
         $basePaths = array_values($this->params[static::PATHBASE]);
 
@@ -64,7 +63,7 @@ class MergeFiles
                     $extpath = "modules/$module/$path";
                     $override = [];
 
-                    foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
+                    foreach (glob($basePath . '/' . $extpath . '/*') as $entry) {
 
                         if ($this->isPass($entry) && is_file($entry)) {
                             if (substr($entry, 0, 9) == '_override') {
@@ -79,7 +78,7 @@ class MergeFiles
                         $extension[] = file_get_contents($entry);
                     }
 
-                    $this->saveExtension($extension, $extpath, $name);
+                    $this->saveExtension($extension, $extpath);
                 }
             }
         }
@@ -90,23 +89,24 @@ class MergeFiles
             foreach ($basePaths as $basePath) {
                 $extpath = "application/$path";
 
-                foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
+                foreach (glob($basePath . '/' . $extpath . '/*') as $entry) {
                     if ($this->isPass($entry) && is_file($entry)) {
                         $extension[] .= file_get_contents($entry);
                     }
                 }
             }
 
-            $this->saveExtension($extension, $extpath, $name);
+            $this->saveExtension($extension, $extpath);
         }
     }
 
-    protected function saveExtension($extension, $extpath, $name)
+    protected function saveExtension($extension, $extpath)
     {
         $pathBase = $this->params[static::PATHTARGET];
-
-        if (!file_exists("$pathBase/$extpath")) {
-            mkdir("$pathBase/$extpath", 0775, true);
+        $dir = dirname("$pathBase/$extpath");
+        
+        if (!file_exists($dir)) {
+            mkdir($dir, 0775, true);
         }
 
         foreach ($extension as $index => $ext) {
@@ -117,7 +117,7 @@ class MergeFiles
         array_unshift($extension, '// auto-generated');
         array_unshift($extension, '<?php');
 
-        file_put_contents("$pathBase/$extpath/$name", implode(PHP_EOL, array_filter($extension)));
+        file_put_contents("$pathBase/$extpath.php", implode(PHP_EOL, array_filter($extension)));
     }
 
     /**

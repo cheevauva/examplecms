@@ -11,36 +11,36 @@ foreach (array(
     ),
     'modules' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Modules/modules.ext.php',
+            'application' => 'cache/metadata/application/Modules.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
         'section' => 'applications',
     ),
     'responders' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Responders/responders.ext.php',
-            'module' => 'cache/modules/$1/Ext/Responders/responders.ext.php',
+            'application' => 'cache/metadata/application/Responders.php',
+            'module' => 'cache/metadata/modules/$1/Responders.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
         'section' => 'responders',
     ),
     'components' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Components/components.ext.php',
-            'module' => 'cache/modules/$1/Ext/Components/components.ext.php',
+            'application' => 'cache/metadata/application/Components.php',
+            'module' => 'cache/metadata/modules/$1/Components.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
         'section' => 'components',
     ),
     'routes' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Routes/routes.ext.php',
+            'application' => 'cache/metadata/application/Routes.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),
     'themes' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Themes/themes.ext.php',
+            'application' => 'cache/metadata/application/Themes.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),
@@ -54,14 +54,14 @@ foreach (array(
     ),
     'forms' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Forms/forms.ext.php',
-            'module' => 'cache/modules/$1/Ext/Forms/forms.ext.php',
+            'application' => 'cache/metadata/application/Forms.php',
+            'module' => 'cache/metadata/modules/$1/Forms.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),
     'applications' => array(
         'route' => [
-            'application' => 'cache/application/Ext/Applications/applications.ext.php',
+            'application' => 'cache/metadata/application/Applications.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),

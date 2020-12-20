@@ -15,15 +15,13 @@ class Module implements \ExampleCMS\Contract\Module
      * @var \ExampleCMS\Contract\Bundle
      */
     protected $bundle;
-
     protected $responder;
-
 
     /**
      * @var string
      */
     protected $module;
-    
+
     /**
      * @var \ExampleCMS\Contract\Metadata
      */
@@ -50,7 +48,6 @@ class Module implements \ExampleCMS\Contract\Module
     {
         return $this->module;
     }
-
 
     public function model($modelType = 'base')
     {
@@ -82,7 +79,18 @@ class Module implements \ExampleCMS\Contract\Module
         if (!$this->responder) {
             $this->responder = new \ExampleCMS\Responder\Responder($this);
         }
-        
+
         return $this->responder;
     }
+
+    public function theme($theme)
+    {
+        $th = new \ExampleCMS\Responder\Theme\Basic;
+        $th->metadata = $this->metadata;
+        $th->setModule($this);
+        $th->setTheme($theme);
+
+        return $th;
+    }
+
 }

@@ -52,7 +52,6 @@ class MergeFiles
     {
         $path = $this->params[static::PATH];
         $name = $this->params[static::NAME];
-        $application = !empty($this->params[static::APP]);
         $modules = $this->params[static::MODULES];
 
         if ($this->params[static::LEVEL] !== 'application') {

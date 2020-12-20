@@ -5,10 +5,22 @@ namespace ExampleCMS\Middleware;
 class Application
 {
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
     public $moduleFactory;
-    public $metadata;
-    public $themeFactory;
 
+    /**
+     * @var \ExampleCMS\Contract\Metadata
+     */
+    public $metadata;
+
+    /**
+     * 
+     * @param type $request
+     * @return \ExampleCMS\Contract\Module
+     * @throws \ExampleCMS\Exception\Http\NotFound
+     */
     protected function getModule($request)
     {
         $module = $request->getAttribute('module');
@@ -20,7 +32,7 @@ class Application
         $modules = $this->metadata->get([
             'modules'
         ]);
-        
+
         if (empty($modules[$module])) {
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
@@ -28,40 +40,30 @@ class Application
         if (!empty($modules[$module]['hide'])) {
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
-        
+
         return $this->moduleFactory->get($module);
-    }
-
-    protected function getTheme($request)
-    {
-        $theme = $request->getAttribute('theme');
-
-        if (empty($theme)) {
-            $theme = 'default';
-        }
-        
-        return $this->themeFactory->get($theme);
     }
 
     public function __invoke($request, $response, $next)
     {
         $module = $this->getModule($request);
 
+        $theme = $request->getAttribute('theme');
         $action = $request->getAttribute('action');
+        $layout = $request->getAttribute('layout');
 
-        if ($action) {
-            $actionObject = $module->action($action);
-            $actionObject->execute($request);
+        if (!$theme) {
+            $theme = 'default';
         }
 
-        $layout = $request->getAttribute('layout');
+        if ($action) {
+            $module->action($action)->execute($request);
+        }
 
         if ($layout) {
             $layoutObject = $module->responder()->layout($layout);
-
             $data = $layoutObject->getData($request);
-            $theme = $this->getTheme($request, $module);
-            $content = $theme->make($data);
+            $content = $module->theme($theme)->make($data);
 
             $response->getBody()->write($content);
         }

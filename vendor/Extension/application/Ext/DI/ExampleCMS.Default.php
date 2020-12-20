@@ -21,7 +21,6 @@ foreach (array(
     'ExampleCMS\\Middleware\\Application' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'moduleFactory' => 'ExampleCMS\\Factory\\Module',
-        'themeFactory' => 'ExampleCMS\\Factory\\Theme',
     ),
     'ExampleCMS\\Application' => array(
         'bootstrap' => 'ExampleCMS\\Bootstrap',

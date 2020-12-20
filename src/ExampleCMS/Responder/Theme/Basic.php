@@ -83,12 +83,13 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
     {
         $templatePath = $data['templatePath'];
         $templatePathString = implode('.', $templatePath);
-
+        
         if (!empty($this->parts[$templatePathString])) {
             return $this->parts[$templatePathString]($this, $data);
         }
 
         $defaulTemplatePath = $templatePath;
+        
         array_shift($defaulTemplatePath);
         array_unshift($defaulTemplatePath, 'default');
 

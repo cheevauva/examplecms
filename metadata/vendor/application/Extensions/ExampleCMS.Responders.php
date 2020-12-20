@@ -1,6 +1,6 @@
 <?php
 
 $extensions['responders'] = [
-    "section" => "responders",
-    "extdir" => "Responders",
+    'section' => 'responders',
+    'extdir' => 'Responders',
 ];

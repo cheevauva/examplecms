@@ -80,7 +80,7 @@ class Bootstrap
             $filesystem = $this->getFilesystem();
             $config = $this->getConfig();
 
-            $injections = $filesystem->loadAsPHPByVar('cache/metadata/application/DI.php', 'di');
+            $injections = $filesystem->loadAsPHP('cache/metadata/application/DI.php');
 
             $container = new \ExampleCMS\Container($injections, array(
                 get_class($filesystem) => $filesystem,

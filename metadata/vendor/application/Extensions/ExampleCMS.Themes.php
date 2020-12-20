@@ -1,6 +1,6 @@
 <?php
 
 $extensions['themes'] = [
-    "section" => "themes",
-    "extdir" => "Themes",
+    'section' => 'themes',
+    'extdir' => 'Themes',
 ];

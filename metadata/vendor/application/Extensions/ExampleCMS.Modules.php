@@ -1,7 +1,7 @@
 <?php
 
 $extensions['modules'] = [
-    "section" => "modules",
-    "extdir" => "Modules",
+    'section' => 'modules',
+    'extdir' => 'Modules',
     'level' => 'application',
 ];

@@ -1,7 +1,7 @@
 <?php
 
 $extensions['routes'] = [
-    "section" => "routes",
-    "extdir" => "Routes",
+    'section' => 'routes',
+    'extdir' => 'Routes',
     'level' => 'application',
 ];

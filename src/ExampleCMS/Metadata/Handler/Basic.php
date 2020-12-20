@@ -52,15 +52,15 @@ class Basic
 
         if (!empty($this->path['module'])) {
             $modulePath = str_replace('$1', $level, $this->path['module']);
-            $module = $this->filesystem->loadAsPHPByVar($modulePath, $this->type);
-            
+            $module = $this->filesystem->loadAsPHP($modulePath);
+
             if (!empty($module[$level])) {
                 $module = $module[$level];
             }
         }
 
         if (!empty($this->path['application'])) {
-            $application = $this->filesystem->loadAsPHPByVar($this->path['application'], $this->type);
+            $application = $this->filesystem->loadAsPHP($this->path['application']);
 
             if (!empty($application[$level])) {
                 $application = $application[$level];

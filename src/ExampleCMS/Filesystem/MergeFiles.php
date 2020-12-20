@@ -8,10 +8,10 @@ class MergeFiles
     const PATH = 'path';
     const PATHBASE = 'pathBase';
     const PATHTARGET = 'pathTarget';
-    const NAME = 'name';
     const APP = 'app';
     const LEVEL = 'level';
     const MODULES = 'modules';
+    const SECTION = 'section';
 
     /**
      * @var array 
@@ -114,8 +114,10 @@ class MergeFiles
         }
 
 
-        array_unshift($extension, '// auto-generated');
+        array_unshift($extension, '$' . $this->params[static::SECTION] . ' = [];');
         array_unshift($extension, '<?php');
+        
+        $extension[] = 'return $' . $this->params[static::SECTION] . ';';
 
         file_put_contents("$pathBase/$extpath.php", implode(PHP_EOL, array_filter($extension)));
     }

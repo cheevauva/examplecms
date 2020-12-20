@@ -1,8 +1,8 @@
 <?php
 
 $extensions['components'] = [
-    "section" => "components",
-    "extdir" => "Components",
+    'section' => 'components',
+    'extdir' => 'Components',
 ];
 
 

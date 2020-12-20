@@ -18,12 +18,14 @@ $mergeFiles->execute([
     $mergeFiles::PATHBASE => $basePaths,
     $mergeFiles::PATH => 'Extensions',
     $mergeFiles::LEVEL => 'application',
+    $mergeFiles::SECTION => 'extensions',
 ]);
 $mergeFiles->execute([
     $mergeFiles::PATHTARGET => $targetPath,
     $mergeFiles::PATHBASE => $basePaths,
     $mergeFiles::PATH => 'Modules',
     $mergeFiles::LEVEL => 'application',
+    $mergeFiles::SECTION => 'modules',
 ]);
 
 $extensions = [];
@@ -39,6 +41,7 @@ foreach ($extensions as $extension) {
         $mergeFiles::MODULES => array_keys($modules),
         $mergeFiles::PATH => $extension['extdir'],
         $mergeFiles::LEVEL => !empty($extension['level']) ? $extension['level'] : '',
+        $mergeFiles::SECTION => $extension['section'],
     ]);
 }
 

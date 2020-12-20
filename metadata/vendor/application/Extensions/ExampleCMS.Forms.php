@@ -1,6 +1,6 @@
 <?php
 
 $extensions['forms'] = [
-    "section" => "forms",
-    "extdir" => "Forms",
+    'section' => 'forms',
+    'extdir' => 'Forms',
 ];

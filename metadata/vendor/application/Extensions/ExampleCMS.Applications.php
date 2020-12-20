@@ -1,8 +1,8 @@
 <?php
 
 $extensions['applications'] = [
-    "section" => "applications",
-    "extdir" => "Applications",
+    'section' => 'applications',
+    'extdir' => 'Applications',
     'level' => 'application',
 ];
 

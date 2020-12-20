@@ -7,6 +7,7 @@ class MergeFiles
 
     const PATH = 'path';
     const PATHBASE = 'pathBase';
+    const PATHTARGET = 'pathTarget';
     const NAME = 'name';
     const APP = 'app';
     const LEVEL = 'level';
@@ -53,56 +54,59 @@ class MergeFiles
         $path = $this->params[static::PATH];
         $name = $this->params[static::NAME];
         $modules = $this->params[static::MODULES];
+        $basePaths = array_values($this->params[static::PATHBASE]);
 
         if ($this->params[static::LEVEL] !== 'application') {
             foreach ($modules as $module) {
                 $extension = [];
 
-                $extpath = "modules/$module/$path";
-                $override = [];
+                foreach ($basePaths as $basePath) {
+                    $extpath = "modules/$module/$path";
+                    $override = [];
 
-                foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
+                    foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
 
-                    if ($this->isPass($entry) && is_file($entry)) {
-                        if (substr($entry, 0, 9) == '_override') {
-                            $override[] = $entry;
-                        } else {
-                            $extension[] = file_get_contents($entry);
+                        if ($this->isPass($entry) && is_file($entry)) {
+                            if (substr($entry, 0, 9) == '_override') {
+                                $override[] = $entry;
+                            } else {
+                                $extension[] = file_get_contents($entry);
+                            }
                         }
                     }
-                }
 
-                foreach ($override as $entry) {
-                    $extension[] = file_get_contents($entry);
-                }
+                    foreach ($override as $entry) {
+                        $extension[] = file_get_contents($entry);
+                    }
 
-                $this->saveExtension($basePath, $basePathNext, $extension, $extpath, $name);
+                    $this->saveExtension($extension, $extpath, $name);
+                }
             }
         }
 
         if ($this->params[static::LEVEL] !== 'module') {
             $extension = [];
 
-            $extpath = "application/$path";
+            foreach ($basePaths as $basePath) {
+                $extpath = "application/$path";
 
-            foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
-                if ($this->isPass($entry) && is_file($entry)) {
-                    $extension[] .= file_get_contents($entry);
+                foreach (glob($basePath . '/Extension/' . $extpath . '/*') as $entry) {
+                    if ($this->isPass($entry) && is_file($entry)) {
+                        $extension[] .= file_get_contents($entry);
+                    }
                 }
             }
 
-            $this->saveExtension($basePath, $basePathNext, $extension, $extpath, $name);
+            $this->saveExtension($extension, $extpath, $name);
         }
     }
 
-    protected function saveExtension($pathBase, $basePathNext, $extension, $extpath, $name)
+    protected function saveExtension($extension, $extpath, $name)
     {
+        $pathBase = $this->params[static::PATHTARGET];
+
         if (!file_exists("$pathBase/$extpath")) {
             mkdir("$pathBase/$extpath", 0775, true);
-        }
-
-        if (!empty($basePathNext)) {
-            $extension[] = "require '{$basePathNext}/{$extpath}/{$name}';";
         }
 
         foreach ($extension as $index => $ext) {
@@ -112,7 +116,7 @@ class MergeFiles
 
         array_unshift($extension, '// auto-generated');
         array_unshift($extension, '<?php');
-        
+
         file_put_contents("$pathBase/$extpath/$name", implode(PHP_EOL, array_filter($extension)));
     }
 

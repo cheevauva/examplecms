@@ -4,8 +4,4 @@
 /cache
 /logs
 /config/base.php
-/vendor/application/
-/custom/application/
-/custom/modules/
-/vendor/modules/
 /nbproject/

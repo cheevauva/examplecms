@@ -55,7 +55,7 @@ class Handler extends \ExampleCMS\Factory\Factory
     protected function loadHandlersMetadata()
     {
         if (empty($this->handlersMetadata)) {
-            $this->handlersMetadata = $this->filesystem->loadAsPHPByVar('vendor/application/Ext/Handlers/handlers.ext.php', 'handlers');
+            $this->handlersMetadata = $this->filesystem->loadAsPHPByVar('cache/application/Ext/Handlers/handlers.ext.php', 'handlers');
         }
 
         return $this->handlersMetadata;

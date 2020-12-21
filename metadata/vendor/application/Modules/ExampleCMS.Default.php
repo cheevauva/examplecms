@@ -4,7 +4,6 @@ foreach (array(
     'roles' => array(
         'hide' => true,
         'label' => 'Роли',
-        'storage' => 'database',
         'table' => 'roles',
     ),
     'modules' => array(
@@ -12,7 +11,6 @@ foreach (array(
     ),
     'role_operations' => array(
         'label' => 'Действия',
-        'storage' => 'database',
         'table' => 'role_operations',
     ),
     'menu' => array(
@@ -22,7 +20,6 @@ foreach (array(
     'menuitems' => array(
         'label' => 'Пункты меню',
         'table' => 'menuitems',
-        'storage' => 'database',
     ),
     'config' => array(
         'label' => '',
@@ -44,22 +41,18 @@ foreach (array(
     ),
     'pages' => array(
         'label' => 'Страницы',
-        'storage' => 'database',
         'table' => 'pages',
     ),
     'comments' => array(
         'table' => 'comments',
-        'storage' => 'database',
         'label' => 'Комментарии',
     ),
     'categories' => array(
         'table' => 'categories',
-        'storage' => 'database',
         'label' => 'Категории',
     ),
     'users' => array(
         'label' => 'moduleName',
-        'storage' => 'database',
         'table' => 'users',
     ),
     'generator' => array(

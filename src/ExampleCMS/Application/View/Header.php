@@ -35,7 +35,7 @@ class Header extends Basic
     public function getSubMenuItems()
     {
         $findQuery = $this->module->getQuerty('find');
-        $findQuery->setParam('module', $this->context->getBundle());
+        $findQuery->setParam('module', $this->context->getModule());
 
         $current = $findQuery->fetchOne();
 

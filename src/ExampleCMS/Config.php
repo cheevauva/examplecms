@@ -25,6 +25,11 @@ class Config implements \ExampleCMS\Contract\Config
      * @var \ExampleCMS\Util\Arr
      */
     public $arrayUtil;
+
+    /**
+     *
+     * @var \ExampleCMS\Filesystem
+     */
     protected $filesystem;
 
     /**
@@ -33,22 +38,20 @@ class Config implements \ExampleCMS\Contract\Config
     public function __construct($filesystem)
     {
         $this->filesystem = $filesystem;
+        $this->properties = $this->load();
     }
 
     /**
      * @param array|string $path
+     * @param mixed $default
      * @return mixed
      */
     public function get($path)
     {
-        if (empty($path)) {
-            return $this->loadProperties();
-        }
-
         $path = $this->parsePath($path);
 
-        $property = array_shift($path);
-        $value = $this->loadProperty($property);
+        $value = $this->properties;
+
         $cursors = array();
 
         foreach ($path as $cursor) {
@@ -64,39 +67,16 @@ class Config implements \ExampleCMS\Contract\Config
         return $value;
     }
 
-    protected function loadProperties()
+    public function load()
     {
-        $files = $this->filesystem->glob('config/*.php');
-
-        foreach ($files as $file) {
-            $property = substr(str_replace($this->filesystem->getBasePath() . 'config/', null, $file), 0, -4);
-            $this->loadProperty($property);
-        }
-
-        return $this->properties;
+        return $this->filesystem->loadAsPHP('config.php');
     }
 
-    protected function loadProperty($property)
+    public function save()
     {
-        if (!isset($this->properties[$property])) {
-            $filename = 'config/' . $property . '.php';
+        $phpArray = $this->arrayUtil->serializeToPHP($this->properties);
 
-            if (!$this->filesystem->isExists($filename)) {
-                $this->properties[$property] = array();
-                throw new \Exception(sprintf('file "%s" is not found', $filename));
-            }
-
-            $this->properties[$property] = $this->filesystem->loadAsPHP($filename);
-        }
-
-        return $this->properties[$property];
-    }
-
-    protected function saveProperty($property)
-    {
-        $phpArray = $this->arrayUtil->serializeToPHP($this->properties[$property]);
-
-        $filename = $this->basePath . 'config/' . $property . '.php';
+        $filename = $this->basePath . 'config.php';
 
         $phpArray = '<?php' . PHP_EOL . PHP_EOL . 'return ' . $phpArray . ';';
 
@@ -113,8 +93,6 @@ class Config implements \ExampleCMS\Contract\Config
         $cursors = $this->parsePath($path);
         $firstCursor = current($cursors);
 
-        $this->loadProperty($firstCursor);
-
         $val = & $this->properties;
 
         foreach ($cursors as $cursor) {
@@ -126,26 +104,6 @@ class Config implements \ExampleCMS\Contract\Config
         }
 
         $val = $value;
-
-        $this->saveProperty($firstCursor);
-    }
-
-    protected function delete($path)
-    {
-        $val = & $this->properties;
-
-        $cursors = explode('.', $path);
-        $delete = array_pop($cursors);
-
-        foreach ($cursors as $cursor) {
-            if (!isset($val[$cursor])) {
-                $val[$cursor] = array();
-            }
-
-            $val = & $val[$cursor];
-        }
-
-        unset($val[$delete]);
     }
 
     protected function parsePath($path)

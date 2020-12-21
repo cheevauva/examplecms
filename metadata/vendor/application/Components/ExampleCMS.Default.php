@@ -40,7 +40,6 @@ foreach (array(
     'views.grid' => 'ExampleCMS\\Application\\View\\Grid',
     'views.layout' => 'ExampleCMS\\Application\\View\\Layout',
     'views.form' => 'ExampleCMS\\Application\\View\\Form',
-    'repositories.base' => 'ExampleCMS\\Repository',
     'models.base' => 'ExampleCMS\\Model\\Basic',
     'models.form' => 'ExampleCMS\\Model\\Form',
     'rows.header' => 'ExampleCMS\\Application\\Row\\Basic',
@@ -51,7 +50,6 @@ foreach (array(
     'tables.config' => 'ExampleCMS\\Table\\Config',
     'tables.database' => 'ExampleCMS\\Table\\Database',
     'modules.base' => 'ExampleCMS\\Module',
-    'storages.default' => 'ExampleCMS\\Storage',
     'themes.default' => 'ExampleCMS\\Application\\Theme\\Basic',
     'forms.base' => 'ExampleCMS\\Model\\Form',
 ) as $name => $value) {

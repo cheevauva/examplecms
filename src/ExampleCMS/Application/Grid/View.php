@@ -13,7 +13,7 @@ class View extends Basic
 
     protected function getModels()
     {
-        return $this->bundle->getDataSource($this->metadata['datasource'])->fetchMany();
+        return $this->module->getDataSource($this->metadata['datasource'])->fetchMany();
     }
 
     public function getData($request)
@@ -26,7 +26,7 @@ class View extends Basic
         foreach ($this->metadata['rows'] as $row) {
             if (empty($row['iterate'])) {
                 $rowObject = $this->prepareRow($row);
-                $rowObject->model = $this->bundle->getModel();
+                $rowObject->model = $this->module->getModel();
 
                 $metadata['rows'][] = $rowObject->getData($request);
                 continue;

@@ -6,10 +6,6 @@ class Context implements \ExampleCMS\Contract\Context
 {
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Bundle
-     */
-    public $bundleFactory;
-    /**
      * @var \ExampleCMS\Contract\FormManager
      */
     public $formManager;
@@ -104,12 +100,7 @@ class Context implements \ExampleCMS\Contract\Context
     {
         return $this->getBundle()->getModule();
     }
-
-    public function getBundle()
-    {
-        return $this->bundleFactory->get($this->module);
-    }
-
+    
     public function getTheme()
     {
         return $this->themeFactory->get($this->theme);

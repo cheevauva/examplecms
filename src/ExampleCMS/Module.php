@@ -11,10 +11,6 @@ namespace ExampleCMS;
 class Module implements \ExampleCMS\Contract\Module
 {
 
-    /**
-     * @var \ExampleCMS\Contract\Bundle
-     */
-    protected $bundle;
     protected $responder;
 
     /**
@@ -27,22 +23,13 @@ class Module implements \ExampleCMS\Contract\Module
      */
     public $metadata;
 
-    /**
-     * @var \ExampleCMS\Contract\Factory\Bundle
-     */
-    public $bundleFactory;
-
     public function init($module)
     {
         $this->data = $this->metadata->get(['modules', $module]);
         $this->module = $module;
-        $this->bundle = $this->bundleFactory->get($module);
+        $this->componentMetadata = $this->metadata->get(['components', (string) $this->module]);
     }
 
-    public function getBundle()
-    {
-        return $this->bundle;
-    }
 
     public function __toString()
     {
@@ -51,27 +38,27 @@ class Module implements \ExampleCMS\Contract\Module
 
     public function model($modelType = 'base')
     {
-        return $this->bundle->getModel($modelType);
+        return $this->getModel($modelType);
     }
 
     public function storage()
     {
-        return $this->bundle->getStorage();
+        return $this->getStorage();
     }
 
     public function dataSource($dataSource)
     {
-        return $this->bundle->getDataSource($dataSource);
+        return $this->getDataSource($dataSource);
     }
 
     public function action($action)
     {
-        return $this->bundle->getAction($action);
+        return $this->getAction($action);
     }
 
     public function query($query)
     {
-        return $this->bundle->getQuery($query);
+        return $this->getQuery($query);
     }
 
     public function responder()
@@ -81,6 +68,74 @@ class Module implements \ExampleCMS\Contract\Module
         }
 
         return $this->responder;
+    }
+
+    protected function getComponent($component)
+    {
+        $componentObject = $this->container->create($this->componentMetadata[$component]);
+        $componentObject->setModule($this);
+
+        return $componentObject;
+    }
+
+    public function getQuery($query)
+    {
+        return $this->getComponent('queries.' . $query);
+    }
+
+    public function getGrid($grid)
+    {
+        return $this->getComponent('grids.' . $grid);
+    }
+
+    public function getRow($row)
+    {
+        return $this->getComponent('rows.' . $row);
+    }
+
+    public function getView($view)
+    {
+        return $this->getComponent('views.' . $view);
+    }
+
+    public function getAction($action)
+    {
+        return $this->getComponent('actions.' . $action);
+    }
+
+    public function getModel($model)
+    {
+        return $this->getComponent('models.' . $model);
+    }
+
+    public function getLayout($layout)
+    {
+        return $this->getComponent('layouts.' . $layout);
+    }
+
+    public function getDataSource($dataSource)
+    {
+        return $this->getComponent('datasource.' . $dataSource);
+    }
+
+    public function getColumn($column)
+    {
+        return $this->getComponent('columns.' . $column);
+    }
+
+    public function getForm($form)
+    {
+        return $this->getComponent('forms.' . $form);
+    }
+
+    public function getField($field)
+    {
+        return $this->getComponent('fields.' . $field);
+    }
+
+    public function getTable($table)
+    {
+        return $this->getComponent('tables.' . $table);
     }
 
     public function theme($theme)

@@ -20,7 +20,6 @@ class Responder
     {
         $this->module = $module;
         $this->metadata = $module->metadata;
-        $this->bundle = $module->getBundle();
     }
 
     protected function getResponderMetadata($type, $component)
@@ -47,7 +46,7 @@ class Responder
             $metadata = $this->getResponderMetadata('views', $view);
         }
 
-        $component = $this->bundle->getView($metadata['type']);
+        $component = $this->module->getView($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -61,7 +60,7 @@ class Responder
             $metadata = $this->getResponderMetadata('layouts', $layout);
         }
 
-        $component = $this->bundle->getLayout($metadata['type']);
+        $component = $this->module->getLayout($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -75,7 +74,7 @@ class Responder
             $metadata = $this->getResponderMetadata('rows', $row);
         }
 
-        $component = $this->bundle->getRow($metadata['type']);
+        $component = $this->module->getRow($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -89,7 +88,7 @@ class Responder
             $metadata = $this->getResponderMetadata('fields', $field);
         }
 
-        $component = $this->bundle->getField($metadata['type']);
+        $component = $this->module->getField($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -103,7 +102,7 @@ class Responder
             $metadata = $this->getResponderMetadata('columns', $column);
         }
 
-        $component = $this->bundle->getColumn($metadata['type']);
+        $component = $this->module->getColumn($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -117,7 +116,7 @@ class Responder
             $metadata = $this->getResponderMetadata('grids', $grid);
         }
 
-        $component = $this->bundle->getGrid($metadata['type']);
+        $component = $this->module->getGrid($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;

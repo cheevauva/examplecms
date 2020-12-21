@@ -65,7 +65,18 @@ class Bootstrap
                 $config->get('base');
             } catch (\Exception $exception) {
                 $config->arrayUtil = new \ExampleCMS\Util\Arr;
-                $config->set('base', $config->get('patterns.base'));
+                $config->set('base', array(
+                    'semantic_url' => false,
+                    'setup' => true,
+                    'logger' => array(
+                        'name' => 'examplecms',
+                        'level' => 'ERROR',
+                        'path' => 'examplecms.log'
+                    ),
+                    'cache' => array(
+                        'engine' => 'memory',
+                    ),
+                ));
             }
 
             $this->config = $config;

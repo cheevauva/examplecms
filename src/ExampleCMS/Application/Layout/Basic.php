@@ -11,11 +11,6 @@ class Basic extends \ExampleCMS\Responder\Common
     public $layout;
 
     /**
-     * @var \ExampleCMS\Contract\Bundle
-     */
-    public $bundle;
-
-    /**
      * @var \ExampleCMS\Contact\Responder\Layout
      */
     public $theme;

@@ -102,7 +102,7 @@ class FormManager
         }
 
         $metadata = $this->getFormMetadata($module, $form);
-        $component = $module->getBundle()->getForm($metadata['type']);
+        $component = $module->getForm($metadata['type']);
         $component->setMetadata($metadata);
 
         return $component;

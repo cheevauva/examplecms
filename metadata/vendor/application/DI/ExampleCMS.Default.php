@@ -83,12 +83,6 @@ foreach (array(
         //'themeFactory' => 'ExampleCMS\\Factory\\Theme',
         'metadata' => 'ExampleCMS\\Metadata',
     ),
-    'ExampleCMS\\Module\\Table\\Model\\Config' => array(
-        'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Module\\Connection\\Storage' => array(
-        'config' => 'ExampleCMS\\Config',
-    ),
     // factories
     'ExampleCMS\\Factory\\Database\\Connection' => array(
         'config' => 'ExampleCMS\\Config',
@@ -113,7 +107,6 @@ foreach (array(
     'ExampleCMS\\Factory\\Factory' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'container' => 'ExampleCMS\\Container',
-        'bundleFactory' => 'ExampleCMS\\Factory\\Bundle',
     ),
     'ExampleCMS\\Factory\\Metadata\\Handler' => array(
         'filesystem' => 'ExampleCMS\\Filesystem',
@@ -158,15 +151,8 @@ foreach (array(
         'filesystem' => 'ExampleCMS\\Filesystem',
     ),
     'ExampleCMS\\Module' => array(
-        'bundleFactory' => 'ExampleCMS\\Factory\\Bundle',
         'metadata' => 'ExampleCMS\\Metadata',
-    ),
-    'ExampleCMS\\Bundle' => array(
         'container' => 'ExampleCMS\\Container',
-        'metadata' => 'ExampleCMS\\Metadata',
-        'tableFactory' => 'ExampleCMS\\Factory\\Database\\Table',
-        'bundleFactory' => 'ExampleCMS\\Factory\\Bundle',
-        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
     ),
     'ExampleCMS\\Model\\Form' => array(
         'formManager' => 'ExampleCMS\\FormManager',
@@ -185,7 +171,6 @@ foreach (array(
         'metadata' => 'ExampleCMS\\Metadata',
     ),
     'ExampleCMS\\Context' => array(
-        'bundleFactory' => 'ExampleCMS\\Factory\\Bundle',
         'themeFactory' => 'ExampleCMS\\Factory\\Theme',
     ),
     // views

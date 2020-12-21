@@ -77,6 +77,7 @@ class Bootstrap
                         'engine' => 'memory',
                     ),
                 ));
+                $config->save();
             }
 
             $this->config = $config;

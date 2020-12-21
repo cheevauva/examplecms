@@ -19,7 +19,7 @@ class Config implements \ExampleCMS\Contract\Config
     /**
      * @var array
      */
-    protected $properties = array();
+    protected $properties = null;
 
     /**
      * @var \ExampleCMS\Util\Arr
@@ -38,7 +38,6 @@ class Config implements \ExampleCMS\Contract\Config
     public function __construct($filesystem)
     {
         $this->filesystem = $filesystem;
-        $this->properties = $this->load();
     }
 
     /**
@@ -48,6 +47,8 @@ class Config implements \ExampleCMS\Contract\Config
      */
     public function get($path)
     {
+        $this->load();
+
         $path = $this->parsePath($path);
 
         $value = $this->properties;
@@ -69,7 +70,9 @@ class Config implements \ExampleCMS\Contract\Config
 
     public function load()
     {
-        return $this->filesystem->loadAsPHP('config.php');
+        if (is_null($this->properties)) {
+            $this->properties = $this->filesystem->loadAsPHP('config.php');
+        }
     }
 
     public function save()

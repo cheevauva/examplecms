@@ -7,6 +7,14 @@ class BasePath
 
     public function __invoke($request, $response, $next)
     {
+        $baseUrl = $this->config->get(array(
+            'base',
+            'applications',
+            $this->bootstrap->getAppName(),
+            'basePath',
+        ));
+
+        $request = $request->withAttribute('baseUrl', $baseUrl);
         $request = $request->withAttribute('basePath', $this->getBasePath($request));
 
         return $next($request, $response);
@@ -30,7 +38,7 @@ class BasePath
             $basename = basename($filename);
             if ($basename) {
                 $path = ($phpSelf ? trim($phpSelf, '/') : '');
-                $basePos = strpos($path, $basename) ? : 0;
+                $basePos = strpos($path, $basename) ?: 0;
                 $baseUrl .= substr($path, 0, $basePos) . $basename;
             }
         }
@@ -62,6 +70,7 @@ class BasePath
         if (strlen($requestUri) >= strlen($baseUrl) && (false !== ($pos = strpos($requestUri, $baseUrl)) && $pos !== 0)) {
             $baseUrl = substr($requestUri, 0, $pos + strlen($baseUrl));
         }
+
         return $baseUrl;
     }
 

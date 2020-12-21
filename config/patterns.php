@@ -12,6 +12,5 @@ return array(
         'cache' => array(
             'engine' => 'memory',
         ),
-        'pathToFileWithInjections' => 'metadata/di.php',
     ),
 );

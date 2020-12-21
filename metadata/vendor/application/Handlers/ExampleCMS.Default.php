@@ -61,7 +61,7 @@ foreach (array(
     ),
     'applications' => array(
         'route' => [
-            'application' => 'cache/metadata/application/Applications.php',
+            'application' => 'cache/metadata/application/Applications/$1.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
     ),

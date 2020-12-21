@@ -1,22 +1,50 @@
 <?php
 
-
-$routes['edit'] = array(
+$routes['language'] = array(
     'method' => 'GET',
-    'route' => '*',
+    'route' => '/language',
     'target' => array(
         'module' => 'Installer',
-        'id' => 'setup',
-        'operation' => 'edit',
-        'view' => 'form',
-        'form' => 'edit',
         'layout' => 'setup',
-        'firewall' => true,
+        'views' => array(
+            'body' => array(
+                'type' => 'form',
+                'form' => 'language',
+                'grid' => 'language',
+            ),
+        ),
     ),
 );
-$routes['do_edit'] = array(
+
+$routes['language_save'] = array(
     'method' => 'POST',
-    'route' => '*',
+    'route' => '/language',
+    'target' => array(
+        'redirect_to' => 'database',
+        'action' => 'save',
+        'form' => 'language',
+        'module' => 'Installer',
+    ),
+);
+
+$routes['database'] = array(
+    'method' => 'GET',
+    'route' => '/database',
+    'target' => array(
+        'module' => 'Installer',
+        'layout' => 'setup',
+        'views' => array(
+            'body' => array(
+                'type' => 'form',
+                'form' => 'database',
+                'grid' => 'database',
+            ),
+        ),
+    ),
+);
+$routes['database_save'] = array(
+    'method' => 'POST',
+    'route' => '/database',
     'target' => array(
         'module' => 'Installer',
         'id' => 'setup',

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <base href="<?= $basePath; ?>"/>
+        <base href="<?= $baseUrl; ?>"/>
         <meta charset="utf-8"/>
         <title>ExampleCMS</title>
     </head>

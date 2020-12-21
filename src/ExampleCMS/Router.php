@@ -47,7 +47,7 @@ class Router implements \ExampleCMS\Contract\Container\Mediator
 
     public function prepare()
     {
-        $this->basePath = $this->config->get(array(
+        $this->baseUrl = $this->config->get(array(
             'base',
             'applications',
             $this->bootstrap->getAppName(),
@@ -83,7 +83,7 @@ class Router implements \ExampleCMS\Contract\Container\Mediator
 
     public function make($route, array $params = array())
     {
-        return $this->altoRouter->generate($route, $params);
+        return $this->baseUrl . $this->altoRouter->generate($route, $params);
     }
 
     public function generate($route, array $params = array())

@@ -27,6 +27,12 @@ class FormManager
         return $formMetadata[$form];
     }
 
+    /**
+     * 
+     * @param type $request
+     * @return \ExampleCMS\Contract\Model\Form
+     * @throws \ExampleCMS\Exception\Http\BadRequest
+     */
     public function getForm($request)
     {
         $forms = $request->getParsedBody()['form'];
@@ -78,7 +84,7 @@ class FormManager
 
         $form = $this->getFormModel($request->getAttribute('module'), $request->getAttribute('form'));
         $form->setToken($token);
-        $form->setState('normal');
+        $form->setState($form::NORMAL);
         $form->fromArray($data);
 
         return $form;
@@ -106,7 +112,7 @@ class FormManager
     {
         $form = $this->getFormModel($request->getAttribute('module'), $request->getAttribute('form'));
         $form->setToken($token);
-        $form->setState('broken');
+        $form->setState($form::BROKEN);
         $form->setStateReason('form_is_not_registered');
         $form->fromArray($data);
 
@@ -176,7 +182,7 @@ class FormManager
     {
         $formModel = $this->getFormModel($module, $form);
         $formModel->setToken($this->registrationTokenByForm($request, $formModel));
-        $formModel->setState('not_sent');
+        $formModel->setState($formModel::NOT_SEND);
 
         return $formModel;
     }

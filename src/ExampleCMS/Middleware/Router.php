@@ -12,14 +12,14 @@ class Router
 
     public function __invoke($request, $response, $next)
     {
-        $path = ltrim($request->getUri()->getPath(), $request->getAttribute('basePath'));
+        $path = str_replace($request->getAttribute('basePath'), '', $request->getUri()->getPath());
 
         if (empty($path)) {
             $path = '/';
         } else {
             $path = '/' . ltrim($path, '/');
         }
-
+        
         $result = $this->router->match($path, $request->getMethod());
 
         if (!$result) {
@@ -35,7 +35,7 @@ class Router
         }
 
         $request = $request->withAttribute('route', $result['name']);
-
+        
         return $next($request, $response);
     }
 

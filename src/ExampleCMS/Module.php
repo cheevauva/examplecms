@@ -85,7 +85,7 @@ class Module implements \ExampleCMS\Contract\Module
 
     public function theme($theme)
     {
-        $th = new \ExampleCMS\Responder\Theme\Basic;
+        $th = new \ExampleCMS\Application\Theme\Basic;
         $th->metadata = $this->metadata;
         $th->setModule($this);
         $th->setTheme($theme);

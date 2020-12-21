@@ -15,8 +15,13 @@ foreach (array(
         'container' => 'ExampleCMS\\Container',
         'config' => 'ExampleCMS\\Config',
     ),
+    'ExampleCMS\\Middleware\\BasePath' => array(
+        'config' => 'ExampleCMS\\Config',
+        'bootstrap' => 'ExampleCMS\\Bootstrap',
+    ),
     'ExampleCMS\\Middleware\\Router' => array(
         'router' => 'ExampleCMS\\Router',
+        'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Middleware\\Application' => array(
         'metadata' => 'ExampleCMS\\Metadata',
@@ -117,7 +122,7 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
         'container' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\\Responder\\View\\Form' => array(
+    'ExampleCMS\\Application\\View\\Form' => array(
         'formManager' => 'ExampleCMS\\FormManager',
     ),
     'ExampleCMS\\Factory\\Form\\Binder' => array(
@@ -190,20 +195,20 @@ foreach (array(
         'context' => 'ExampleCMS\\Context',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Responder\\Theme\\Basic' => array(
+    'ExampleCMS\\Application\\Theme\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
         'metadata' => 'ExampleCMS\\Metadata',
         'bootstrap' => 'ExampleCMS\\Bootstrap',
     ),
-    'ExampleCMS\\Responder\\View\\Exception' => array(
+    'ExampleCMS\\Application\\View\\Exception' => array(
         'application' => 'ExampleCMS\\Application',
     ),
-    'ExampleCMS\\Responder\\View\\Basic' => array(
+    'ExampleCMS\\Application\\View\\Basic' => array(
         'context' => 'ExampleCMS\\Context',
         'config' => 'ExampleCMS\\Config',
         'router' => 'ExampleCMS\\Router',
     ),
-    'ExampleCMS\\Responder\\Layout\\Basic' => array(
+    'ExampleCMS\\Application\\Layout\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Responder\\Common' => array(
@@ -211,7 +216,7 @@ foreach (array(
         'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Responder\\Column\\Basic' => array(
+    'ExampleCMS\\Application\\Column\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
     ),
     // datasources

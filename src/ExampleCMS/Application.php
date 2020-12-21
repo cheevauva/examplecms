@@ -25,10 +25,15 @@ class Application
         $appName = $this->bootstrap->getAppName();
 
         $metadata = $this->metadata->get(array(
-            'applications'
+            'applications',
+            $appName
         ));
-
-        $this->middleware = $metadata[$appName]['middleware'];
+        
+        $middleware = array_flip($metadata['middleware']);
+        
+        ksort($middleware);
+        
+        $this->middleware = array_values($middleware);
     }
 
     public function run($request, $response)

@@ -31,11 +31,7 @@ class Responder
             'responders',
             (string) $this->module,
         ]);
-
-        if (empty($responderMetadata[$target])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('responder "%s" is not define', $target));
-        }
-
+        
         if (!isset($responderMetadata[$target]['type'])) {
             throw new \ExampleCMS\Exception\Metadata(sprintf('"type" for "%s" is not define', $target));
         }

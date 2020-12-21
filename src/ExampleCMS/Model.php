@@ -75,4 +75,12 @@ class Model implements \ExampleCMS\Contract\Model
     {
         $this->attributes = array();
     }
+
+    public function __debugInfo()
+    {
+        return [
+            'attributes' => $this->attributes
+        ];
+    }
+
 }

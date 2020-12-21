@@ -74,7 +74,7 @@ class Application
 
             $response->getBody()->write($content);
         }
-
+        
         return $next($request, $response);
     }
 

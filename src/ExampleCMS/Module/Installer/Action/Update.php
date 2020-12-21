@@ -21,9 +21,14 @@ class Update extends \ExampleCMS\Action\Action
 
         $data = $form->toArray();
 
-        if ($data['sql_engine'] == 'sql_engine') {
-            $this->config->set('setup', false);
+        if (!empty($data['language'])) {
+            $request->getAttribute('session')->set('language', $data['language']);
         }
+
+        if (!empty($data['sql_engine'])) {
+            $request->getAttribute('session')->set('sql_engine', $data['sql_engine']);
+        }
+        var_dump($form->getDomain());
         print_r($data);
         echo '</pre>';
     }

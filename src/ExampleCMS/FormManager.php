@@ -33,7 +33,7 @@ class FormManager
      * @return \ExampleCMS\Contract\Model\Form
      * @throws \ExampleCMS\Exception\Http\BadRequest
      */
-    public function getForm($request)
+    public function getFormByRequest($request)
     {
         $forms = $request->getParsedBody()['form'];
 

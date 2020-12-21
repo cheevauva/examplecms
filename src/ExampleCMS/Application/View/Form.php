@@ -18,7 +18,7 @@ class Form extends Basic
         $formMetadata = $form->getMetadata();
 
         if ($request->getAttribute('route') === $formMetadata['route']) {
-            $form = $this->formManager->getForm($request);
+            $form = $this->formManager->getFormByRequest($request);
         } else {
             $form = $this->formManager->createForm($request, $metadata['module'], $metadata['form']);
         }

@@ -53,19 +53,13 @@ foreach (array(
         'app' => 'ExampleCMS\\Container',
     ),
     'ExampleCMS\\Action\\Action' => array(
-        'context' => 'ExampleCMS\\Context',
     ),
     // layers
     'ExampleCMS\\Layer\View\Model' => array(
-        'context' => 'ExampleCMS\\Context',
         'router' => 'ExampleCMS\\Router',
     ),
     'ExampleCMS\\Layer\\Model' => array(
         'eventManager' => 'ExampleCMS\\EventManager',
-    ),
-    //  modules
-    'ExampleCMS\\Module\User\EventHandler\Generic' => array(
-        'common' => 'ExampleCMS\\Context',
     ),
     'ExampleCMS\\Module\\Grid\\Action\\DesignerUpdate' => array(
         'config' => 'ExampleCMS\\Config',
@@ -75,9 +69,6 @@ foreach (array(
     ),
     'ExampleCMS\\Module\Role\Model' => array(
         'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Module\User\Action\Login' => array(
-        'common' => 'ExampleCMS\\Context',
     ),
     'ExampleCMS\\Module' => array(
         //'themeFactory' => 'ExampleCMS\\Factory\\Theme',
@@ -91,7 +82,6 @@ foreach (array(
     'ExampleCMS\\Factory\Form' => array(
         'container' => 'ExampleCMS\\Container',
         'config' => 'ExampleCMS\\Config',
-        'context' => 'ExampleCMS\\Context',
     ),
     'ExampleCMS\\Factory\\Database\\Table' => array(
         'config' => 'ExampleCMS\\Config',
@@ -123,7 +113,6 @@ foreach (array(
     ),
     'ExampleCMS\\Helper\Helper' => array(
         'config' => 'ExampleCMS\\Config',
-        'context' => 'ExampleCMS\\Context',
     ),
     'ExampleCMS\\Action\Cli\Install' => array(
         'config' => 'ExampleCMS\\Config',
@@ -170,14 +159,10 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
         'metadata' => 'ExampleCMS\\Metadata',
     ),
-    'ExampleCMS\\Context' => array(
-        'themeFactory' => 'ExampleCMS\\Factory\\Theme',
-    ),
     // views
     'ExampleCMS\\Responder' => array(
         'gridFactory' => 'ExampleCMS\\Factory\\View\\Grid',
         'metadata' => 'ExampleCMS\\Metadata',
-        'context' => 'ExampleCMS\\Context',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Application\\Theme\\Basic' => array(
@@ -189,7 +174,6 @@ foreach (array(
         'application' => 'ExampleCMS\\Application',
     ),
     'ExampleCMS\\Application\\View\\Basic' => array(
-        'context' => 'ExampleCMS\\Context',
         'config' => 'ExampleCMS\\Config',
         'router' => 'ExampleCMS\\Router',
     ),
@@ -197,7 +181,6 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Responder\\Common' => array(
-        'context' => 'ExampleCMS\\Context',
         'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
@@ -206,7 +189,6 @@ foreach (array(
     ),
     // datasources
     'ExampleCMS\\DataSource\\ContextModel' => array(
-        'context' => 'ExampleCMS\\Context',
     ),
     // other
     'ExampleCMS\\Metadata\\Handler\\Cache' => array(

@@ -62,7 +62,7 @@ class Application
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
         $theme = $this->getTheme($request);
-        
+
         if ($action) {
             $module->action($action)->execute($request);
         }

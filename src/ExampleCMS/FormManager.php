@@ -21,28 +21,34 @@ class FormManager
      * @return \ExampleCMS\Contract\Model\Form
      * @throws \ExampleCMS\Exception\Http\BadRequest
      */
-    public function getFormsByRequest($request)
+    public function getFormModelsByRequest($request)
     {
         $body = $request->getParsedBody();
         $forms = $request->getAttribute('forms');
         $models = [];
-        $metadataProperties = array(
-            'module',
-            'form',
-            'route',
-        );
+//        $metadataProperties = array(
+//            'module',
+//            'form',
+//            'route',
+//        );
         
         if (empty($forms)) {
             throw ServerError::withRequestAndMessage($request, 'forms_is_not_defined');
         }
 
         foreach ($forms as $form) {
-            if (!isset($body[$form])) {
-                throw BadRequest::withRequestAndMessage($request, sprintf('too_few_forms_sent'));
+//            if (!isset($body[$form])) {
+//                throw BadRequest::withRequestAndMessage($request, sprintf('too_few_forms_sent'));
+//            }
+            
+            $data = [];
+            
+            if (isset($body[$form])) {
+                $data = $body[$form];
             }
 
             $model = $this->getFormModel($request->getAttribute('module'), $form);
-            $model->fromArray($body[$form]);
+            $model->fromArray($data);
             $model->setState($model::NORMAL);
 
 //            $registredForm = $model->getMetadata();

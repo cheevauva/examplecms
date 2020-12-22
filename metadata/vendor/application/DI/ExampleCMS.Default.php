@@ -25,6 +25,7 @@ foreach (array(
     ),
     'ExampleCMS\\Middleware\\Application' => array(
         'metadata' => 'ExampleCMS\\Metadata',
+        'router' => 'ExampleCMS\\Router',
         'moduleFactory' => 'ExampleCMS\\Factory\\Module',
     ),
     'ExampleCMS\\Application' => array(
@@ -63,9 +64,6 @@ foreach (array(
     ),
     'ExampleCMS\\Module\\Grid\\Action\\DesignerUpdate' => array(
         'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Module\\Installer\\Action\\Update' => array(
-        'formManager' => 'ExampleCMS\\FormManager',
     ),
     'ExampleCMS\\Module\Role\Model' => array(
         'config' => 'ExampleCMS\\Config',

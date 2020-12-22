@@ -6,6 +6,7 @@ $routes['language'] = array(
     'target' => array(
         'module' => 'Installer',
         'layout' => 'setup',
+        'action' => 'read',
         'forms' => [
             'language',
         ],
@@ -38,6 +39,7 @@ $routes['database'] = array(
     'method' => 'GET',
     'route' => '/database',
     'target' => array(
+        'action' => 'read',
         'module' => 'Installer',
         'layout' => 'setup',
         'forms' => [
@@ -61,11 +63,7 @@ $routes['database_save'] = array(
             'database',
         ],
         'module' => 'Installer',
-        'id' => 'setup',
-        'operation' => 'edit',
         'action' => 'save',
-        'view' => 'json',
-        'form' => 'edit',
-        'layout' => 'setup',
+        'redirect_to' => 'language',
     ),
 );

@@ -12,26 +12,29 @@ class Update extends \ExampleCMS\Action\Action
 
     public function execute($request)
     {
-        $forms = $this->formManager->getFormsByRequest($request);
-        $form = reset($forms);
+        $formModels = $this->formManager->getFormModelsByRequest($request);
+        $formModel = reset($formModels);
+
+        if (!$formModel->isValid()) {
+            return $request;
+        }
+
+        $model = null;
         
-        if (!$form->isValid()) {
-            return false;
-        }
-        echo '<pre>';
+        $find = $this->module->query('find');
+        $model = $find->execute([
+            $find::REQUEST => $request,
+        ]);
 
-        $data = $form->toArray();
+        $formModel->bindTo($model);
 
-        if (!empty($data['language'])) {
-            $request->getAttribute('session')->set('language', $data['language']);
-        }
+        $save = $this->module->query('save');
+        $save->execute([
+            $save::REQUEST => $request,
+            $save::MODEL => $model,
+        ]);
 
-        if (!empty($data['sql_engine'])) {
-            $request->getAttribute('session')->set('sql_engine', $data['sql_engine']);
-        }
-        var_dump($form->getDomain());
-        print_r($data);
-        echo '</pre>';
+        return $request->withAttribute('model', $model);
     }
 
 }

@@ -64,7 +64,17 @@ class Application
         $theme = $this->getTheme($request);
 
         if ($action) {
-            $module->action($action)->execute($request);
+            $request = $module->action($action)->execute($request);
+        }
+
+        $redirectTo = $request->getAttribute('redirect_to');
+
+        if (!empty($redirectTo)) {
+            $model = $request->getAttribute('model');
+
+            $response = $response->withHeader('Location', $this->router->make($redirectTo));
+
+            return $next($request, $response);
         }
 
         if ($layout) {
@@ -73,7 +83,8 @@ class Application
 
             $response->getBody()->write($content);
         }
-        
+
+
         return $next($request, $response);
     }
 

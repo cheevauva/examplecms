@@ -1,31 +1,31 @@
 <?php
 
 $columns['name_label'] = array(
-    'type' => 'header',
+    'component' => 'header',
     'fields' => array(
         array(
-            'type' => 'label',
+            'component' => 'label',
             'label' => 'name',
         ),
     ),
 );
 $columns['name'] = array(
-    'type' => 'default',
+    'component' => 'default',
     'fields' => array(
         'name',
     ),
 );
 $columns['actions_label'] = array(
-    'type' => 'default',
+    'component' => 'default',
     'fields' => array(
         array(
-            'type' => 'label',
+            'component' => 'label',
             'label' => 'actions',
         ),
     ),
 );
 $columns['actions'] = array(
-    'type' => 'default',
+    'component' => 'default',
     'fields' => array(
         'action_edit',
         'action_read',

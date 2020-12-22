@@ -43,7 +43,7 @@ class Module implements \ExampleCMS\Contract\Module
             (string) $this->module,
         ]);
 
-        if (empty($responderMetadata[$component]['type'])) {
+        if (empty($responderMetadata[$component]['component'])) {
             throw new \ExampleCMS\Exception\Metadata(sprintf('"type" for "%s" is not define', $target));
         }
 
@@ -58,7 +58,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('views', $view);
         }
 
-        $component = $this->getView($metadata['type']);
+        $component = $this->getView($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -72,7 +72,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('layouts', $layout);
         }
 
-        $component = $this->getLayout($metadata['type']);
+        $component = $this->getLayout($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -86,7 +86,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('rows', $row);
         }
 
-        $component = $this->getRow($metadata['type']);
+        $component = $this->getRow($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -100,7 +100,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('fields', $field);
         }
 
-        $component = $this->getField($metadata['type']);
+        $component = $this->getField($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -114,7 +114,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('columns', $column);
         }
 
-        $component = $this->getColumn($metadata['type']);
+        $component = $this->getColumn($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -128,8 +128,8 @@ class Module implements \ExampleCMS\Contract\Module
             throw new \ExampleCMS\Exception\Metadata(sprintf('forms "%s" is not define', $form));
         }
 
-        if (!isset($formMetadata[$form]['type'])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('"type" for "%s" is not define', $form));
+        if (!isset($formMetadata[$form]['component'])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('component for "%s" is not define', $form));
         }
 
         return $formMetadata[$form];
@@ -143,7 +143,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getFormMetadata($form);
         }
         
-        $component = $this->getForm($metadata['type']);
+        $component = $this->getForm($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
@@ -157,7 +157,7 @@ class Module implements \ExampleCMS\Contract\Module
             $metadata = $this->getResponderMetadata('grids', $grid);
         }
 
-        $component = $this->getGrid($metadata['type']);
+        $component = $this->getGrid($metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;

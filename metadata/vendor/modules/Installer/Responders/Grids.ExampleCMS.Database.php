@@ -2,17 +2,17 @@
 
 $grids['mysql'] = array(
     'name' => 'mysql',
-    'type' => 'form',
+    'component' => 'form',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'colspan' => '2',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'mysql_settings',
                         ),
                     )
@@ -20,22 +20,22 @@ $grids['mysql'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'mysql_host',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'string',
+                            'component' => 'string',
                             'name' => 'mysql_host',
                             'default' => 'localhost',
                             'template' => 'form',
@@ -45,22 +45,22 @@ $grids['mysql'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'mysql_username',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'string',
+                            'component' => 'string',
                             'name' => 'mysql_username',
                             'default' => 'root',
                             'template' => 'form',
@@ -70,22 +70,22 @@ $grids['mysql'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'mysql_password',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'string',
+                            'component' => 'string',
                             'name' => 'mysql_password',
                             'template' => 'form',
                         ),
@@ -94,22 +94,22 @@ $grids['mysql'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'mysql_database',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'string',
+                            'component' => 'string',
                             'name' => 'mysql_database',
                             'template' => 'form',
                         ),
@@ -122,17 +122,17 @@ $grids['mysql'] = array(
 
 $grids['sqlite'] = array(
     'name' => 'sqlite',
-    'type' => 'form',
+    'component' => 'form',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'colspan' => '2',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'sqlite_settings',
                         ),
                     )
@@ -140,22 +140,22 @@ $grids['sqlite'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'sqlite_filename',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'string',
+                            'component' => 'string',
                             'name' => 'sqlite_filename',
                             'default' => 'cache/db',
                             'template' => 'form',
@@ -169,36 +169,36 @@ $grids['sqlite'] = array(
 
 $grids['database'] = array(
     'name' => 'form',
-    'type' => 'form',
+    'component' => 'form',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'sql_engine',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'enum',
+                            'component' => 'enum',
                             'name' => 'sql_engine',
                             'default' => 'sqlite',
                             'template' => 'form',
                             'options' => 'sql_engines',
                         ),
                         array(
-                            'type' => 'grid',
+                            'component' => 'grid',
                             'grid' => 'mysql',
                         ),
                         array(
-                            'type' => 'grid',
+                            'component' => 'grid',
                             'grid' => 'sqlite',
                         ),
                     )
@@ -206,14 +206,14 @@ $grids['database'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
                     'colspan' => 2,
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'button',
+                            'component' => 'button',
                             'label' => 'send',
                         ),
                     )

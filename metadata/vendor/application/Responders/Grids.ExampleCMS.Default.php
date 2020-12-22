@@ -2,10 +2,10 @@
 
 $grids['read'] = array(
     'datasource' => 'context-model',
-    'type' => 'table',
+    'component' => 'table',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'class' => '',
             'iterate' => true,
             'columns' => array(
@@ -16,35 +16,35 @@ $grids['read'] = array(
     ),
 );
 $grids['json-index'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'template' => 'json',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'template' => 'json',
             'iterate' => true,
             'class' => '',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'template' => 'json',
                     'fields' => array(
                         array(
                             'name' => 'id',
-                            'type' => 'link',
+                            'component' => 'link',
                             'template' => 'json',
                             'route' => 'read',
                         ),
                     ),
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'template' => 'json',
                     'fields' => array(
                         array(
                             'name' => 'name',
                             'template' => 'json',
-                            'type' => 'string',
+                            'component' => 'string',
                         ),
                     ),
                 ),
@@ -54,11 +54,11 @@ $grids['json-index'] = array(
 );
 $grids['index'] = array(
     'datasource' => 'collection',
-    'type' => 'table',
+    'component' => 'table',
     'view' => 'view',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'class' => '',
             'columns' => array(
                 'name_label',
@@ -66,7 +66,7 @@ $grids['index'] = array(
             ),
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'iterate' => true,
             'class' => '',
             'columns' => array(
@@ -77,12 +77,12 @@ $grids['index'] = array(
     ),
 );
 $grids['edit'] = array(
-    'type' => 'table',
+    'component' => 'table',
     'datasource' => 'context-model',
     'rows' => array(),
 );
 $grids['form'] = array(
-    'type' => 'table',
+    'component' => 'table',
     'datasource' => 'context-model',
 );
 

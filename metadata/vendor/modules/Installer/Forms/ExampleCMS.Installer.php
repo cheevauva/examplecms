@@ -2,7 +2,7 @@
 
 $forms['database'] = array(
     'name' => 'database',
-    'type' => 'base',
+    'component' => 'base',
     'method' => 'POST',
     'route' => 'database_save',
     'datasource' => 'installer-model',
@@ -16,7 +16,7 @@ $forms['database'] = array(
 
 $forms['language'] = array(
     'name' => 'language',
-    'type' => 'base',
+    'component' => 'base',
     'method' => 'POST',
     'route' => 'language_save',
     'datasource' => 'installer-model',

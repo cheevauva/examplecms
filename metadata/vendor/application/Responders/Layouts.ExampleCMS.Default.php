@@ -1,11 +1,11 @@
 <?php
 
 $layouts['edit'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'views' => array(
         'header' => 'header',
         'body' => array(
-            'type' => 'grid',
+            'component' => 'grid',
             'grid' => 'edit',
             'route' => 'do_create',
             'datasource' => 'context-model',
@@ -15,14 +15,14 @@ $layouts['edit'] = array(
     ),
 );
 $layouts['rest'] = array(
-    'type' => 'rest',
+    'component' => 'rest',
 );
 $layouts['create'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'views' => array(
         'header' => 'header',
         'body' => array(
-            'type' => 'grid',
+            'component' => 'grid',
             'grid' => 'form',
             'route' => 'do_create',
             'datasource' => 'context-model',
@@ -32,11 +32,11 @@ $layouts['create'] = array(
     ),
 );
 $layouts['update'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'views' => array(
         'header' => 'header',
         'body' => array(
-            'type' => 'grid',
+            'component' => 'grid',
             'grid' => 'form',
             'route' => 'do_update',
             'datasource' => 'context-model',
@@ -46,11 +46,11 @@ $layouts['update'] = array(
     ),
 );
 $layouts['read'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'views' => array(
         'header' => 'header',
         'body' => array(
-            'type' => 'grid',
+            'component' => 'grid',
             'grid' => 'read',
             'datasource' => 'collection',
         ),
@@ -59,11 +59,11 @@ $layouts['read'] = array(
     ),
 );
 $layouts['index'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'views' => array(
         'header' => 'header',
         'body' => array(
-            'type' => 'grid',
+            'component' => 'grid',
             'grid' => 'index',
             'datasource' => 'collection',
         ),
@@ -72,10 +72,10 @@ $layouts['index'] = array(
     ),
 );
 $layouts['exception'] = array(
-    'type' => 'exception',
+    'component' => 'exception',
     'views' => array(
         'body' => array(
-            'type' => 'exception',
+            'component' => 'exception',
         ),
         'footer' => 'footer',
         'asset' => 'asset',

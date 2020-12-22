@@ -22,7 +22,7 @@ class Base extends \ExampleCMS\Responder\Common implements \ExampleCMS\Contract\
 
         $templatePath[] = (string) $this->module;
         $templatePath[] = $this->templateType;
-        $templatePath[] = $this->metadata['type'];
+        $templatePath[] = $this->metadata['component'];
         $templatePath[] = !isset($this->metadata['template']) ? 'view' : $this->metadata['template'];
 
         return $templatePath;

@@ -1,33 +1,33 @@
 <?php
 
 $views['exception'] = array(
-    'type' => 'exception',
+    'component' => 'exception',
 );
 $views['header'] = array(
-    'type' => 'header',
+    'component' => 'header',
 );
 $views['footer'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'template' => 'footer',
 );
 $views['asset'] = array(
-    'type' => 'asset',
+    'component' => 'asset',
 );
 $views['json-index'] = array(
-    'type' => 'grid',
+    'component' => 'grid',
     'grid' => 'json-index',
     'datasource' => 'collection',
 );
 $views['json-read'] = array(
-    'type' => 'grid',
+    'component' => 'grid',
     'grid' => 'json-read',
     'datasource' => 'collection',
 );
 $views['json-designer'] = array(
-    'type' => 'designer',
+    'component' => 'designer',
     'template' => 'designer-json',
 );
 $views['json-exception'] = array(
-    'type' => 'exception',
+    'component' => 'exception',
     'template' => 'exception-json',
 );

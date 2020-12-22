@@ -33,7 +33,7 @@ class Router
         foreach ($result['target'] as $name => $value) {
             $request = $request->withAttribute($name, $value);
         }
-
+        
         $request = $request->withAttribute('route', $result['name']);
         
         return $next($request, $response);

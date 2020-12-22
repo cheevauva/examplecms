@@ -1,19 +1,19 @@
 <?php
 
 $layouts['empty'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'template' => 'empty',
     'views' => array(
     ),
 );
 $layouts['setup'] = array(
-    'type' => 'basic',
+    'component' => 'basic',
     'template' => 'setup',
     'views' => array(
         'body' => array(
-            'type' => 'form',
+            'component' => 'form',
             'grids' => [
-                'type' => 'form',
+                'form',
             ],
             'module' => 'Installer',
         ),

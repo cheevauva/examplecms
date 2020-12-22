@@ -20,7 +20,7 @@ class FormManager
      */
     public function getFormByRequest($request)
     {
-        $forms = $request->getParsedBody()['form'];
+        $body = $request->getParsedBody();
 
         if (empty($forms)) {
             throw new \ExampleCMS\Exception\Http\BadRequest('form_is_not_sent');

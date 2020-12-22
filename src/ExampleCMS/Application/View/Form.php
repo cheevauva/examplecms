@@ -9,17 +9,19 @@ class Form extends Basic
     {
         return [
             'grids' => [],
+            'module' => $this->module,
+            'forms' => [],
         ];
     }
 
     public function execute($request)
     {
         $data = parent::execute($request);
-
-        if (empty($data['module'])) {
-            $data['module'] = $request->getAttribute('module');
+        
+        if (empty($data['forms'])) {
+            $data['forms'] = $request->getAttribute('forms');
         }
-
+        
         foreach ($data['forms'] as $meta) {
             $form = $this->formManager->getFormModel($data['module'], $meta);
             $formMetadata = $form->getMetadata();

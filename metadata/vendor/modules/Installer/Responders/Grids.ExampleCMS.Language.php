@@ -3,25 +3,25 @@
 $grids['language'] = array(
     'datasource' => 'installer-model',
     'name' => 'language',
-    'type' => 'form',
+    'component' => 'form',
     'rows' => array(
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'label',
+                            'component' => 'label',
                             'label' => 'language',
                         ),
                     )
                 ),
                 array(
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'enum',
+                            'component' => 'enum',
                             'name' => 'language',
                             'default' => 'en_US',
                             'template' => 'form',
@@ -32,14 +32,14 @@ $grids['language'] = array(
             )
         ),
         array(
-            'type' => 'default',
+            'component' => 'default',
             'columns' => array(
                 array(
                     'colspan' => 2,
-                    'type' => 'default',
+                    'component' => 'default',
                     'fields' => array(
                         array(
-                            'type' => 'button',
+                            'component' => 'button',
                             'label' => 'send',
                         ),
                     )

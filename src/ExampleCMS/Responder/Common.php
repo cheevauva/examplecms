@@ -81,7 +81,7 @@ abstract class Common implements \ExampleCMS\Contract\Responder
             return $this->metadata['templatePath'];
         }
 
-        $template = $this->metadata['type'];
+        $template = $this->metadata['component'];
 
         if (isset($this->metadata['template'])) {
             $template = $this->metadata['template'];

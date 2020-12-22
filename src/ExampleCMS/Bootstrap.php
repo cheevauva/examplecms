@@ -74,7 +74,7 @@ class Bootstrap
                 $config->arrayUtil = new \ExampleCMS\Util\Arr;
                 $config->set('base', array(
                     'xhprof' => array(
-                        'enable',
+                        'enable' => false,
                     ),
                     'semantic_url' => false,
                     'setup' => true,

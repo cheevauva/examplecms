@@ -35,7 +35,14 @@ class Bootstrap
     {
         $this->appName = $appName;
         $this->basePath = $basePath;
+    }
 
+    public function includeXhprof()
+    {
+        if (!$this->config->get('base.xhprof.enable')) {
+            return;
+        }
+        
         if (function_exists('xhprof_enable') && class_exists('XHProfRuns_Default', true)) {
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 
@@ -66,6 +73,9 @@ class Bootstrap
             } catch (\Exception $exception) {
                 $config->arrayUtil = new \ExampleCMS\Util\Arr;
                 $config->set('base', array(
+                    'xhprof' => array(
+                        'enable',
+                    ),
                     'semantic_url' => false,
                     'setup' => true,
                     'logger' => array(
@@ -113,6 +123,9 @@ class Bootstrap
      */
     public function getApplication()
     {
+        $this->getConfig();
+        $this->includeXhprof();
+        
         $app = $this->getContainer()->get('ExampleCMS\\Application');
         $app->prepare();
 

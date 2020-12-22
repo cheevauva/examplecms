@@ -21,3 +21,14 @@ $layouts['setup'] = array(
         'asset' => 'asset',
     ),
 );
+$layouts['exception'] = array(
+    'component' => 'exception',
+    'template' => 'setup',
+    'views' => array(
+        'body' => array(
+            'component' => 'exception',
+        ),
+        'footer' => 'footer',
+        'asset' => 'asset',
+    ),
+);

@@ -9,13 +9,18 @@ class OopsHandler extends \ExampleCMS\Middleware\Application
     {
         try {
             return $next($request, $response);
-        } catch (\ExampleCMS\Exception\Http $exception) {
+        } catch (\Exception $exception) {
             $request = $request->withAttribute('exception', $exception);
 
+            if (!empty($exception->request)) {
+                $module = $this->getModule($exception->request);
+            } else {
+                $module = $this->moduleFactory->get('Default');
+            }
+
             $theme = $this->getTheme($request);
-            $module = $this->moduleFactory->get('Default');
             $data = $module->layout('exception')->execute($request);
-            $content =  $module->theme($theme)->make($data);
+            $content = $module->theme($theme)->make($data);
 
             $response->getBody()->write($content);
         }

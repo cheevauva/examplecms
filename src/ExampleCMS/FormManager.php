@@ -2,6 +2,8 @@
 
 namespace ExampleCMS;
 
+use ExampleCMS\Exception\Http\BadRequest;
+
 class FormManager
 {
 
@@ -23,17 +25,17 @@ class FormManager
         $body = $request->getParsedBody();
 
         if (empty($forms)) {
-            throw new \ExampleCMS\Exception\Http\BadRequest('form_is_not_sent');
+            throw BadRequest::withRequestAndMessage($request, 'form_is_not_sent');
         }
 
         if (count($forms) > 1) {
-            throw new \ExampleCMS\Exception\Http\BadRequest('too_many_forms_sent');
+            throw BadRequest::withRequestAndMessage('too_many_forms_sent', $request);
         }
 
         $token = current(array_keys($forms));
 
         if (empty($token)) {
-            throw new \ExampleCMS\Exception\Http\BadRequest('token_must_not_be_empty');
+            throw BadRequest::withRequestAndMessage('token_must_not_be_empty', $request);
         }
 
         $data = current($forms);

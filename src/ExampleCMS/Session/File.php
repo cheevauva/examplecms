@@ -17,6 +17,8 @@ class File extends Session
 
     protected function readFromStorage()
     {
+        opcache_invalidate($this->getPath());
+        
         return include $this->getPath();
     }
 

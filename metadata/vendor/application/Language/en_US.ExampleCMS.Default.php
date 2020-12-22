@@ -11,3 +11,4 @@ $language['sql_engines'] = [
 $language['send'] = 'Send';
 $language['ok'] = 'Ok';
 $language['cancel'] = 'Cancel';
+$language['language'] = 'Language';

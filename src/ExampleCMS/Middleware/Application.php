@@ -61,7 +61,9 @@ class Application
 
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
-        $theme = $this->getTheme($request);
+        $language = $request->getAttribute('language');
+        $session = $request->getAttribute('session');
+        $themeName = $this->getTheme($request);
 
         if ($action) {
             $request = $module->action($action)->execute($request);
@@ -77,9 +79,23 @@ class Application
             return $next($request, $response);
         }
 
+
+
+        if (!$language) {
+            $language = $session->get('language');
+
+            if (!$language) {
+                $language = 'en_US';
+            }
+        }
+
         if ($layout) {
             $data = $module->layout($layout)->execute($request);
-            $content = $module->theme($theme)->make($data);
+
+            $theme = $module->theme($themeName);
+            $theme->setLanguage($language);
+
+            $content = $theme->make($data);
 
             $response->getBody()->write($content);
         }

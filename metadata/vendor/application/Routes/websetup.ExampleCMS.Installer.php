@@ -1,5 +1,14 @@
 <?php
 
+$routes['main'] = array(
+    'method' => 'GET',
+    'route' => '/',
+    'target' => array(
+        'module' => 'Installer',
+        'redirect_to' => 'language',
+    ),
+);
+
 $routes['language'] = array(
     'method' => 'GET',
     'route' => '/language',

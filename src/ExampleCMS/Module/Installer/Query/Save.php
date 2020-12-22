@@ -17,6 +17,7 @@ class Save
 
         $session = $request->getAttribute('session');
         $session->set('setup_settings', $model->toArray());
+        $session->set('language', $model->get('language'));
     }
 
     public function setModule($module): void

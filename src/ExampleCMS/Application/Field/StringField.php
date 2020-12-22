@@ -5,18 +5,15 @@ namespace ExampleCMS\Application\Field;
 class StringField extends Base
 {
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
-
-        $metadata['value'] = $this->model->get($this->metadata['name']);
-        $metadata['id'] = $this->model->get('id');
-
-        if (empty($metadata['value']) && !empty($metadata['default'])) {
-            $metadata['value'] = $metadata['default'];
+        $data = parent::execute($request);
+       
+        if (empty($data['value']) && !empty($data['default'])) {
+            $data['value'] = $data['default'];
         }
 
-        return $metadata;
+        return $data;
     }
 
 }

@@ -11,7 +11,7 @@ namespace ExampleCMS\Application\Grid;
 class Json extends Basic
 {
 
-    protected function getData()
+    protected function execute()
     {
 
         $metadata = array();

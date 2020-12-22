@@ -49,9 +49,9 @@ class Header extends Basic
         return $this->filter($subItemsQuery);
     }
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
+        $metadata = parent::execute($request);
 
         $metadata['items'] = $this->getMenuItems();
         $metadata['subItems'] = $this->getSubMenuItems();

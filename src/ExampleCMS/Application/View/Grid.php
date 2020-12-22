@@ -5,14 +5,14 @@ namespace ExampleCMS\Application\View;
 class Grid extends Basic
 {
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
+        $metadata = parent::execute($request);
 
-        $gridObject = $this->responder->grid($this->metadata['grid']);
+        $gridObject = $this->module->grid($this->metadata['grid']);
         $gridObject->setModel($this->model);
 
-        $metadata['grid'] = $gridObject->getData($request);
+        $metadata['grid'] = $gridObject->execute($request);
 
         return $metadata;
     }

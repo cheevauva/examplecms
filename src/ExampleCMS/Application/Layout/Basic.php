@@ -25,9 +25,9 @@ class Basic extends \ExampleCMS\Responder\Common
      */
     protected $templateType = 'layouts';
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
+        $metadata = parent::execute($request);
         $metadata['baseUrl'] = $request->getAttribute('baseUrl');
 
         $views = [];
@@ -43,7 +43,7 @@ class Basic extends \ExampleCMS\Responder\Common
         }
 
         foreach ($metadata['views'] as $name => $view) {
-            $views[$name] = $this->responder->view($view)->getData($request);
+            $views[$name] = $this->module->view($view)->execute($request);
         }
 
         $metadata['views'] = $views;

@@ -115,6 +115,7 @@ class Form extends \ExampleCMS\Model implements \ExampleCMS\Contract\Model\Form
     public function setMetadata($metadata)
     {
         $this->metadata = $metadata;
+        $this->modelName = $metadata['name'];
     }
 
 }

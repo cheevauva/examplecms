@@ -7,9 +7,9 @@ class Exception extends Basic
 
     public $application;
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
+        $metadata = parent::execute($request);
 
         $exception = $request->getAttribute('exception');
 

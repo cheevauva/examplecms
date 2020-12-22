@@ -20,6 +20,8 @@ class Model implements \ExampleCMS\Contract\Model
      * @var array
      */
     protected $attributes = array();
+    
+    protected $modelName;
 
     /**
      * @return string
@@ -34,6 +36,16 @@ class Model implements \ExampleCMS\Contract\Model
         $this->module = $module;
     }
 
+    public function setModelName($modelType)
+    {
+        $this->modelName = $modelType;
+    }
+
+    public function getModelName()
+    {
+        return $this->modelName;
+    }
+    
     /**
      * @param string $name
      * @param mixed $value

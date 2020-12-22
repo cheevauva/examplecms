@@ -11,33 +11,16 @@ namespace ExampleCMS\Application\Grid;
 class Form extends Basic
 {
 
-    protected $model;
-
-    public function setModel($model)
+    public function execute($request)
     {
-        $this->model = $model;
-    }
+        $data = parent::execute($request);
+        $data['rows'] = [];
 
-    protected function getModel()
-    {
-        return $this->model;
-    }
-
-    public function getData($request)
-    {
-        $model = $this->getModel();
-
-        $metadata = parent::getData($request);
-        $metadata['rows'] = array();
-
-        foreach ($this->metadata['rows'] as $row) {
-            $rowObject = $this->responder->row($row);
-            $rowObject->setModel($model);
-
-            $metadata['rows'][] = $rowObject->getData($request);
+        foreach ($this->metadata['rows'] as $meta) {
+            $data['rows'][] = $this->module->row($meta)->execute($request);
         }
 
-        return $metadata;
+        return $data;
     }
 
 }

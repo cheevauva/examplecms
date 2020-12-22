@@ -11,36 +11,42 @@ namespace ExampleCMS\Application\Grid;
 class View extends Basic
 {
 
-    protected function getModels()
+    protected function getModelsByRequest($request)
     {
-        return $this->module->getDataSource($this->metadata['datasource'])->fetchMany();
+        $models = [];
+
+        $all = $this->module->query('all');
+        $all->fetch([
+            $all::LIMIT => 10,
+            $all::OFFSET => $request->getAttribute('offset'),
+        ])->models($models);
+
+        return $models;
     }
 
-    public function getData($request)
+    public function execute($request)
     {
-        $models = $this->getModels();
+        $models = $this->getModelsByRequest($request);
+        $model = $this->getModelByRequest($request);
 
-        $metadata = parent::getData();
-        $metadata['rows'] = array();
+        $data = parent::execute();
+        $data['rows'] = [];
 
-        foreach ($this->metadata['rows'] as $row) {
-            if (empty($row['iterate'])) {
-                $rowObject = $this->prepareRow($row);
-                $rowObject->model = $this->module->getModel();
+        foreach ($this->metadata['rows'] as $meta) {
+            $items = [];
 
-                $metadata['rows'][] = $rowObject->getData($request);
-                continue;
+            if (empty($meta['iterate'])) {
+                $items[] = $model;
+            } else {
+                $items = $models;
             }
 
-            foreach ($models as $model) {
-                $rowObject = $this->prepareRow($row);
-                $rowObject->model = $model;
-
-                $metadata['rows'][] = $rowObject->getData($request);
+            foreach ($items as $item) {
+                $data['rows'][] = $this->module->row($meta)->execute($request->withAttribute('model', $item));
             }
         }
 
-        return $metadata;
+        return $data;
     }
 
 }

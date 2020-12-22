@@ -1,7 +1,7 @@
 <?php
 
 $forms['database'] = array(
-    'form' => 'edit',
+    'name' => 'database',
     'type' => 'base',
     'method' => 'POST',
     'route' => 'database_save',
@@ -15,7 +15,7 @@ $forms['database'] = array(
 );
 
 $forms['language'] = array(
-    'form' => 'language',
+    'name' => 'language',
     'type' => 'base',
     'method' => 'POST',
     'route' => 'language_save',

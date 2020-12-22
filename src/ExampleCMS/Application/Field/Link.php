@@ -24,7 +24,7 @@ class Link extends Base
         return $currentUser->hasAccess($this->getModule(), $operation);
     }
 
-    public function getData($request)
+    public function execute($request)
     {
         $metadata = parent::getData($request);
 

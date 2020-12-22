@@ -15,50 +15,34 @@ class Basic extends \ExampleCMS\Responder\Common
      * @var \ExampleCMS\Config
      */
     public $config;
+
+    /**
+     * @var string 
+     */
     protected $templateType = 'columns';
 
-    protected function prepareGrid($grid, $request)
+    protected function getDefaultData()
     {
-        $gridObject = $this->responder->grid($grid);
-        $gridObject->setModels(array(
-            $this->model,
-        ));
-
-        return $gridObject->getData();
+        return [
+            'grids' => [],
+            'fields' => [],
+            'colspan' => 1,
+        ];
     }
 
-    protected function prepareFields($fields, $request)
+    public function execute($request)
     {
-        $preparedFields = array();
+        $data = parent::execute($request);
 
-        foreach ($fields as $field) {
-            $fieldObject = $this->responder->field($field);
-            $fieldObject->model = $this->model;
-
-            $preparedFields[] = $fieldObject->getData($request);
+        foreach ($data['fields'] as $index => $meta) {
+            $data['fields'][$index] = $this->module->field($meta)->execute($request);
         }
 
-        return $preparedFields;
-    }
-
-    public function getData($request)
-    {
-        $metadata = parent::getData($request);
-
-        if (!isset($metadata['colspan'])) {
-            $metadata['colspan'] = 1;
+        foreach ($data['grids'] as $index => $meta) {
+            $data['grids'][$index] = $this->module->grid($meta)->execute($request);
         }
 
-        if (isset($metadata['fields'])) {
-            $metadata['fields'] = $this->prepareFields($metadata['fields'], $request);
-        }
-
-        if (isset($metadata['grid'])) {
-            $metadata['grid'] = $this->prepareGrid($metadata['grid'], $request);
-        }
-
-
-        return $metadata;
+        return $data;
     }
 
 }

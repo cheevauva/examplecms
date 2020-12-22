@@ -84,8 +84,14 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         return eval($code);
     }
 
-    public function make(array $data)
+    public function make($data)
     {
+        if (!is_array($data)) {
+            echo '<pre>';
+            print_r($data);
+            die;
+        }
+        
         $templatePath = $data['templatePath'];
         $templatePathString = implode('.', $templatePath);
 

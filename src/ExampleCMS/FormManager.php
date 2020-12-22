@@ -12,21 +12,6 @@ class FormManager
      */
     public $moduleFactory;
 
-    protected function getFormMetadata($module, $form)
-    {
-        $formMetadata = $this->metadata->get(['forms', (string) $module]);
-
-        if (is_null($formMetadata[$form])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('forms "%s" is not define', $form));
-        }
-
-        if (!isset($formMetadata[$form]['type'])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('"type" for "%s" is not define', $form));
-        }
-
-        return $formMetadata[$form];
-    }
-
     /**
      * 
      * @param type $request
@@ -101,11 +86,7 @@ class FormManager
             $module = $this->moduleFactory->get($module);
         }
 
-        $metadata = $this->getFormMetadata($module, $form);
-        $component = $module->getForm($metadata['type']);
-        $component->setMetadata($metadata);
-
-        return $component;
+        return $module->form($form);
     }
 
     protected function getBrokenForm($token, $data, $request)
@@ -142,18 +123,18 @@ class FormManager
         $registredForms = $session->get(array(
             'forms',
             $metadata['module'],
-            $metadata['form'],
+            $metadata['name'],
         ));
 
         if (empty($registredForms)) {
             $registredForms = [];
         }
-        
+
         if (count($registredForms) > $limit) {
             $session->set(array(
                 'forms',
                 $metadata['module'],
-                $metadata['form'],
+                $metadata['name'],
             ), array());
         }
 
@@ -166,7 +147,7 @@ class FormManager
         $session->set(array(
             'forms',
             (string) $form->module,
-            $metadata['form'],
+            $metadata['name'],
             $token,
         ), $metadata);
 

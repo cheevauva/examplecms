@@ -1,6 +1,6 @@
 <?php
 
-$responders['grids.language'] = array(
+$grids['language'] = array(
     'datasource' => 'installer-model',
     'name' => 'language',
     'type' => 'form',

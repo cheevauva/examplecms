@@ -46,10 +46,3 @@ foreach ($extensions as $extension) {
         $mergeFiles::FILTER => !empty($extension['filter']) ? $extension['filter'] : '',
     ]);
 }
-
-$responders = [];
-
-require $targetPath . '/application/Responders.php';
-
-
-print_r(array_keys($responders));

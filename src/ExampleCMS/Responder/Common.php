@@ -30,11 +30,10 @@ abstract class Common implements \ExampleCMS\Contract\Responder
      * @var string
      */
     protected $templateType;
-    
+
     public function setModule($module)
     {
         $this->module = $module;
-        $this->responder = $module->responder();
     }
 
     public function setModel($model)
@@ -50,12 +49,30 @@ abstract class Common implements \ExampleCMS\Contract\Responder
         $this->metadata = $metadata;
     }
 
-    public function getData($request)
+    protected function getModelByRequest($request)
     {
-        $metadata = $this->metadata;
-        $metadata['templatePath'] = $this->getTemplatePath($metadata);
+        $model = $request->getAttribute('model');
 
-        return $metadata;
+        return $model;
+    }
+
+    protected function getDefaultData()
+    {
+        return [];
+    }
+
+    public function execute($request)
+    {
+        $data = $this->metadata;
+        $data['templatePath'] = $this->getTemplatePath($data);
+
+        foreach ($this->getDefaultData() as $property => $value) {
+            if (!isset($data[$property])) {
+                $data[$property] = $value;
+            }
+        }
+
+        return $data;
     }
 
     protected function getTemplatePath()
@@ -76,4 +93,5 @@ abstract class Common implements \ExampleCMS\Contract\Responder
             $template
         ];
     }
+
 }

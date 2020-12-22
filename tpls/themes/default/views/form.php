@@ -4,5 +4,5 @@
     </div>
 <?php endif; ?>
 <form action="<?= $action; ?>" method="<?= $method; ?>">
-    <?= $theme->make($grid); ?>
+    <?= $theme->make(reset($grids)); ?>
 </form>

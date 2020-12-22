@@ -9,8 +9,12 @@ $routes['language'] = array(
         'views' => array(
             'body' => array(
                 'type' => 'form',
-                'form' => 'language',
-                'grid' => 'language',
+                'forms' => [
+                    'language',
+                ],
+                'grids' => [
+                    'language',
+                ],
             ),
         ),
     ),
@@ -36,8 +40,12 @@ $routes['database'] = array(
         'views' => array(
             'body' => array(
                 'type' => 'form',
-                'form' => 'database',
-                'grid' => 'database',
+                'forms' => [
+                    'database',
+                ],
+                'grids' => [
+                    'database',
+                ],
             ),
         ),
     ),

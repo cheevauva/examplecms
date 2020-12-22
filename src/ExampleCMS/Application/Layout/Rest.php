@@ -8,11 +8,11 @@ class Rest extends \ExampleCMS\Responder\Common
     protected $templateType = 'layouts';
     public $router;
 
-    public function getData()
+    public function execute()
     {
-        $metadata = parent::getData();
+        $metadata = parent::execute();
 
-        $metadata['view'] = $this->prepareView($this->router->get('view'))->getData();
+        $metadata['view'] = $this->prepareView($this->router->get('view'))->execute();
 
         return $metadata;
     }

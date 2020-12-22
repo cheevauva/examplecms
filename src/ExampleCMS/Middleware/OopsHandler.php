@@ -15,7 +15,7 @@ class OopsHandler extends \ExampleCMS\Middleware\Application
             $module = $this->moduleFactory->get('Default');
             $layout = $module->responder()->layout('exception');
 
-            $data = $layout->getData($request);
+            $data = $layout->execute($request);
             $content =  $module->theme($this->getTheme($request))->make($data);
 
             $response->getBody()->write($content);

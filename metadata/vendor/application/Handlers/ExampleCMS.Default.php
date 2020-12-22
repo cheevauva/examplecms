@@ -18,8 +18,8 @@ foreach (array(
     ),
     'responders' => array(
         'route' => [
-            'application' => 'cache/metadata/application/Responders.php',
-            'module' => 'cache/metadata/modules/$1/Responders.php',
+            'application' => 'cache/metadata/application/Responders/$1.php',
+            'module' => 'cache/metadata/modules/$2/Responders/$1.php',
         ],
         'component' => 'ExampleCMS\\Metadata\\Handler\\Basic',
         'section' => 'responders',

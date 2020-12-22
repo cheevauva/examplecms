@@ -11,16 +11,21 @@ namespace ExampleCMS\Application\Field;
 class Base extends \ExampleCMS\Responder\Common implements \ExampleCMS\Contract\Field
 {
 
+    /**
+     * @var string 
+     */
     protected $templateType = 'fields';
 
     protected function getTemplatePath()
     {
-        return array(
-            (string) $this->module,
-            $this->templateType,
-            $this->metadata['type'],
-            !isset($this->metadata['template']) ? 'view' : $this->metadata['template'],
-        );
+        $templatePath = [];
+
+        $templatePath[] = (string) $this->module;
+        $templatePath[] = $this->templateType;
+        $templatePath[] = $this->metadata['type'];
+        $templatePath[] = !isset($this->metadata['template']) ? 'view' : $this->metadata['template'];
+
+        return $templatePath;
     }
 
     protected function getEmptyTemplatePath()
@@ -33,28 +38,32 @@ class Base extends \ExampleCMS\Responder\Common implements \ExampleCMS\Contract\
         );
     }
 
-    protected function getToken()
+    protected function getDefaultData()
     {
-        if ($this->model instanceof \ExampleCMS\Contract\Model\Form) {
-            return $this->model->get('token');
-        }
-
-        return '';
+        return [
+            'name' => null,
+            'value' => null,
+            'id' => null,
+        ];
     }
 
-    public function getData($request)
+    public function execute($request)
     {
-        $metadata = parent::getData($request);
+        $data = parent::execute($request);
 
-        if (empty($metadata['label'])) {
-            $metadata['label'] = $this->model->get($this->metadata['name']);
-        }
-        $metadata['id'] = $this->model->get('id');
-        if ($this->model instanceof \ExampleCMS\Contract\Model\Form) {
-            $metadata['token'] = $this->model->getToken();
+        $model = $this->getModelByRequest($request);
+
+        if (empty($data['label'])) {
+            $data['label'] = $data['name'];
         }
 
-        return $metadata;
+        if ($model) {
+            $data['value'] = $model->get($data['name']);
+            $data['id'] = $model->get('id');
+            $data['formName'] = $model->getModelName();
+        }
+
+        return $data;
     }
 
 }

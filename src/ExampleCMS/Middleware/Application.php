@@ -68,8 +68,7 @@ class Application
         }
 
         if ($layout) {
-            $layoutObject = $module->responder()->layout($layout);
-            $data = $layoutObject->getData($request);
+            $data = $module->layout($layout)->execute($request);
             $content = $module->theme($theme)->make($data);
 
             $response->getBody()->write($content);

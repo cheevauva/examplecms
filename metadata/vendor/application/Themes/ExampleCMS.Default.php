@@ -42,6 +42,7 @@ $themes = array(
         'default.views.footer' => 'tpls/themes/default/views/footer.php',
         'default.views.grid' => 'tpls/themes/default/views/grid.php',
         'default.views.form' => 'tpls/themes/default/views/form.php',
+        'default.views.forms' => 'tpls/themes/default/views/forms.php',
         'default.views.header' => 'tpls/themes/default/views/header.php',
         'default.views.layout' => 'tpls/themes/default/views/layout.php',
         'default.grids.default' => 'tpls/themes/default/grids/basic.php',

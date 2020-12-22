@@ -3,6 +3,7 @@
 namespace ExampleCMS;
 
 use ExampleCMS\Exception\Http\BadRequest;
+use ExampleCMS\Exception\Http\ServerError;
 
 class FormManager
 {
@@ -20,61 +21,43 @@ class FormManager
      * @return \ExampleCMS\Contract\Model\Form
      * @throws \ExampleCMS\Exception\Http\BadRequest
      */
-    public function getFormByRequest($request)
+    public function getFormsByRequest($request)
     {
         $body = $request->getParsedBody();
-
-        if (empty($forms)) {
-            throw BadRequest::withRequestAndMessage($request, 'form_is_not_sent');
-        }
-
-        if (count($forms) > 1) {
-            throw BadRequest::withRequestAndMessage('too_many_forms_sent', $request);
-        }
-
-        $token = current(array_keys($forms));
-
-        if (empty($token)) {
-            throw BadRequest::withRequestAndMessage('token_must_not_be_empty', $request);
-        }
-
-        $data = current($forms);
-
-        $registredForms = $request->getAttribute('session')->get(array(
-            'forms',
-            $request->getAttribute('module'),
-            $request->getAttribute('form'),
-        ));
-
-        if (!isset($registredForms[$token])) {
-            return $this->getBrokenForm($token, $data, $request);
-        }
-
-        $registredForm = $registredForms[$token];
-
-        if ($registredForm['method'] !== $request->getMethod()) {
-            throw new \ExampleCMS\Exception\Http\BadRequest('wrong_method_for_registred_form');
-        }
-
+        $forms = $request->getAttribute('forms');
+        $models = [];
         $metadataProperties = array(
             'module',
             'form',
             'route',
         );
+        
+        if (empty($forms)) {
+            throw ServerError::withRequestAndMessage($request, 'forms_is_not_defined');
+        }
 
-        foreach ($metadataProperties as $metadataProperty) {
-            if ($registredForm[$metadataProperty] !== $request->getAttribute($metadataProperty)) {
-                throw new \ExampleCMS\Exception\Http\BadRequest('wrong_destination_for_form');
+        foreach ($forms as $form) {
+            if (!isset($body[$form])) {
+                throw BadRequest::withRequestAndMessage($request, sprintf('too_few_forms_sent'));
             }
+
+            $model = $this->getFormModel($request->getAttribute('module'), $form);
+            $model->fromArray($body[$form]);
+            $model->setState($model::NORMAL);
+
+//            $registredForm = $model->getMetadata();
+//
+//            foreach ($metadataProperties as $metadataProperty) {
+//                if ($registredForm[$metadataProperty] !== $request->getAttribute($metadataProperty)) {
+//                    throw BadRequest::withRequestAndMessage($request, 'wrong_destination_for_form');
+//                }
+//            }
+
+            $models[$form] = $model;
         }
 
 
-        $form = $this->getFormModel($request->getAttribute('module'), $request->getAttribute('form'));
-        $form->setToken($token);
-        $form->setState($form::NORMAL);
-        $form->fromArray($data);
-
-        return $form;
+        return $models;
     }
 
     /**

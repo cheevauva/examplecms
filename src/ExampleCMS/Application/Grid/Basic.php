@@ -21,4 +21,16 @@ class Basic extends \ExampleCMS\Responder\Common
      */
     protected $templateType = 'grids';
 
+    public function execute($request)
+    {
+        $data = parent::execute($request);
+        $data['rows'] = [];
+
+        foreach ($this->metadata['rows'] as $meta) {
+            $data['rows'][] = $this->module->row($meta)->execute($request);
+        }
+
+        return $data;
+    }
+
 }

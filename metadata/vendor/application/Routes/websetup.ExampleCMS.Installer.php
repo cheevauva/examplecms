@@ -11,7 +11,7 @@ $routes['language'] = array(
         ],
         'views' => array(
             'body' => array(
-                'component' => 'form',
+                'component' => 'forms',
                 'grids' => [
                     'language',
                 ],
@@ -40,12 +40,12 @@ $routes['database'] = array(
     'target' => array(
         'module' => 'Installer',
         'layout' => 'setup',
+        'forms' => [
+            'database',
+        ],
         'views' => array(
             'body' => array(
                 'component' => 'form',
-                'forms' => [
-                    'database',
-                ],
                 'grids' => [
                     'database',
                 ],
@@ -57,6 +57,9 @@ $routes['database_save'] = array(
     'method' => 'POST',
     'route' => '/database',
     'target' => array(
+        'forms' => [
+            'database',
+        ],
         'module' => 'Installer',
         'id' => 'setup',
         'operation' => 'edit',

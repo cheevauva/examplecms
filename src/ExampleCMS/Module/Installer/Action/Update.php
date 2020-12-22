@@ -12,9 +12,9 @@ class Update extends \ExampleCMS\Action\Action
 
     public function execute($request)
     {
-        $form = $this->formManager->getFormByRequest($request);
+        $forms = $this->formManager->getFormsByRequest($request);
+        $form = reset($forms);
         
-        var_dump($form->isValid());
         if (!$form->isValid()) {
             return false;
         }

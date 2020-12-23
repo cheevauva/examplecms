@@ -42,7 +42,7 @@ class Bootstrap
         if (!$this->config->get('base.xhprof.enable')) {
             return;
         }
-        
+
         if (function_exists('xhprof_enable') && class_exists('XHProfRuns_Default', true)) {
             xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 
@@ -63,6 +63,27 @@ class Bootstrap
         return $this->filesystem;
     }
 
+    protected function getDefaultConfig()
+    {
+        return array(
+            'language' => 'en_US',
+            'theme' => 'default',
+            'xhprof' => array(
+                'enable' => false,
+            ),
+            'semantic_url' => false,
+            'setup' => true,
+            'logger' => array(
+                'name' => 'examplecms',
+                'level' => 'ERROR',
+                'path' => 'examplecms.log'
+            ),
+            'cache' => array(
+                'engine' => 'memory',
+            ),
+        );
+    }
+
     public function getConfig()
     {
         if (empty($this->config)) {
@@ -72,21 +93,7 @@ class Bootstrap
                 $config->get('base');
             } catch (\Exception $exception) {
                 $config->arrayUtil = new \ExampleCMS\Util\Arr;
-                $config->set('base', array(
-                    'xhprof' => array(
-                        'enable' => false,
-                    ),
-                    'semantic_url' => false,
-                    'setup' => true,
-                    'logger' => array(
-                        'name' => 'examplecms',
-                        'level' => 'ERROR',
-                        'path' => 'examplecms.log'
-                    ),
-                    'cache' => array(
-                        'engine' => 'memory',
-                    ),
-                ));
+                $config->set('base', $this->getDefaultConfig());
                 $config->save();
             }
 
@@ -125,7 +132,7 @@ class Bootstrap
     {
         $this->getConfig();
         $this->includeXhprof();
-        
+
         $app = $this->getContainer()->get('ExampleCMS\\Application');
         $app->prepare();
 

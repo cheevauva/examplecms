@@ -5,7 +5,10 @@ $routes['main'] = array(
     'route' => '/',
     'target' => array(
         'module' => 'Installer',
-        'redirect_to' => 'language',
+        'redirect' => [
+            'route' => 'language',
+            'params' => [],
+        ]
     ),
 );
 
@@ -37,7 +40,10 @@ $routes['language_save'] = array(
         'forms' => [
             'language',
         ],
-        'redirect_to' => 'database',
+        'redirect' => [
+            'route' => 'database',
+            'params' => [],
+        ],
         'action' => 'save',
         'form' => 'language',
         'module' => 'Installer',
@@ -73,6 +79,9 @@ $routes['database_save'] = array(
         ],
         'module' => 'Installer',
         'action' => 'save',
-        'redirect_to' => 'language',
+        'redirect' => [
+            'route' => 'language',
+            'params' => [],
+        ],
     ),
 );

@@ -23,10 +23,20 @@ foreach (array(
         'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Middleware\\Application' => array(
+    'ExampleCMS\Middleware\Web\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'router' => 'ExampleCMS\\Router',
         'moduleFactory' => 'ExampleCMS\\Factory\\Module',
+        'config' => 'ExampleCMS\\Config',
+    ),
+    'ExampleCMS\Middleware\CLI\FrontController' => array(
+        'metadata' => 'ExampleCMS\\Metadata',
+        'bootstrap' => 'ExampleCMS\\Bootstrap',
+        'config' => 'ExampleCMS\\Config',
+    ),
+    'ExampleCMS\\Middleware\\OopsHandler' => array(
+        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
+        'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Application' => array(
         'bootstrap' => 'ExampleCMS\\Bootstrap',

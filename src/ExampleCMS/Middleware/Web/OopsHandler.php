@@ -1,8 +1,8 @@
 <?php
 
-namespace ExampleCMS\Middleware;
+namespace ExampleCMS\Middleware\Web;
 
-class OopsHandler extends \ExampleCMS\Middleware\Application
+class OopsHandler
 {
 
     public function __invoke($request, $response, $next)
@@ -13,19 +13,28 @@ class OopsHandler extends \ExampleCMS\Middleware\Application
             $request = $request->withAttribute('exception', $exception);
 
             if (!empty($exception->request)) {
-                $module = $this->getModule($exception->request);
+                $module = $this->getModuleByRequest($exception->request);
             } else {
                 $module = $this->moduleFactory->get('Default');
             }
+            $themeName = $request->getAttribute('theme');
 
-            $theme = $this->getTheme($request);
+            if (empty($themeName)) {
+                $themeName = $this->config->get('base.theme');
+            }
+
             $data = $module->layout('exception')->execute($request);
-            $content = $module->theme($theme)->make($data);
+            $content = $module->theme($themeName)->make($data);
 
             $response->getBody()->write($content);
         }
 
         return $response;
+    }
+
+    protected function getModuleByRequest($request)
+    {
+        return $this->moduleFactory->get($request->getAttribute('module'));
     }
 
 }

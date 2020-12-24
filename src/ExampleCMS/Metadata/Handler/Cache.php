@@ -10,17 +10,17 @@ class Cache extends Basic
 
     public function get(array $path)
     {
-        $cachePath = 'metadata:' . $this->handler->getType() . '.' . implode('.', $path);
+        $key = 'metadata:' . $this->handler->getType() . '.' . implode('.', $path);
 
-        $cacheData = $this->cache->get($cachePath);
+        $cacheData = $this->cache->get($key);
 
         if ($cacheData) {
             return $cacheData;
         }
 
         $data = $this->handler->get($path);
-
-        $this->cache->set($cachePath, $data);
+        
+        $this->cache->set($key, $data);
 
         return $data;
     }

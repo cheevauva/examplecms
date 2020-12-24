@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Field;
 
-class Base extends \ExampleCMS\Responder\Common implements \ExampleCMS\Contract\Field
+class Base extends \ExampleCMS\Application\Responder implements \ExampleCMS\Contract\Field
 {
 
     /**

@@ -16,9 +16,20 @@ class Session implements \ExampleCMS\Contract\Factory\Session
      */
     public $container;
 
+    /**
+     * @var \ExampleCMS\Contract\Config
+     */
+    public $config;
+
     public function get($id)
     {
-        $session = $this->container->create('ExampleCMS\\Session\\File');
+        $engine = $this->config->get(['base', 'session', 'engine']);
+
+        if (empty($engine)) {
+            $engine = 'File';
+        }
+
+        $session = $this->container->create(sprintf('ExampleCMS\Session\%s', $engine));
         $session->setSessionId($id);
 
         return $session;

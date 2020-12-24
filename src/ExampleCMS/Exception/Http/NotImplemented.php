@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\HttpException;
 
-class NotImplemented extends \ExampleCMS\HttpException
+class NotImplemented extends \ExampleCMS\Exception\Http
 {
 
     protected $code = 501;

@@ -1,7 +1,7 @@
 <?php
 
-$applications['middleware']['ExampleCMS\Middleware\BasePath'] = 100;
-$applications['middleware']['ExampleCMS\Middleware\Session'] = 200;
-$applications['middleware']['ExampleCMS\Middleware\Web\OopsHandler'] = 300;
-$applications['middleware']['ExampleCMS\Middleware\Router'] = 400;
-$applications['middleware']['ExampleCMS\Middleware\Web\FrontController'] = 500;
+$applications['middleware']['ExampleCMS\Application\Middleware\BasePath'] = 100;
+$applications['middleware']['ExampleCMS\Application\Middleware\Web\Session'] = 200;
+$applications['middleware']['ExampleCMS\Application\Middleware\Web\OopsHandler'] = 300;
+$applications['middleware']['ExampleCMS\Application\Middleware\Router'] = 400;
+$applications['middleware']['ExampleCMS\Application\Middleware\Web\FrontController'] = 500;

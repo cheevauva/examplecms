@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Module\Installer\Action;
 
-class Read extends \ExampleCMS\Action\Action
+class Read extends \ExampleCMS\Application\Action\Action
 {
 
     public function execute($request)

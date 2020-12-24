@@ -3,7 +3,6 @@
 return array(
     'grids.edit' => array(
         'type' => 'table',
-        'datasource' => 'context-model',
         'rows' => array(
             array(
                 'type' => 'default',

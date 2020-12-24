@@ -68,6 +68,11 @@ class Bootstrap
         return array(
             'language' => 'en_US',
             'theme' => 'default',
+            'module' => 'Default',
+            'session' => [
+                'name' => 'EXAMPLECMSID',
+                'engine' => 'File',
+            ],
             'xhprof' => array(
                 'enable' => false,
             ),
@@ -133,10 +138,7 @@ class Bootstrap
         $this->getConfig();
         $this->includeXhprof();
 
-        $app = $this->getContainer()->get('ExampleCMS\\Application');
-        $app->prepare();
-
-        return $app;
+        return $this->getContainer()->get('ExampleCMS\\Application');
     }
 
     /**

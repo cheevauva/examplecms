@@ -1,7 +1,6 @@
 <?php
 
 $grids['read'] = array(
-    'datasource' => 'context-model',
     'component' => 'table',
     'rows' => array(
         array(
@@ -53,7 +52,6 @@ $grids['json-index'] = array(
     ),
 );
 $grids['index'] = array(
-    'datasource' => 'collection',
     'component' => 'table',
     'view' => 'view',
     'rows' => array(
@@ -78,11 +76,9 @@ $grids['index'] = array(
 );
 $grids['edit'] = array(
     'component' => 'table',
-    'datasource' => 'context-model',
     'rows' => array(),
 );
 $grids['form'] = array(
     'component' => 'table',
-    'datasource' => 'context-model',
 );
 

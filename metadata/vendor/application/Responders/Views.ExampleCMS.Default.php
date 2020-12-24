@@ -16,12 +16,10 @@ $views['asset'] = array(
 $views['json-index'] = array(
     'component' => 'grid',
     'grid' => 'json-index',
-    'datasource' => 'collection',
 );
 $views['json-read'] = array(
     'component' => 'grid',
     'grid' => 'json-read',
-    'datasource' => 'collection',
 );
 $views['json-designer'] = array(
     'component' => 'designer',

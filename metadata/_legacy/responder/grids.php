@@ -13,7 +13,6 @@ return array(
         ),
     ),
     'grids.index' => array(
-        'datasource' => 'collection',
         'type' => 'table',
         'view' => 'view',
         'rows' => array(

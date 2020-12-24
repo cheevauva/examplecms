@@ -2,46 +2,47 @@
 
 namespace ExampleCMS;
 
+use ExampleCMS\CommandBus\MiddlewareBus;
+
 class Application
 {
 
     /**
      * @var array
      */
-    protected $middleware = array();
-    
+    protected $middlewares = [];
+
     /**
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
-    
+
     /**
-     * @var \ExampleCMS\Contract\Container
+     * @var \Psr\Container\ContainerInterface
      */
     public $container;
+    public $bootstrap;
 
-    public function prepare()
+    protected function getMiddlewares()
     {
         $appName = $this->bootstrap->getAppName();
 
-        $metadata = $this->metadata->get(array(
-            'applications',
-            $appName
-        ));
-        
-        $middleware = array_flip($metadata['middleware']);
-        
-        ksort($middleware);
-        
-        $this->middleware = array_values($middleware);
+        $metadata = $this->metadata->get(['applications', $appName]);
+        $middlewares = array_flip($metadata['middleware']);
+
+        ksort($middlewares);
+
+        return array_values($middlewares);
     }
 
     public function run($request, $response)
     {
-        $middleware = $this->container->create('ExampleCMS\\Middleware');
-        $middleware->setMiddleware($this->middleware);
+        $middlewares = $this->getMiddlewares();
 
-        return $middleware->run($request, $response);
+        $bus = new MiddlewareBus($middlewares);
+        $bus->container = $this->container;
+
+        return $bus->run($request, $response);
     }
 
 }

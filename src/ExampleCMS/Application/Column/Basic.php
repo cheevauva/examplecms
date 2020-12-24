@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Column;
 
-class Basic extends \ExampleCMS\Responder\Common
+class Basic extends \ExampleCMS\Application\Responder
 {
 
     /**

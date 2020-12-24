@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\View;
 
-class Basic extends \ExampleCMS\Responder\Common
+class Basic extends \ExampleCMS\Application\Responder
 {
 
     protected $templateType = 'views';

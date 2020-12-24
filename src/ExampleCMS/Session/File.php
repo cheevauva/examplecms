@@ -12,7 +12,7 @@ class File extends Session
     
     protected function getPath()
     {
-        return $this->filesystem->preparePath('cache/sessions/' . $this->sessionId);
+        return $this->filesystem->preparePath('cache/sessions/' . $this->sessionId . '.php');
     }
 
     protected function readFromStorage()

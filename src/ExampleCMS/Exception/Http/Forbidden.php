@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\HttpException;
 
-class Forbidden extends \ExampleCMS\HttpException
+class Forbidden extends \ExampleCMS\Exception\Http
 {
 
     protected $code = 400;

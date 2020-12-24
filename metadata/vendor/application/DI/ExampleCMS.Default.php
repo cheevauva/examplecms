@@ -5,46 +5,50 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
         'cacheFactory' => 'ExampleCMS\\Factory\\Cache',
     ),
-    'ExampleCMS\\Middleware' => array(
-        'container' => 'ExampleCMS\\Container',
+    'ExampleCMS\Application\Middleware\MiddlewareBus' => array(
+        'container' => 'ExampleCMS\Container',
     ),
-    'ExampleCMS\\Middleware\\Session' => array(
-        'sessionFactory' => 'ExampleCMS\\Factory\\Session',
+    'ExampleCMS\Application\Middleware\Web\Session' => array(
+        'sessionFactory' => 'ExampleCMS\Factory\Session',
+        'config' => 'ExampleCMS\Config',
     ),
     'ExampleCMS\\Factory\\Session' => array(
         'container' => 'ExampleCMS\\Container',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Middleware\\BasePath' => array(
+    'ExampleCMS\Application\Middleware\BasePath' => array(
         'config' => 'ExampleCMS\\Config',
         'bootstrap' => 'ExampleCMS\\Bootstrap',
     ),
-    'ExampleCMS\\Middleware\\Router' => array(
+    'ExampleCMS\Application\Middleware\Router' => array(
         'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\Middleware\Web\FrontController' => array(
+    'ExampleCMS\Application\Middleware\Web\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'router' => 'ExampleCMS\\Router',
         'moduleFactory' => 'ExampleCMS\\Factory\\Module',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\Middleware\CLI\FrontController' => array(
+    'ExampleCMS\Application\Middleware\CLI\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'bootstrap' => 'ExampleCMS\\Bootstrap',
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Middleware\\OopsHandler' => array(
-        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
-        'config' => 'ExampleCMS\\Config',
+    'ExampleCMS\Application\Middleware\Web\OopsHandler' => array(
+        'moduleFactory' => 'ExampleCMS\Factory\Module',
+        'config' => 'ExampleCMS\Config',
     ),
     'ExampleCMS\\Application' => array(
         'bootstrap' => 'ExampleCMS\\Bootstrap',
         'metadata' => 'ExampleCMS\\Metadata',
         'container' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\\Session\\File' => array(
-        'filesystem' => 'ExampleCMS\\Filesystem',
+    'ExampleCMS\Session\File' => array(
+        'filesystem' => 'ExampleCMS\Filesystem',
+    ),
+    'ExampleCMS\Session\Memcached' => array(
+        'cacheFactory' => 'ExampleCMS\Factory\Cache',
     ),
     'ExampleCMS\\Config' => array(
         'filesystem' => 'ExampleCMS\\Config',
@@ -63,7 +67,8 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
         'app' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\\Action\\Action' => array(
+    'ExampleCMS\Application\Action' => array(
+        'formManager' => 'ExampleCMS\FormManager',
     ),
     // layers
     'ExampleCMS\\Layer\View\Model' => array(
@@ -188,15 +193,12 @@ foreach (array(
     'ExampleCMS\\Application\\Layout\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Responder\\Common' => array(
+    'ExampleCMS\Application\Responder' => array(
         'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Application\\Column\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
-    ),
-    // datasources
-    'ExampleCMS\\DataSource\\ContextModel' => array(
     ),
     // other
     'ExampleCMS\\Metadata\\Handler\\Cache' => array(

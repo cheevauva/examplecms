@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Module\Installer\Action;
 
-class Update extends \ExampleCMS\Action\Action
+class Update extends \ExampleCMS\Application\Action\Action
 {
 
     /**

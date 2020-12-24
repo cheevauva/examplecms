@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\Layout;
 
-class Rest extends \ExampleCMS\Responder\Common
+class Rest extends \ExampleCMS\Application\Responder
 {
 
     protected $templateType = 'layouts';

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Metadata\Handler;
 
-use ExampleCMS\Metadata\Handler\Basic\MetadataArray;
+use ExampleCMS\Metadata\Arr;
 
 class Basic
 {
@@ -58,25 +58,15 @@ class Basic
 
     public function get(array $path)
     {
-        $level = reset($path);
-
         $module = [];
         $application = [];
 
         if (!empty($this->path['module'])) {
             $module = $this->filesystem->loadAsPHP($this->preparePath($this->path['module'], $path));
-
-            if (!empty($module[$level])) {
-                $module = $module[$level];
-            }
         }
 
         if (!empty($this->path['application'])) {
             $application = $this->filesystem->loadAsPHP($this->preparePath($this->path['application'], $path));
-
-            if (!empty($application[$level])) {
-                $application = $application[$level];
-            }
         }
 
         if (empty($module) && !empty($application)) {
@@ -85,7 +75,7 @@ class Basic
         }
 
 
-        return new MetadataArray($module, $application);
+        return new \ExampleCMS\Metadata\Arr($module, $application);
     }
 
 }

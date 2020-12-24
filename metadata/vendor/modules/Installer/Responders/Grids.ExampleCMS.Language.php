@@ -1,7 +1,6 @@
 <?php
 
 $grids['language'] = array(
-    'datasource' => 'installer-model',
     'name' => 'language',
     'component' => 'form',
     'rows' => array(

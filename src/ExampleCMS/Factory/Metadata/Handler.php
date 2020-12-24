@@ -36,10 +36,6 @@ class Handler extends \ExampleCMS\Factory\Factory
         $component->setType($handler);
         $component->setRoute($handlerMetadata['route']);
 
-        if (!empty($handlerMetadata['switch'])) {
-            $component->setSwitch($handlerMetadata['switch']);
-        }
-        
         if (empty($handlerMetadata['disableCache'])) {
             $cacheComponent = $this->container->create($this->handlersMetadata['cache']['component']);
             $cacheComponent->handler = $component;

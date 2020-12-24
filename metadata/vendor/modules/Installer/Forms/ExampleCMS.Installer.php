@@ -5,7 +5,6 @@ $forms['database'] = array(
     'component' => 'base',
     'method' => 'POST',
     'route' => 'database_save',
-    'datasource' => 'installer-model',
     'mapping' => array(
         'mysql_host' => 'host',
         'mysql_username' => 'username',
@@ -19,7 +18,6 @@ $forms['language'] = array(
     'component' => 'base',
     'method' => 'POST',
     'route' => 'language_save',
-    'datasource' => 'installer-model',
     'mapping' => array(
         'language' => 'language',
     ),

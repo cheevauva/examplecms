@@ -14,6 +14,7 @@ class MergeFiles
     const SECTION = 'section';
     const FILTER = 'filter';
     const NAME = 'name';
+    const PRESET_MARK = '// @preset ';
 
     /**
      * @var array 
@@ -37,79 +38,95 @@ class MergeFiles
 
         $this->params = $params;
 
-        $basePaths = array_values($params[static::PATHBASE]);
-        $basePathsCount = count($basePaths);
-        $basePathIndex = 0;
-
-        while ($basePathIndex < $basePathsCount) {
-            $currentBasePath = $basePaths[$basePathIndex];
-
-            $this->process($currentBasePath);
-
-            $basePathIndex++;
-        }
-    }
-
-    public function process(string $basePath)
-    {
         $path = $this->params[static::PATH];
         $modules = $this->params[static::MODULES];
-        $basePaths = array_values($this->params[static::PATHBASE]);
+
+        $paths = [];
 
         if ($this->params[static::LEVEL] !== 'application') {
             foreach ($modules as $module) {
-                $extension = [];
-
-                foreach ($basePaths as $basePath) {
-                    $extpath = "modules/$module/$path";
-                    $override = [];
-
-                    foreach (glob($basePath . '/' . $extpath . '/*') as $entry) {
-
-                        if ($this->isPass($entry) && is_file($entry)) {
-                            if (substr($entry, 0, 9) == '_override') {
-                                $override[] = $entry;
-                            } else {
-                                $extension[] = file_get_contents($entry);
-                            }
-                        }
-                    }
-
-                    foreach ($override as $entry) {
-                        $extension[] = file_get_contents($entry);
-                    }
-
-                    $this->saveExtension($extension, $extpath);
-                }
+                $paths[] = "modules/$module/$path";
             }
         }
 
         if ($this->params[static::LEVEL] !== 'module') {
-            $extension = [];
+            $paths[] = "application/$path";
+        }
 
-            foreach ($basePaths as $basePath) {
-                $extpath = "application/$path";
+        foreach ($paths as $path) {
+            $extensions = $this->prepareExtensions($path);
 
-                foreach (glob($basePath . '/' . $extpath . '/*') as $entry) {
-                    if ($this->isPass($entry) && is_file($entry)) {
-                        $extension[] .= file_get_contents($entry);
-                    }
+            foreach ($extensions as $index => $extension) {
+                if (strpos($extension, static::PRESET_MARK) !== false) {
+                    $presets = $this->getPresetsByPathAndExtension($path, $extension);
+                    $extensions[$index] = strtr($extension, $presets);
                 }
             }
 
-            $this->saveExtension($extension, $extpath);
+            $this->saveExtension($extensions, $path);
         }
+    }
+
+    protected function getPresetsByPathAndExtension($path, $extension)
+    {
+        $result = [];
+        $basePaths = array_values($this->params[static::PATHBASE]);
+
+        $presets = array_filter(explode("\n", $extension), function ($line) {
+            return strpos($line, static::PRESET_MARK) !== false;
+        });
+
+        foreach ($presets as $preset) {
+            $presetBasename = str_replace(static::PRESET_MARK, '', trim($preset));
+            $presetFilename = $presetBasename;
+            
+            if (strpos($presetBasename, '/') === false) {
+                $presetFilename = $path . '/' . $presetBasename;
+            }
+            
+            $presetExtensions = [];
+
+            foreach ($basePaths as $basePath) {
+                $file = $basePath . '/presets/' . $presetFilename;
+
+                if (!is_file($file)) {
+                    continue;
+                }
+
+                $code = file_get_contents($file);
+                $presetExtensions[] = $this->removeTrashFromCode($code);
+            }
+
+            $result[$preset] = implode(PHP_EOL, $presetExtensions);
+        }
+
+        return $result;
+    }
+
+    protected function prepareExtensions($extpath)
+    {
+        $basePaths = array_values($this->params[static::PATHBASE]);
+        $extensions = [];
+
+        foreach ($basePaths as $basePath) {
+            foreach (glob($basePath . '/' . $extpath . '/*') as $file) {
+                if ($this->isPass($file) && is_file($file)) {
+                    $extensions[] = file_get_contents($file);
+                }
+            }
+        }
+        return $extensions;
     }
 
     protected function saveExtension($extension, $extpath)
     {
         $name = $this->params[static::NAME];
-        $pathBase = $this->params[static::PATHTARGET];
+        $targetPath = $this->params[static::PATHTARGET];
 
         if (empty($name)) {
-            $dir = dirname("$pathBase/$extpath");
+            $dir = dirname("$targetPath/$extpath");
         } else {
-            $dir = dirname("$pathBase/$extpath/$name");
+            $dir = dirname("$targetPath/$extpath/$name");
         }
 
         if (!file_exists($dir)) {
@@ -127,9 +144,9 @@ class MergeFiles
         $extension[] = 'return $' . $this->params[static::SECTION] . ';';
 
         if (empty($name)) {
-            file_put_contents("$pathBase/$extpath.php", implode(PHP_EOL, array_filter($extension)));
+            file_put_contents("$targetPath/$extpath.php", implode(PHP_EOL, array_filter($extension)));
         } else {
-            file_put_contents("$pathBase/$extpath/$name.php", implode(PHP_EOL, array_filter($extension)));
+            file_put_contents("$targetPath/$extpath/$name.php", implode(PHP_EOL, array_filter($extension)));
         }
     }
 
@@ -139,8 +156,10 @@ class MergeFiles
      */
     protected function isPass(string $file): bool
     {
+        $fileParts = explode('.', basename($file));
+
         $result = true;
-        $result &= (empty($this->params[static::FILTER]) || substr_count($file, $this->params[static::FILTER]) > 0);
+        $result &= empty($this->params[static::FILTER]) || $this->params[static::FILTER] === $fileParts[0];
         $result &= $file !== '.';
         $result &= $file !== '..';
         $result &= strtolower(substr($file, -4)) === ".php";

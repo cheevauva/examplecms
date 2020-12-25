@@ -1,3 +1,3 @@
 <?php
 
-require 'cache/metadata/application/Routes/websetup.php';
+// @preset setup.ExampleCMS.Installer.php

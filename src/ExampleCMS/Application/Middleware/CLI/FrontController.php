@@ -2,7 +2,9 @@
 
 namespace ExampleCMS\Application\Middleware\CLI;
 
-class FrontController extends \ExampleCMS\Middleware\Web\FrontController
+use \ExampleCMS\Application\Middleware\Web\FrontController as WebFrontController;
+
+class FrontController extends WebFrontController
 {
 
     public $moduleFactory;

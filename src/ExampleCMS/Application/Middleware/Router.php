@@ -12,7 +12,7 @@ class Router
 
     public function __invoke($request, $response, $next)
     {
-        $path = str_replace($request->getAttribute('basePath'), '', $request->getUri()->getPath());
+        $path = str_replace($request->getAttribute('baseUrl'), '', $request->getUri()->getPath());
 
         if (empty($path)) {
             $path = '/';

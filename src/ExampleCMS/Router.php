@@ -47,13 +47,6 @@ class Router implements \ExampleCMS\Contract\Container\Mediator
 
     public function prepare()
     {
-        $this->baseUrl = $this->config->get(array(
-            'base',
-            'applications',
-            $this->bootstrap->getAppName(),
-            'basePath',
-        ));
-
         foreach ($this->getRoutes() as $routeName => $route) {
             $this->altoRouter->map($route['method'], $route['route'], $route['target'], $routeName);
         }
@@ -83,7 +76,19 @@ class Router implements \ExampleCMS\Contract\Container\Mediator
 
     public function make($route, array $params = array())
     {
-        return $this->baseUrl . $this->altoRouter->generate($route, $params);
+        return $this->altoRouter->generate($route, $params);
+    }
+
+    public function makeWithRequest($request, $route, array $params = array())
+    {
+        if ($this->config->get(['base', 'semantic_url'])) {
+            $baseUrl = $request->getAttribute('baseUrl');
+        } else {
+            $server = $request->getServerParams();
+            $baseUrl = $server['SCRIPT_NAME'];
+        }
+
+        return $baseUrl . $this->make($route, $params);
     }
 
     public function generate($route, array $params = array())

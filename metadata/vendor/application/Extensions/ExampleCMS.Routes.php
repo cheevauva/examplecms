@@ -35,3 +35,10 @@ $extensions['routes_rest'] = [
     'filter' => 'rest',
     'name' => 'rest',
 ];
+$extensions['routes_restsetup'] = [
+    'section' => 'routes',
+    'extdir' => 'Routes',
+    'level' => 'application',
+    'filter' => 'restsetup',
+    'name' => 'restsetup',
+];

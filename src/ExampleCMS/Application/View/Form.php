@@ -5,6 +5,11 @@ namespace ExampleCMS\Application\View;
 class Form extends Basic
 {
 
+    /**
+     * @var \ExampleCMS\Contract\Router
+     */
+    public $router;
+
     protected function getDefaultData()
     {
         return [
@@ -21,7 +26,7 @@ class Form extends Basic
         if (empty($data['forms'])) {
             $data['forms'] = $request->getAttribute('forms');
         }
-        
+
         $model = $request->getAttribute('model');
 
         if (!$model) {
@@ -40,7 +45,7 @@ class Form extends Basic
         }
 
         $data['method'] = $model->getMethod();
-        $data['action'] = $model->getAction();
+        $data['action'] = $this->getAction($model, $request);
         $data['state'] = $model->getState();
         $data['state_reason'] = $model->getStateReason();
 
@@ -49,6 +54,14 @@ class Form extends Basic
         }
 
         return $data;
+    }
+
+    public function getAction($model, $request)
+    {
+        $metadata = $model->getMetadata();
+        $params = $model->toArray();
+
+        return $this->router->makeWithRequest($request, $metadata['route'], $params);
     }
 
 }

@@ -5,10 +5,7 @@ namespace ExampleCMS\Model;
 class Form extends \ExampleCMS\Model implements \ExampleCMS\Contract\Model\Form
 {
 
-    /**
-     * @var \ExampleCMS\Contract\Router
-     */
-    public $router;
+
 
     /**
      * @var array
@@ -108,18 +105,6 @@ class Form extends \ExampleCMS\Model implements \ExampleCMS\Contract\Model\Form
         $this->attributes = $model->toArray();
     }
 
-    public function getAction()
-    {
-        $params = array(
-            'module' => $this->get('module'),
-        );
-
-        if ($this->getDomain()) {
-            $params['id'] = $this->getDomain()->get('id');
-        }
-
-        return $this->router->generate($this->metadata['route'], $params);
-    }
 
     /**
      * @param array $metadata

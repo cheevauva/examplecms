@@ -7,27 +7,10 @@ class BasePath
 
     public function __invoke($request, $response, $next)
     {
-        $baseUrl = $this->config->get([
-            'base',
-            'applications',
-            $this->bootstrap->getAppName(),
-            'basePath',
-        ]);
+        $server = $request->getServerParams();
 
-        $basePath = $this->getBasePath($request);
-
-        if (empty($baseUrl)) {
-            $baseUrl = $basePath;
-            $baseUrl = $this->config->set([
-                'base',
-                'applications',
-                $this->bootstrap->getAppName(),
-                'basePath',
-            ], $baseUrl);
-        }
-
-        $request = $request->withAttribute('baseUrl', $baseUrl);
-        $request = $request->withAttribute('basePath', $basePath);
+        $request = $request->withAttribute('baseUrl', $this->getBasePath($request));
+        $request = $request->withAttribute('basePath', dirname($server['SCRIPT_NAME']) . '/');
 
         return $next($request, $response);
     }

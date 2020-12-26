@@ -14,14 +14,12 @@ class FrontController
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
+    
+    const CONTENT_TYPE_DEFAULT = 'text/html';
 
     public function __invoke($request, $response, $next)
     {
         $module = $this->getModuleByRequest($request);
-        $this->moduleFactory->get('Default');
-        $this->moduleFactory->get('Default');
-        $this->moduleFactory->get('Default');
-        $this->moduleFactory->get('Default');
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
 
@@ -49,7 +47,20 @@ class FrontController
             $response->getBody()->write($content);
         }
 
+        $response = $this->contentTypeByRequest($request, $response);
+
         return $next($request, $response);
+    }
+
+    public function contentTypeByRequest($request, $response)
+    {
+        $contentType = $request->getAttribute('contentType');
+
+        if (empty($contentType)) {
+            $contentType = static::CONTENT_TYPE_DEFAULT;
+        }
+
+        return $response->withHeader('Content-Type', $contentType);
     }
 
     public function redirectByRequest($request, $response)
@@ -57,7 +68,7 @@ class FrontController
         $redirect = $request->getAttribute('redirect');
 
         if (!empty($redirect)) {
-            $location = $this->router->make($redirect['route'], $redirect['params']);
+            $location = $this->router->makeWithRequest($request, $redirect['route'], $redirect['params']);
 
             $response = $response->withHeader('Location', $location);
             $response = $response->withStatus(301);

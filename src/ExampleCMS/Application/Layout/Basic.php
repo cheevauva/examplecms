@@ -28,7 +28,7 @@ class Basic extends \ExampleCMS\Application\Responder
     public function execute($request)
     {
         $metadata = parent::execute($request);
-        $metadata['baseUrl'] = $request->getAttribute('baseUrl');
+        $metadata['basePath'] = $request->getAttribute('basePath');
 
         $views = [];
 

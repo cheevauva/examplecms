@@ -14,4 +14,10 @@ $extensions['applications_cli'] = [
     'filter' => 'cli',
     'name' => 'cli',
 ];
-
+$extensions['applications_rest'] = [
+    'section' => 'applications',
+    'extdir' => 'Applications',
+    'level' => 'application',
+    'filter' => 'rest',
+    'name' => 'rest',
+];

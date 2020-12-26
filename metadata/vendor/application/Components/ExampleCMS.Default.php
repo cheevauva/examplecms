@@ -29,6 +29,7 @@ foreach (array(
     'layouts.index' => 'ExampleCMS\\Application\\Layout\\Basic',
     'layouts.basic' => 'ExampleCMS\\Application\\Layout\\Basic',
     'layouts.exception' => 'ExampleCMS\\Application\\Layout\\Basic',
+    'layouts.json-exception' => 'ExampleCMS\\Application\\Layout\\Basic',
     'layouts.designer' => 'ExampleCMS\\Application\\Layout\\Basic',
     'layouts.single-view' => 'ExampleCMS\\Application\\Layout\\Basic',
     'layouts.rest' => 'ExampleCMS\\Application\\Layout\\Rest',

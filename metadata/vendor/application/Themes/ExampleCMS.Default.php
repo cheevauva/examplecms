@@ -74,5 +74,6 @@ $themes = array(
         'grids.views.designer-json' => 'tpls/themes/modules/grids/views/designer-json.php',
         'grids.views.designer' => 'tpls/themes/modules/grids/views/designer.php',
         'default.layouts.empty' => 'tpls/themes/default/layouts/empty.php',
+        'default.layouts.json-exception' => 'tpls/themes/default/layouts/json-exception.php',
     ),
 );

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <base href="<?= $baseUrl; ?>"/>
+        <base href="<?= $basePath; ?>"/>
         <meta charset="utf-8"/>
         <title>ExampleCMS</title>
         <link href="js/require.css" rel="stylesheet" type="text/css">

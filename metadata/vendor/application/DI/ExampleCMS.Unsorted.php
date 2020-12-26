@@ -83,6 +83,7 @@ foreach (array(
     // factories
     'ExampleCMS\\Application\\View\\Form' => array(
         'formManager' => 'ExampleCMS\\FormManager',
+        'router' => 'ExampleCMS\Router',
     ),
     'ExampleCMS\\Factory\\Form\\Binder' => array(
         'config' => 'ExampleCMS\\Config',

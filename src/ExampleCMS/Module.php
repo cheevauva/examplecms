@@ -28,7 +28,7 @@ class Module implements \ExampleCMS\Contract\Module
         $this->module = $module;
         $this->componentMetadata = $this->metadata->get(['components', (string) $this->module]);
     }
-    
+
     public function __toString()
     {
         return $this->module;
@@ -43,7 +43,12 @@ class Module implements \ExampleCMS\Contract\Module
         ]);
 
         if (empty($responderMetadata[$component]['component'])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('"type" for "%s" is not define', $target));
+            throw new \ExampleCMS\Exception\Metadata(sprintf('"component" for "%s" is not define', implode('.', [
+                $component,
+                'responders',
+                ucfirst($type),
+                (string) $this->module,
+            ])));
         }
 
         return $responderMetadata[$component];
@@ -137,11 +142,11 @@ class Module implements \ExampleCMS\Contract\Module
     public function form($form)
     {
         $metadata = $form;
-        
+
         if (is_string($form)) {
             $metadata = $this->getFormMetadata($form);
         }
-        
+
         $component = $this->getForm($metadata['component']);
         $component->setMetadata($metadata);
 

@@ -76,3 +76,19 @@ $layouts['exception'] = array(
         'asset' => 'asset',
     ),
 );
+$layouts['json-exception'] = array(
+    'component' => 'json-exception',
+    'views' => array(
+        'body' => array(
+            'component' => 'exception',
+        ),
+    ),
+);
+$layouts['json'] = array(
+    'component' => 'json',
+    'views' => array(
+        'body' => array(
+            'component' => 'json',
+        ),
+    ),
+);

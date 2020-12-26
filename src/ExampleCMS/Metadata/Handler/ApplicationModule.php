@@ -2,30 +2,30 @@
 
 namespace ExampleCMS\Metadata\Handler;
 
-use ExampleCMS\Metadata\Arr;
-
 class ApplicationModule extends Handler
 {
 
+    public $metadataHandlerFactory;
+
     public function get(array $path)
     {
-        $module = [];
-        $application = [];
+        $applicationHandler = $this->metadataHandlerFactory->get($this->metadata['route']['application']);
+        $moduleHandler = $this->metadataHandlerFactory->get($this->metadata['route']['module']);
 
-        if (!empty($this->route['module'])) {
-            $module = $this->filesystem->loadAsPHP($this->preparePath($this->route['module'], $path));
-        }
+        $module = $moduleHandler->get($path);
+        
+        $pathApplication = $path;
 
-        if (!empty($this->route['application'])) {
-            $application = $this->filesystem->loadAsPHP($this->preparePath($this->route['application'], $path));
-        }
+        array_pop($pathApplication);
+        
+        $application = $applicationHandler->get($pathApplication);
 
         if (empty($module) && !empty($application)) {
             $module = $application;
             $application = [];
         }
 
-        return new Arr($module, $application);
+        return new \ExampleCMS\Metadata\Arr($module, $application);
     }
 
 }

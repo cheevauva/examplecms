@@ -1,10 +1,6 @@
 <?php
 
 foreach (array(
-    'ExampleCMS\\Cache' => array(
-        'config' => 'ExampleCMS\\Config',
-        'cacheFactory' => 'ExampleCMS\\Factory\\Cache',
-    ),
     'ExampleCMS\Application\Middleware\MiddlewareBus' => array(
         'container' => 'ExampleCMS\Container',
     ),
@@ -46,16 +42,13 @@ foreach (array(
     ),
     'ExampleCMS\Session\File' => array(
         'filesystem' => 'ExampleCMS\Filesystem',
+        'cacheFactory' => 'ExampleCMS\Factory\Cache',
     ),
     'ExampleCMS\Session\Memcached' => array(
         'cacheFactory' => 'ExampleCMS\Factory\Cache',
     ),
     'ExampleCMS\\Config' => array(
-        'filesystem' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Factory\\Cache' => array(
-        'memory' => 'ExampleCMS\\Cache\\Memory',
-        'memcached' => 'ExampleCMS\\Cache\\Memcached',
+        'filesystem' => 'ExampleCMS\Filesystem',
     ),
     'ExampleCMS\\Router' => array(
         'config' => 'ExampleCMS\\Config',
@@ -88,36 +81,6 @@ foreach (array(
         'metadata' => 'ExampleCMS\\Metadata',
     ),
     // factories
-    'ExampleCMS\\Factory\\Database\\Connection' => array(
-        'config' => 'ExampleCMS\\Config',
-        'filesystem' => 'ExampleCMS\\Filesystem',
-    ),
-    'ExampleCMS\\Factory\Form' => array(
-        'container' => 'ExampleCMS\\Container',
-        'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Factory\\Database\\Table' => array(
-        'config' => 'ExampleCMS\\Config',
-        'connectionFactory' => 'ExampleCMS\\Factory\\Database\\Connection'
-    ),
-    'ExampleCMS\\Factory\\Database\\Table' => array(
-        'config' => 'ExampleCMS\\Config',
-        'connectionFactory' => 'ExampleCMS\\Factory\\Database\\Connection'
-    ),
-    'ExampleCMS\\Factory\\Exception' => array(
-        'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Factory\\Factory' => array(
-        'metadata' => 'ExampleCMS\\Metadata',
-        'container' => 'ExampleCMS\\Container',
-    ),
-    'ExampleCMS\\Factory\\Metadata\\Handler' => array(
-        'filesystem' => 'ExampleCMS\\Filesystem',
-    ),
-    'ExampleCMS\\Factory\\View\\Grid' => array(
-        'config' => 'ExampleCMS\\Config',
-        'container' => 'ExampleCMS\\Container',
-    ),
     'ExampleCMS\\Application\\View\\Form' => array(
         'formManager' => 'ExampleCMS\\FormManager',
     ),
@@ -165,7 +128,7 @@ foreach (array(
         'metadata' => 'ExampleCMS\\Metadata',
     ),
     'ExampleCMS\\Metadata' => array(
-        'metadataHandlerFactory' => 'ExampleCMS\\Factory\\Metadata\\Handler',
+        'metadataHandlerFactory' => 'ExampleCMS\\Factory\\MetadataHandler',
     ),
     'ExampleCMS\\EventManager' => array(
         'container' => 'ExampleCMS\\Container',
@@ -200,10 +163,12 @@ foreach (array(
     'ExampleCMS\\Application\\Column\\Basic' => array(
         'config' => 'ExampleCMS\\Config',
     ),
-    // other
-    'ExampleCMS\Metadata\Handler\Cache' => array(
-        'cache' => 'ExampleCMS\Cache',
+    'ExampleCMS\Metadata\Handler\ApplicationModule' => array(
+        'metadataHandlerFactory' => 'ExampleCMS\\Factory\\MetadataHandler',
     ),
 ) as $name => $value) {
     $di[$name] = $value;
 }
+$di['ExampleCMS\Application\Action\Action'] = array(
+    'formManager' => 'ExampleCMS\FormManager',
+);

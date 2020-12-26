@@ -18,7 +18,10 @@ class FrontController
     public function __invoke($request, $response, $next)
     {
         $module = $this->getModuleByRequest($request);
-
+        $this->moduleFactory->get('Default');
+        $this->moduleFactory->get('Default');
+        $this->moduleFactory->get('Default');
+        $this->moduleFactory->get('Default');
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
 

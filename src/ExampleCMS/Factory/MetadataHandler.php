@@ -6,9 +6,9 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Factory\Metadata;
+namespace ExampleCMS\Factory;
 
-class Handler extends \ExampleCMS\Factory\Factory
+class MetadataHandler extends \ExampleCMS\Factory\Factory
 {
 
     /**
@@ -30,15 +30,19 @@ class Handler extends \ExampleCMS\Factory\Factory
         $this->loadHandlersMetadata();
 
         $handlerMetadata = $this->handlersMetadata[$handler];
+        $handlerMetadata['name'] = $handler;
 
         $component = $this->container->create($handlerMetadata['component']);
+        $component->setMetadata($handlerMetadata);
         $component->filesystem = $this->filesystem;
-        $component->setType($handler);
-        $component->setRoute($handlerMetadata['route']);
 
-        if (empty($handlerMetadata['disableCache'])) {
+        if (empty($handlerMetadata['cache']['disable'])) {
+            $cacheHandlerMetadata = $handlerMetadata;
+            $cacheHandlerMetadata['name'] = $handler;
+            $cacheHandlerMetadata['component'] = $component;
+
             $cacheComponent = $this->container->create('ExampleCMS\Metadata\Handler\Cache');
-            $cacheComponent->handler = $component;
+            $cacheComponent->setMetadata($cacheHandlerMetadata);
 
             $this->handlers[$handler] = $cacheComponent;
         } else {

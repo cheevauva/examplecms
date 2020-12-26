@@ -47,8 +47,8 @@ class Basic implements \ExampleCMS\Contract\Responder\Theme
         $this->language = $language;
         $this->languages = $this->metadata->get(array(
             'languages',
+            $this->language,
             (string) $this->module,
-            $this->language // Временно захардкодил
         ));
     }
 

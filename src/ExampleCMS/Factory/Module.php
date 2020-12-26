@@ -17,19 +17,26 @@ class Module extends Factory
     protected $modules;
 
     /**
+     * @var array
+     */
+    protected $metadataModules;
+
+    /**
      * @var \ExampleCMS\Container;
      */
     public $container;
 
     public function get($module)
     {
+        if (empty($this->metadataModules)) {
+            $this->metadataModules = $this->metadata->get(['modules']);
+        }
+
         if (isset($this->modules[$module])) {
             return $this->modules[$module];
         }
 
-        $modules = $this->metadata->get(['modules']);
-
-        if (empty($modules[$module])) {
+        if (empty($this->metadataModules[$module])) {
             throw new \ExampleCMS\Exception\Metadata(sprintf('module "%s" is not defined', $module));
         }
 

@@ -1,15 +1,9 @@
 <?php
 
-namespace ExampleCMS;
+namespace ExampleCMS\Cache;
 
 class Cache implements \ExampleCMS\Contract\Container\Mediator
 {
-
-    /**
-     * @var \ExampleCMS\Config
-     */
-    public $config;
-
     /**
      * @var \ExampleCMS\Contract\Factory\Cache
      */

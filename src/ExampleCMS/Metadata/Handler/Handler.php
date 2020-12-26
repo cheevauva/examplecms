@@ -13,26 +13,28 @@ abstract class Handler
     /**
      * @var string
      */
-    protected $type;
+    protected $name;
+
+    /**
+     * @var array
+     */
+    protected $metadata;
 
     /**
      * @var \ExampleCMS\Contract\Filesystem
      */
     public $filesystem;
 
-    public function setType($type)
+    public function setMetadata(array $metadata)
     {
-        $this->type = $type;
+        $this->metadata = $metadata;
+        $this->name = $metadata['name'];
+        $this->route = $metadata['route'];
     }
 
-    public function setRoute($route)
+    public function getName()
     {
-        $this->route = $route;
-    }
-
-    public function getType()
-    {
-        return $this->type;
+        return $this->name;
     }
 
     protected function preparePath($sourcePath, $vars)

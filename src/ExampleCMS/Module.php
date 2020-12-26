@@ -25,11 +25,10 @@ class Module implements \ExampleCMS\Contract\Module
 
     public function init($module)
     {
-        $this->data = $this->metadata->get(['modules', $module]);
         $this->module = $module;
         $this->componentMetadata = $this->metadata->get(['components', (string) $this->module]);
     }
-
+    
     public function __toString()
     {
         return $this->module;

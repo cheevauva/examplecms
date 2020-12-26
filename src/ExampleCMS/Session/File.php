@@ -6,31 +6,18 @@ class File extends Session
 {
 
     /**
-     * @var \ExampleCMS\Contract\Filesystem
+     * @var \ExampleCMS\Factory\Cache
      */
-    public $filesystem;
-    
-    protected function getPath()
-    {
-        return $this->filesystem->preparePath('cache/sessions/' . $this->sessionId . '.php');
-    }
+    public $cacheFactory;
 
     protected function readFromStorage()
     {
-        opcache_invalidate($this->getPath());
-        
-        return include $this->getPath();
+        return $this->cacheFactory->get('fileSession')->get($this->sessionId);
     }
 
     protected function writeToStorage()
     {
-        $path = $this->getPath();
-        
-        if (!is_dir(dirname($path))) {
-            mkdir(dirname($path), 0777, true);
-        }
-        
-        file_put_contents($path, "<?php\nreturn " . var_export($this->session, true) . ';');
+        $this->cacheFactory->get('fileSession')->set($this->sessionId, $this->session);
     }
 
 }

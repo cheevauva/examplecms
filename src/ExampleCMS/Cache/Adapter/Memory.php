@@ -1,15 +1,14 @@
 <?php
 
-namespace ExampleCMS\Cache;
+namespace ExampleCMS\Cache\Adapter;
 
-class Memory
+class Memory extends Adapter
 {
 
     /**
-     * @var \ExampleCMS\Contact\Config
+     * @var array
      */
-    public $config;
-    protected $data = array();
+    protected $data = [];
 
     public function get($key)
     {
@@ -24,4 +23,5 @@ class Memory
     {
         $this->data[$key] = $value;
     }
+
 }

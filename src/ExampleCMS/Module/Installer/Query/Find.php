@@ -8,13 +8,11 @@ class Find
     const REQUEST = 'request';
 
     protected $module;
+    public $cacheFactory;
 
     public function execute(array $params = [])
     {
-        $request = $params[static::REQUEST];
-
-        $session = $request->getAttribute('session');
-        $install = $session->get('setup_settings');
+        $install = $this->cacheFactory->get('fileInstaller')->get('options');
 
         if (empty($install)) {
             $install = [];

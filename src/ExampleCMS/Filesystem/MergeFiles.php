@@ -15,6 +15,7 @@ class MergeFiles
     const FILTER = 'filter';
     const NAME = 'name';
     const PRESET_MARK = '// @preset ';
+    const PRESETVAR = '@presetvar';
 
     /**
      * @var array 
@@ -77,13 +78,15 @@ class MergeFiles
         });
 
         foreach ($presets as $preset) {
-            $presetBasename = str_replace(static::PRESET_MARK, '', trim($preset));
+            $presetCommandLine = explode(' ', str_replace(static::PRESET_MARK, '', trim($preset)));
+            $presetBasename = reset($presetCommandLine);
             $presetFilename = $presetBasename;
-            
+            $presetVars = [];
+
             if (strpos($presetBasename, '/') === false) {
                 $presetFilename = $path . '/' . $presetBasename;
             }
-            
+
             $presetExtensions = [];
 
             foreach ($basePaths as $basePath) {
@@ -97,7 +100,11 @@ class MergeFiles
                 $presetExtensions[] = $this->removeTrashFromCode($code);
             }
 
-            $result[$preset] = implode(PHP_EOL, $presetExtensions);
+            foreach ($presetCommandLine as $index => $value) {
+                $presetVars[static::PRESETVAR . $index] = $value;
+            }
+            
+            $result[$preset] = strtr(implode(PHP_EOL, $presetExtensions), $presetVars);
         }
 
         return $result;

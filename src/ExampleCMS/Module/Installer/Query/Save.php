@@ -12,12 +12,9 @@ class Save
 
     public function execute(array $params = [])
     {
-        $request = $params[static::REQUEST];
         $model = $params[static::MODEL];
 
-        $session = $request->getAttribute('session');
-        $session->set('setup_settings', $model->toArray());
-        $session->set('language', $model->get('language'));
+        $this->cacheFactory->get('fileInstaller')->set('options', $model->toArray());
     }
 
     public function setModule($module): void

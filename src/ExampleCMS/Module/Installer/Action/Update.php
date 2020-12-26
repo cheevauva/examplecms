@@ -20,7 +20,7 @@ class Update extends \ExampleCMS\Application\Action\Action
         }
 
         $model = null;
-        
+
         $find = $this->module->query('find');
         $model = $find->execute([
             $find::REQUEST => $request,
@@ -30,9 +30,11 @@ class Update extends \ExampleCMS\Application\Action\Action
 
         $save = $this->module->query('save');
         $save->execute([
-            $save::REQUEST => $request,
             $save::MODEL => $model,
         ]);
+
+        $session = $request->getAttribute('session');
+        $session->set('language', $model->get('language'));
 
         return $request->withAttribute('model', $model);
     }

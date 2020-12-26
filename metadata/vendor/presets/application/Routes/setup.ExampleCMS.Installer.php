@@ -1,5 +1,7 @@
 <?php
 
+// begin code from preset @presetvar0
+
 $routes['main'] = array(
     'method' => 'GET',
     'route' => '/',
@@ -85,3 +87,5 @@ $routes['database_save'] = array(
         ],
     ),
 );
+
+// end code from preset @presetvar0

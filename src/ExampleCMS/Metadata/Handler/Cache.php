@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Metadata\Handler;
 
-class Cache extends Basic
+class Cache extends Handler
 {
 
     public $handler;
@@ -19,9 +19,10 @@ class Cache extends Basic
         }
 
         $data = $this->handler->get($path);
-        
+
         $this->cache->set($key, $data);
 
         return $data;
     }
+
 }

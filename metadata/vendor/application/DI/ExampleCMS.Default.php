@@ -201,8 +201,8 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
     ),
     // other
-    'ExampleCMS\\Metadata\\Handler\\Cache' => array(
-        'cache' => 'ExampleCMS\\Cache',
+    'ExampleCMS\Metadata\Handler\Cache' => array(
+        'cache' => 'ExampleCMS\Cache',
     ),
 ) as $name => $value) {
     $di[$name] = $value;

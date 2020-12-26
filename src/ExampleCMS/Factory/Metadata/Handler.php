@@ -37,7 +37,7 @@ class Handler extends \ExampleCMS\Factory\Factory
         $component->setRoute($handlerMetadata['route']);
 
         if (empty($handlerMetadata['disableCache'])) {
-            $cacheComponent = $this->container->create($this->handlersMetadata['cache']['component']);
+            $cacheComponent = $this->container->create('ExampleCMS\Metadata\Handler\Cache');
             $cacheComponent->handler = $component;
 
             $this->handlers[$handler] = $cacheComponent;

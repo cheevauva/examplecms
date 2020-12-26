@@ -9,3 +9,5 @@ $language['mysql_password'] = 'Password';
 $language['mysql_database'] = 'Database name';
 $language['sqlite_settings'] = 'Connection settings for SQLite';
 $language['sqlite_filename'] = 'Path to database file';
+$language['language_installer'] = 'Installer language';
+$language['language_system'] = 'System language';

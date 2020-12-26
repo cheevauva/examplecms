@@ -34,7 +34,7 @@ class Update extends \ExampleCMS\Application\Action\Action
         ]);
 
         $session = $request->getAttribute('session');
-        $session->set('language', $model->get('language'));
+        $session->set('language', $model->get('language_installer'));
 
         return $request->withAttribute('model', $model);
     }

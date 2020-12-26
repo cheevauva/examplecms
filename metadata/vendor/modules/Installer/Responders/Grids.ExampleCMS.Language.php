@@ -12,7 +12,7 @@ $grids['language'] = array(
                     'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'language',
+                            'label' => 'language_installer',
                         ),
                     )
                 ),
@@ -21,14 +21,40 @@ $grids['language'] = array(
                     'fields' => array(
                         array(
                             'component' => 'enum',
-                            'name' => 'language',
+                            'name' => 'language_installer',
                             'default' => 'en_US',
                             'template' => 'form',
                             'options' => 'languages',
                         ),
                     )
                 ),
-            )
+            ),
+        ),
+        array(
+            'component' => 'default',
+            'columns' => array(
+                array(
+                    'component' => 'default',
+                    'fields' => array(
+                        array(
+                            'component' => 'label',
+                            'label' => 'language_system',
+                        ),
+                    )
+                ),
+                array(
+                    'component' => 'default',
+                    'fields' => array(
+                        array(
+                            'component' => 'enum',
+                            'name' => 'language_system',
+                            'default' => 'en_US',
+                            'template' => 'form',
+                            'options' => 'languages',
+                        ),
+                    )
+                ),
+            ),
         ),
         array(
             'component' => 'default',

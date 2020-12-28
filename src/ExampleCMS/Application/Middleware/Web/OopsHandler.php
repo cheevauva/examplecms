@@ -17,7 +17,7 @@ class OopsHandler
             } else {
                 $module = $this->moduleFactory->get($this->config->get(['base', 'module']));
             }
-            
+
             $themeName = $request->getAttribute('theme');
 
             if (empty($themeName)) {
@@ -25,7 +25,7 @@ class OopsHandler
             }
 
             $data = $module->layout('exception')->execute($request);
-            $content = $module->theme($themeName)->make($data);
+            $content = $this->getThemeByRequest($request)->make($data);
 
             $response->getBody()->write($content);
         }
@@ -36,6 +36,22 @@ class OopsHandler
     protected function getModuleByRequest($request)
     {
         return $this->moduleFactory->get($request->getAttribute('module'));
+    }
+
+    protected function getThemeByRequest($request)
+    {
+        $theme = $request->getAttribute('theme');
+        $session = $request->getAttribute('session');
+
+        if (empty($theme)) {
+            $theme = $session->get('theme');
+
+            if (!$theme) {
+                $theme = $this->config->get('base.theme');
+            }
+        }
+
+        return $this->themeFactory->get($theme);
     }
 
 }

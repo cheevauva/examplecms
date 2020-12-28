@@ -23,7 +23,8 @@ foreach (array(
     'ExampleCMS\Application\Middleware\Web\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'router' => 'ExampleCMS\\Router',
-        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
+        'moduleFactory' => 'ExampleCMS\Factory\Module',
+        'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\Application\Middleware\CLI\FrontController' => array(
@@ -33,6 +34,7 @@ foreach (array(
     ),
     'ExampleCMS\Application\Middleware\Web\OopsHandler' => array(
         'moduleFactory' => 'ExampleCMS\Factory\Module',
+        'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\Config',
     ),
     'ExampleCMS\\Application' => array(

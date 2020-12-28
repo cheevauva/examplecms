@@ -16,7 +16,7 @@ $handlers['routes'] = array(
 );
 $handlers['themes'] = array(
     'route' => [
-        'application' => 'cache/metadata/application/Themes.php',
+        'application' => 'cache/metadata/application/Responders/Themes.php',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\Application',
 );

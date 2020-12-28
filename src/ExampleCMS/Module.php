@@ -260,14 +260,4 @@ class Module implements \ExampleCMS\Contract\Module
         return $this->getComponent('tables.' . $table);
     }
 
-    public function theme($theme)
-    {
-        $th = new \ExampleCMS\Application\Theme\Basic;
-        $th->metadata = $this->metadata;
-        $th->setModule($this);
-        $th->setTheme($theme);
-
-        return $th;
-    }
-
 }

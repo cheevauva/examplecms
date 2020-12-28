@@ -11,10 +11,15 @@ class FrontController
     public $moduleFactory;
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
+    public $themeFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
-    
+
     const CONTENT_TYPE_DEFAULT = 'text/html';
 
     public function __invoke($request, $response, $next)
@@ -34,12 +39,12 @@ class FrontController
         }
 
         $language = $this->getLanguageByRequest($request);
-        $themeName = $this->getThemeByRequest($request);
+
 
         if ($layout) {
             $data = $module->layout($layout)->execute($request);
-
-            $theme = $module->theme($themeName);
+            
+            $theme = $this->getThemeByRequest($request);
             $theme->setLanguage($language);
 
             $content = $theme->make($data);
@@ -111,7 +116,7 @@ class FrontController
             }
         }
 
-        return $theme;
+        return $this->themeFactory->get($theme);
     }
 
     protected function getLanguageByRequest($request)

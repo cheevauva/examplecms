@@ -12,9 +12,9 @@ class Theme implements \ExampleCMS\Contract\Responder\Theme
 {
 
     /**
-     * @var \ExampleCMS\Contract\Config
+     * @var \ExampleCMS\Contract\Metadata
      */
-    public $config;
+    public $metadata;
 
     /**
      * @var array
@@ -30,7 +30,7 @@ class Theme implements \ExampleCMS\Contract\Responder\Theme
      * @var array 
      */
     protected $options = [];
-    
+
     /**
      * @var array 
      */
@@ -97,7 +97,7 @@ class Theme implements \ExampleCMS\Contract\Responder\Theme
         $language = $data['language'];
         $module = $data['module'];
         $theme = $this->options['name'];
-        
+
         if (!empty($data['theme'])) {
             $theme = $data['theme'];
         }

@@ -16,7 +16,7 @@ class Base extends \ExampleCMS\Application\Responder implements \ExampleCMS\Cont
      */
     protected $templateType = 'fields';
 
-    protected function getTemplatePath()
+    protected function getTemplateId()
     {
         $templatePath = [];
 

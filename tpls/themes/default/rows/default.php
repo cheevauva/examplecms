@@ -1,5 +1,5 @@
 <tr>
     <?php foreach ($columns as $column) : ?>
-        <?= $theme->make($column); ?>
+        <?= $this->render($column); ?>
     <?php endforeach; ?>
 </tr>

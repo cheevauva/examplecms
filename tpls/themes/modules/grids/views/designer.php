@@ -1,4 +1,4 @@
-<?php return function ($theme, $metadata) { ?>
+<?php return function ($this, $metadata) { ?>
     <div ng-app="designer" ng-controller="grid">
         <input 
             type="hidden"

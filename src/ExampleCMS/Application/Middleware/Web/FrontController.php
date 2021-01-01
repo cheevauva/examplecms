@@ -28,6 +28,8 @@ class FrontController
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
 
+        $request = $this->presetLanguageByRequest($request);
+
         if ($action) {
             $request = $module->action($action)->execute($request);
         }
@@ -38,16 +40,12 @@ class FrontController
             return $next($request, $response);
         }
 
-        $language = $this->getLanguageByRequest($request);
-
-
         if ($layout) {
             $data = $module->layout($layout)->execute($request);
-            
-            $theme = $this->getThemeByRequest($request);
-            $theme->setLanguage($language);
 
-            $content = $theme->make($data, $request);
+            $theme = $this->getThemeByRequest($request);
+            
+            $content = $theme->render($data);
 
             $response->getBody()->write($content);
         }
@@ -119,7 +117,7 @@ class FrontController
         return $this->themeFactory->get($theme);
     }
 
-    protected function getLanguageByRequest($request)
+    protected function presetLanguageByRequest($request)
     {
         $language = $request->getAttribute('language');
         $session = $request->getAttribute('session');
@@ -130,9 +128,11 @@ class FrontController
             if (!$language) {
                 $language = $this->config->get('base.language');
             }
+            
+            $request = $request->withAttribute('language', $language);
         }
 
-        return $language;
+        return $request;
     }
 
 }

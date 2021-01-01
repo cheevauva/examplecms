@@ -60,14 +60,16 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
     {
         return [
             'module' => (string) $this->module,
+            'language' => 'en_US',
         ];
     }
 
     public function execute($request)
     {
         $data = $this->metadata;
-        $data['templatePath'] = $this->getTemplatePath($data);
+        $data['templateId'] = $this->getTemplateId($data);
         $data['module'] = $request->getAttribute('module');
+        $data['language'] = $request->getAttribute('language');
 
         foreach ($this->getDefaultData() as $property => $value) {
             if (!isset($data[$property])) {
@@ -78,7 +80,7 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         return $data;
     }
 
-    protected function getTemplatePath()
+    protected function getTemplateId()
     {
         if (isset($this->metadata['templatePath'])) {
             return $this->metadata['templatePath'];

@@ -1,1 +1,1 @@
-<?= $theme->make($grid); ?>
+<?= $this->render($grid); ?>

@@ -7,13 +7,13 @@ class Link extends Base
 
     protected $type = 'link';
 
-    protected function getTemplatePath()
+    protected function getTemplateId()
     {
         if (!$this->checkRouteAccess($this->metadata['route'])) {
             return $this->getEmptyTemplatePath();
         }
 
-        return parent::getTemplatePath();
+        return parent::getTemplateId();
     }
 
     public function checkRouteAccess($route)

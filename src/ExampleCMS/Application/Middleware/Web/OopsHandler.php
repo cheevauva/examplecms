@@ -25,7 +25,7 @@ class OopsHandler
             }
 
             $data = $module->layout('exception')->execute($request);
-            $content = $this->getThemeByRequest($request)->make($data);
+            $content = $this->getThemeByRequest($request)->render($data);
 
             $response->getBody()->write($content);
         }

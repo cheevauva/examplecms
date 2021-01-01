@@ -41,11 +41,12 @@ class Theme extends Factory
         }
 
         $metadata = $this->metadataThemes[$theme];
+        $metadata['name'] = $theme;
 
         /** @var $moduleObject \ExampleCMS\Contract\Module */
         $themeObject = $this->container->create($metadata['component']);
+        $themeObject->setOptions($metadata);
         $themeObject->metadata = $this->metadata;
-        $themeObject->setTheme($theme);
 
         $this->themes[$theme] = $themeObject;
 

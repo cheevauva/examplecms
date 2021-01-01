@@ -36,22 +36,3 @@ $extensions['responders_fields'] = [
     'name' => 'Fields',
     'filter' => 'Fields',
 ];
-$extensions['responders_assets'] = [
-    'section' => 'assets',
-    'extdir' => 'Responders',
-    'name' => 'Assets',
-    'filter' => 'Assets',
-];
-$extensions['responders_templates'] = [
-    'section' => 'templates',
-    'extdir' => 'Responders',
-    'name' => 'Templates',
-    'filter' => 'Templates',
-];
-$extensions['responders_themes'] = [
-    'section' => 'themes',
-    'extdir' => 'Responders',
-    'level' => 'application',
-    'name' => 'Themes',
-    'filter' => 'Themes',
-];

@@ -58,13 +58,16 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
 
     protected function getDefaultData()
     {
-        return [];
+        return [
+            'module' => (string) $this->module,
+        ];
     }
 
     public function execute($request)
     {
         $data = $this->metadata;
         $data['templatePath'] = $this->getTemplatePath($data);
+        $data['module'] = $request->getAttribute('module');
 
         foreach ($this->getDefaultData() as $property => $value) {
             if (!isset($data[$property])) {
@@ -88,7 +91,6 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         }
 
         return [
-            (string) $this->module,
             $this->templateType,
             $template
         ];

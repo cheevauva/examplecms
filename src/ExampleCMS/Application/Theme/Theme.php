@@ -36,42 +36,17 @@ class Theme implements \ExampleCMS\Contract\Responder\Theme
     protected $module;
     protected $language = 'en_US';
     protected $languages = [];
+    protected $options = [];
+    protected $theme = [];
 
-    public function setModule($module)
+    public function setOptions(array $options)
     {
-        $this->module = $module;
+        $this->options = $options;
     }
 
     public function setLanguage($language)
     {
         $this->language = $language;
-        $this->languages = $this->metadata->get(array(
-            'languages',
-            $this->language,
-            (string) $this->module,
-        ));
-    }
-
-    public function setTheme($theme)
-    {
-        $this->theme = $this->metadata->get(array(
-            'themes',
-            (string) $this->module,
-            $theme
-        ));
-    }
-
-    protected function tryFetch($type, array $fields)
-    {
-        $data = null;
-
-        foreach ($fields as $field) {
-            if (!empty($this->theme[$type][$field])) {
-                return $this->theme[$type][$field];
-            }
-        }
-
-        return $data;
     }
 
     protected function createFunctionForFile($filename)
@@ -101,63 +76,57 @@ class Theme implements \ExampleCMS\Contract\Responder\Theme
         $templatePath = $data['templatePath'];
         $templatePathString = implode('.', $templatePath);
 
-        $data['_'] = $this->languages;
+        $data['_'] = $this->getByData('languages', $data);
 
         if (!empty($this->parts[$templatePathString])) {
             return $this->parts[$templatePathString]($this, $data);
         }
 
-        $defaulTemplatePath = $templatePath;
+        $templates = $this->getByData('templates', $data);
+        $assets = $this->getByData('assets', $data);
 
-        array_shift($defaulTemplatePath);
-        array_unshift($defaulTemplatePath, 'default');
-
-        $defaulTemplatePathString = implode('.', $defaulTemplatePath);
-
-        $location = $this->tryFetch('paths', array(
-            $templatePathString,
-            $defaulTemplatePathString
-        ));
-
-        if (empty($location)) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('undefinedTemplate %s', $defaulTemplatePathString));
+        if (empty($templates[$templatePathString])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('template "%s" is not define in "%s" theme', $templatePathString, $this->options['name']));
+        } else {
+            $this->parts[$templatePathString] = $this->createFunctionForFile($templates[$templatePathString]);
         }
 
-        $this->parts[$templatePathString] = $this->createFunctionForFile($location);
-
-        $assets = $this->tryFetch('assets', array(
-            $templatePathString,
-            $defaulTemplatePathString
-        ));
-
-        if (!empty($assets)) {
-            $this->addAssets($assets);
+        if (!empty($assets[$templatePathString])) {
+            $this->addAssets($assets[$templatePathString]);
         }
 
-        return $this->sanitizeHtml($this->make($data));
+        return $this->make($data);
+    }
+
+    protected function getByData($var, $data)
+    {
+        $module = $data['module'];
+        $theme = $this->options['name'];
+
+        if (empty($this->theme[$theme][$module])) {
+            $this->theme[$theme][$module]['templates'] = $this->metadata->get([
+                'theme_templates',
+                $theme,
+                $module,
+            ]);
+            $this->theme[$theme][$module]['assets'] = $this->metadata->get([
+                'theme_assets',
+                $theme,
+                $module,
+            ]);
+            $this->theme[$theme][$module]['languages'] = $this->metadata->get(array(
+                'languages',
+                $this->language,
+                $module,
+            ));
+        }
+
+        return $this->theme[$theme][$module][$var];
     }
 
     public function getAssets()
     {
         return $this->paths;
-    }
-
-    protected function sanitizeHtml($html)
-    {
-        return $html;
-        $search = array(
-            '/\>[^\S ]+/s',
-            '/[^\S ]+\</s',
-            '/(\s)+/s'
-        );
-
-        $replace = array(
-            '>',
-            '<',
-            '\\1'
-        );
-
-        return preg_replace($search, $replace, $html);
     }
 
     protected function addAssets(array $assets)

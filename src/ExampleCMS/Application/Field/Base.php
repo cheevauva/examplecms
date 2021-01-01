@@ -20,7 +20,6 @@ class Base extends \ExampleCMS\Application\Responder implements \ExampleCMS\Cont
     {
         $templatePath = [];
 
-        $templatePath[] = (string) $this->module;
         $templatePath[] = $this->templateType;
         $templatePath[] = $this->metadata['component'];
         $templatePath[] = !isset($this->metadata['template']) ? 'view' : $this->metadata['template'];
@@ -31,7 +30,6 @@ class Base extends \ExampleCMS\Application\Responder implements \ExampleCMS\Cont
     protected function getEmptyTemplatePath()
     {
         return array(
-            (string) $this->module,
             $this->templateType,
             'empty',
             'view',

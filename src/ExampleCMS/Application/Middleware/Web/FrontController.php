@@ -47,7 +47,7 @@ class FrontController
             $theme = $this->getThemeByRequest($request);
             $theme->setLanguage($language);
 
-            $content = $theme->make($data);
+            $content = $theme->make($data, $request);
 
             $response->getBody()->write($content);
         }

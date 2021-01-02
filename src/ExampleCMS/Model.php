@@ -20,7 +20,15 @@ class Model implements \ExampleCMS\Contract\Model
      * @var array
      */
     protected $attributes = array();
+
+    /**
+     * @var array
+     */
+    protected $metadata;
     
+    /**
+     * @var string
+     */
     protected $modelName;
 
     /**
@@ -45,7 +53,7 @@ class Model implements \ExampleCMS\Contract\Model
     {
         return $this->modelName;
     }
-    
+
     /**
      * @param string $name
      * @param mixed $value
@@ -93,6 +101,21 @@ class Model implements \ExampleCMS\Contract\Model
         return [
             'attributes' => $this->attributes
         ];
+    }
+    
+
+    /**
+     * @param array $metadata
+     */
+    public function setMetadata($metadata)
+    {
+        $this->metadata = $metadata;
+        $this->modelName = $metadata['name'];
+    }
+    
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 
 }

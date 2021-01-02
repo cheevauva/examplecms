@@ -5,7 +5,6 @@ namespace ExampleCMS\Module\Installer\Query;
 class Find
 {
 
-    const REQUEST = 'request';
 
     protected $module;
     public $cacheFactory;

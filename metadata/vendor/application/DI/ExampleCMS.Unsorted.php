@@ -62,9 +62,6 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
         'app' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\Application\Action' => array(
-        'formManager' => 'ExampleCMS\FormManager',
-    ),
     // layers
     'ExampleCMS\\Layer\View\Model' => array(
         'router' => 'ExampleCMS\\Router',
@@ -83,7 +80,6 @@ foreach (array(
     ),
     // factories
     'ExampleCMS\\Application\\View\\Form' => array(
-        'formManager' => 'ExampleCMS\\FormManager',
         'router' => 'ExampleCMS\Router',
     ),
     'ExampleCMS\\Factory\\Form\\Binder' => array(
@@ -121,13 +117,8 @@ foreach (array(
         'metadata' => 'ExampleCMS\\Metadata',
         'container' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\\Model\\Form' => array(
-        'formManager' => 'ExampleCMS\\FormManager',
-        'router' => 'ExampleCMS\\Router',
-    ),
-    'ExampleCMS\\FormManager' => array(
-        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
-        'metadata' => 'ExampleCMS\\Metadata',
+    'ExampleCMS\Model\Form' => array(
+        'router' => 'ExampleCMS\Router',
     ),
     'ExampleCMS\\Metadata' => array(
         'metadataHandlerFactory' => 'ExampleCMS\\Factory\\MetadataHandler',
@@ -166,6 +157,3 @@ foreach (array(
 ) as $name => $value) {
     $di[$name] = $value;
 }
-$di['ExampleCMS\Application\Action\Action'] = array(
-    'formManager' => 'ExampleCMS\FormManager',
-);

@@ -5,26 +5,18 @@ namespace ExampleCMS\Module\Installer\Action;
 class Update extends \ExampleCMS\Application\Action\Action
 {
 
-    /**
-     * @var \ExampleCMS\FormManager
-     */
-    public $formManager;
-
     public function execute($request)
     {
-        $formModels = $this->formManager->getFormModelsByRequest($request);
-        $formModel = reset($formModels);
-
-        if (!$formModel->isValid()) {
-            return $request;
-        }
-
+        $formModel = null;
         $model = null;
-
-        $find = $this->module->query('find');
-        $model = $find->execute([
-            $find::REQUEST => $request,
+        
+        $query = $this->module->query('findFormModel');
+        $formModel = $query->fetch([
+            $query::REQUEST => $request,
+            $query::FORM => $request->getAttribute('form'),
         ]);
+
+        $model = $this->module->query('find')->execute();
 
         $formModel->bindTo($model);
 

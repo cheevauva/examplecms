@@ -8,12 +8,12 @@
     </head>
     <body>
         <div class="container">
-            <?= $theme->make($views['header']); ?>
+            <?= $this->render($views['header']); ?>
             <div><br/></div>
-            <?= $theme->make($views['body']); ?>
+            <?= $this->render($views['body']); ?>
             <div><br/></div>
-            <?= $theme->make($views['footer']); ?>
+            <?= $this->render($views['footer']); ?>
         </div>
-        <?= $theme->make($views['asset']); ?>
+        <?= $this->render($views['asset']); ?>
     </body>
 </html>

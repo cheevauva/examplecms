@@ -11,10 +11,15 @@ class FrontController
     public $moduleFactory;
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
+    public $themeFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
-    
+
     const CONTENT_TYPE_DEFAULT = 'text/html';
 
     public function __invoke($request, $response, $next)
@@ -22,6 +27,8 @@ class FrontController
         $module = $this->getModuleByRequest($request);
         $action = $request->getAttribute('action');
         $layout = $request->getAttribute('layout');
+
+        $request = $this->presetLanguageByRequest($request);
 
         if ($action) {
             $request = $module->action($action)->execute($request);
@@ -33,16 +40,12 @@ class FrontController
             return $next($request, $response);
         }
 
-        $language = $this->getLanguageByRequest($request);
-        $themeName = $this->getThemeByRequest($request);
-
         if ($layout) {
             $data = $module->layout($layout)->execute($request);
 
-            $theme = $module->theme($themeName);
-            $theme->setLanguage($language);
-
-            $content = $theme->make($data);
+            $theme = $this->getThemeByRequest($request);
+            
+            $content = $theme->render($data);
 
             $response->getBody()->write($content);
         }
@@ -111,10 +114,10 @@ class FrontController
             }
         }
 
-        return $theme;
+        return $this->themeFactory->get($theme);
     }
 
-    protected function getLanguageByRequest($request)
+    protected function presetLanguageByRequest($request)
     {
         $language = $request->getAttribute('language');
         $session = $request->getAttribute('session');
@@ -125,9 +128,11 @@ class FrontController
             if (!$language) {
                 $language = $this->config->get('base.language');
             }
+            
+            $request = $request->withAttribute('language', $language);
         }
 
-        return $language;
+        return $request;
     }
 
 }

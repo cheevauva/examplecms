@@ -5,7 +5,7 @@
 <?php endif; ?>
 <form action="<?= $action; ?>" method="<?= $method; ?>">
     <?php foreach ($grids as $grid): ?>
-        <?= $theme->make($grid); ?>
+        <?= $this->render($grid); ?>
     <?php endforeach; ?>
 
 </form>

@@ -23,7 +23,8 @@ foreach (array(
     'ExampleCMS\Application\Middleware\Web\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'router' => 'ExampleCMS\\Router',
-        'moduleFactory' => 'ExampleCMS\\Factory\\Module',
+        'moduleFactory' => 'ExampleCMS\Factory\Module',
+        'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\Application\Middleware\CLI\FrontController' => array(
@@ -33,6 +34,7 @@ foreach (array(
     ),
     'ExampleCMS\Application\Middleware\Web\OopsHandler' => array(
         'moduleFactory' => 'ExampleCMS\Factory\Module',
+        'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\Config',
     ),
     'ExampleCMS\\Application' => array(
@@ -76,9 +78,8 @@ foreach (array(
     'ExampleCMS\\Module\Role\Model' => array(
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\\Module' => array(
-        //'themeFactory' => 'ExampleCMS\\Factory\\Theme',
-        'metadata' => 'ExampleCMS\\Metadata',
+    'ExampleCMS\Module' => array(
+        'metadata' => 'ExampleCMS\Metadata',
     ),
     // factories
     'ExampleCMS\\Application\\View\\Form' => array(
@@ -141,11 +142,6 @@ foreach (array(
         'gridFactory' => 'ExampleCMS\\Factory\\View\\Grid',
         'metadata' => 'ExampleCMS\\Metadata',
         'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Application\\Theme\\Basic' => array(
-        'config' => 'ExampleCMS\\Config',
-        'metadata' => 'ExampleCMS\\Metadata',
-        'bootstrap' => 'ExampleCMS\\Bootstrap',
     ),
     'ExampleCMS\\Application\\View\\Exception' => array(
         'application' => 'ExampleCMS\\Application',

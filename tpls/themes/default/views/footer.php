@@ -11,5 +11,7 @@
     </p>
     <?php if (0): ?>
         <pre><?= print_r(get_included_files(), 1); ?></pre>
+        <pre><?= print_r($this->assets, 1); ?></pre>
+        <pre><?= print_r(array_keys($this->templates), 1); ?></pre>
     <?php endif; ?>
 </div>

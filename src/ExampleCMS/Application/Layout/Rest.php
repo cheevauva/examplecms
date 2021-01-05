@@ -2,19 +2,17 @@
 
 namespace ExampleCMS\Application\Layout;
 
-class Rest extends \ExampleCMS\Application\Responder
+class Rest extends Layout
 {
 
     protected $templateType = 'layouts';
-    public $router;
 
-    public function execute()
+    public function execute($context)
     {
-        $metadata = parent::execute();
+        $data = parent::execute($context);
 
-        $metadata['view'] = $this->prepareView($this->router->get('view'))->execute();
-
-        return $metadata;
+        return $data;
     }
+    
 
 }

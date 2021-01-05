@@ -195,7 +195,10 @@ class Module implements \ExampleCMS\Contract\Module
     protected function getComponent($component)
     {
         $componentObject = $this->container->create($this->componentMetadata[$component]);
-        $componentObject->setModule($this);
+
+        if (method_exists($componentObject, 'setModule')) {
+            $componentObject->setModule($this);
+        }
 
         return $componentObject;
     }
@@ -223,6 +226,11 @@ class Module implements \ExampleCMS\Contract\Module
     public function getAction($action)
     {
         return $this->getComponent('actions.' . $action);
+    }
+
+    public function mapper($mapper)
+    {
+        return $this->getComponent('mappers.' . $mapper);
     }
 
     public function getModel($model)

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\View;
 
-class Grid extends Basic
+class Grid extends View
 {
 
     public function execute($request)
@@ -10,7 +10,6 @@ class Grid extends Basic
         $metadata = parent::execute($request);
 
         $gridObject = $this->module->grid($this->metadata['grid']);
-        $gridObject->setModel($this->model);
 
         $metadata['grid'] = $gridObject->execute($request);
 

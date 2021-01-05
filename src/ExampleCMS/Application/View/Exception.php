@@ -2,21 +2,22 @@
 
 namespace ExampleCMS\Application\View;
 
-class Exception extends Basic
+class Exception extends View
 {
 
     public $application;
 
-    public function execute($request)
+    public function execute($context)
     {
-        $metadata = parent::execute($request);
+        $metadata = parent::execute($context);
 
-        $exception = $request->getAttribute('exception');
+        $exception = $context['exception'];
 
         $metadata['message'] = '';
 
         if (!empty($exception)) {
             $metadata['message'] = $exception->getMessage();
+            $metadata['trace'] = $exception->getTraceAsString();
         }
 
         return $metadata;

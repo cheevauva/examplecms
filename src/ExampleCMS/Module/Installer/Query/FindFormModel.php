@@ -8,26 +8,23 @@ class FindFormModel
     const REQUEST = 'request';
     const FORM = 'form';
 
+    /**
+     *
+     * @var \ExampleCMS\Module 
+     */
     protected $module;
     public $cacheFactory;
 
     public function fetch(array $params = [])
     {
         $request = $params[static::REQUEST];
-        $form = $params[static::FORM];
+        $modelForms = $request->getAttribute('modelForms');
 
-        $model = $this->module->form($form);
-        $body = $request->getParsedBody();
-
-        $data = [];
-
-        if (isset($body[$form])) {
-            $data = $body[$form];
+        if (empty($params[static::FORM]) && count($modelForms) === 1) {
+            return reset($modelForms);
         }
 
-        $model->fromArray($data);
-
-        return $model;
+        return $modelForms[$params[static::FORM]];
     }
 
     public function setModule($module): void

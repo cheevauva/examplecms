@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Grid;
 
-class View extends Basic
+class View extends Grid
 {
 
     protected function getModelsByRequest($request)

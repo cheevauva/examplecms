@@ -1,7 +1,7 @@
 <?php
 
-$grids['language'] = array(
-    'name' => 'language',
+$grids['license'] = array(
+    'name' => 'license',
     'component' => 'form',
     'rows' => array(
         array(
@@ -12,7 +12,7 @@ $grids['language'] = array(
                     'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'language_installer',
+                            'label' => 'license_text',
                         ),
                     )
                 ),
@@ -20,11 +20,9 @@ $grids['language'] = array(
                     'component' => 'default',
                     'fields' => array(
                         array(
-                            'component' => 'enum',
-                            'name' => 'installer',
-                            'default' => 'en_US',
-                            'template' => 'form',
-                            'options' => 'languages',
+                            'component' => 'text',
+                            'name' => 'license',
+                            'template' => 'view-raw',
                         ),
                     )
                 ),
@@ -38,7 +36,7 @@ $grids['language'] = array(
                     'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'language_system',
+                            'label' => 'license_is_accept',
                         ),
                     )
                 ),
@@ -46,11 +44,9 @@ $grids['language'] = array(
                     'component' => 'default',
                     'fields' => array(
                         array(
-                            'component' => 'enum',
-                            'name' => 'system',
-                            'default' => 'en_US',
+                            'component' => 'bool',
+                            'name' => 'accept',
                             'template' => 'form',
-                            'options' => 'languages',
                         ),
                     )
                 ),

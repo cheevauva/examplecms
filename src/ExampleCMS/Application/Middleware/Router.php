@@ -25,11 +25,7 @@ class Router
         if (!$result) {
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
-
-        foreach ($result['params'] as $name => $value) {
-            $request = $request->withAttribute($name, $value);
-        }
-
+        
         foreach ($result['target'] as $name => $value) {
             $request = $request->withAttribute($name, $value);
         }

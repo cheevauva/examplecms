@@ -2,11 +2,12 @@
 
 namespace ExampleCMS\Module\Installer\Action;
 
-class Read extends \ExampleCMS\Application\Action\Action
+class License extends Read
 {
 
     public function execute($request)
     {
+
         $query = $this->module->query('findFormModel');
 
         $formModel = $query->fetch([
@@ -16,6 +17,7 @@ class Read extends \ExampleCMS\Application\Action\Action
         $model = $this->module->query('find')->execute();
 
         $formModel->bindFrom($model);
+        $formModel->set('license', file_get_contents($this->filesystem->preparePath('LICENSE')));
 
         return $request;
     }

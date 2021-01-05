@@ -17,11 +17,6 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
     protected $module;
 
     /**
-     * @var \ExampleCMS\Contract\Model
-     */
-    protected $model;
-
-    /**
      * @var array
      */
     protected $metadata;
@@ -34,11 +29,6 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
     public function setModule($module)
     {
         $this->module = $module;
-    }
-
-    public function setModel($model)
-    {
-        $this->model = $model;
     }
 
     /**
@@ -64,12 +54,14 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         ];
     }
 
-    public function execute($request)
+    public function execute(array $context)
     {
-        $data = $this->metadata;
-        $data['templateId'] = $this->getTemplateId($data);
-        $data['module'] = $request->getAttribute('module');
-        $data['language'] = $request->getAttribute('language');
+        $context = $this->rewriteContext($context);
+
+        $data = [];
+        $data['templateId'] = $this->getTemplateId();
+        $data['module'] = $context['module'];
+        $data['language'] = $context['language'];
 
         foreach ($this->getDefaultData() as $property => $value) {
             if (!isset($data[$property])) {
@@ -80,10 +72,15 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         return $data;
     }
 
+    protected function rewriteContext($context)
+    {
+        return $context;
+    }
+
     protected function getTemplateId()
     {
-        if (isset($this->metadata['templatePath'])) {
-            return $this->metadata['templatePath'];
+        if (isset($this->metadata['templateId'])) {
+            return $this->metadata['templateId'];
         }
 
         $template = $this->metadata['component'];
@@ -95,6 +92,13 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         return [
             $this->templateType,
             $template
+        ];
+    }
+
+    public function __debugInfo()
+    {
+        return [
+            $this->metadata,
         ];
     }
 

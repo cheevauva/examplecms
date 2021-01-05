@@ -2,15 +2,9 @@
 
 namespace ExampleCMS\Application\Field;
 
-class Text extends Base
+class Text extends Input
 {
 
-    /**
-     * @var string
-     */
-    protected $fieldType = 'text';
-    public function execute($request)
-    {
-        parent::execute($request);
-    }
+    protected $type = 'text';
+
 }

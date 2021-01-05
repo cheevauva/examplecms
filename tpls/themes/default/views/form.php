@@ -1,3 +1,7 @@
 <form action="<?= $action; ?>" method="<?= $method; ?>">
-    <?= $this->render(reset($grids)); ?>
+    <?php if (!empty($grids)) : ?>
+        <?= $this->render(reset($grids)); ?>
+    <?php else :?>
+        Where my grid
+    <?php endif; ?>
 </form>

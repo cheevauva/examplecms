@@ -2,7 +2,7 @@
 
 namespace ExampleCMS;
 
-class Router implements \ExampleCMS\Contract\Container\Mediator
+class Router implements \PDIC\InterfaceMediator
 {
 
     /**

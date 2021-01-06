@@ -8,11 +8,11 @@
 
 namespace ExampleCMS\Factory;
 
-class Application implements \ExampleCMS\Contract\Container\UseServiceLocator
+class Application implements \PDIC\InterfaceUsePDICServiceLocator
 {
 
     /**
-     * @var \ExampleCMS\Container\ServiceLocator 
+     * @var \PDIC\ServiceLocator 
      */
     protected $container;
 
@@ -20,13 +20,13 @@ class Application implements \ExampleCMS\Contract\Container\UseServiceLocator
     {
         $app = $this->container->get($application);
         $app->prepare();
-        
+
         return $app;
     }
 
-    public function setContainer(\ExampleCMS\Container\ServiceLocator $container)
+    public function setPDICServiceLocatory(\PDIC\ServiceLocator $serviceLocator)
     {
-        $this->container = $container;
+        $this->container = $serviceLocator;
     }
 
 }

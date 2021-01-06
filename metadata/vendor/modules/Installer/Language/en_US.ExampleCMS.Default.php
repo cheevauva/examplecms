@@ -11,3 +11,5 @@ $language['sqlite_settings'] = 'Connection settings for SQLite';
 $language['sqlite_filename'] = 'Path to database file';
 $language['language_installer'] = 'Installer language';
 $language['language_system'] = 'System language';
+$language['license_is_accept'] = 'Accept?';
+$language['license_text'] = 'License agreement';

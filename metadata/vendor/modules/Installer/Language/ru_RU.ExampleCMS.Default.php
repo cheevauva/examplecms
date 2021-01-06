@@ -11,3 +11,5 @@ $language['sqlite_settings'] = 'Настройки подключения к SQL
 $language['sqlite_filename'] = 'Путь до файла';
 $language['language_installer'] = 'Язык установщика';
 $language['language_system'] = 'Основной язык системы';
+$language['license_is_accept'] = 'Поставьте галочку чтобы принять лицензионное соглашение';
+$language['license_text'] = 'Лицензионное соглашение';

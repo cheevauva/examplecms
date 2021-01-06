@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\View;
 
-class Form extends Basic
+class Form extends View
 {
 
     /**
@@ -14,46 +14,36 @@ class Form extends Basic
     {
         return [
             'grids' => [],
-            'module' => $this->module,
+            'module' => (string) $this->module,
             'forms' => [],
         ];
     }
 
-    public function execute($request)
+    public function execute($context)
     {
-        $data = parent::execute($request);
+        $data = parent::execute($context);
 
-        if (empty($data['forms'])) {
-            $data['forms'] = $request->getAttribute('forms');
+        if (empty($this->metadata['form']) && !empty($context['form'])) {
+            $this->metadata['form'] = $context['form'];
         }
 
-        $model = $request->getAttribute('model');
+        $model = $context['modelForms'][$this->metadata['form']];
 
-        if (!$model) {
-            foreach ($data['forms'] as $meta) {
-                $model = $this->formManager->getFormModel($data['module'], $meta);
-                $formMetadata = $model->getMetadata();
+        $data['method'] = $this->getMethod($model);
+        $data['action'] = $this->getAction($model, $context['request']);
 
-                if ($request->getAttribute('route') === $formMetadata['route']) {
-                    $model = $this->formManager->getFormModelsByRequest($request);
-                } else {
-                    $model = $this->formManager->createForm($request, $data['module'], $meta);
-                }
-            }
-
-            $request = $request->withAttribute('model', $model);
-        }
-
-        $data['method'] = $model->getMethod();
-        $data['action'] = $this->getAction($model, $request);
-        $data['state'] = $model->getState();
-        $data['state_reason'] = $model->getStateReason();
-
-        foreach ($data['grids'] as $index => $meta) {
-            $data['grids'][$index] = $this->module->grid($meta)->execute($request);
+        foreach ($this->metadata['grids'] as $index => $meta) {
+            $data['grids'][$index] = $this->module->grid($meta)->execute($context);
         }
 
         return $data;
+    }
+
+    public function getMethod($model)
+    {
+        $metadata = $model->getMetadata();
+
+        return $metadata['method'];
     }
 
     public function getAction($model, $request)

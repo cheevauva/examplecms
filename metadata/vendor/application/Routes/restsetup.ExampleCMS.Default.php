@@ -4,7 +4,7 @@ $routes['default'] = array(
     'method' => 'GET',
     'route' => '*',
     'target' => array(
-        'layout' => 'json',
+        'layout' => 'rest',
         'module' => 'Installer',
     ),
 );

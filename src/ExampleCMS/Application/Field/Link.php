@@ -2,31 +2,14 @@
 
 namespace ExampleCMS\Application\Field;
 
-class Link extends Base
+class Link extends Field
 {
 
     protected $type = 'link';
 
-    protected function getTemplateId()
+    public function execute($context)
     {
-        if (!$this->checkRouteAccess($this->metadata['route'])) {
-            return $this->getEmptyTemplatePath();
-        }
-
-        return parent::getTemplateId();
-    }
-
-    public function checkRouteAccess($route)
-    {
-        $currentUser = $this->context->getUser();
-        $operation = $this->router->getOperation($route);
-
-        return $currentUser->hasAccess($this->getModule(), $operation);
-    }
-
-    public function execute($request)
-    {
-        $metadata = parent::getData($request);
+        $metadata = parent::getData($context);
 
         $metadata['label'] = $metadata['name'];
         $metadata['url'] = $request->router->make($metadata['route'], array(

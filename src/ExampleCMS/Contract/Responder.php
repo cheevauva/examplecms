@@ -4,5 +4,5 @@ namespace ExampleCMS\Contract;
 
 interface Responder
 {
-    public function execute($request);
+    public function execute(array $context);
 }

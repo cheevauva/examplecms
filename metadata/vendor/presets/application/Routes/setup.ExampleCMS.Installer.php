@@ -8,11 +8,53 @@ $routes['main'] = array(
     'target' => array(
         'module' => 'Installer',
         'redirect' => [
-            'route' => 'language',
+            'route' => 'license',
             'params' => [],
         ]
     ),
 );
+
+$routes['license'] = array(
+    'method' => 'GET',
+    'route' => '/license',
+    'target' => array(
+        'module' => 'Installer',
+        'layout' => 'setup',
+        'actions' => [
+            'license',
+        ],
+        'forms' => [
+            'license'
+        ],
+        'form' => 'license',
+        'views' => array(
+            'body' => array(
+                'component' => 'forms',
+                'grids' => [
+                    'license',
+                ],
+            ),
+        ),
+    ),
+);
+
+$routes['license_save'] = array(
+    'method' => 'POST',
+    'route' => '/license',
+    'target' => array(
+        'forms' => [
+            'license'
+        ],
+        'actions' => ['save'],
+        'form' => 'license',
+        'module' => 'Installer',
+        'redirect' => [
+            'route' => 'language',
+            'params' => [],
+        ],
+    ),
+);
+
 
 $routes['language'] = array(
     'method' => 'GET',
@@ -20,10 +62,13 @@ $routes['language'] = array(
     'target' => array(
         'module' => 'Installer',
         'layout' => 'setup',
-        'action' => 'read',
-        'forms' => [
-            'language',
+        'actions' => [
+            'read',
         ],
+        'forms' => [
+            'language'
+        ],
+        'form' => 'language',
         'views' => array(
             'body' => array(
                 'component' => 'forms',
@@ -40,13 +85,13 @@ $routes['language_save'] = array(
     'route' => '/language',
     'target' => array(
         'forms' => [
-            'language',
+            'language'
         ],
         'redirect' => [
             'route' => 'database',
             'params' => [],
         ],
-        'action' => 'save',
+        'actions' => ['save'],
         'form' => 'language',
         'module' => 'Installer',
     ),
@@ -56,12 +101,15 @@ $routes['database'] = array(
     'method' => 'GET',
     'route' => '/database',
     'target' => array(
-        'action' => 'read',
+        'actions' => [
+            'read',
+        ],
         'module' => 'Installer',
         'layout' => 'setup',
         'forms' => [
-            'database',
+            'database'
         ],
+        'form' => 'database',
         'views' => array(
             'body' => array(
                 'component' => 'form',
@@ -77,10 +125,10 @@ $routes['database_save'] = array(
     'route' => '/database',
     'target' => array(
         'forms' => [
-            'database',
+            'database'
         ],
         'module' => 'Installer',
-        'action' => 'save',
+        'actions' => ['save'],
         'redirect' => [
             'route' => 'language',
             'params' => [],

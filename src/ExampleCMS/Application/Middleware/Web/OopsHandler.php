@@ -13,10 +13,14 @@ class OopsHandler
             $request = $request->withAttribute('exception', $exception);
 
             if (!empty($exception->request)) {
-                $module = $this->getModuleByRequest($exception->request);
+                $request = $request->withAttribute('module', $exception->request->getAttribute('module'));
             } else {
-                $module = $this->moduleFactory->get($this->config->get(['base', 'module']));
+                $request = $request->withAttribute('module', $request->getAttribute('module', $this->config->get(['base', 'module'])));
             }
+
+            $request = $request->withAttribute('language', $this->config->get(['base', 'language']));
+
+            $module = $this->moduleFactory->get($request->getAttribute('module'));
 
             $themeName = $request->getAttribute('theme');
 
@@ -24,7 +28,11 @@ class OopsHandler
                 $themeName = $this->config->get('base.theme');
             }
 
-            $data = $module->layout('exception')->execute($request);
+            $context = $request->withoutAttribute('session')->getAttributes();
+            $context['exception'] = $exception;
+            $context['request'] = $request;
+
+            $data = $module->layout('exception')->execute($context);
             $content = $this->getThemeByRequest($request)->render($data);
 
             $response->getBody()->write($content);

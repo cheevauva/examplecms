@@ -5,27 +5,15 @@ namespace ExampleCMS\Module\Installer\Action;
 class Update extends \ExampleCMS\Application\Action\Action
 {
 
-    /**
-     * @var \ExampleCMS\FormManager
-     */
-    public $formManager;
-
     public function execute($request)
     {
-        $formModels = $this->formManager->getFormModelsByRequest($request);
-        $formModel = reset($formModels);
+        $query = $this->module->query('findFormModel');
 
-        if (!$formModel->isValid()) {
-            return $request;
-        }
-
-        $model = null;
-
-        $find = $this->module->query('find');
-        $model = $find->execute([
-            $find::REQUEST => $request,
+        $formModel = $query->fetch([
+            $query::REQUEST => $request
         ]);
 
+        $model = $this->module->query('find')->execute();
         $formModel->bindTo($model);
 
         $save = $this->module->query('save');
@@ -36,7 +24,7 @@ class Update extends \ExampleCMS\Application\Action\Action
         $session = $request->getAttribute('session');
         $session->set('language', $model->get('language_installer'));
 
-        return $request->withAttribute('model', $model);
+        return $request;
     }
 
 }

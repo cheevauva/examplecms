@@ -7,17 +7,17 @@ class Read extends \ExampleCMS\Application\Action\Action
 
     public function execute($request)
     {
-        $formModels = $this->formManager->getFormModelsByRequest($request);
-        $formModel = reset($formModels);
+        $query = $this->module->query('findFormModel');
 
-        $find = $this->module->query('find');
-        $model = $find->execute([
-            $find::REQUEST => $request,
+        $formModel = $query->fetch([
+            $query::REQUEST => $request
         ]);
+
+        $model = $this->module->query('find')->execute();
 
         $formModel->bindFrom($model);
 
-        return $request->withAttribute('model', $formModel);
+        return $request;
     }
 
 }

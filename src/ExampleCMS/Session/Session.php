@@ -124,5 +124,10 @@ abstract class Session
 
         return $string;
     }
+    
+    public function __debugInfo()
+    {
+        return [];
+    }
 
 }

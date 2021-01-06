@@ -13,13 +13,13 @@ class Basic extends \ExampleCMS\Application\Responder
 
     protected $templateType = 'rows';
 
-    public function execute($request)
+    public function execute($context)
     {
-        $data = parent::execute($request);
-        $data['columns'] = array();
+        $data = parent::execute($context);
+        $data['columns'] = [];
 
         foreach ($this->metadata['columns'] as $meta) {
-            $data['columns'][] = $this->module->column($meta)->execute($request);
+            $data['columns'][] = $this->module->column($meta)->execute($context);
         }
 
         return $data;

@@ -5,9 +5,9 @@ namespace ExampleCMS\Contract;
 interface Model extends GetterSetter
 {
 
-   /**
-    * @return bool
-    */
+    /**
+     * @return bool
+     */
     public function isNull();
 
     /**
@@ -19,9 +19,21 @@ interface Model extends GetterSetter
      * @param strin $module
      */
     public function setModule($module);
-    
+
     /**
      * @param array $array
      */
     public function fromArray(array $array);
+
+    /**
+     * @param mixed $data
+     */
+    public function doMappingFromDataToModel($data);
+
+    /**
+     * @param mixed $data
+     */
+    public function doMappingFromModelToData($data);
+    
+    public function getMetadata();
 }

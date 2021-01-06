@@ -11,6 +11,11 @@ interface Module
     public function model($model);
 
     /**
+     * @return \ExampleCMS\Contract\Model
+     */
+    public function form($form);
+
+    /**
      * @return \ExampleCMS\Contract\Action
      */
     public function action($action);

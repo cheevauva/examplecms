@@ -2,23 +2,8 @@
 
 namespace ExampleCMS;
 
-class Router implements \PDIC\InterfaceMediator
+class Router
 {
-
-    /**
-     * @var \ExampleCMS\Contract\Config
-     */
-    public $config;
-
-    /**
-     * @var \ExampleCMS\Contract\Bootstrap
-     */
-    public $bootstrap;
-
-    /**
-     * @var \ExampleCMS\Contract\Metadata
-     */
-    public $metadata;
 
     /**
      * @var \AltoRouter
@@ -28,67 +13,31 @@ class Router implements \PDIC\InterfaceMediator
     /**
      * @var array 
      */
-    protected $routes = array();
+    protected $routes = [];
 
+    /**
+     * @var string
+     */
+    protected $baseUrl;
+    
     /**
      * @return array
      */
-    protected function getRoutes()
+    public function setRoutes(array $routes)
     {
-        $appName = $this->bootstrap->getAppName();
-
-        if ($this->config->get('base.setup')) {
-            $appName .= 'setup';
-        }
-        $this->routes = $this->metadata->get(['routes', $appName]);
-
-        return $this->routes;
-    }
-
-    public function prepare()
-    {
-        foreach ($this->getRoutes() as $routeName => $route) {
+        foreach ($routes as $routeName => $route) {
             $this->altoRouter->map($route['method'], $route['route'], $route['target'], $routeName);
         }
     }
-
-    public function getRoute($name)
+    
+    public function setBaseUrl($baseUrl)
     {
-        if (!isset($this->routes[$name]['target'])) {
-            return null;
-        }
-
-        return $this->routes[$name]['target'];
-    }
-
-    public function getOperation($name)
-    {
-        $route = $this->getRoute($name);
-
-        $operation = 'default';
-
-        if (!empty($route['operation'])) {
-            $operation = $route['operation'];
-        }
-
-        return $operation;
+        $this->baseUrl = $baseUrl;
     }
 
     public function make($route, array $params = array())
     {
-        return $this->altoRouter->generate($route, $params);
-    }
-
-    public function makeWithRequest($request, $route, array $params = array())
-    {
-        if ($this->config->get(['base', 'semantic_url'])) {
-            $baseUrl = $request->getAttribute('baseUrl');
-        } else {
-            $server = $request->getServerParams();
-            $baseUrl = $server['SCRIPT_NAME'];
-        }
-
-        return $baseUrl . $this->make($route, $params);
+        return $this->baseUrl . $this->altoRouter->generate($route, $params);
     }
 
     public function generate($route, array $params = array())
@@ -99,13 +48,6 @@ class Router implements \PDIC\InterfaceMediator
     public function match($requestUrl, $method)
     {
         return $this->altoRouter->match($requestUrl, $method);
-    }
-
-    public function get()
-    {
-        $this->prepare();
-
-        return $this;
     }
 
 }

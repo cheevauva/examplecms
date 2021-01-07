@@ -1,28 +1,56 @@
 <?php
 
 /**
- * ExampleCMS
- *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
 namespace ExampleCMS\Factory;
 
-class Router implements \ExampleCMS\Contract\Container\UseServiceLocator
+class Router
 {
-    /**
-     * @var \ExampleCMS\Container\ServiceLocator 
-     */
-    protected $container;
 
-    public function get($router)
+    /**
+     * @var \ExampleCMS\Container 
+     */
+    public $container;
+
+    /**
+     * @var \ExampleCMS\Contract\Config 
+     */
+    public $config;
+
+    /**
+     * @var \ExampleCMS\Contract\Metadata
+     */
+    public $metadata;
+
+    /**
+     * @var array 
+     */
+    protected $routers = [];
+
+    public function get($application)
     {
-        return $this->container->get($router);
+        if (!empty($this->routers[$application])) {
+            return $this->routers[$application];
+        }
+
+        /** @var \ExampleCMS\Router $router */
+        $router = $this->container->create('ExampleCMS\Router');
+        $router->setRoutes($this->getRoutes($application));
+
+        $this->routers[$application] = $router;
+
+        return $router;
     }
 
-    public function setContainer(\ExampleCMS\Container\ServiceLocator $container)
+    protected function getRoutes($application)
     {
-        $this->container = $container;
+        if ($this->config->get('base.setup')) {
+            $application .= 'setup';
+        }
+
+        return $this->metadata->get(['routes', $application]);
     }
 
 }

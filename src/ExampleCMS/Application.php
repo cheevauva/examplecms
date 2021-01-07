@@ -21,13 +21,20 @@ class Application
      * @var \Psr\Container\ContainerInterface
      */
     public $container;
-    public $bootstrap;
 
-    protected function getMiddlewares()
+    /**
+     * @var string 
+     */
+    protected $appName;
+
+    public function setAppName($appName)
     {
-        $appName = $this->bootstrap->getAppName();
+        $this->appName = $appName;
+    }
 
-        $metadata = $this->metadata->get(['applications', $appName]);
+    protected function getMiddlewares($application)
+    {
+        $metadata = $this->metadata->get(['applications', $application]);
         $middlewares = array_flip($metadata['middleware']);
 
         ksort($middlewares);
@@ -37,7 +44,7 @@ class Application
 
     public function run($request, $response)
     {
-        $middlewares = $this->getMiddlewares();
+        $middlewares = $this->getMiddlewares($request->getAttribute('application'));
 
         $bus = new MiddlewareBus($middlewares);
         $bus->container = $this->container;

@@ -8,18 +8,12 @@
 
 namespace ExampleCMS;
 
+use ExampleCMS\Config;
+use ExampleCMS\Filesystem;
+use ExampleCMS\Container;
+
 class Bootstrap
 {
-
-    /**
-     * @var string 
-     */
-    protected $appName;
-
-    /**
-     * @var string
-     */
-    protected $basePath;
 
     /**
      * @var \ExampleCMS\Filesystem
@@ -31,10 +25,20 @@ class Bootstrap
      */
     protected $config;
 
-    public function __construct($appName, $basePath)
+    public function __construct($basePath)
     {
-        $this->appName = $appName;
-        $this->basePath = $basePath;
+        $arrayHelper = new \ExampleCMS\Helper\ArrayHelper;
+        
+        $this->filesystem = new Filesystem($basePath);
+        $this->config = new Config($this->filesystem, $arrayHelper);
+
+        $injections = $this->filesystem->loadAsPHP('cache/metadata/application/DI.php');
+
+        $this->container = new Container($injections, [
+            get_class($this->filesystem) => $this->filesystem,
+            get_class($this->config) => $this->config,
+            get_class($arrayHelper) => $arrayHelper,
+        ]);
     }
 
     public function includeXhprof()
@@ -52,15 +56,6 @@ class Bootstrap
                 $xhprof_runs->save_run($xhprof_data, "examplecms");
             });
         }
-    }
-
-    public function getFilesystem()
-    {
-        if (empty($this->filesystem)) {
-            $this->filesystem = new \ExampleCMS\Filesystem($this->basePath);
-        }
-
-        return $this->filesystem;
     }
 
     protected function getDefaultConfig()
@@ -89,64 +84,20 @@ class Bootstrap
         );
     }
 
-    public function getConfig()
-    {
-        if (empty($this->config)) {
-            $config = new \ExampleCMS\Config($this->getFilesystem());
-
-            try {
-                $config->get('base');
-            } catch (\Exception $exception) {
-                $config->arrayUtil = new \ExampleCMS\Util\Arr;
-                $config->set('base', $this->getDefaultConfig());
-                $config->save();
-            }
-
-            $this->config = $config;
-        }
-
-        return $this->config;
-    }
-
-    public function getContainer()
-    {
-        if (empty($this->container)) {
-            $filesystem = $this->getFilesystem();
-            $config = $this->getConfig();
-
-            $injections = $filesystem->loadAsPHP('cache/metadata/application/DI.php');
-
-            $container = new \ExampleCMS\Container($injections, array(
-                get_class($filesystem) => $filesystem,
-                get_class($config) => $config,
-                get_class($this) => $this,
-            ));
-
-            $this->container = $container;
-        }
-
-        return $this->container;
-    }
-
     /**
      * @param string $app
-     * @param string $basePath
      * @return \ExampleCMS\Contract\Application
      */
     public function getApplication()
     {
-        $this->getConfig();
+        if (!$this->config->isConfigured()) {
+            $this->config->set('base', $this->getDefaultConfig());
+            $this->config->save();
+        }
+
         $this->includeXhprof();
 
-        return $this->getContainer()->get('ExampleCMS\\Application');
-    }
-
-    /**
-     * @return string
-     */
-    public function getAppName()
-    {
-        return $this->appName;
+        return $this->container->create('ExampleCMS\Application');
     }
 
 }

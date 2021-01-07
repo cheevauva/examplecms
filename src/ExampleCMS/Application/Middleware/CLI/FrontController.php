@@ -15,7 +15,7 @@ class FrontController extends WebFrontController
      */
     protected function getRoutes()
     {
-        $appName = $this->bootstrap->getAppName();
+        $appName = $this->request->getAttribute('appName');
 
         if ($this->config->get('base.setup')) {
             $appName .= 'setup';
@@ -52,6 +52,8 @@ class FrontController extends WebFrontController
 
     public function __invoke($request, $response, $next)
     {
+        $this->request = $request;
+        
         $action = $request->getAttribute('action');
         $args = $request->getAttribute('argv');
         $scriptName = array_shift($args);

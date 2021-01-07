@@ -51,7 +51,7 @@ class Form extends View
         $metadata = $model->getMetadata();
         $params = $model->toArray();
 
-        return $this->router->makeWithRequest($request, $metadata['route'], $params);
+        return $request->getAttribute('router')->make($metadata['route'], $params);
     }
 
 }

@@ -22,9 +22,9 @@ class Config implements \ExampleCMS\Contract\Config
     protected $properties = null;
 
     /**
-     * @var \ExampleCMS\Util\Arr
+     * @var \ExampleCMS\Helper\ArrayHelper
      */
-    public $arrayUtil;
+    protected $arrayHelper;
 
     /**
      *
@@ -32,12 +32,10 @@ class Config implements \ExampleCMS\Contract\Config
      */
     protected $filesystem;
 
-    /**
-     * @param string $basePath
-     */
-    public function __construct($filesystem)
+    public function __construct(\ExampleCMS\Filesystem $filesystem, $arrayHelper)
     {
         $this->filesystem = $filesystem;
+        $this->arrayHelper = $arrayHelper;
     }
 
     /**
@@ -77,7 +75,7 @@ class Config implements \ExampleCMS\Contract\Config
 
     public function save()
     {
-        $phpArray = $this->arrayUtil->serializeToPHP($this->properties);
+        $phpArray = $this->arrayHelper->serializeToPHP($this->properties);
 
         $filename = $this->basePath . 'config.php';
 
@@ -116,6 +114,11 @@ class Config implements \ExampleCMS\Contract\Config
         }
 
         return $path;
+    }
+
+    public function isConfigured()
+    {
+        return file_exists($this->filesystem->preparePath('config.php'));
     }
 
 }

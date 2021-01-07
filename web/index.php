@@ -2,12 +2,12 @@
 
 require '../bootstrap.php';
 
-$bootstrap = new ExampleCMS\Bootstrap('web', dirname(__DIR__) . '/');
+$bootstrap = new ExampleCMS\Bootstrap(dirname(__DIR__) . '/');
 
-$app = $bootstrap->getApplication();
 $request = \Zend\Diactoros\ServerRequestFactory::fromGlobals();
+$request = $request->withAttribute('application', 'web');
 
-$response = $app->run($request, new \Zend\Diactoros\Response());
+$response = $bootstrap->getApplication()->run($request, new \Zend\Diactoros\Response());
 
 foreach ($response->getHeaders() as $name => $values) {
     foreach ($values as $value) {

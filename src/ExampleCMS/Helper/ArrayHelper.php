@@ -1,8 +1,8 @@
 <?php
 
-namespace ExampleCMS\Util;
+namespace ExampleCMS\Helper;
 
-class Arr
+class ArrayHelper
 {
 
     public function serializeToPHP($value)
@@ -20,7 +20,7 @@ class Arr
         return $this->toPHPArrayString($value);
     }
 
-    public function toPHPArrayString($array, $offset = '')
+    protected function toPHPArrayString($array, $offset = '')
     {
         $work_offset = $offset . '    ';
 
@@ -44,4 +44,5 @@ class Arr
 
         return $str;
     }
+
 }

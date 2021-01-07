@@ -12,7 +12,7 @@ class Link extends Field
         $metadata = parent::getData($context);
 
         $metadata['label'] = $metadata['name'];
-        $metadata['url'] = $request->router->make($metadata['route'], array(
+        $metadata['url'] = $context['request']->getAttribute('router')->make($metadata['route'], array(
             'module' => $this->getModule(),
             'id' => $this->get('id'),
         ));

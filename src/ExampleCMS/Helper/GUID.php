@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleCMS\Util;
+namespace ExampleCMS\Helper;
 
 class GUID
 {

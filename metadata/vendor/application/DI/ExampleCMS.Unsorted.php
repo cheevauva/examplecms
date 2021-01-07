@@ -14,22 +14,24 @@ foreach (array(
     ),
     'ExampleCMS\Application\Middleware\BasePath' => array(
         'config' => 'ExampleCMS\\Config',
-        'bootstrap' => 'ExampleCMS\\Bootstrap',
+    ),
+    'ExampleCMS\Factory\Router' => array(
+        'container' => 'ExampleCMS\Container',
+        'config' => 'ExampleCMS\Config',
+        'metadata' => 'ExampleCMS\Metadata',
     ),
     'ExampleCMS\Application\Middleware\Router' => array(
-        'router' => 'ExampleCMS\\Router',
-        'config' => 'ExampleCMS\\Config',
+        'routerFactory' => 'ExampleCMS\Factory\Router',
+        'config' => 'ExampleCMS\Config',
     ),
     'ExampleCMS\Application\Middleware\Web\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
-        'router' => 'ExampleCMS\\Router',
         'moduleFactory' => 'ExampleCMS\Factory\Module',
         'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\Application\Middleware\CLI\FrontController' => array(
         'metadata' => 'ExampleCMS\\Metadata',
-        'bootstrap' => 'ExampleCMS\\Bootstrap',
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\Application\Middleware\Web\OopsHandler' => array(
@@ -37,8 +39,7 @@ foreach (array(
         'themeFactory' => 'ExampleCMS\Factory\Theme',
         'config' => 'ExampleCMS\Config',
     ),
-    'ExampleCMS\\Application' => array(
-        'bootstrap' => 'ExampleCMS\\Bootstrap',
+    'ExampleCMS\Application' => array(
         'metadata' => 'ExampleCMS\\Metadata',
         'container' => 'ExampleCMS\\Container',
     ),
@@ -52,19 +53,14 @@ foreach (array(
     'ExampleCMS\\Config' => array(
         'filesystem' => 'ExampleCMS\Filesystem',
     ),
-    'ExampleCMS\\Router' => array(
-        'config' => 'ExampleCMS\\Config',
-        'altoRouter' => 'AltoRouter',
-        'metadata' => 'ExampleCMS\\Metadata',
-        'bootstrap' => 'ExampleCMS\\Bootstrap',
+    'ExampleCMS\Router' => array(
+        'config' => 'ExampleCMS\Config',
+        'altoRouter' => '*AltoRouter',
+        'metadata' => 'ExampleCMS\Metadata',
     ),
     'ExampleCMS\\Form\Form' => array(
         'config' => 'ExampleCMS\\Config',
         'app' => 'ExampleCMS\\Container',
-    ),
-    // layers
-    'ExampleCMS\\Layer\View\Model' => array(
-        'router' => 'ExampleCMS\\Router',
     ),
     'ExampleCMS\\Layer\\Model' => array(
         'eventManager' => 'ExampleCMS\\EventManager',
@@ -78,10 +74,6 @@ foreach (array(
     'ExampleCMS\Module' => array(
         'metadata' => 'ExampleCMS\Metadata',
     ),
-    // factories
-    'ExampleCMS\\Application\\View\\Form' => array(
-        'router' => 'ExampleCMS\Router',
-    ),
     'ExampleCMS\\Factory\\Form\\Binder' => array(
         'config' => 'ExampleCMS\\Config',
     ),
@@ -92,7 +84,6 @@ foreach (array(
         'config' => 'ExampleCMS\\Config',
     ),
     'ExampleCMS\\Action\Cli' => array(
-        'router' => 'ExampleCMS\\Router',
         'config' => 'ExampleCMS\\Config',
     ),
     // queries
@@ -117,9 +108,6 @@ foreach (array(
         'metadata' => 'ExampleCMS\\Metadata',
         'container' => 'ExampleCMS\\Container',
     ),
-    'ExampleCMS\Model\Form' => array(
-        'router' => 'ExampleCMS\Router',
-    ),
     'ExampleCMS\\Metadata' => array(
         'metadataHandlerFactory' => 'ExampleCMS\\Factory\\MetadataHandler',
     ),
@@ -133,9 +121,6 @@ foreach (array(
         'gridFactory' => 'ExampleCMS\\Factory\\View\\Grid',
         'metadata' => 'ExampleCMS\\Metadata',
         'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Application\\View\\Exception' => array(
-        'application' => 'ExampleCMS\\Application',
     ),
     'ExampleCMS\\Application\\View\\Basic' => array(
         'config' => 'ExampleCMS\\Config',

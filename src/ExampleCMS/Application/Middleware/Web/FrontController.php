@@ -27,6 +27,7 @@ class FrontController
     public function __invoke(RequestInterface $request, $response, $next)
     {
         $module = $this->getModuleByRequest($request);
+        $router = $request->getAttribute('router');
 
         $request = $this->presetLanguageByRequest($request);
         $request = $this->presetThemeByRequest($request);
@@ -44,7 +45,7 @@ class FrontController
         $redirect = $request->getAttribute('redirect');
 
         if (!empty($redirect)) {
-            $location = $this->router->makeWithRequest($request, $redirect['route'], $redirect['params']);
+            $location = $request->getAttribute('router')->make($redirect['route'], $redirect['params']);
             $response = $response->withHeader('Location', $location)->withStatus(301);
 
             return $next($request, $response);

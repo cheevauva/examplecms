@@ -22,11 +22,15 @@ class Module implements \ExampleCMS\Contract\Module
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
+    
+    /**
+     * @var \ExampleCMS\Factory\Component
+     */
+    public $componentFactory;
 
-    public function init($module)
+    public function setModule($module)
     {
         $this->module = $module;
-        $this->componentMetadata = $this->metadata->get(['components', (string) $this->module]);
     }
 
     public function __toString()
@@ -194,7 +198,7 @@ class Module implements \ExampleCMS\Contract\Module
 
     protected function getComponent($component)
     {
-        $componentObject = $this->container->create($this->componentMetadata[$component]);
+        $componentObject = $this->componentFactory->get($component, $this);
 
         if (method_exists($componentObject, 'setModule')) {
             $componentObject->setModule($this);

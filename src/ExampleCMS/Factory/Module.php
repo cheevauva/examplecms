@@ -12,7 +12,7 @@ class Module extends Factory
 {
 
     /**
-     * @var array
+     * @var \ExampleCMS\Module[]
      */
     protected $modules;
 
@@ -21,28 +21,27 @@ class Module extends Factory
      */
     protected $metadataModules;
 
-    public function get($module)
+    public function get($id)
     {
         if (empty($this->metadataModules)) {
             $this->metadataModules = $this->metadata->get(['modules']);
         }
 
-        if (isset($this->modules[$module])) {
-            return $this->modules[$module];
+        if (isset($this->modules[$id])) {
+            return $this->modules[$id];
         }
 
-        if (empty($this->metadataModules[$module])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('module "%s" is not defined', $module));
+        if (empty($this->metadataModules[$id])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('module "%s" is not defined', $id));
         }
 
-        /** @var $moduleObject \ExampleCMS\Contract\Module */
-        $moduleObject = $this->container->create('ExampleCMS\Module');
-        $moduleObject->init($module);
+        /** @var \ExampleCMS\Module $module */
+        $module = $this->container->create('ExampleCMS\Module');
+        $module->setModule($id);
 
-        $this->modules[$module] = $moduleObject;
+        $this->modules[$id] = $module;
 
-
-        return $moduleObject;
+        return $module;
     }
 
 }

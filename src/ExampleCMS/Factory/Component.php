@@ -4,5 +4,21 @@ namespace ExampleCMS\Factory;
 
 class Component extends Factory
 {
-    
+
+    /**
+     * @var array 
+     */
+    protected $componentMetadata = [];
+
+    public function get($id, \ExampleCMS\Module $module)
+    {
+        $moduleName = (string) $module;
+
+        if (!isset($this->componentMetadata[$moduleName])) {
+            $this->componentMetadata[$moduleName] = $this->metadata->get(['components', $moduleName]);
+        }
+
+        return $this->container->create($this->componentMetadata[$moduleName][$id]);
+    }
+
 }

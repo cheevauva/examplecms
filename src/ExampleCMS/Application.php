@@ -2,8 +2,6 @@
 
 namespace ExampleCMS;
 
-use ExampleCMS\CommandBus\MiddlewareBus;
-
 class Application
 {
 
@@ -18,9 +16,10 @@ class Application
     public $metadata;
 
     /**
-     * @var \Psr\Container\ContainerInterface
+     *
+     * @var \ExampleCMS\CommandBus\MiddlewareBus
      */
-    public $container;
+    public $middlewareBus;
 
     /**
      * @var string 
@@ -46,8 +45,8 @@ class Application
     {
         $middlewares = $this->getMiddlewares($request->getAttribute('application'));
 
-        $bus = new MiddlewareBus($middlewares);
-        $bus->container = $this->container;
+        $bus = $this->middlewareBus;
+        $bus->setMiddlewares($middlewares);
 
         return $bus->run($request, $response);
     }

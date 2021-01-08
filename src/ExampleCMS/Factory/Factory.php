@@ -12,7 +12,7 @@ class Factory
 {
 
     /**
-     * @var \ExampleCMS\Contract\Container
+     * @var \ExampleCMS\Container
      */
     public $container;
 

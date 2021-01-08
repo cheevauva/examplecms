@@ -6,23 +6,13 @@
 
 namespace ExampleCMS\Factory;
 
-class Router
+class Router extends Factory
 {
-
-    /**
-     * @var \ExampleCMS\Container 
-     */
-    public $container;
 
     /**
      * @var \ExampleCMS\Contract\Config 
      */
     public $config;
-
-    /**
-     * @var \ExampleCMS\Contract\Metadata
-     */
-    public $metadata;
 
     /**
      * @var array 

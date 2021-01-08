@@ -8,13 +8,8 @@
 
 namespace ExampleCMS\Factory;
 
-class Session implements \ExampleCMS\Contract\Factory\Session
+class Session extends Factory
 {
-
-    /**
-     * @var \ExampleCMS\Contract\Container
-     */
-    public $container;
 
     /**
      * @var \ExampleCMS\Contract\Config

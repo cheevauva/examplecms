@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Factory;
 
-class MetadataHandler extends \ExampleCMS\Factory\Factory
+class MetadataHandler extends Factory
 {
 
     /**

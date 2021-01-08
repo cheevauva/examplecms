@@ -8,18 +8,11 @@ foreach (array(
         'sessionFactory' => 'ExampleCMS\Factory\Session',
         'config' => 'ExampleCMS\Config',
     ),
-    'ExampleCMS\\Factory\\Session' => array(
-        'container' => 'ExampleCMS\\Container',
-        'config' => 'ExampleCMS\\Config',
-    ),
+
     'ExampleCMS\Application\Middleware\BasePath' => array(
         'config' => 'ExampleCMS\\Config',
     ),
-    'ExampleCMS\Factory\Router' => array(
-        'container' => 'ExampleCMS\Container',
-        'config' => 'ExampleCMS\Config',
-        'metadata' => 'ExampleCMS\Metadata',
-    ),
+
     'ExampleCMS\Application\Middleware\Router' => array(
         'routerFactory' => 'ExampleCMS\Factory\Router',
         'config' => 'ExampleCMS\Config',
@@ -74,12 +67,6 @@ foreach (array(
     'ExampleCMS\Module' => array(
         'metadata' => 'ExampleCMS\Metadata',
     ),
-    'ExampleCMS\\Factory\\Form\\Binder' => array(
-        'config' => 'ExampleCMS\\Config',
-    ),
-    'ExampleCMS\\Helper\Helper' => array(
-        'config' => 'ExampleCMS\\Config',
-    ),
     'ExampleCMS\\Action\Cli\Install' => array(
         'config' => 'ExampleCMS\\Config',
     ),
@@ -90,11 +77,6 @@ foreach (array(
     'ExampleCMS\\Query\\Query' => array(
         'config' => 'ExampleCMS\\Config',
         'metadata' => 'ExampleCMS\\Metadata',
-    ),
-    'ExampleCMS\\Query\\Database\\Query' => array(
-        'tableFactory' => 'ExampleCMS\\Factory\\Database\\Table',
-        'metadata' => 'ExampleCMS\\Metadata',
-        'logger' => 'ExampleCMS\\Logger',
     ),
     // structure
     'ExampleCMS\\Config' => array(

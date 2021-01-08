@@ -8,13 +8,8 @@
 
 namespace ExampleCMS\Factory;
 
-class Cache
+class Cache extends Factory
 {
-
-    /**
-     * @var \ExampleCMS\Container
-     */
-    public $container;
 
     /**
      * @var \ExampleCMS\Filesystem
@@ -29,7 +24,7 @@ class Cache
     /**
      * @var array
      */
-    protected $metadata;
+    protected $meta;
 
     public function get($cache = null)
     {
@@ -64,12 +59,12 @@ class Cache
 
     protected function loadMetadata($cache)
     {
-        if (empty($this->metadata)) {
-            $this->metadata = $this->filesystem->loadAsPHP('cache/metadata/application/Caches.php');
+        if (empty($this->meta)) {
+            $this->meta = $this->filesystem->loadAsPHP('cache/metadata/application/Caches.php');
         }
 
-        if (!empty($this->metadata[$cache])) {
-            return $this->metadata[$cache];
+        if (!empty($this->meta[$cache])) {
+            return $this->meta[$cache];
         }
 
         return [];

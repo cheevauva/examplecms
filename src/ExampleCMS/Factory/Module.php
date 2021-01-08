@@ -21,11 +21,6 @@ class Module extends Factory
      */
     protected $metadataModules;
 
-    /**
-     * @var \ExampleCMS\Container;
-     */
-    public $container;
-
     public function get($module)
     {
         if (empty($this->metadataModules)) {

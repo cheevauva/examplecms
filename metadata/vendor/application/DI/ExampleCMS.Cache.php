@@ -1,21 +1,16 @@
 <?php
 
-$di['ExampleCMS\Cache\Adapter\Adapter'] = array(
-    'config' => 'ExampleCMS\Config',
+$di[ExampleCMS\Cache\Adapter\Adapter::class] = array(
+    'config' => ExampleCMS\Config::class,
 );
-$di['ExampleCMS\Factory\Cache'] = array(
-    'config' => 'ExampleCMS\Config',
-    'container' => 'ExampleCMS\Container',
-    'filesystem' => 'ExampleCMS\Filesystem',
+$di[ExampleCMS\Cache\Cache::class] = array(
+    'cacheFactory' => ExampleCMS\Factory\Cache::class,
+    'config' => ExampleCMS\Config::class,
 );
-$di['ExampleCMS\Cache\Cache'] = array(
-    'cacheFactory' => 'ExampleCMS\Factory\Cache',
-    'config' => 'ExampleCMS\Config',
+$di[ExampleCMS\Metadata\Handler\Cache::class] = array(
+    'cacheFactory' => ExampleCMS\Factory\Cache::class,
 );
-$di['ExampleCMS\Metadata\Handler\Cache'] = array(
-    'cacheFactory' => 'ExampleCMS\Factory\Cache',
-);
-$di['ExampleCMS\Cache\Adapter\File'] = array(
-    'config' => 'ExampleCMS\Config',
-    'filesystem' => 'ExampleCMS\Filesystem',
+$di[ExampleCMS\Cache\Adapter\File::class] = array(
+    'config' => ExampleCMS\Config::class,
+    'filesystem' => ExampleCMS\Filesystem::class,
 );

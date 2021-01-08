@@ -21,11 +21,6 @@ class Theme extends Factory
      */
     protected $metadataThemes;
 
-    /**
-     * @var \ExampleCMS\Container;
-     */
-    public $container;
-
     public function get($theme)
     {
         if (empty($this->metadataThemes)) {

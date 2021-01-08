@@ -2,13 +2,25 @@
 
 namespace ExampleCMS\Application\Middleware\Web;
 
-class OopsHandler
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class OopsHandler implements MiddlewareInterface
 {
 
-    public function __invoke($request, $response, $next)
+    /**
+     * @var ResponseInterface 
+     */
+    public $response;
+
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            return $next($request, $response);
+            return $handler->handle($request);
         } catch (\Exception $exception) {
             $request = $request->withAttribute('exception', $exception);
 
@@ -35,6 +47,8 @@ class OopsHandler
             $data = $module->layout('exception')->execute($context);
             $content = $this->getThemeByRequest($request)->render($data);
 
+            $response = $this->response;
+            $response = $handler->handle($request);
             $response->getBody()->write($content);
         }
 

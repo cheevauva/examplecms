@@ -2,13 +2,20 @@
 
 namespace ExampleCMS\Application\Middleware\CLI;
 
-class OopsHandler
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class OopsHandler implements MiddlewareInterface
 {
 
-    public function __invoke($request, $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {
-            return $next($request, $response);
+            return $handler->handle($request);
         } catch (\Exception $exception) {
             $request = $request->withAttribute('exception', $exception);
 
@@ -18,6 +25,7 @@ class OopsHandler
             $message[] = $exception->getFile() . '(' . $exception->getLine() . ')';
             $message[] = $exception->getTraceAsString();
 
+            $response = $this->response;
             $response->getBody()->write(implode(PHP_EOL, $message));
         }
 

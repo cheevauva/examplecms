@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Query;
 
-abstract class Query implements \ExampleCMS\Contract\Query
+class Query implements \ExampleCMS\Contract\Query
 {
 
 }

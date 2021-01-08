@@ -2,11 +2,15 @@
 
 namespace ExampleCMS\Module\Installer\Middleware;
 
-use Psr\Http\Message\ServerRequestInterface as RequestInterface;
-use Psr\Http\Message\ResponseInterface;
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
 use ExampleCMS\Exception\Http\NotFound as NotFoundException;
 
-class LicenseAcceptChecker
+class LicenseAcceptChecker implements MiddlewareInterface
 {
 
     /**
@@ -19,7 +23,7 @@ class LicenseAcceptChecker
      */
     public $moduleFactory;
 
-    public function __invoke(RequestInterface $request, ResponseInterface $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $isSetup = $this->config->get(['base', 'setup']);
         $module = $request->getAttribute('module');
@@ -29,14 +33,14 @@ class LicenseAcceptChecker
                 NotFoundException::withRequest($request);
             }
 
-            return $next($request, $response);
+            return $handler->handle($request);
         }
 
         if (in_array($request->getAttribute('route'), ['license', 'license_save'], true)) {
-            return $next($request, $response);
+            return $handler->handle($request);
         }
-
-        $model = $this->moduleFactory->get($module)->query('find')->execute();
+        
+        $model = $this->moduleFactory->get('Installer')->query('find')->execute();
 
         if (!$model->get('license_accepted')) {
             $request = $request->withAttribute('redirect', [
@@ -45,7 +49,7 @@ class LicenseAcceptChecker
             ]);
         }
 
-        return $next($request, $response);
+        return $handler->handle($request);
     }
 
 }

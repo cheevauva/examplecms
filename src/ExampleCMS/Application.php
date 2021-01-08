@@ -2,7 +2,14 @@
 
 namespace ExampleCMS;
 
-class Application
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Application
 {
 
     /**
@@ -11,25 +18,25 @@ class Application
     protected $middlewares = [];
 
     /**
+     *
+     * @var int
+     */
+    protected $index = -1;
+
+    /**
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
 
     /**
-     *
-     * @var \ExampleCMS\CommandBus\MiddlewareBus
+     * @var \ExampleCMS\Factory\Middleware
      */
-    public $middlewareBus;
+    public $middlewareFactory;
 
     /**
-     * @var string 
+     * @var ResponseInterface 
      */
-    protected $appName;
-
-    public function setAppName($appName)
-    {
-        $this->appName = $appName;
-    }
+    public $response;
 
     protected function getMiddlewares($application)
     {
@@ -41,14 +48,25 @@ class Application
         return array_values($middlewares);
     }
 
-    public function run($request, $response)
+    public function run(ServerRequestInterface $request): ResponseInterface
     {
-        $middlewares = $this->getMiddlewares($request->getAttribute('application'));
+        $this->middlewares = $this->getMiddlewares($request->getAttribute('application'));
 
-        $bus = $this->middlewareBus;
-        $bus->setMiddlewares($middlewares);
+        return $this->handle($request);
+    }
 
-        return $bus->run($request, $response);
+    public function handle(ServerRequestInterface $request): ResponseInterface
+    {
+        $this->index++;
+
+        if (empty($this->middlewares[$this->index])) {
+            return $this->response;
+        }
+
+        /** @var MiddlewareInterface $middleware */
+        $middleware = $this->middlewareFactory->get($this->middlewares[$this->index]);
+
+        return $middleware->process($request, $this);
     }
 
 }

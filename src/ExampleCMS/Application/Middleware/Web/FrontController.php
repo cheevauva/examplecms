@@ -2,9 +2,14 @@
 
 namespace ExampleCMS\Application\Middleware\Web;
 
-use Psr\Http\Message\ServerRequestInterface as RequestInterface;
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
 
-class FrontController
+class FrontController implements MiddlewareInterface
 {
 
     /**
@@ -24,8 +29,9 @@ class FrontController
 
     const CONTENT_TYPE_DEFAULT = 'text/html';
 
-    public function __invoke(RequestInterface $request, $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $response = $handler->handle($request);
         $module = $this->getModuleByRequest($request);
         $router = $request->getAttribute('router');
 
@@ -46,26 +52,24 @@ class FrontController
 
         if (!empty($redirect)) {
             $location = $request->getAttribute('router')->make($redirect['route'], $redirect['params']);
-            $response = $response->withHeader('Location', $location)->withStatus(301);
 
-            return $next($request, $response);
+            return $response->withHeader('Location', $location)->withStatus(301);
         }
 
 
         $response->getBody()->write($this->getContent($request, $module));
-        $response = $response->withHeader('Content-Type', $request->getAttribute('contentType'));
-
-        return $next($request, $response);
+        
+        return $response->withHeader('Content-Type', $request->getAttribute('contentType'));
     }
 
-    protected function getContent($request, $module)
+    protected function getContent(ServerRequestInterface $request, $module)
     {
         $layout = $request->getAttribute('layout');
 
         if (empty($layout)) {
             return '';
         }
-        
+
         $request = $this->prepareUserScopeForms($request);
 
         $context = $request->withoutAttribute('session')->getAttributes();
@@ -78,7 +82,7 @@ class FrontController
         return $content;
     }
 
-    protected function prepareUserScopeForms(RequestInterface $request)
+    protected function prepareUserScopeForms(ServerRequestInterface $request)
     {
         $modelForms = $request->getAttribute('modelForms');
 
@@ -96,7 +100,7 @@ class FrontController
         return $request->withAttribute('formattedForms', $formattedForms);
     }
 
-    protected function prepareModelFormsByRequest($module, RequestInterface $request)
+    protected function prepareModelFormsByRequest($module, ServerRequestInterface $request)
     {
         $forms = $request->getAttribute('forms');
 
@@ -116,7 +120,7 @@ class FrontController
         return $request->withAttribute('modelForms', $modelForms);
     }
 
-    protected function getModuleByRequest(RequestInterface $request)
+    protected function getModuleByRequest(ServerRequestInterface $request)
     {
         $module = $request->getAttribute('module');
 
@@ -137,7 +141,7 @@ class FrontController
         return $this->moduleFactory->get($module);
     }
 
-    protected function presetContentTypeByRequest(RequestInterface $request)
+    protected function presetContentTypeByRequest(ServerRequestInterface $request)
     {
         $contentType = $request->getAttribute('contentType');
 
@@ -148,7 +152,7 @@ class FrontController
         return $request->withAttribute('contentType', static::CONTENT_TYPE_DEFAULT);
     }
 
-    protected function presetThemeByRequest(RequestInterface $request)
+    protected function presetThemeByRequest(ServerRequestInterface $request)
     {
         $theme = $request->getAttribute('theme');
 
@@ -168,7 +172,7 @@ class FrontController
         return $request->withAttribute('theme', $theme);
     }
 
-    protected function presetLanguageByRequest(RequestInterface $request)
+    protected function presetLanguageByRequest(ServerRequestInterface $request)
     {
         $language = $request->getAttribute('language');
 

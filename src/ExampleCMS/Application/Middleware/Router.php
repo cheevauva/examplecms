@@ -2,7 +2,14 @@
 
 namespace ExampleCMS\Application\Middleware;
 
-class Router
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class Router implements MiddlewareInterface
 {
 
     /**
@@ -15,27 +22,12 @@ class Router
      */
     public $config;
 
-    public function __invoke($request, $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $router = $this->routerFactory->get($request->getAttribute('application'));
+        $router->setBaseUrl($request->getAttribute('baseUrl'));
 
-        if ($this->config->get(['base', 'semantic_url'])) {
-            $router->setBaseUrl($request->getAttribute('baseUrl'));
-        } else {
-            $router->setBaseUrl($request->getServerParams()['SCRIPT_NAME']);
-        }
-
-        $request = $request->withAttribute('router', $router);
-
-        $path = str_replace($request->getAttribute('baseUrl'), '', $request->getUri()->getPath());
-
-        if (empty($path)) {
-            $path = '/';
-        } else {
-            $path = '/' . ltrim($path, '/');
-        }
-
-        $result = $router->match($path, $request->getMethod());
+        $result = $router->match($request->getUri()->getPath(), $request->getMethod());
 
         if (!$result) {
             throw new \ExampleCMS\Exception\Http\NotFound;
@@ -46,8 +38,9 @@ class Router
         }
 
         $request = $request->withAttribute('route', $result['name']);
+        $request = $request->withAttribute('router', $router);
 
-        return $next($request, $response);
+        return $handler->handle($request);
     }
 
 }

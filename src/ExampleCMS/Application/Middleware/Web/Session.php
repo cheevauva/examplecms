@@ -2,7 +2,14 @@
 
 namespace ExampleCMS\Application\Middleware\Web;
 
-class Session
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class Session implements MiddlewareInterface
 {
 
     /**
@@ -15,7 +22,7 @@ class Session
      */
     public $config;
 
-    public function __invoke(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $cookies = $request->getCookieParams();
         $sessionId = null;
@@ -29,7 +36,7 @@ class Session
 
         $request = $request->withAttribute('session', $session);
 
-        $response = $next($request, $response);
+        $response = $handler->handle($request);
 
         $session->write();
 

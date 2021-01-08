@@ -6,11 +6,10 @@ if (PHP_SAPI !== 'cli') {
 
 require __DIR__ . '/../bootstrap.php';
 
-$bootstrap = new ExampleCMS\Bootstrap('cli', dirname(__DIR__) . '/');
+use ExampleCMS\Bootstrap;
+use Laminas\Diactoros\ServerRequestFactory;
 
-$app = $bootstrap->getApplication();
-
-$request = \Zend\Diactoros\ServerRequestFactory::fromGlobals();
+$request = ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('argv', $_SERVER['argv'])->withAttribute('argc', $_SERVER['argc']);
 
 if ($_SERVER['argc'] > 1) {
@@ -20,10 +19,11 @@ if ($_SERVER['argc'] > 1) {
 if ($_SERVER['argc'] > 2) {
     $data = [];
     parse_str($_SERVER['argv'][2], $data);
-    
+
     $request = $request->withParsedBody($data)->withMethod('POST');
 }
 
-$response = $app->run($request, new \Zend\Diactoros\Response());
+$bootstrap = new Bootstrap(dirname(__DIR__) . '/');
+$response = $bootstrap->getApplication()->run($request->withAttribute('application', 'cli'));
 
 echo $response->getBody();

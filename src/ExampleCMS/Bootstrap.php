@@ -11,6 +11,7 @@ namespace ExampleCMS;
 use ExampleCMS\Config;
 use ExampleCMS\Filesystem;
 use ExampleCMS\Container;
+use Psr\Http\Message\ResponseInterface;
 
 class Bootstrap
 {
@@ -28,7 +29,7 @@ class Bootstrap
     public function __construct($basePath)
     {
         $arrayHelper = new \ExampleCMS\Helper\ArrayHelper;
-        
+
         $this->filesystem = new Filesystem($basePath);
         $this->config = new Config($this->filesystem, $arrayHelper);
 
@@ -98,6 +99,17 @@ class Bootstrap
         $this->includeXhprof();
 
         return $this->container->create('ExampleCMS\Application');
+    }
+
+    public function sendResponse(ResponseInterface $response)
+    {
+        foreach ($response->getHeaders() as $name => $values) {
+            foreach ($values as $value) {
+                header(sprintf('%s: %s', $name, $value), false);
+            }
+        }
+
+        echo $response->getBody();
     }
 
 }

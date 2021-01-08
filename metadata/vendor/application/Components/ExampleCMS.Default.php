@@ -5,8 +5,6 @@ foreach (array(
     'actions.index' => 'ExampleCMS\Action\Index2',
     'actions.save' => 'ExampleCMS\Action\Save',
     'actions.delete' => 'ExampleCMS\Action\Delete',
-    'queries.all' => 'ExampleCMS\Query\Database\All',
-    'queries.find' => 'ExampleCMS\Query\Database\Find',
     'queries.createdatabase' => 'ExampleCMS\Query\Database\CreateDatabase',
     'models.base' => 'ExampleCMS\Application\Model\ModelBase',
     'forms.base' => 'ExampleCMS\Application\Model\ModelForm',

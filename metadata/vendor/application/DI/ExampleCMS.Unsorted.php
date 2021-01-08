@@ -3,10 +3,8 @@
 foreach (array(
     'ExampleCMS\Application' => array(
         'metadata' => ExampleCMS\Metadata::class,
-        'middlewareBus' => '*' . ExampleCMS\CommandBus\MiddlewareBus::class,
-    ),
-    ExampleCMS\CommandBus\MiddlewareBus::class => array(
         'middlewareFactory' => \ExampleCMS\Factory\Middleware::class,
+        'response' => '*' . Laminas\Diactoros\Response::class,
     ),
     'ExampleCMS\Session\File' => array(
         'filesystem' => 'ExampleCMS\Filesystem',

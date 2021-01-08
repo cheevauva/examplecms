@@ -32,12 +32,12 @@ class Router
     
     public function setBaseUrl($baseUrl)
     {
-        $this->baseUrl = $baseUrl;
+        $this->altoRouter->setBasePath($baseUrl);
     }
 
     public function make($route, array $params = array())
     {
-        return $this->baseUrl . $this->altoRouter->generate($route, $params);
+        return $this->altoRouter->generate($route, $params);
     }
 
     public function generate($route, array $params = array())

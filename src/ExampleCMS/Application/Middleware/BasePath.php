@@ -2,17 +2,24 @@
 
 namespace ExampleCMS\Application\Middleware;
 
-class BasePath
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class BasePath implements MiddlewareInterface
 {
 
-    public function __invoke($request, $response, $next)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $server = $request->getServerParams();
 
         $request = $request->withAttribute('baseUrl', $this->getBasePath($request));
         $request = $request->withAttribute('basePath', dirname($server['SCRIPT_NAME']) . '/');
 
-        return $next($request, $response);
+        return $handler->handle($request);
     }
 
     private static function getBasePath($request)

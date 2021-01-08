@@ -2,17 +2,11 @@
 
 require '../../bootstrap.php';
 
-$bootstrap = new ExampleCMS\Bootstrap(dirname(dirname(__DIR__)) . '/');
+use ExampleCMS\Bootstrap;
+use Laminas\Diactoros\ServerRequestFactory;
 
-$request = \Zend\Diactoros\ServerRequestFactory::fromGlobals();
-$request = $request->withAttribute('application', 'rest');
+$request = ServerRequestFactory::fromGlobals();
+$bootstrap = new Bootstrap(dirname(dirname(__DIR__)) . '/');
+$response = $bootstrap->getApplication()->run($request->withAttribute('application', 'rest'));
 
-$response = $bootstrap->getApplication()->run($request, new \Zend\Diactoros\Response());
-
-foreach ($response->getHeaders() as $name => $values) {
-    foreach ($values as $value) {
-        header(sprintf('%s: %s', $name, $value), false);
-    }
-}
-
-echo $response->getBody();
+$bootstrap->sendResponse($response);

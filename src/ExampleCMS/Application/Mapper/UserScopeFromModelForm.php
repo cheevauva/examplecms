@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\Mapper;
 
-class UserScopeFromModelForm implements \ExampleCMS\Contract\Mapper
+class UserScopeFromModelForm implements \ExampleCMS\Contract\Application\Mapper
 {
 
     public function execute($params)

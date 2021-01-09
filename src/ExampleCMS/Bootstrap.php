@@ -1,9 +1,7 @@
 <?php
 
 /**
- * ExampleCMS
- *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
 namespace ExampleCMS;
@@ -17,7 +15,7 @@ class Bootstrap
 {
 
     /**
-     * @var \ExampleCMS\Filesystem
+     * @var \ExampleCMS\Contract\Filesystem
      */
     protected $filesystem;
 
@@ -25,6 +23,11 @@ class Bootstrap
      * @var \ExampleCMS\Contract\Config
      */
     protected $config;
+
+    /**
+     * @var \Psr\Container\ContainerInterface
+     */
+    protected $container;
 
     public function __construct($basePath)
     {

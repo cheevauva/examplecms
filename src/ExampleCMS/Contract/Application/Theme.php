@@ -6,7 +6,7 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Contract\View;
+namespace ExampleCMS\Contract\Application;
 
 interface Theme
 {

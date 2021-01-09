@@ -23,7 +23,7 @@ class Router
     /**
      * @return array
      */
-    public function setRoutes(array $routes)
+    public function setRoutes($routes)
     {
         foreach ($routes as $routeName => $route) {
             $this->altoRouter->map($route['method'], $route['route'], $route['target'], $routeName);

@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Action;
 
-abstract class Action implements \ExampleCMS\Contract\Action
+abstract class Action implements \ExampleCMS\Contract\Application\Action
 {
 
     /**

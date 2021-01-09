@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * @license LICENCE
+ */
+
 namespace ExampleCMS\Metadata\Handler;
 
-abstract class Handler
+abstract class Handler implements \ExampleCMS\Contract\Metadata\Handler
 {
 
     /**
@@ -19,11 +23,6 @@ abstract class Handler
      * @var array
      */
     protected $metadata;
-
-    /**
-     * @var \ExampleCMS\Contract\Filesystem
-     */
-    public $filesystem;
 
     public function setMetadata(array $metadata)
     {
@@ -50,5 +49,4 @@ abstract class Handler
         return $path;
     }
 
-    abstract public function get(array $path);
 }

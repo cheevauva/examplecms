@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Model;
 
-class Model implements \ExampleCMS\Contract\Model
+class Model implements \ExampleCMS\Contract\Application\Model
 {
 
     /**
@@ -26,8 +26,8 @@ class Model implements \ExampleCMS\Contract\Model
      */
     protected $metadata;
 
-    protected const MAPPER_TO_MODEL = 'mapper_data_to_model';
-    protected const MAPPER_FROM_MODEL = 'mapper_model_to_data';
+    const MAPPER_TO_MODEL = 'mapper_data_to_model';
+    const MAPPER_FROM_MODEL = 'mapper_model_to_data';
 
     /**
      * @return string

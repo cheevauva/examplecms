@@ -1,9 +1,7 @@
 <?php
 
 /**
- * ExampleCMS
- *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
 namespace ExampleCMS;
@@ -32,7 +30,7 @@ class Config implements \ExampleCMS\Contract\Config
      */
     protected $filesystem;
 
-    public function __construct(\ExampleCMS\Filesystem $filesystem, $arrayHelper)
+    public function __construct(\ExampleCMS\Contract\Filesystem $filesystem, $arrayHelper)
     {
         $this->filesystem = $filesystem;
         $this->arrayHelper = $arrayHelper;
@@ -89,7 +87,7 @@ class Config implements \ExampleCMS\Contract\Config
      * @param mixed $value
      * @return bool
      */
-    public function set($path, $value = null)
+    public function set($path, $value)
     {
         $cursors = $this->parsePath($path);
         $firstCursor = current($cursors);

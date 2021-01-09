@@ -39,7 +39,7 @@ class Router extends Factory
         if ($this->config->get('base.setup')) {
             $application .= 'setup';
         }
-
+        
         return $this->metadata->get(['routes', $application]);
     }
 

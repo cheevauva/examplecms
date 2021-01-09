@@ -1,14 +1,14 @@
 <?php
 
-namespace ExampleCMS\Metadata;
+namespace ExampleCMS\Helper;
 
-class Arr implements \ArrayAccess, \Iterator
+class ArraySwitcher implements \ArrayAccess
 {
 
     protected $data;
-    protected $default = array();
+    protected $default = [];
 
-    public function __construct($data, $default = array())
+    public function __construct($data, $default = [])
     {
         $this->data = $data;
         $this->default = $default;
@@ -40,36 +40,6 @@ class Arr implements \ArrayAccess, \Iterator
     public function offsetUnset($offset)
     {
         // nothing
-    }
-
-    public function current()
-    {
-        return current($this->data);
-    }
-
-    public function key()
-    {
-        return key($this->data);
-    }
-
-    public function next()
-    {
-        return next($this->data);
-    }
-
-    public function rewind()
-    {
-        reset($this->data);
-    }
-
-    public function valid()
-    {
-        return current($this->data);
-    }
-
-    public function toArray()
-    {
-        return $this->data;
     }
 
 }

@@ -1,10 +1,17 @@
 <?php
 
+/**
+ * @license LICENCE
+ */
+
 namespace ExampleCMS\Metadata\Handler;
 
 class ApplicationModule extends Handler
 {
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\MetadataHandler 
+     */
     public $metadataHandlerFactory;
 
     public function get(array $path)
@@ -13,11 +20,11 @@ class ApplicationModule extends Handler
         $moduleHandler = $this->metadataHandlerFactory->get($this->metadata['route']['module']);
 
         $module = $moduleHandler->get($path);
-        
+
         $pathApplication = $path;
 
         array_pop($pathApplication);
-        
+
         $application = $applicationHandler->get($pathApplication);
 
         if (empty($module) && !empty($application)) {
@@ -25,7 +32,7 @@ class ApplicationModule extends Handler
             $application = [];
         }
 
-        return new \ExampleCMS\Metadata\Arr($module, $application);
+        return new \ExampleCMS\Helper\ArraySwitcher($module, $application);
     }
 
 }

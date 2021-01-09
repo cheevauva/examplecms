@@ -13,7 +13,7 @@ interface Metadata
 
     /**
      * @param array $path
-     * @return mixed
+     * @return array|\ArrayAccess
      */
     public function get(array $path);
 }

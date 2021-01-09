@@ -5,6 +5,11 @@ namespace ExampleCMS\Metadata\Handler;
 class Module extends Handler
 {
 
+    /**
+     * @var \ExampleCMS\Contract\Filesystem
+     */
+    public $filesystem;
+
     public function get(array $path)
     {
         $module = [];

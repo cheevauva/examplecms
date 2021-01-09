@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application;
 
-abstract class Responder implements \ExampleCMS\Contract\Responder
+abstract class Responder implements \ExampleCMS\Contract\Application\Responder
 {
 
     /**

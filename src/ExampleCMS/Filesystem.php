@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * @license LICENCE
+ */
+
 namespace ExampleCMS;
 
-class Filesystem
+class Filesystem implements \ExampleCMS\Contract\Filesystem
 {
 
     protected $basePath;
@@ -12,26 +16,9 @@ class Filesystem
         $this->basePath = $basePath;
     }
 
-    /**
-     * @param string $filename
-     * @return mixed
-     */
     public function loadAsPHP($filename)
     {
         return include $this->preparePath($filename);
-    }
-
-    /**
-     * @param string $filename
-     * @return mixed
-     */
-    public function loadAsPHPByVar($filename, $var)
-    {
-        $$var = [];
-        
-        include $this->preparePath($filename);
-        
-        return $$var;
     }
 
     public function isExists($filename)

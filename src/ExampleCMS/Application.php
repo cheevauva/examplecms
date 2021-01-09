@@ -1,12 +1,15 @@
 <?php
 
+/**
+ * @license LICENCE
+ */
+
 namespace ExampleCMS;
 
 use Psr\Http\{
     Message\ServerRequestInterface,
     Message\ResponseInterface,
-    Server\RequestHandlerInterface,
-    Server\MiddlewareInterface
+    Server\RequestHandlerInterface
 };
 
 class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Application
@@ -29,7 +32,7 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
     public $metadata;
 
     /**
-     * @var \ExampleCMS\Factory\Middleware
+     * @var \ExampleCMS\Contract\Factory\Middleware
      */
     public $middlewareFactory;
 
@@ -63,7 +66,6 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
             return $this->response;
         }
 
-        /** @var MiddlewareInterface $middleware */
         $middleware = $this->middlewareFactory->get($this->middlewares[$this->index]);
 
         return $middleware->process($request, $this);

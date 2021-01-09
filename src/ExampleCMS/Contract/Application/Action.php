@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleCMS\Contract;
+namespace ExampleCMS\Contract\Application;
 
 interface Action
 {

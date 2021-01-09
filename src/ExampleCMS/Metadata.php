@@ -1,9 +1,7 @@
 <?php
 
 /**
- * ExampleCMS
- *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
 namespace ExampleCMS;
@@ -12,19 +10,19 @@ class Metadata implements \ExampleCMS\Contract\Metadata
 {
 
     /**
-     * @var \ExampleCMS\Factory\Metadata\Handler
+     * @var \ExampleCMS\Contract\Factory\MetadataHandler
      */
     public $metadataHandlerFactory;
 
     public function get(array $path)
     {
         if (empty($path)) {
-            throw new \Exception('path must be not empty');
+            throw new \RuntimeException('path must be not empty array');
         }
 
-        $handler = array_shift($path);
-        $handlerComponent = $this->metadataHandlerFactory->get($handler);
+        $metadataHandler = $this->metadataHandlerFactory->get(array_shift($path));
 
-        return $handlerComponent->get($path);
+        return $metadataHandler->get($path);
     }
+
 }

@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Theme;
 
-class Theme implements \ExampleCMS\Contract\Responder\Theme
+class Theme implements \ExampleCMS\Contract\Application\Theme
 {
 
     /**

@@ -8,13 +8,18 @@
 
 namespace ExampleCMS\Factory;
 
-class Cache extends Factory
+class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
 {
 
     /**
-     * @var \ExampleCMS\Filesystem
+     * @var \ExampleCMS\Contract\Filesystem
      */
     public $filesystem;
+
+    /**
+     * @var \ExampleCMS\Contract\Config
+     */
+    public $config;
 
     /**
      * @var array

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @license LICENCE
+ */
+
 namespace ExampleCMS\Metadata\Handler;
 
 class Cache extends Handler
@@ -48,7 +52,7 @@ class Cache extends Handler
         }
 
         $data = $this->component->get($path);
-        
+
         $this->cache->set($key, $data);
 
         return $data;

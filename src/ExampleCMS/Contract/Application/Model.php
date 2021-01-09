@@ -1,8 +1,8 @@
 <?php
 
-namespace ExampleCMS\Contract;
+namespace ExampleCMS\Contract\Application;
 
-interface Model extends GetterSetter
+interface Model
 {
 
     /**

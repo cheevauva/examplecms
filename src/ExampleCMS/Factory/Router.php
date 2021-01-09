@@ -26,7 +26,7 @@ class Router extends Factory
         }
 
         /** @var \ExampleCMS\Router $router */
-        $router = $this->container->create('ExampleCMS\Router');
+        $router = $this->container->get('*ExampleCMS\Router');
         $router->setRoutes($this->getRoutes($application));
 
         $this->routers[$application] = $router;

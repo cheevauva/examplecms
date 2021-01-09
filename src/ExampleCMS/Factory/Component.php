@@ -18,7 +18,7 @@ class Component extends Factory
             $this->componentMetadata[$moduleName] = $this->metadata->get(['components', $moduleName]);
         }
 
-        return $this->container->create($this->componentMetadata[$moduleName][$id]);
+        return $this->container->get('*' . $this->componentMetadata[$moduleName][$id]);
     }
 
 }

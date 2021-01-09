@@ -36,7 +36,7 @@ class Module extends Factory
         }
 
         /** @var \ExampleCMS\Module $module */
-        $module = $this->container->create('ExampleCMS\Module');
+        $module = $this->container->get('*ExampleCMS\Module');
         $module->setModule($id);
 
         $this->modules[$id] = $module;

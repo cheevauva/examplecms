@@ -1,4 +1,3 @@
-/composer
 /composer.lock
 /composer.phar
 /cache
@@ -6,3 +5,4 @@
 /config/base.php
 /nbproject/
 /config.php
+/vendor/

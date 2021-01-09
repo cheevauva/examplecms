@@ -12,7 +12,7 @@ class Factory
 {
 
     /**
-     * @var \ExampleCMS\Container
+     * @var \Psr\Container\ContainerInterface
      */
     public $container;
 
@@ -20,4 +20,5 @@ class Factory
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
+
 }

@@ -7,7 +7,7 @@ class Middleware extends Factory
 
     public function get($id)
     {
-        return $this->container->get($id);
+        return $this->container->create($id);
     }
 
 }

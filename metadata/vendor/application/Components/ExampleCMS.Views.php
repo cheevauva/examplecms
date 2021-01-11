@@ -1,7 +1,7 @@
 <?php
 
 $components['views.header'] = 'ExampleCMS\Application\View\Header';
-$components['views.footer'] = 'ExampleCMS\Application\View\Header';
+$components['views.footer'] = 'ExampleCMS\Application\View\Footer';
 $components['views.exception'] = 'ExampleCMS\Application\View\Exception';
 $components['views.basic'] = 'ExampleCMS\Application\View\View';
 $components['views.asset'] = 'ExampleCMS\Application\View\View';

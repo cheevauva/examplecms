@@ -17,6 +17,11 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
     public $metadata;
 
     /**
+     * @var \ExampleCMS\Contract\Filesystem
+     */
+    public $filesystem;
+
+    /**
      * @var array
      */
     protected $templates;
@@ -43,6 +48,8 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
 
     protected function closureByFilename($filename)
     {
+        $filename = $this->filesystem->preparePath($filename);
+
         $callback = function ($data) use ($filename) {
             $_ = $this->getVarByData('languages', $data);
 

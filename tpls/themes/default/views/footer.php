@@ -2,7 +2,7 @@
     <p>
         <br/><br/>
         &copy; by chee.<br/>
-        Execute time: <?= microtime(true) - $GLOBALS['EXAMPLECMS_TIMESTART']; ?>
+        Execute time: <?= microtime(true) - $examplecms_timestart; ?>
         <br/>
         Memory usage: <?= (memory_get_peak_usage() / (1024 * 1024)); ?>
         <br/>

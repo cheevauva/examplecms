@@ -7,8 +7,7 @@ $views['header'] = array(
     'component' => 'header',
 );
 $views['footer'] = array(
-    'component' => 'basic',
-    'template' => 'footer',
+    'component' => 'footer',
 );
 $views['asset'] = array(
     'component' => 'asset',

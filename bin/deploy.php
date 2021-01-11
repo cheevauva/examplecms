@@ -1,5 +1,8 @@
 <?php
 
+$application = 'cli';
+$onlyAutoloadStage = true;
+
 if (PHP_SAPI !== 'cli') {
     die;
 }

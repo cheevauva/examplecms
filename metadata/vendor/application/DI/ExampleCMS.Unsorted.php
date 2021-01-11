@@ -28,3 +28,7 @@ foreach (array(
 ) as $name => $value) {
     $di[$name] = $value;
 }
+
+$di[ExampleCMS\Application\Theme\Theme::class] = [
+    'filesystem' => \ExampleCMS\Filesystem::class,
+];

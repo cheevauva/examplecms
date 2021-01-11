@@ -22,34 +22,39 @@ class OopsHandler implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (\Exception $exception) {
-            $request = $request->withAttribute('exception', $exception);
 
-            if (!empty($exception->request)) {
-                $request = $request->withAttribute('module', $exception->request->getAttribute('module'));
-            } else {
-                $request = $request->withAttribute('module', $request->getAttribute('module', $this->config->get(['base', 'module'])));
+            try {
+                $request = $request->withAttribute('exception', $exception);
+
+                if (!empty($exception->request)) {
+                    $request = $request->withAttribute('module', $exception->request->getAttribute('module'));
+                } else {
+                    $request = $request->withAttribute('module', $request->getAttribute('module', $this->config->get(['base', 'module'])));
+                }
+
+                $request = $request->withAttribute('language', $this->config->get(['base', 'language']));
+
+                $module = $this->moduleFactory->get($request->getAttribute('module'));
+
+                $themeName = $request->getAttribute('theme');
+
+                if (empty($themeName)) {
+                    $themeName = $this->config->get('base.theme');
+                }
+
+                $context = $request->withoutAttribute('session')->getAttributes();
+                $context['exception'] = $exception;
+                $context['request'] = $request;
+
+                $data = $module->layout('exception')->execute($context);
+                $content = $this->getThemeByRequest($request)->render($data);
+
+                $response = $this->response;
+                $response = $handler->handle($request);
+                $response->getBody()->write($content);
+            } catch (\Exception $ex) {
+                throw $exception;
             }
-
-            $request = $request->withAttribute('language', $this->config->get(['base', 'language']));
-
-            $module = $this->moduleFactory->get($request->getAttribute('module'));
-
-            $themeName = $request->getAttribute('theme');
-
-            if (empty($themeName)) {
-                $themeName = $this->config->get('base.theme');
-            }
-
-            $context = $request->withoutAttribute('session')->getAttributes();
-            $context['exception'] = $exception;
-            $context['request'] = $request;
-
-            $data = $module->layout('exception')->execute($context);
-            $content = $this->getThemeByRequest($request)->render($data);
-
-            $response = $this->response;
-            $response = $handler->handle($request);
-            $response->getBody()->write($content);
         }
 
         return $response;

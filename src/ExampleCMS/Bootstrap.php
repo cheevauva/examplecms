@@ -6,9 +6,6 @@
 
 namespace ExampleCMS;
 
-use ExampleCMS\Config;
-use ExampleCMS\Filesystem;
-use ExampleCMS\Container;
 use Psr\Http\Message\ResponseInterface;
 
 class Bootstrap

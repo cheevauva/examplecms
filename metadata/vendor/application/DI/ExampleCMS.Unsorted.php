@@ -1,34 +1,27 @@
 <?php
 
-foreach (array(
-    'ExampleCMS\Application' => array(
-        'metadata' => ExampleCMS\Metadata::class,
-        'middlewareFactory' => \ExampleCMS\Factory\Middleware::class,
-        'response' => '*' . Laminas\Diactoros\Response::class,
-    ),
-    'ExampleCMS\Session\File' => array(
-        'filesystem' => 'ExampleCMS\Filesystem',
-        'cacheFactory' => 'ExampleCMS\Factory\Cache',
-    ),
-    'ExampleCMS\Session\Memcached' => array(
-        'cacheFactory' => 'ExampleCMS\Factory\Cache',
-    ),
-    'ExampleCMS\Config' => array(
-        'filesystem' => 'ExampleCMS\Filesystem',
-    ),
-    'ExampleCMS\Router' => array(
-        'config' => 'ExampleCMS\Config',
-        'altoRouter' => '*AltoRouter',
-        'metadata' => 'ExampleCMS\Metadata',
-    ),
-    ExampleCMS\Module::class => array(
-        'metadata' => ExampleCMS\Metadata::class,
-        'componentFactory' => ExampleCMS\Factory\Component::class,
-    ),
-) as $name => $value) {
-    $di[$name] = $value;
-}
+$di[ExampleCMS\Application::class] = array(
+    'metadata' => ExampleCMS\Metadata::class,
+    'middlewareFactory' => \ExampleCMS\Factory\Middleware::class,
+    'response' => '*' . Laminas\Diactoros\Response::class,
+);
+$di[ExampleCMS\Session\File::class] = array(
+    'filesystem' => \ExampleCMS\Filesystem::class,
+    'cacheFactory' => ExampleCMS\Factory\Cache::class,
+);
+$di[ExampleCMS\Session\Memcached::class] = array(
+    'cacheFactory' => ExampleCMS\Factory\Cache::class,
+);
 
+$di[ExampleCMS\Router::class] = array(
+    'config' => ExampleCMS\Config::class,
+    'altoRouter' => '*' . AltoRouter::class,
+    'metadata' => ExampleCMS\Metadata::class,
+);
+$di[ExampleCMS\Module::class] = array(
+    'metadata' => ExampleCMS\Metadata::class,
+    'componentFactory' => ExampleCMS\Factory\Component::class,
+);
 $di[ExampleCMS\Application\Theme\Theme::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,
 ];

@@ -98,7 +98,7 @@ class Bootstrap
 
         $this->includeXhprof();
 
-        return $this->container->get('*ExampleCMS\Application');
+        return $this->container->get('ExampleCMS\Application');
     }
 
     public function sendResponse(ResponseInterface $response)

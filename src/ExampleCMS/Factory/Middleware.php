@@ -11,7 +11,7 @@ class Middleware extends Factory implements \ExampleCMS\Contract\Factory\Middlew
 
     public function get($id): \Psr\Http\Server\MiddlewareInterface
     {
-        return $this->container->get('*' . $id);
+        return $this->container->get($id);
     }
 
 }

@@ -39,7 +39,7 @@ class Theme extends Factory
         $metadata['name'] = $theme;
 
         /** @var $moduleObject \ExampleCMS\Contract\Module */
-        $themeObject = $this->container->get('*' . $metadata['component']);
+        $themeObject = $this->container->get($metadata['component']);
         $themeObject->setOptions($metadata);
         $themeObject->metadata = $this->metadata;
 

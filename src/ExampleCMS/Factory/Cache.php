@@ -42,7 +42,7 @@ class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
             $settings = $this->loadSettings($cache);
             $options = array_merge($metadata, $settings);
 
-            $adapter = $this->container->get('*' . $metadata['adapter']);
+            $adapter = $this->container->get($metadata['adapter']);
             $adapter->setOptions($options);
 
             $this->adapters[$cache] = $adapter;

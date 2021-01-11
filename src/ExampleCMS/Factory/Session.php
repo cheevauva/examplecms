@@ -24,7 +24,7 @@ class Session extends Factory
             $engine = 'File';
         }
 
-        $session = $this->container->get(sprintf('*ExampleCMS\Session\%s', $engine));
+        $session = $this->container->get(sprintf('ExampleCMS\Session\%s', $engine));
         $session->setSessionId($id);
 
         return $session;

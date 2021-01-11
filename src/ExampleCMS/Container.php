@@ -13,6 +13,17 @@ class Container extends \PDIC\Container
      */
     public function get($id)
     {
+        return $this->fetch('*' . $id);
+    }
+
+    /**
+     * @param string $id
+     * @return object
+     * @throws ExceptionNotFound
+     * @throws Exception
+     */
+    protected function fetch($id)
+    {
         if (empty($id)) {
             throw new Exception('id must be defined');
         }
@@ -56,5 +67,23 @@ class Container extends \PDIC\Container
 
         return $object;
     }
+    
+    /**
+     * @param object $object
+     * @param array $properties
+     * @throws Exception
+     */
+    protected function setPropertiesToObject($object, array $properties)
+    {
+        try {
+            foreach ($properties as $property => $class) {
+                $object->{$property} = $this->fetch($class);
+            }
+        } catch (Exception $e) {
+            $message = 'For class (' . get_class($object) . '), property (' . $property . '): ';
+            $message .= $e->getMessage();
 
+            throw new Exception($message);
+        }
+    }
 }

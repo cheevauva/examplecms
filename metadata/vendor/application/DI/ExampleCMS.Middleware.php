@@ -4,9 +4,6 @@ $di[ExampleCMS\Application\Middleware\Web\Session::class] = array(
     'sessionFactory' => ExampleCMS\Factory\Session::class,
     'config' => ExampleCMS\Config::class,
 );
-$di[ExampleCMS\Application\Middleware\BasePath::class] = array(
-    'config' => ExampleCMS\Config::class,
-);
 $di[ExampleCMS\Application\Middleware\Router::class] = array(
     'routerFactory' => ExampleCMS\Factory\Router::class,
     'config' => ExampleCMS\Config::class,

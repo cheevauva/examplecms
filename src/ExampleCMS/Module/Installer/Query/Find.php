@@ -5,8 +5,11 @@ namespace ExampleCMS\Module\Installer\Query;
 class Find
 {
 
-
     protected $module;
+
+    /**
+     * @var \ExampleCMS\Contract\Factory\Cache
+     */
     public $cacheFactory;
 
     public function execute(array $params = [])
@@ -19,7 +22,7 @@ class Find
 
         $model = $this->module->model();
         $model->fromArray($install);
-        
+
         return $model;
     }
 

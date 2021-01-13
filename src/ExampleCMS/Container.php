@@ -5,6 +5,8 @@ namespace ExampleCMS;
 class Container extends \PDIC\Container
 {
 
+    const VARIABLE_PREFIX = '@';
+
     /**
      * @param string $id
      * @return object
@@ -30,13 +32,20 @@ class Container extends \PDIC\Container
 
         $isLocal = $id[0] === static::LOCAL_PREFIX;
         $isGlobal = !$isLocal;
+        $isVariable = $id[0] === static::VARIABLE_PREFIX;
 
-        if ($isGlobal) {
+        if ($isVariable || $isLocal) {
+            $id = substr($id, 1);
+        }
+
+        if ($isGlobal || $isVariable) {
             if (isset($this->objects[$id])) {
                 return $this->objects[$id];
             }
-        } else {
-            $id = substr($id, 1);
+        }
+
+        if ($isVariable) {
+            throw new ExceptionNotFound(sprintf('variable "%s" not found', $id));
         }
 
         if (!class_exists($id, true)) {
@@ -67,7 +76,7 @@ class Container extends \PDIC\Container
 
         return $object;
     }
-    
+
     /**
      * @param object $object
      * @param array $properties
@@ -76,8 +85,24 @@ class Container extends \PDIC\Container
     protected function setPropertiesToObject($object, array $properties)
     {
         try {
+            $reflecitonClass = new \ReflectionClass($object);
+
             foreach ($properties as $property => $class) {
-                $object->{$property} = $this->fetch($class);
+                try {
+                    $reflectionProperty = $reflecitonClass->getProperty($property);
+                } catch (\ReflectionException $ex) {
+                    throw new \PDIC\Exception(get_class($object) . ': ' . $ex->getMessage());
+                }
+                
+                $value = $this->fetch($class);
+
+                if ($reflectionProperty->isPublic()) {
+                    $reflectionProperty->setValue($object, $value);
+                } else {
+                    $reflectionProperty->setAccessible(true);
+                    $reflectionProperty->setValue($object, $value);
+                    $reflectionProperty->setAccessible(false);
+                }
             }
         } catch (Exception $e) {
             $message = 'For class (' . get_class($object) . '), property (' . $property . '): ';
@@ -86,4 +111,5 @@ class Container extends \PDIC\Container
             throw new Exception($message);
         }
     }
+
 }

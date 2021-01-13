@@ -11,13 +11,17 @@ use Psr\Http\{
 
 class BasePath implements MiddlewareInterface
 {
+    /**
+     * @var \ExampleCMS\Contract\Config 
+     */
+    protected $config;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $server = $request->getServerParams();
 
         $request = $request->withAttribute('baseUrl', $this->getBasePath($request));
-        $request = $request->withAttribute('basePath', dirname($server['SCRIPT_NAME']) . '/');
+        $request = $request->withAttribute('basePath', str_replace('//', '/', dirname($server['SCRIPT_NAME']) . '/'));
 
         return $handler->handle($request);
     }

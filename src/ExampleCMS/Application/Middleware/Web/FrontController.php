@@ -27,6 +27,11 @@ class FrontController implements MiddlewareInterface
      */
     public $metadata;
 
+    /**
+     * @var \ExampleCMS\Contract\Config
+     */
+    public $config;
+
     const CONTENT_TYPE_DEFAULT = 'text/html';
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -58,7 +63,7 @@ class FrontController implements MiddlewareInterface
 
 
         $response->getBody()->write($this->getContent($request, $module));
-        
+
         return $response->withHeader('Content-Type', $request->getAttribute('contentType'));
     }
 

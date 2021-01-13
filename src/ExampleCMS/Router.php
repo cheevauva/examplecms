@@ -19,7 +19,12 @@ class Router
      * @var string
      */
     protected $baseUrl;
-    
+
+    /**
+     * @var \ExampleCMS\Contract\Metadata
+     */
+    public $metadata;
+
     /**
      * @return array
      */
@@ -29,7 +34,7 @@ class Router
             $this->altoRouter->map($route['method'], $route['route'], $route['target'], $routeName);
         }
     }
-    
+
     public function setBaseUrl($baseUrl)
     {
         $this->altoRouter->setBasePath($baseUrl);

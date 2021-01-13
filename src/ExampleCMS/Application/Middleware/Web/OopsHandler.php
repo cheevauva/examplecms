@@ -17,6 +17,21 @@ class OopsHandler implements MiddlewareInterface
      */
     public $response;
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
+    public $moduleFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Factory\Theme
+     */
+    public $themeFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Config
+     */
+    public $config;
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         try {

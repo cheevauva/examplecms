@@ -20,6 +20,11 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
      * @var array
      */
     protected $handlersMetadata = array();
+    
+    /**
+     * @var \ExampleCMS\Contract\Filesystem 
+     */
+    public $filesystem;
 
     public function get($id): \ExampleCMS\Contract\Metadata\Handler
     {

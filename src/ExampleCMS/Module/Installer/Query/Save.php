@@ -8,6 +8,10 @@ class Save
     const MODEL = 'model';
     const REQUEST = 'request';
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Cache
+     */
+    public $cacheFactory;
     protected $module;
 
     public function execute(array $params = [])

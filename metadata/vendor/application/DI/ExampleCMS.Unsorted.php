@@ -6,7 +6,6 @@ $di[ExampleCMS\Application::class] = array(
     'response' => '*' . Laminas\Diactoros\Response::class,
 );
 $di[ExampleCMS\Session\File::class] = array(
-    'filesystem' => \ExampleCMS\Filesystem::class,
     'cacheFactory' => ExampleCMS\Factory\Cache::class,
 );
 $di[ExampleCMS\Session\Memcached::class] = array(
@@ -14,7 +13,6 @@ $di[ExampleCMS\Session\Memcached::class] = array(
 );
 
 $di[ExampleCMS\Router::class] = array(
-    'config' => ExampleCMS\Config::class,
     'altoRouter' => '*' . AltoRouter::class,
     'metadata' => ExampleCMS\Metadata::class,
 );

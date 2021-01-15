@@ -2,12 +2,18 @@
 
 namespace ExampleCMS\Cache;
 
-class Cache implements \ExampleCMS\Contract\Container\Mediator
+class Cache implements \PDIC\InterfaceMediator
 {
+
     /**
      * @var \ExampleCMS\Contract\Factory\Cache
      */
     public $cacheFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Config
+     */
+    public $config;
 
     public function get()
     {

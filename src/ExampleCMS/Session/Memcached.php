@@ -4,6 +4,10 @@ namespace ExampleCMS\Session;
 
 class Memcached extends Session
 {
+    /**
+     * @var \ExampleCMS\Contract\Factory\Cache
+     */
+    public $cacheFactory;
 
     protected function readFromStorage()
     {

@@ -6,10 +6,10 @@ class Memcached extends Adapter
 {
 
     /**
-     * @var \ExampleCMS\Contact\Config
+     * @var \Memcached 
      */
-    public $config;
-
+    protected $memcached;
+    
     public function setOptions(array $options)
     {
         parent::setOptions($options);

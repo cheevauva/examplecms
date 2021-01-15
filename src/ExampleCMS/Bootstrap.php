@@ -49,7 +49,7 @@ class Bootstrap
         }
 
         if (function_exists('xhprof_enable') && class_exists('XHProfRuns_Default', true)) {
-            xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
+            xhprof_enable(constant('XHPROF_FLAGS_CPU') + constant('XHPROF_FLAGS_MEMORY'));
 
             register_shutdown_function(function () {
                 $xhprof_data = xhprof_disable();

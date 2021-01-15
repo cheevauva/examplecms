@@ -26,7 +26,7 @@ class Router
     public $metadata;
 
     /**
-     * @return array
+     * @param array $routes
      */
     public function setRoutes($routes)
     {

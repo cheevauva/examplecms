@@ -22,4 +22,5 @@ $di[ExampleCMS\Module::class] = array(
 );
 $di[ExampleCMS\Application\Theme\Theme::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,
+    'metadata' => ExampleCMS\Metadata::class,
 ];

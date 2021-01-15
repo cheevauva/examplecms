@@ -10,7 +10,7 @@ abstract class Handler implements \ExampleCMS\Contract\Metadata\Handler
 {
 
     /**
-     * @var string
+     * @var array
      */
     protected $route;
 

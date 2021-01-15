@@ -40,7 +40,7 @@ class LicenseAcceptChecker implements MiddlewareInterface
             return $handler->handle($request);
         }
         
-        $model = $this->moduleFactory->get('Installer')->query('find')->execute();
+        $model = $this->moduleFactory->get('Installer')->query('find')->fetch();
 
         if (!$model->get('license_accepted')) {
             $request = $request->withAttribute('redirect', [

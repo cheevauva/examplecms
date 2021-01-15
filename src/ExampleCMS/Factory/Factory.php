@@ -17,7 +17,7 @@ class Factory
     public $container;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Metadata
+     * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
 

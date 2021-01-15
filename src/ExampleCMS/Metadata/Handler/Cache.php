@@ -12,12 +12,12 @@ class Cache extends Handler
     public $handler;
 
     /**
-     * @var \ExampleCMS\Cache\Cache
+     * @var \ExampleCMS\Contract\Cache\Adapter
      */
     public $cache;
 
     /**
-     * @var \ExampleCMS\Config
+     * @var \ExampleCMS\Contract\Config
      */
     public $config;
 
@@ -25,6 +25,11 @@ class Cache extends Handler
      * @var \ExampleCMS\Contract\Factory\Cache
      */
     public $cacheFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Metadata\Handler
+     */
+    protected $component;
 
     public function setMetadata(array $metadata)
     {

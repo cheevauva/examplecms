@@ -2,11 +2,11 @@
 
 namespace ExampleCMS\Cache\Adapter;
 
-abstract class Adapter
+abstract class Adapter implements \ExampleCMS\Contract\Cache\Adapter
 {
 
     /**
-     * @var \ExampleCMS\Contact\Config
+     * @var \ExampleCMS\Contract\Config 
      */
     public $config;
 
@@ -14,10 +14,6 @@ abstract class Adapter
      * @var array
      */
     protected $options;
-
-    abstract public function get($key);
-
-    abstract public function set($key, $value);
 
     public function setOptions(array $options)
     {

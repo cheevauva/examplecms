@@ -9,8 +9,18 @@ use Psr\Http\{
     Server\MiddlewareInterface
 };
 
-class OopsHandler implements MiddlewareInterface
+class OopsHandler extends \ExampleCMS\Application\Middleware\Web\OopsHandler implements MiddlewareInterface
 {
+
+    /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
+    public $moduleFactory;
+
+    /**
+     * @var ResponseInterface
+     */
+    public $response;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {

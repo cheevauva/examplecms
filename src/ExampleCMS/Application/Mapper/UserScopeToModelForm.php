@@ -7,7 +7,7 @@ class UserScopeToModelForm implements \ExampleCMS\Contract\Application\Mapper
 
     public function execute(array $params)
     {
-        /** @var \ExampleCMS\Contract\Model $model */
+        /** @var \ExampleCMS\Contract\Application\Model $model */
         $model = $params[static::TO];
         $metadata = $model->getMetadata();
 

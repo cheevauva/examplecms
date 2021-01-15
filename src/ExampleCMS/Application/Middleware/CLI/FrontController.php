@@ -13,27 +13,28 @@ use \ExampleCMS\Application\Middleware\Web\FrontController as WebFrontController
 class FrontController extends WebFrontController
 {
 
-    public $moduleFactory;
-    public $metadata;
+    /**
+     * @var ResponseInterface
+     */
+    public $response;
 
     /**
-     * @return array
+     * @return array|\ArrayAccess
      */
-    protected function getRoutes()
+    protected function getRoutes($request)
     {
-        $appName = $this->request->getAttribute('appName');
+        $appName = $request->getAttribute('appName');
 
         if ($this->config->get('base.setup')) {
             $appName .= 'setup';
         }
-        $this->routes = $this->metadata->get(['routes', $appName]);
-
-        return $this->routes;
+        
+        return $this->metadata->get(['routes', $appName]);
     }
 
-    protected function renderCommands($scriptName)
+    protected function renderCommands($scriptName, $request)
     {
-        $routes = $this->getRoutes();
+        $routes = $this->getRoutes($request);
         $content = [];
 
         $content[] = 'Choose:';
@@ -58,7 +59,6 @@ class FrontController extends WebFrontController
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->request = $request;
 
         $action = $request->getAttribute('action');
         $args = $request->getAttribute('argv');
@@ -66,7 +66,7 @@ class FrontController extends WebFrontController
 
         if (empty($args)) {
             $response = $this->response;
-            $response->getBody()->write($this->renderCommands($scriptName));
+            $response->getBody()->write($this->renderCommands($scriptName, $request));
 
             return $response;
         }

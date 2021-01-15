@@ -82,7 +82,10 @@ class OopsHandler implements MiddlewareInterface
 
     protected function getThemeByRequest($request)
     {
+        /* @var $theme string */
         $theme = $request->getAttribute('theme');
+
+        /* @var $theme \ExampleCMS\Contract\Session */
         $session = $request->getAttribute('session');
 
         if (empty($theme)) {

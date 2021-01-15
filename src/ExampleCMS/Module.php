@@ -22,7 +22,7 @@ class Module implements \ExampleCMS\Contract\Module
      * @var \ExampleCMS\Contract\Metadata
      */
     public $metadata;
-    
+
     /**
      * @var \ExampleCMS\Factory\Component
      */
@@ -33,17 +33,29 @@ class Module implements \ExampleCMS\Contract\Module
         $this->module = $module;
     }
 
+    public function getModule()
+    {
+        return $this->module;
+    }
+
     public function __toString()
     {
         return $this->module;
     }
 
+    /**
+     * 
+     * @param string $type
+     * @param string $component
+     * @return array|\ArrayAccess
+     * @throws \ExampleCMS\Exception\Metadata
+     */
     protected function getResponderMetadata($type, $component)
     {
         $responderMetadata = $this->metadata->get([
             'responders',
             ucfirst($type),
-            (string) $this->module,
+            $this->module,
         ]);
 
         if (empty($responderMetadata[$component]['component'])) {
@@ -51,7 +63,7 @@ class Module implements \ExampleCMS\Contract\Module
                 $component,
                 'responders',
                 ucfirst($type),
-                (string) $this->module,
+                $this->module,
             ])));
         }
 
@@ -128,6 +140,11 @@ class Module implements \ExampleCMS\Contract\Module
         return $component;
     }
 
+    /**
+     * @param string|array $form
+     * @return array|\ArrayAccess
+     * @throws \ExampleCMS\Exception\Metadata
+     */
     protected function getFormMetadata($form)
     {
         $formMetadata = $this->metadata->get(['forms', (string) $this]);
@@ -171,19 +188,9 @@ class Module implements \ExampleCMS\Contract\Module
         return $component;
     }
 
-    public function model($modelType = 'base')
+    public function model($modelType = 'model')
     {
         return $this->getModel($modelType);
-    }
-
-    public function storage()
-    {
-        return $this->getStorage();
-    }
-
-    public function dataSource($dataSource)
-    {
-        return $this->getDataSource($dataSource);
     }
 
     public function action($action)

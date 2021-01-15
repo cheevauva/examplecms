@@ -8,7 +8,7 @@ class License extends Read
     /**
      * @var \ExampleCMS\Contract\Filesystem 
      */
-    protected $filesystem;
+    public $filesystem;
 
     public function execute($request)
     {

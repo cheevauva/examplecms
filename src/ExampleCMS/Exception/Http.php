@@ -10,8 +10,6 @@ abstract class Http extends \Exception
 
     public static function withRequest($request)
     {
-        $this->request = $request;
-
         $exception = new static;
         $exception->request = $request;
 

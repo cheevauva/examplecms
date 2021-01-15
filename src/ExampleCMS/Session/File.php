@@ -6,7 +6,7 @@ class File extends Session
 {
 
     /**
-     * @var \ExampleCMS\Factory\Cache
+     * @var \ExampleCMS\Contract\Factory\Cache
      */
     public $cacheFactory;
 

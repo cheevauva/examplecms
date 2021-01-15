@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Session;
 
-abstract class Session
+abstract class Session implements \ExampleCMS\Contract\Session
 {
 
     /**

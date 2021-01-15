@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Module\Installer\Query;
 
-class Save
+class Save extends \ExampleCMS\Application\Query\Query
 {
 
     const MODEL = 'model';
@@ -12,18 +12,12 @@ class Save
      * @var \ExampleCMS\Contract\Factory\Cache
      */
     public $cacheFactory;
-    protected $module;
 
-    public function execute(array $params = [])
+    public function execute(array $params = [], $autoExecute = true)
     {
         $model = $params[static::MODEL];
 
         $this->cacheFactory->get('fileInstaller')->set('options', $model->toArray());
-    }
-
-    public function setModule($module): void
-    {
-        $this->module = $module;
     }
 
 }

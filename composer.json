@@ -14,7 +14,7 @@
     "require": {
         "altorouter/altorouter": "1.1.0",
         "laminas/laminas-diactoros": "1.3.2",
-        "cheevauva/pdic": "1.*",
+        "cheevauva/pdic": "1.1.0",
         "psr/container": "1.0.0",
         "psr/http-server-handler": "1.0.0",
         "psr/http-server-middleware": "1.0.0",
@@ -23,7 +23,8 @@
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
         "lox/xhprof": "dev-master",
-        "filp/whoops": "1.1.5"
+        "filp/whoops": "1.1.5",
+        "vimeo/psalm": "4.4.1"
     },
     "config": {
         "preferred-install": "dist"

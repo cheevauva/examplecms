@@ -13,7 +13,7 @@ class Read extends \ExampleCMS\Application\Action\Action
             $query::REQUEST => $request
         ]);
 
-        $model = $this->module->query('find')->execute();
+        $model = $this->module->query('find')->fetch();
 
         $formModel->bindFrom($model);
 

@@ -6,7 +6,7 @@ foreach (array(
     'actions.save' => 'ExampleCMS\Action\Save',
     'actions.delete' => 'ExampleCMS\Action\Delete',
     'queries.createdatabase' => 'ExampleCMS\Query\Database\CreateDatabase',
-    'models.base' => 'ExampleCMS\Application\Model\ModelBase',
+    'models.model' => 'ExampleCMS\Application\Model\ModelBase',
     'forms.base' => 'ExampleCMS\Application\Model\ModelForm',
     'rows.header' => 'ExampleCMS\Application\Row\Basic',
     'rows.default' => 'ExampleCMS\Application\Row\Basic',

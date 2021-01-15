@@ -9,19 +9,27 @@ class Link extends Field
 
     public function execute($context)
     {
-        $metadata = parent::getData($context);
+        $context = parent::execute($context);
+        
+        $context['label'] = $context['name'];
+        $context['url'] = '';
 
-        $metadata['label'] = $metadata['name'];
-        $metadata['url'] = $context['request']->getAttribute('router')->make($metadata['route'], array(
-            'module' => $this->getModule(),
-            'id' => $this->get('id'),
-        ));
+        if (!empty($context['modelForms'][$context['form']])) {
+            /* @var $model \ExampleCMS\Contract\Application\Model */
+            $model = $context['modelForms'][$context['form']];
 
-        if (empty($metadata['use_label'])) {
-            $metadata['label'] = $this->model->get($metadata['label']);
+            $context['url'] = $context['request']->getAttribute('router')->make($context['route'], array(
+                'module' => $model->getModule()->getModule(),
+                'id' => $model->get('id'),
+            ));
+
+            if (empty($context['use_label'])) {
+                $context['label'] = $model->get($context['label']);
+            }
         }
 
-        return $metadata;
+
+        return $context;
     }
 
 }

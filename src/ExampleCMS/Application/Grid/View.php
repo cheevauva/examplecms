@@ -15,6 +15,7 @@ class View extends Grid
     {
         $models = [];
 
+        /* @var $all \ExampleCMS\Contract\Application\Query */
         $all = $this->module->query('all');
         $all->fetch([
             $all::LIMIT => 10,

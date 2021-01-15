@@ -18,7 +18,7 @@ class FrontController implements MiddlewareInterface
     public $moduleFactory;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Module
+     * @var \ExampleCMS\Contract\Factory\Theme
      */
     public $themeFactory;
 
@@ -157,15 +157,21 @@ class FrontController implements MiddlewareInterface
         return $request->withAttribute('contentType', static::CONTENT_TYPE_DEFAULT);
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @return ServerRequestInterface
+     * @
+     */
     protected function presetThemeByRequest(ServerRequestInterface $request)
     {
+        /* @var $theme string */
         $theme = $request->getAttribute('theme');
 
         if ($theme) {
             return $request;
         }
-
-        /** @var \ExampleCMS\Contract\Session $session */
+        
+        /* @var $session \ExampleCMS\Contract\Session */
         $session = $request->getAttribute('session');
 
         $theme = $session->get('theme');
@@ -179,13 +185,14 @@ class FrontController implements MiddlewareInterface
 
     protected function presetLanguageByRequest(ServerRequestInterface $request)
     {
+        /* @var $language string */
         $language = $request->getAttribute('language');
 
         if ($language) {
             return $request;
         }
 
-        /** @var \ExampleCMS\Contract\Session $session */
+        /* @var $session \ExampleCMS\Contract\Session */
         $session = $request->getAttribute('session');
 
         $language = $session->get('language');

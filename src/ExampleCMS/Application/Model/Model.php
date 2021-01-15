@@ -29,9 +29,6 @@ class Model implements \ExampleCMS\Contract\Application\Model
     const MAPPER_TO_MODEL = 'mapper_data_to_model';
     const MAPPER_FROM_MODEL = 'mapper_model_to_data';
 
-    /**
-     * @return string
-     */
     public function getModule()
     {
         return $this->module;
@@ -47,19 +44,11 @@ class Model implements \ExampleCMS\Contract\Application\Model
         return $this->metadata['name'];
     }
 
-    /**
-     * @param string $name
-     * @param mixed $value
-     */
     public function set($name, $value)
     {
         $this->attributes[$name] = $value;
     }
 
-    /**
-     * @param string $name
-     * @return mixed
-     */
     public function get($name)
     {
         if (!isset($this->attributes[$name])) {

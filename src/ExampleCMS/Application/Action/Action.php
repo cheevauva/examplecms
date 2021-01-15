@@ -10,17 +10,9 @@ namespace ExampleCMS\Application\Action;
 
 abstract class Action implements \ExampleCMS\Contract\Application\Action
 {
-
     /**
-     * @var \ExampleCMS\Contract\Context
+     * @var \ExampleCMS\Contract\Module
      */
-    public $context;
-
-    /**
-     * @var \ExampleCMS\Contract\Request
-     */
-    public $request;
-    
     protected $module;
     
     public function setModule($module)

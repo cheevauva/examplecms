@@ -72,7 +72,7 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
         return $callback;
     }
 
-    public function render($data)
+    public function render(array $data)
     {
         $templateId = implode('.', $data['templateId']);
 
@@ -109,25 +109,25 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
             $theme = $data['theme'];
         }
 
-        if (empty($this->theme[$theme][$module])) {
-            $this->theme[$theme][$module]['templates'] = $this->metadata->get([
+        if (empty($this->themes[$theme][$module])) {
+            $this->themes[$theme][$module]['templates'] = $this->metadata->get([
                 'theme_templates',
                 $theme,
                 $module,
             ]);
-            $this->theme[$theme][$module]['assets'] = $this->metadata->get([
+            $this->themes[$theme][$module]['assets'] = $this->metadata->get([
                 'theme_assets',
                 $theme,
                 $module,
             ]);
-            $this->theme[$theme][$module]['languages'] = $this->metadata->get(array(
+            $this->themes[$theme][$module]['languages'] = $this->metadata->get(array(
                 'languages',
                 $language,
                 $module,
             ));
         }
 
-        return $this->theme[$theme][$module][$var];
+        return $this->themes[$theme][$module][$var];
     }
 
 }

@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Factory;
 
-class Theme extends Factory
+class Theme extends Factory implements \ExampleCMS\Contract\Factory\Theme
 {
 
     /**
@@ -21,31 +21,30 @@ class Theme extends Factory
      */
     protected $metadataThemes;
 
-    public function get($theme)
+    public function get($id)
     {
         if (empty($this->metadataThemes)) {
             $this->metadataThemes = $this->metadata->get(['themes']);
         }
 
-        if (isset($this->themes[$theme])) {
-            return $this->themes[$theme];
+        if (isset($this->themes[$id])) {
+            return $this->themes[$id];
         }
 
-        if (empty($this->metadataThemes[$theme])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('theme "%s" is not defined', $theme));
+        if (empty($this->metadataThemes[$id])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('theme "%s" is not defined', $id));
         }
 
-        $metadata = $this->metadataThemes[$theme];
-        $metadata['name'] = $theme;
+        $metadata = $this->metadataThemes[$id];
+        $metadata['name'] = $id;
 
-        /** @var $moduleObject \ExampleCMS\Contract\Module */
-        $themeObject = $this->container->get($metadata['component']);
-        $themeObject->setOptions($metadata);
-        $themeObject->metadata = $this->metadata;
+        /* @var $theme \ExampleCMS\Contract\Application\Theme */
+        $theme = $this->container->get($metadata['component']);
+        $theme->setOptions($metadata);
 
-        $this->themes[$theme] = $themeObject;
+        $this->themes[$id] = $theme;
 
-        return $themeObject;
+        return $theme;
     }
 
 }

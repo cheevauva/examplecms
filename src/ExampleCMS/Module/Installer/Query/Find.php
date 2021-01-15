@@ -2,17 +2,15 @@
 
 namespace ExampleCMS\Module\Installer\Query;
 
-class Find
+class Find extends \ExampleCMS\Application\Query\Query
 {
-
-    protected $module;
 
     /**
      * @var \ExampleCMS\Contract\Factory\Cache
      */
     public $cacheFactory;
 
-    public function execute(array $params = [])
+    public function fetch(array $params = array())
     {
         $install = $this->cacheFactory->get('fileInstaller')->get('options');
 
@@ -24,11 +22,6 @@ class Find
         $model->fromArray($install);
 
         return $model;
-    }
-
-    public function setModule($module): void
-    {
-        $this->module = $module;
     }
 
 }

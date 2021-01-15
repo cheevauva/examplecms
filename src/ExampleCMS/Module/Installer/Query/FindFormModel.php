@@ -2,17 +2,15 @@
 
 namespace ExampleCMS\Module\Installer\Query;
 
-class FindFormModel
+class FindFormModel extends \ExampleCMS\Application\Query\Query
 {
 
     const REQUEST = 'request';
     const FORM = 'form';
 
     /**
-     *
-     * @var \ExampleCMS\Module 
+     * @var \ExampleCMS\Contract\Factory\Cache
      */
-    protected $module;
     public $cacheFactory;
 
     public function fetch(array $params = [])
@@ -25,11 +23,6 @@ class FindFormModel
         }
 
         return $modelForms[$params[static::FORM]];
-    }
-
-    public function setModule($module): void
-    {
-        $this->module = $module;
     }
 
 }

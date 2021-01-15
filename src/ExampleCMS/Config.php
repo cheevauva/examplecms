@@ -82,11 +82,6 @@ class Config implements \ExampleCMS\Contract\Config
         file_put_contents($filename, $phpArray);
     }
 
-    /**
-     * @param string $path
-     * @param mixed $value
-     * @return bool
-     */
     public function set($path, $value)
     {
         $cursors = $this->parsePath($path);

@@ -67,7 +67,7 @@ class FrontController implements MiddlewareInterface
         return $response->withHeader('Content-Type', $request->getAttribute('contentType'));
     }
 
-    protected function getContent(ServerRequestInterface $request, $module)
+    protected function getContent(ServerRequestInterface $request, \ExampleCMS\Contract\Module $module)
     {
         $layout = $request->getAttribute('layout');
 

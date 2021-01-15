@@ -10,9 +10,9 @@ class Component extends Factory
      */
     protected $componentMetadata = [];
 
-    public function get($id, \ExampleCMS\Module $module)
+    public function get($id, \ExampleCMS\Contract\Module $module)
     {
-        $moduleName = (string) $module;
+        $moduleName = $module->getName();
 
         if (!isset($this->componentMetadata[$moduleName])) {
             $this->componentMetadata[$moduleName] = $this->metadata->get(['components', $moduleName]);

@@ -18,7 +18,7 @@ class License extends Read
             $query::REQUEST => $request
         ]);
 
-        $model = $this->module->query('find')->execute();
+        $model = $this->module->query('find')->fetch();
 
         $formModel->bindFrom($model);
         $formModel->set('license', file_get_contents($this->filesystem->preparePath('LICENSE')));

@@ -9,5 +9,5 @@ interface Module
      * @param string $module
      * @return \ExampleCMS\Contract\Module
      */
-    public function get($module);
+    public function get($id);
 }

@@ -19,7 +19,7 @@ class Link extends Field
             $model = $context['modelForms'][$context['form']];
 
             $context['url'] = $context['request']->getAttribute('router')->make($context['route'], array(
-                'module' => $model->getModule()->getModule(),
+                'module' => $model->getModule()->getName(),
                 'id' => $model->get('id'),
             ));
 

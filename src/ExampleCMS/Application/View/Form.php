@@ -14,7 +14,7 @@ class Form extends View
     {
         return [
             'grids' => [],
-            'module' => $this->module->getModule(),
+            'module' => $this->module->getName(),
             'forms' => [],
         ];
     }

@@ -5,7 +5,7 @@ namespace ExampleCMS\Application\Mapper;
 class UserScopeFromModelForm implements \ExampleCMS\Contract\Application\Mapper
 {
 
-    public function execute($params)
+    public function execute(array $params)
     {
         $data = $params[static::TO];
 

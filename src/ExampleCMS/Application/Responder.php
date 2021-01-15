@@ -49,7 +49,7 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
     protected function getDefaultData()
     {
         return [
-            'module' => $this->module->getModule(),
+            'module' => $this->module->getName(),
             'language' => 'en_US',
         ];
     }

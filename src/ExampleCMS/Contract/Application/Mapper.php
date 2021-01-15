@@ -7,5 +7,7 @@ interface Mapper
 
     const FROM = 'from';
     const TO = 'to';
+    
+    public function execute(array $params);
 
 }

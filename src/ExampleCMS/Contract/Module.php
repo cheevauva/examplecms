@@ -6,19 +6,13 @@ interface Module
 {
 
     /**
-     * @param string $model
+     * @param string|array $model
      * @return \ExampleCMS\Contract\Application\Model
      */
     public function model($model = 'model');
 
     /**
-     * @param string $form
-     * @return \ExampleCMS\Contract\Application\Model
-     */
-    public function form($form);
-
-    /**
-     * @param string $action
+     * @param string|array $action
      * @return \ExampleCMS\Contract\Application\Action
      */
     public function action($action);
@@ -40,31 +34,31 @@ interface Module
     public function setName($module);
 
     /**
-     * @param string $field
+     * @param string|array $field
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function field($field);
 
     /**
-     * @param string $grid
+     * @param string|array $grid
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function grid($grid);
 
     /**
-     * @param string $row
+     * @param string|array $row
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function row($row);
 
     /**
-     * @param string $view
+     * @param string|array $view
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function view($view);
 
     /**
-     * @param string $layout
+     * @param string|array $layout
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function layout($layout);
@@ -76,7 +70,7 @@ interface Module
     public function mapper($mapper);
 
     /**
-     * @param string $column
+     * @param string|array $column
      * @return \ExampleCMS\Contract\Application\Responder
      */
     public function column($column);

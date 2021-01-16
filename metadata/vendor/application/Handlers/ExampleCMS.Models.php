@@ -1,24 +1,24 @@
 <?php
 
-$handlers['forms'] = array(
+$handlers['models'] = array(
     'route' => [
-        'application' => 'forms_app',
-        'module' => 'forms_mod',
+        'application' => 'models_app',
+        'module' => 'models_mod',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\ApplicationModule',
     'cache' => [
         'disable' => true,
     ],
 );
-$handlers['forms_app'] = array(
+$handlers['models_app'] = array(
     'route' => [
-        'application' => 'cache/metadata/application/Forms.php',
+        'application' => 'cache/metadata/application/Models.php',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\Application',
 );
-$handlers['forms_mod'] = array(
+$handlers['models_mod'] = array(
     'route' => [
-        'module' => 'cache/metadata/modules/$1/Forms.php',
+        'module' => 'cache/metadata/modules/$1/Models.php',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\Module',
 );

@@ -1,10 +1,8 @@
 <?php
 
-$forms['database'] = array(
+$models['database'] = array(
     'name' => 'database',
-    'component' => 'base',
-    'method' => 'POST',
-    'route' => 'database_save',
+    'component' => 'form',
     'map' => array(
         'sql_engine' => 'engine',
         'mysql_host' => 'host',
@@ -15,26 +13,26 @@ $forms['database'] = array(
     ),
 );
 
-$forms['language'] = array(
+$models['language'] = array(
     'name' => 'language',
-    'component' => 'base',
-    'method' => 'POST',
-    'route' => 'language_save',
+    'component' => 'form',
     'map' => array(
         'installer' => 'language_installer',
         'system' => 'language_system'
     ),
 );
 
-$forms['license'] = array(
+$models['license'] = array(
     'name' => 'license',
-    'component' => 'base',
-    'method' => 'POST',
-    'route' => 'license_save',
+    'component' => 'form',
     'map' => array(
         'accept' => 'license_accepted',
     ),
     'map_out' => array(
         'license' => 'license',
     ),
+);
+$models['base'] = array(
+    'name' => 'base',
+    'component' => 'model',
 );

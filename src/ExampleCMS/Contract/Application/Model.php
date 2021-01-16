@@ -26,6 +26,11 @@ interface Model
     public function fromArray(array $array);
 
     /**
+     * @return array
+     */
+    public function toArray();
+
+    /**
      * @param mixed $data
      */
     public function doMappingFromDataToModel($data);

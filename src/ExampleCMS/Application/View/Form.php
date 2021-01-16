@@ -23,35 +23,40 @@ class Form extends View
     {
         $data = parent::execute($context);
 
-        if (empty($this->metadata['form']) && !empty($context['form'])) {
-            $this->metadata['form'] = $context['form'];
+        $request = $context['request'];
+
+        if (empty($this->metadata['model'])) {
+            throw new \RuntimeException('"model" is not defined in metadata');
         }
 
-        $model = $context['modelForms'][$this->metadata['form']];
+        if (empty($context['model'][$this->metadata['model']])) {
+            throw new \RuntimeException(sprintf('model "%s" is not defined in context', $this->metadata['model']));
+        }
 
-        $data['method'] = $this->getMethod($model);
-        $data['action'] = $this->getAction($model, $context['request']);
+        /* @var $model \ExampleCMS\Application\Model\ModelBase */
+        $model = $context['model'][$this->metadata['model']];
+
+        if (empty($this->metadata['method'])) {
+            throw new \RuntimeException('"method" is not defined in metadata');
+        }
+
+        if (empty($this->metadata['route'])) {
+            throw new \RuntimeException('"route" is not defined in metadata');
+        }
+
+        $data['method'] = $this->metadata['method'];
+        $data['action'] = $request->getAttribute('router')->make($this->metadata['route'], $model->toArray());
+        
+        $context['formData'] = new \ArrayObject();
+        $context['formName'] = $model->getModelName();
+        
+        $model->doMappingFromModelToData($context['formData']);
 
         foreach ($this->metadata['grids'] as $index => $meta) {
             $data['grids'][$index] = $this->module->grid($meta)->execute($context);
         }
 
         return $data;
-    }
-
-    public function getMethod($model)
-    {
-        $metadata = $model->getMetadata();
-
-        return $metadata['method'];
-    }
-
-    public function getAction($model, $request)
-    {
-        $metadata = $model->getMetadata();
-        $params = $model->toArray();
-
-        return $request->getAttribute('router')->make($metadata['route'], $params);
     }
 
 }

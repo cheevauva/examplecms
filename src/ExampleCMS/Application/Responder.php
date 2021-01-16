@@ -39,13 +39,6 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
         $this->metadata = $metadata;
     }
 
-    protected function getModelByRequest($request)
-    {
-        $model = $request->getAttribute('model');
-
-        return $model;
-    }
-
     protected function getDefaultData()
     {
         return [
@@ -56,8 +49,6 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
 
     public function execute(array $context)
     {
-        $context = $this->rewriteContext($context);
-
         $data = [];
         $data['templateId'] = $this->getTemplateId();
         $data['module'] = $context['module'];
@@ -70,11 +61,6 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
         }
 
         return $data;
-    }
-
-    protected function rewriteContext($context)
-    {
-        return $context;
     }
 
     protected function getTemplateId()

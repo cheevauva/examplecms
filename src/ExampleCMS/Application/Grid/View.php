@@ -11,27 +11,10 @@ namespace ExampleCMS\Application\Grid;
 class View extends Grid
 {
 
-    protected function getModelsByRequest($request)
+    public function execute(array $context)
     {
-        $models = [];
-
-        /* @var $all \ExampleCMS\Contract\Application\Query */
-        $all = $this->module->query('all');
-        $all->fetch([
-            $all::LIMIT => 10,
-            $all::OFFSET => $request->getAttribute('offset'),
-        ])->models($models);
-
-        return $models;
-    }
-
-    public function execute($request)
-    {
-        $models = $this->getModelsByRequest($request);
-        $model = $this->getModelByRequest($request);
-
-        $data = parent::execute();
-        $data['rows'] = [];
+        $context = parent::execute($context);
+        $context['rows'] = [];
 
         foreach ($this->metadata['rows'] as $meta) {
             $items = [];
@@ -43,11 +26,11 @@ class View extends Grid
             }
 
             foreach ($items as $item) {
-                $data['rows'][] = $this->module->row($meta)->execute($request->withAttribute('model', $item));
+                $context['rows'][] = $this->module->row($meta)->execute($context->withAttribute('model', $item));
             }
         }
 
-        return $data;
+        return $context;
     }
 
 }

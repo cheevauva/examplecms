@@ -16,11 +16,11 @@ class ModelBase extends Model
         parent::setMetadata($metadata);
 
         if (empty($this->metadata[static::MAPPER_TO_MODEL])) {
-            $this->metadata[static::MAPPER_TO_MODEL] = 'storage2modelbase';
+            $this->metadata[static::MAPPER_TO_MODEL] = 'baseFromStorage';
         }
 
         if (empty($this->metadata[static::MAPPER_FROM_MODEL])) {
-            $this->metadata[static::MAPPER_FROM_MODEL] = 'modelbase2storage';
+            $this->metadata[static::MAPPER_FROM_MODEL] = 'baseToStorage';
         }
     }
 

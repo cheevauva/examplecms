@@ -15,14 +15,13 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query
 
     public function fetch(array $params = [])
     {
+        /* @var $request \Psr\Http\Message\ServerRequestInterface */
         $request = $params[static::REQUEST];
-        $modelForms = $request->getAttribute('modelForms');
 
-        if (empty($params[static::FORM]) && count($modelForms) === 1) {
-            return reset($modelForms);
-        }
+        $model = $this->module->model($params[static::FORM]);
+        $model->doMappingFromDataToModel($request);
 
-        return $modelForms[$params[static::FORM]];
+        return $model;
     }
 
 }

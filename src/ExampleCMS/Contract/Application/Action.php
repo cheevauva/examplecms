@@ -2,8 +2,16 @@
 
 namespace ExampleCMS\Contract\Application;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 interface Action
 {
 
-    public function execute($request);
+    /**
+     * @param ServerRequestInterface $request
+     * @return ServerRequestInterface
+     */
+    public function execute(ServerRequestInterface $request);
+
+    public function setMetadata(array $metadata);
 }

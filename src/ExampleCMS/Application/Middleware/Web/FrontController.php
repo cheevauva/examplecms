@@ -43,7 +43,7 @@ class FrontController implements MiddlewareInterface
         $request = $this->presetLanguageByRequest($request);
         $request = $this->presetThemeByRequest($request);
         $request = $this->presetContentTypeByRequest($request);
-        $request = $this->prepareModelFormsByRequest($module, $request);
+        $request = $request->withAttribute('model', new \ArrayObject);
 
         $actions = $request->getAttribute('actions');
 
@@ -75,8 +75,6 @@ class FrontController implements MiddlewareInterface
             return '';
         }
 
-        $request = $this->prepareUserScopeForms($request);
-
         $context = $request->withoutAttribute('session')->getAttributes();
         $context['request'] = $request;
 
@@ -85,44 +83,6 @@ class FrontController implements MiddlewareInterface
         $content = $theme->render($data);
 
         return $content;
-    }
-
-    protected function prepareUserScopeForms(ServerRequestInterface $request)
-    {
-        $modelForms = $request->getAttribute('modelForms');
-
-        if (!$modelForms) {
-            return $request;
-        }
-        $formattedForms = [];
-
-        foreach ($modelForms as $form => $modelForm) {
-            $formattedForm = new \ArrayObject();
-            $modelForm->doMappingFromModelToData($formattedForm);
-            $formattedForms[$form] = $formattedForm;
-        }
-
-        return $request->withAttribute('formattedForms', $formattedForms);
-    }
-
-    protected function prepareModelFormsByRequest($module, ServerRequestInterface $request)
-    {
-        $forms = $request->getAttribute('forms');
-
-        if (empty($forms)) {
-            return $request;
-        }
-
-        $modelForms = [];
-
-        foreach ($forms as $form) {
-            $modelForm = $module->form($form);
-            $modelForm->doMappingFromDataToModel($request);
-
-            $modelForms[$form] = $modelForm;
-        }
-
-        return $request->withAttribute('modelForms', $modelForms);
     }
 
     protected function getModuleByRequest(ServerRequestInterface $request)
@@ -170,7 +130,7 @@ class FrontController implements MiddlewareInterface
         if ($theme) {
             return $request;
         }
-        
+
         /* @var $session \ExampleCMS\Contract\Session */
         $session = $request->getAttribute('session');
 

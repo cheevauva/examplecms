@@ -20,9 +20,10 @@ $grids['license'] = array(
                     'component' => 'default',
                     'fields' => array(
                         array(
-                            'component' => 'text',
+                            'component' => 'text-from-fs',
                             'name' => 'license',
                             'template' => 'view-raw',
+                            'value' => 'LICENSE',
                         ),
                     )
                 ),

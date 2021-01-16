@@ -7,10 +7,12 @@ class Update extends \ExampleCMS\Application\Action\Action
 
     public function execute($request)
     {
+        /* @var $query \ExampleCMS\Module\Installer\Query\FindFormModel */
         $query = $this->module->query('findFormModel');
 
         $formModel = $query->fetch([
-            $query::REQUEST => $request
+            $query::REQUEST => $request,
+            $query::FORM => $this->metadata['form'],
         ]);
 
         $model = $this->module->query('find')->fetch();

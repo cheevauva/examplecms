@@ -75,7 +75,7 @@ class Module implements \ExampleCMS\Contract\Module
 
         return $component;
     }
-    
+
     public function view($view)
     {
         return $this->responder('views', $view);
@@ -106,48 +106,43 @@ class Module implements \ExampleCMS\Contract\Module
         return $this->responder('grids', $grid);
     }
 
-    /**
-     * @param string|array $form
-     * @return array|\ArrayAccess
-     * @throws \ExampleCMS\Exception\Metadata
-     */
-    protected function getFormMetadata($form)
+    public function model($model = 'model')
     {
-        $formMetadata = $this->metadata->get(['forms', $this->name]);
+        $metadata = $model;
 
-        if (is_null($formMetadata[$form])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('forms "%s" is not define', $form));
+        if (is_string($model)) {
+            $metadata = $this->metadata->get(['models', $this->name]);
+
+            if (is_null($metadata[$model])) {
+                throw new \ExampleCMS\Exception\Metadata(sprintf('model "%s" is not define', $model));
+            }
+
+            if (!isset($metadata[$model]['component'])) {
+                throw new \ExampleCMS\Exception\Metadata(sprintf('component for "%s" is not define', $model));
+            }
+
+            $metadata = $metadata[$model];
         }
 
-        if (!isset($formMetadata[$form]['component'])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('component for "%s" is not define', $form));
-        }
-
-        return $formMetadata[$form];
-    }
-
-    public function form($form)
-    {
-        $metadata = $form;
-
-        if (is_string($form)) {
-            $metadata = $this->getFormMetadata($form);
-        }
-
-        $component = $this->getComponent('forms.' . $metadata['component']);
+        $component = $this->getComponent('models.' . $metadata['component']);
         $component->setMetadata($metadata);
 
         return $component;
     }
 
-    public function model($model = 'model')
-    {
-        return $this->getComponent('models.' . $model);
-    }
-
     public function action($action)
     {
-        return $this->getComponent('actions.' . $action);
+        $metadata = [];
+        
+        if (!is_string($action)) {
+            $metadata = $action;
+            $action = $metadata['component'];
+        }
+
+        $component = $this->getComponent('actions.' . $action);
+        $component->setMetadata($metadata);
+
+        return $component;
     }
 
     public function query($query)

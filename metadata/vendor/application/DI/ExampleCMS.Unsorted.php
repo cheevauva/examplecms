@@ -11,7 +11,6 @@ $di[ExampleCMS\Session\File::class] = array(
 $di[ExampleCMS\Session\Memcached::class] = array(
     'cacheFactory' => ExampleCMS\Factory\Cache::class,
 );
-
 $di[ExampleCMS\Router::class] = array(
     'altoRouter' => '*' . AltoRouter::class,
     'metadata' => ExampleCMS\Metadata::class,
@@ -23,4 +22,18 @@ $di[ExampleCMS\Module::class] = array(
 $di[ExampleCMS\Application\Theme\Theme::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,
     'metadata' => ExampleCMS\Metadata::class,
+];
+$di[ExampleCMS\Config::class] = [
+    'configFactory' => \ExampleCMS\Factory\Config::class,
+];
+$di[ExampleCMS\Config\Local::class] = [
+    'arrayHelper' => \ExampleCMS\Helper\ArrayHelper::class,
+    'filesystem' => \ExampleCMS\Filesystem::class,
+];
+$di[ExampleCMS\Filesystem::class] = [
+    '!basePath' => '@basePath',
+];
+$di[ExampleCMS\Bootstrap::class] = [
+    'config' => \ExampleCMS\Config::class,
+    'application' => '*' . \ExampleCMS\Application::class,
 ];

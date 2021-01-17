@@ -11,11 +11,6 @@ class Filesystem implements \ExampleCMS\Contract\Filesystem
 
     protected $basePath;
 
-    public function __construct($basePath)
-    {
-        $this->basePath = $basePath;
-    }
-
     public function loadAsPHP($filename)
     {
         return include $this->preparePath($filename);

@@ -64,10 +64,6 @@ class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
 
     protected function loadMetadata($cache)
     {
-        if (empty($this->meta)) {
-            $this->meta = $this->filesystem->loadAsPHP('cache/metadata/application/Caches.php');
-        }
-
         if (!empty($this->meta[$cache])) {
             return $this->meta[$cache];
         }

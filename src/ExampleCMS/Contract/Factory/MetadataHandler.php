@@ -9,5 +9,9 @@ namespace ExampleCMS\Contract\Factory;
 interface MetadataHandler
 {
 
-    public function get($id): \ExampleCMS\Contract\Metadata\Handler;
+    /**
+     * @param type $id
+     * @return \ExampleCMS\Contract\Metadata\Handler
+     */
+    public function get($id);
 }

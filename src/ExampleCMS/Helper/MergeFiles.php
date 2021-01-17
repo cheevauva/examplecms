@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleCMS\Filesystem;
+namespace ExampleCMS\Helper;
 
 class MergeFiles
 {

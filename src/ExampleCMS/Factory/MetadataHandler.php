@@ -14,25 +14,18 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
     /**
      * @var array
      */
-    protected $handlers = array();
+    protected $handlers = [];
 
     /**
      * @var array
      */
-    protected $handlersMetadata = array();
-    
-    /**
-     * @var \ExampleCMS\Contract\Filesystem 
-     */
-    public $filesystem;
+    protected $handlersMetadata = [];
 
-    public function get($id): \ExampleCMS\Contract\Metadata\Handler
+    public function get($id)
     {
         if (!empty($this->handlers[$id])) {
             return $this->handlers[$id];
         }
-
-        $this->loadHandlersMetadata();
 
         $handlerMetadata = $this->handlersMetadata[$id];
         $handlerMetadata['name'] = $id;
@@ -54,15 +47,6 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
         }
 
         return $this->handlers[$id];
-    }
-
-    protected function loadHandlersMetadata()
-    {
-        if (empty($this->handlersMetadata)) {
-            $this->handlersMetadata = $this->filesystem->loadAsPHP('cache/metadata/application/Handlers.php');
-        }
-
-        return $this->handlersMetadata;
     }
 
 }

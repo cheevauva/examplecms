@@ -15,7 +15,7 @@ $basePaths = [
 ];
 $targetPath = 'cache/metadata';
 
-$mergeFiles = new ExampleCMS\Filesystem\MergeFiles;
+$mergeFiles = new ExampleCMS\Helper\MergeFiles;
 $mergeFiles->execute([
     $mergeFiles::PATHTARGET => $targetPath,
     $mergeFiles::PATHBASE => $basePaths,

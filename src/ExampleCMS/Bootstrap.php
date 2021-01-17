@@ -12,35 +12,14 @@ class Bootstrap
 {
 
     /**
-     * @var \ExampleCMS\Contract\Filesystem
-     */
-    protected $filesystem;
-
-    /**
      * @var \ExampleCMS\Contract\Config
      */
-    protected $config;
+    public $config;
 
     /**
-     * @var \Psr\Container\ContainerInterface
+     * @var \ExampleCMS\Contract\Application
      */
-    protected $container;
-
-    public function __construct($basePath)
-    {
-        $arrayHelper = new \ExampleCMS\Helper\ArrayHelper;
-
-        $this->filesystem = new Filesystem($basePath);
-        $this->config = new Config($this->filesystem, $arrayHelper);
-
-        $injections = $this->filesystem->loadAsPHP('cache/metadata/application/DI.php');
-
-        $this->container = new Container($injections, [
-            get_class($this->filesystem) => $this->filesystem,
-            get_class($this->config) => $this->config,
-            get_class($arrayHelper) => $arrayHelper,
-        ]);
-    }
+    public $application;
 
     public function includeXhprof()
     {
@@ -59,46 +38,15 @@ class Bootstrap
         }
     }
 
-    protected function getDefaultConfig()
-    {
-        return array(
-            'language' => 'en_US',
-            'theme' => 'default',
-            'module' => 'Default',
-            'session' => [
-                'name' => 'EXAMPLECMSID',
-                'engine' => 'File',
-            ],
-            'xhprof' => array(
-                'enable' => false,
-            ),
-            'semantic_url' => false,
-            'setup' => true,
-            'logger' => array(
-                'name' => 'examplecms',
-                'level' => 'ERROR',
-                'path' => 'examplecms.log'
-            ),
-            'cache' => array(
-                'engine' => 'memory',
-            ),
-        );
-    }
-
     /**
      * @param string $app
      * @return \ExampleCMS\Contract\Application
      */
     public function getApplication()
     {
-        if (!$this->config->isConfigured()) {
-            $this->config->set('base', $this->getDefaultConfig());
-            $this->config->save();
-        }
-
         $this->includeXhprof();
 
-        return $this->container->get('ExampleCMS\Application');
+        return $this->application;
     }
 
     public function sendResponse(ResponseInterface $response)

@@ -16,12 +16,16 @@ if (!empty($onlyAutoloadStage)) {
     return;
 }
 
-$bootstrap = new ExampleCMS\Bootstrap(__DIR__ . '/');
+$container = new \ExampleCMS\Container(require 'cache/metadata/application/DI.php', [
+    'basePath' => __DIR__ . '/',
+    'cachesMetadata' => require 'cache/metadata/application/Caches.php',
+    'handlersMetadata' => require 'cache/metadata/application/Handlers.php',
+]);
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('application', $application);
 $request = $request->withAttribute('examplecms_timestart', microtime(true));
 
-$response = $bootstrap->getApplication()->run($request);
-
-$bootstrap->sendResponse($response);
+/* @var $bootstrap \ExampleCMS\Bootstrap */
+$bootstrap = $container->get(ExampleCMS\Bootstrap::class);
+$bootstrap->sendResponse($bootstrap->getApplication()->run($request));

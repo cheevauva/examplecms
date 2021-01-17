@@ -1,117 +1,70 @@
 <?php
 
-/**
- * @license LICENCE
- */
-
 namespace ExampleCMS;
 
-class Config implements \ExampleCMS\Contract\Config
+class Config implements \PDIC\InterfaceMediator
 {
 
     /**
-     * @var string
+     * @var \ExampleCMS\Contract\Factory\Config
      */
-    protected $basePath;
+    public $configFactory;
 
-    /**
-     * @var array
-     */
-    protected $properties = null;
-
-    /**
-     * @var \ExampleCMS\Helper\ArrayHelper
-     */
-    protected $arrayHelper;
-
-    /**
-     *
-     * @var \ExampleCMS\Filesystem
-     */
-    protected $filesystem;
-
-    public function __construct(\ExampleCMS\Contract\Filesystem $filesystem, $arrayHelper)
+    public function get()
     {
-        $this->filesystem = $filesystem;
-        $this->arrayHelper = $arrayHelper;
-    }
+        /* @var $config \ExampleCMS\Contract\Config */
+        $config = null;
+        $localConfig = $this->configFactory->get('local');
 
-    /**
-     * @param array|string $path
-     * @param mixed $default
-     * @return mixed
-     */
-    public function get($path)
-    {
-        $this->load();
-
-        $path = $this->parsePath($path);
-
-        $value = $this->properties;
-
-        $cursors = array();
-
-        foreach ($path as $cursor) {
-            $cursors[] = $cursor;
-
-            if (!isset($value[$cursor])) {
-                return null;
-            }
-
-            $value = & $value[$cursor];
+        if (!$localConfig->has('type')) {
+            $localConfig->set('type', 'local');
         }
 
-        return $value;
-    }
+        $type = $localConfig->get('type');
 
-    public function load()
-    {
-        if (is_null($this->properties)) {
-            $this->properties = $this->filesystem->loadAsPHP('config.php');
-        }
-    }
-
-    public function save()
-    {
-        $phpArray = $this->arrayHelper->serializeToPHP($this->properties);
-
-        $filename = $this->basePath . 'config.php';
-
-        $phpArray = '<?php' . PHP_EOL . PHP_EOL . 'return ' . $phpArray . ';';
-
-        file_put_contents($filename, $phpArray);
-    }
-
-    public function set($path, $value)
-    {
-        $cursors = $this->parsePath($path);
-        $firstCursor = current($cursors);
-
-        $val = & $this->properties;
-
-        foreach ($cursors as $cursor) {
-            if (!isset($val[$cursor])) {
-                $val[$cursor] = array();
-            }
-
-            $val = & $val[$cursor];
+        switch ($type) {
+            case 'local':
+                $config = $localConfig;
+                break;
+            default:
+                $config = $this->configFactory->get($type, [
+                    'config' => $localConfig,
+                ]);
+                break;
         }
 
-        $val = $value;
-    }
-
-    protected function parsePath($path)
-    {
-        if (is_string($path)) {
-            return explode('.', $path);
+        if (!$config->isConfigured()) {
+            $config->set('base', $this->getDefaultConfig());
+            $config->save();
         }
 
-        return $path;
+        return $config;
     }
 
-    public function isConfigured()
+    protected function getDefaultConfig()
     {
-        return file_exists($this->filesystem->preparePath('config.php'));
+        return array(
+            'language' => 'en_US',
+            'theme' => 'default',
+            'module' => 'Default',
+            'session' => [
+                'name' => 'EXAMPLECMSID',
+                'engine' => 'File',
+            ],
+            'xhprof' => array(
+                'enable' => false,
+            ),
+            'semantic_url' => false,
+            'setup' => true,
+            'logger' => array(
+                'name' => 'examplecms',
+                'level' => 'ERROR',
+                'path' => 'examplecms.log'
+            ),
+            'cache' => array(
+                'engine' => 'memory',
+            ),
+        );
     }
 
 }

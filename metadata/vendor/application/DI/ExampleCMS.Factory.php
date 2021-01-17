@@ -5,7 +5,7 @@ $di[ExampleCMS\Factory\Factory::class] = array(
     'container' => ExampleCMS\Container::class,
 );
 $di[ExampleCMS\Factory\MetadataHandler::class] = array(
-    'filesystem' => ExampleCMS\Filesystem::class,
+    '!handlersMetadata' => '@handlersMetadata',
 );
 $di[ExampleCMS\Factory\Router::class] = array(
     'config' => ExampleCMS\Config::class,
@@ -15,5 +15,5 @@ $di[ExampleCMS\Factory\Session::class] = array(
 );
 $di[ExampleCMS\Factory\Cache::class] = array(
     'config' => ExampleCMS\Config::class,
-    'filesystem' => ExampleCMS\Filesystem::class,
+    '!meta' => '@cachesMetadata',
 );

@@ -51,8 +51,8 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
     {
         $data = [];
         $data['templateId'] = $this->getTemplateId();
-        $data['module'] = $context['module'];
-        $data['language'] = $context['language'];
+        $data['module'] = $context['module'] ?? null;
+        $data['language'] = $context['language'] ?? null;
 
         foreach ($this->getDefaultData() as $property => $value) {
             if (!isset($data[$property])) {

@@ -2,27 +2,32 @@
 
 namespace ExampleCMS\Application\Middleware\Rest;
 
-class FrontController extends \ExampleCMS\Application\Middleware\Web\FrontController
+use Psr\Http\{
+    Message\ServerRequestInterface,
+    Message\ResponseInterface,
+    Server\RequestHandlerInterface,
+    Server\MiddlewareInterface
+};
+
+class FrontController implements MiddlewareInterface
 {
 
-    const CONTENT_TYPE_DEFAULT = 'application/json';
-
-    protected function getContent($request, $module)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $response = $handler->handle($request);
+
         $layout = $request->getAttribute('layout');
+        $module = $request->getAttribute('module');
 
         if (empty($layout)) {
             return json_encode([]);
         }
 
-        $request = $this->prepareUserScopeForms($request);
+        $data = $module->layout($layout)->execute([]);
 
-        $context = $request->withoutAttribute('session')->getAttributes();
-        $context['request'] = $request;
+        $response->getBody()->write(json_encode($data));
 
-        $data = $module->layout($layout)->execute($context);
-        
-        return json_encode($data);
+        return $response->withHeader('Content-Type', $request->getAttribute('contentType'));
     }
 
 }

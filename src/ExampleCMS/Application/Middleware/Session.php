@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleCMS\Application\Middleware\Web;
+namespace ExampleCMS\Application\Middleware;
 
 use Psr\Http\{
     Message\ServerRequestInterface,

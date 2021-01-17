@@ -36,8 +36,7 @@ class OopsHandler implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (\Exception $exception) {
-
+        } catch (\ExampleCMS\Exception\Http $exception) {
             try {
                 $request = $request->withAttribute('exception', $exception);
 
@@ -51,22 +50,15 @@ class OopsHandler implements MiddlewareInterface
 
                 $module = $this->moduleFactory->get($request->getAttribute('module'));
 
-                $themeName = $request->getAttribute('theme');
-
-                if (empty($themeName)) {
-                    $themeName = $this->config->get('base.theme');
-                }
-
+                $theme = $request->getAttribute('theme');
                 $context = $request->withoutAttribute('session')->getAttributes();
                 $context['exception'] = $exception;
                 $context['request'] = $request;
 
                 $data = $module->layout('exception')->execute($context);
-                $content = $this->getThemeByRequest($request)->render($data);
 
                 $response = $this->response;
-                $response = $handler->handle($request);
-                $response->getBody()->write($content);
+                $response->getBody()->write($theme($data));
             } catch (\Exception $ex) {
                 throw $exception;
             }
@@ -80,23 +72,5 @@ class OopsHandler implements MiddlewareInterface
         return $this->moduleFactory->get($request->getAttribute('module'));
     }
 
-    protected function getThemeByRequest($request)
-    {
-        /* @var $theme string */
-        $theme = $request->getAttribute('theme');
-
-        /* @var $theme \ExampleCMS\Contract\Session */
-        $session = $request->getAttribute('session');
-
-        if (empty($theme)) {
-            $theme = $session->get('theme');
-
-            if (!$theme) {
-                $theme = $this->config->get('base.theme');
-            }
-        }
-
-        return $this->themeFactory->get($theme);
-    }
 
 }

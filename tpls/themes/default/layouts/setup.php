@@ -3,8 +3,7 @@
         <base href="<?= $basePath; ?>"/>
         <meta charset="utf-8"/>
         <title>ExampleCMS</title>
-        <link href="js/require.css" rel="stylesheet" type="text/css">
-        <script src="js/require.js"></script>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     </head>
     <body>
         <div class="container">

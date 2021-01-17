@@ -4,6 +4,6 @@ $modules['Installer'] = array(
     'label' => 'Установщик',
     'table' => 'installer',
 );
-$modules['default'] = array(
+$modules['Default'] = array(
     'hide' => true,
 );

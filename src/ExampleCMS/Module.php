@@ -165,5 +165,10 @@ class Module implements \ExampleCMS\Contract\Module
 
         return $componentObject;
     }
+    
+    public function __toString()
+    {
+        return $this->name;
+    }
 
 }

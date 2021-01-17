@@ -102,7 +102,7 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
     protected function getVarByData($var, $data)
     {
         $language = $data['language'];
-        $module = $data['module'];
+        $module = (string) $data['module'];
         $theme = $this->options['name'];
 
         if (!empty($data['theme'])) {
@@ -128,6 +128,11 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
         }
 
         return $this->themes[$theme][$module][$var];
+    }
+
+    public function __invoke($data)
+    {
+        return $this->render($data);
     }
 
 }

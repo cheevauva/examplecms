@@ -13,7 +13,7 @@ class Layout extends \ExampleCMS\Application\Responder
     public function execute($context)
     {
         $data = parent::execute($context);
-        $data['basePath'] = $context['basePath'];
+        $data['basePath'] = $context['basePath'] ?? null;
 
         if (empty($this->metadata['views'])) {
             $this->metadata['views'] = [];

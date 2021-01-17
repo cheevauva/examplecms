@@ -30,6 +30,11 @@ class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
      * @var array
      */
     protected $meta;
+    
+    public function __construct($metadata)
+    {
+        $this->meta = $metadata;
+    }
 
     public function get($cache = null)
     {

@@ -21,6 +21,11 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
      */
     protected $handlersMetadata = [];
 
+    public function __construct($metadata)
+    {
+        $this->handlersMetadata = $metadata;
+    }
+
     public function get($id)
     {
         if (!empty($this->handlers[$id])) {

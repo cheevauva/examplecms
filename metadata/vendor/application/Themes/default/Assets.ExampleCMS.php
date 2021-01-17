@@ -1,19 +1,16 @@
 <?php
 
 $assets['layouts.basic'] = array(
-    'js.jquery' => 'js/jquery/jquery.min.js',
-    'css.bootstrap-theme' => 'js/bootstrap/css/bootstrap-theme.min.css',
-    'css.bootstrap' => 'js/bootstrap/css/bootstrap.min.css',
+    'js.jquery' => 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
+    'css.bootstrap' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css',
 );
 $assets['layouts.exception'] = array(
-    'js.jquery' => 'js/jquery/jquery.min.js',
-    'css.bootstrap-theme' => 'js/bootstrap/css/bootstrap-theme.min.css',
-    'css.bootstrap' => 'js/bootstrap/css/bootstrap.min.css',
+    'js.jquery' => 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
+    'css.bootstrap' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css',
 );
 $assets['layouts.setup'] = array(
-    'js.jquery' => 'js/jquery/jquery.min.js',
-    'css.bootstrap-theme' => 'js/bootstrap/css/bootstrap-theme.min.css',
-    'css.bootstrap' => 'js/bootstrap/css/bootstrap.min.css',
+    'js.jquery' => 'https://code.jquery.com/jquery-3.5.1.slim.min.js',
+    'css.bootstrap' => 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css',
 );
 $assets['grids.read'] = array(
     'js.std' => 'modules/fields/std.js',

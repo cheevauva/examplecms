@@ -6,7 +6,7 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Application;
+namespace ExampleCMS\Application\Responder;
 
 abstract class Responder implements \ExampleCMS\Contract\Application\Responder
 {

@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\View;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Form extends View
+namespace ExampleCMS\Application\Responder;
+
+class ViewForm extends View
 {
 
     /**
@@ -46,10 +52,10 @@ class Form extends View
 
         $data['method'] = $this->metadata['method'];
         $data['action'] = $request->getAttribute('router')->make($this->metadata['route'], $model->toArray());
-        
+
         $context['formData'] = new \ArrayObject();
         $context['formName'] = $model->getModelName();
-        
+
         $model->doMappingFromModelToData($context['formData']);
 
         foreach ($this->metadata['grids'] as $index => $meta) {

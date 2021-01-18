@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\View;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Exception extends View
+namespace ExampleCMS\Application\Responder;
+
+class ViewException extends View
 {
 
     public $application;

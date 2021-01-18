@@ -5,8 +5,6 @@ foreach (array(
     'actions.index' => 'ExampleCMS\Action\Index2',
     'actions.save' => 'ExampleCMS\Action\Save',
     'actions.delete' => 'ExampleCMS\Action\Delete',
-    'rows.header' => 'ExampleCMS\Application\Row\Basic',
-    'rows.default' => 'ExampleCMS\Application\Row\Basic',
     'tables.config' => 'ExampleCMS\Table\Config',
     'tables.database' => 'ExampleCMS\Table\Database',
     'modules.base' => 'ExampleCMS\Module',

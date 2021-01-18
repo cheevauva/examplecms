@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Field;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Label extends Field
+namespace ExampleCMS\Application\Responder;
+
+class FieldLabel extends Field
 {
 
     protected $type = 'label';

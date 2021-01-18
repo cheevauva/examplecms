@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Layout;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Rest extends Layout
+namespace ExampleCMS\Application\Responder;
+
+class LayoutRest extends Layout
 {
 
     protected $templateType = 'layouts';
@@ -13,6 +19,5 @@ class Rest extends Layout
 
         return $data;
     }
-    
 
 }

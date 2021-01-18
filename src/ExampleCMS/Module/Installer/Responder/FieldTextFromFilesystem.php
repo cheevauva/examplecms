@@ -1,8 +1,8 @@
 <?php
 
-namespace ExampleCMS\Module\Installer\Field;
+namespace ExampleCMS\Module\Installer\Responder;
 
-class TextFromFilesystem extends \ExampleCMS\Application\Field\Text
+class FieldTextFromFilesystem extends \ExampleCMS\Application\Responder\FieldText
 {
 
     /**

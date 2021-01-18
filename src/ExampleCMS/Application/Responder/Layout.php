@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Layout;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Layout extends \ExampleCMS\Application\Responder
+namespace ExampleCMS\Application\Responder;
+
+class Layout extends \ExampleCMS\Application\Responder\Responder
 {
 
     /**

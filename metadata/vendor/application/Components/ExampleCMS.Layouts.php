@@ -1,8 +1,8 @@
 <?php
 
-$components['layouts.index'] = 'ExampleCMS\Application\Layout\Layout';
-$components['layouts.basic'] = 'ExampleCMS\Application\Layout\Layout';
-$components['layouts.exception'] = 'ExampleCMS\Application\Layout\Layout';
-$components['layouts.json-exception'] = 'ExampleCMS\Application\Layout\Layout';
-$components['layouts.single-view'] = 'ExampleCMS\Application\Layout\Layout';
-$components['layouts.rest'] = 'ExampleCMS\Application\Layout\Rest';
+$components['layouts.index'] = ExampleCMS\Application\Responder\Layout::class;
+$components['layouts.basic'] = ExampleCMS\Application\Responder\Layout::class;
+$components['layouts.exception'] = ExampleCMS\Application\Responder\Layout::class;
+$components['layouts.json-exception'] = ExampleCMS\Application\Responder\Layout::class;
+$components['layouts.single-view'] = ExampleCMS\Application\Responder\Layout::class;
+$components['layouts.rest'] = ExampleCMS\Application\Responder\LayoutRest::class;

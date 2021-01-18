@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Field;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Enum extends Input
+namespace ExampleCMS\Application\Responder;
+
+class FieldEnum extends FieldInput
 {
 
     protected $type = 'enum';
@@ -11,7 +17,7 @@ class Enum extends Input
     {
         $data = parent::execute($context);
         $data['options'] = $this->metadata['options'];
-        
+
         return $data;
     }
 

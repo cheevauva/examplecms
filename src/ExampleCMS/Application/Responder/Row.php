@@ -3,12 +3,12 @@
 /**
  * ExampleCMS
  *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
-namespace ExampleCMS\Application\Row;
+namespace ExampleCMS\Application\Responder;
 
-class Basic extends \ExampleCMS\Application\Responder
+class Row extends \ExampleCMS\Application\Responder\Responder
 {
 
     protected $templateType = 'rows';

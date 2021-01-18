@@ -1,11 +1,11 @@
 <?php
 
-$components['views.header'] = 'ExampleCMS\Application\View\Header';
-$components['views.footer'] = 'ExampleCMS\Application\View\Footer';
-$components['views.exception'] = 'ExampleCMS\Application\View\Exception';
-$components['views.basic'] = 'ExampleCMS\Application\View\View';
-$components['views.asset'] = 'ExampleCMS\Application\View\View';
-$components['views.grid'] = 'ExampleCMS\Application\View\Grid';
-$components['views.layout'] = 'ExampleCMS\Application\View\Layout';
-$components['views.form'] = 'ExampleCMS\Application\View\Form';
-$components['views.forms'] = 'ExampleCMS\Application\View\Forms';
+$components['views.header'] = ExampleCMS\Application\Responder\ViewHeader::class;
+$components['views.footer'] = ExampleCMS\Application\Responder\ViewFooter::class;
+$components['views.exception'] = ExampleCMS\Application\Responder\ViewException::class;
+$components['views.basic'] = ExampleCMS\Application\Responder\View::class;
+$components['views.asset'] = ExampleCMS\Application\Responder\View::class;
+$components['views.grid'] = ExampleCMS\Application\Responder\ViewGrid::class;
+$components['views.layout'] = ExampleCMS\Application\Responder\ViewLayout::class;
+$components['views.form'] = ExampleCMS\Application\Responder\ViewForm::class;
+$components['views.forms'] = ExampleCMS\Application\Responder\ViewForms::class;

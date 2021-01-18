@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Field;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Link extends Field
+namespace ExampleCMS\Application\Responder;
+
+class FieldLink extends Field
 {
 
     protected $type = 'link';
@@ -10,7 +16,7 @@ class Link extends Field
     public function execute($context)
     {
         $context = parent::execute($context);
-        
+
         $context['label'] = $context['name'];
         $context['url'] = '';
 

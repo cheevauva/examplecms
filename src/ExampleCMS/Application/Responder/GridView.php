@@ -3,12 +3,12 @@
 /**
  * ExampleCMS
  *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
-namespace ExampleCMS\Application\Grid;
+namespace ExampleCMS\Application\Responder;
 
-class View extends Grid
+class GridView extends Grid
 {
 
     public function execute(array $context)

@@ -6,9 +6,9 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Application\Column;
+namespace ExampleCMS\Application\Responder;
 
-class Column extends \ExampleCMS\Application\Responder
+class Column extends \ExampleCMS\Application\Responder\Responder
 {
 
     /**

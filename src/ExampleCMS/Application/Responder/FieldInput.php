@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\Field;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Input extends Field
+namespace ExampleCMS\Application\Responder;
+
+class FieldInput extends Field
 {
 
     public function execute($context)

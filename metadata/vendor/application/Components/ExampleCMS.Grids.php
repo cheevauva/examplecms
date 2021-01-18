@@ -1,7 +1,6 @@
 <?php
 
-$components['grids.default'] = 'ExampleCMS\Application\Grid\Grid';
-$components['grids.table'] = 'ExampleCMS\Application\Grid\Grid';
-$components['grids.json'] = 'ExampleCMS\Application\Grid\Json';
-$components['grids.form'] = 'ExampleCMS\Application\Grid\Grid';
-$components['grids.view'] = 'ExampleCMS\Application\Grid\View';
+$components['grids.default'] = ExampleCMS\Application\Responder\Grid::class;
+$components['grids.table'] = ExampleCMS\Application\Responder\Grid::class;
+$components['grids.form'] = ExampleCMS\Application\Responder\Grid::class;
+$components['grids.view'] = ExampleCMS\Application\Responder\GridView::class;

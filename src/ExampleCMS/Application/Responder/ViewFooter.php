@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\View;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Footer extends View
+namespace ExampleCMS\Application\Responder;
+
+class ViewFooter extends View
 {
 
     public function execute(array $context)

@@ -3,18 +3,13 @@
 /**
  * ExampleCMS
  *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
-namespace ExampleCMS\Application\Grid;
+namespace ExampleCMS\Application\Responder;
 
-class Grid extends \ExampleCMS\Application\Responder
+class Grid extends \ExampleCMS\Application\Responder\Responder
 {
-
-    /**
-     * @var array
-     */
-    protected $models;
 
     /**
      * @var string

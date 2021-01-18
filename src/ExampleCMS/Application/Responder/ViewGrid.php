@@ -1,8 +1,14 @@
 <?php
 
-namespace ExampleCMS\Application\View;
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
 
-class Grid extends View
+namespace ExampleCMS\Application\Responder;
+
+class ViewGrid extends View
 {
 
     public function execute($request)

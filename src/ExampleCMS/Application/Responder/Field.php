@@ -3,12 +3,12 @@
 /**
  * ExampleCMS
  *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
-namespace ExampleCMS\Application\Field;
+namespace ExampleCMS\Application\Responder;
 
-class Field extends \ExampleCMS\Application\Responder implements \ExampleCMS\Contract\Application\Field
+class Field extends \ExampleCMS\Application\Responder\Responder implements \ExampleCMS\Contract\Application\Field
 {
 
     /**

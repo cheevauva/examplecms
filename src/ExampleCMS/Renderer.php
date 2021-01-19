@@ -6,9 +6,9 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Application\Theme;
+namespace ExampleCMS;
 
-class Theme implements \ExampleCMS\Contract\Application\Theme
+class Renderer implements \ExampleCMS\Contract\Renderer
 {
 
     /**
@@ -39,7 +39,7 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
     /**
      * @var array 
      */
-    protected $themes = [];
+    protected $renderers = [];
 
     public function setOptions(array $options)
     {
@@ -72,7 +72,7 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
         return $callback;
     }
 
-    public function render(array $data)
+    public function execute(array $data)
     {
         $templateId = implode('.', $data['templateId']);
 
@@ -84,7 +84,7 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
         $assets = $this->getVarByData('assets', $data);
 
         if (empty($templates[$templateId])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('template "%s" is not define in "%s" theme', $templateId, $this->options['name']));
+            throw new \ExampleCMS\Exception\Metadata(sprintf('template "%s" is not define in "%s" renderer', $templateId, $this->options['name']));
         } else {
             $this->templates[$templateId] = $this->closureByFilename($templates[$templateId]);
         }
@@ -96,31 +96,31 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
             }
         }
 
-        return $this->render($data);
+        return $this->execute($data);
     }
 
     protected function getVarByData($var, $data)
     {
         $language = $data['language'];
         $module = (string) $data['module'];
-        $theme = $this->options['name'];
+        $renderer = $this->options['name'];
 
-        if (!empty($data['theme'])) {
-            $theme = $data['theme'];
+        if (!empty($data['renderer'])) {
+            $renderer = $data['renderer'];
         }
 
-        if (empty($this->themes[$theme][$module])) {
-            $this->themes[$theme][$module]['templates'] = $this->metadata->get(['theme_templates', $theme, $module]);
-            $this->themes[$theme][$module]['assets'] = $this->metadata->get(['theme_assets', $theme, $module]);
-            $this->themes[$theme][$module]['languages'] = $this->metadata->get(['languages', $language, $module]);
+        if (empty($this->renderers[$renderer][$module])) {
+            $this->renderers[$renderer][$module]['templates'] = $this->metadata->get(['renderer_templates', $renderer, $module]);
+            $this->renderers[$renderer][$module]['assets'] = $this->metadata->get(['renderer_assets', $renderer, $module]);
+            $this->renderers[$renderer][$module]['languages'] = $this->metadata->get(['languages', $language, $module]);
         }
 
-        return $this->themes[$theme][$module][$var];
+        return $this->renderers[$renderer][$module][$var];
     }
 
     public function __invoke($data)
     {
-        return $this->render($data);
+        return $this->execute($data);
     }
 
 }

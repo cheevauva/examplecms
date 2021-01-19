@@ -23,7 +23,7 @@ $di[ExampleCMS\Module::class] = array(
 $di[ExampleCMS\Responder::class] = array(
     'responderFactory' => ExampleCMS\Factory\Responder::class,
 );
-$di[ExampleCMS\Application\Theme\Theme::class] = [
+$di[ExampleCMS\Renderer::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,
     'metadata' => ExampleCMS\Metadata::class,
 ];

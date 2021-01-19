@@ -23,9 +23,9 @@ class OopsHandler implements MiddlewareInterface
     public $moduleFactory;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Theme
+     * @var \ExampleCMS\Contract\Factory\Renderer
      */
-    public $themeFactory;
+    public $rendererFactory;
 
     /**
      * @var \ExampleCMS\Contract\Config

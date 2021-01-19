@@ -9,10 +9,10 @@
         <div class="container">
             <h1>ExampleCMS Setup</h1>
             <div><br/></div>
-            <?= $this->render($views['body']); ?>
+            <?= $this($views['body']); ?>
             <div><br/></div>
-            <?= $this->render($views['footer']); ?>
+            <?= $this($views['footer']); ?>
         </div>
-        <?= $this->render($views['asset']); ?>
+        <?= $this($views['asset']); ?>
     </body>
 </html>

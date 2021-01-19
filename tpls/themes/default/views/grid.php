@@ -1,1 +1,1 @@
-<?= $this->render($grid); ?>
+<?= $this($grid); ?>

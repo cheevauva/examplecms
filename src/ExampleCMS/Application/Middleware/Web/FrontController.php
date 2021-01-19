@@ -8,8 +8,8 @@ use Psr\Http\{
     Server\RequestHandlerInterface,
     Server\MiddlewareInterface
 };
-use ExampleCMS\Contract\Application\Theme;
-use ExampleCMS\Responder;
+use ExampleCMS\Contract\Renderer;
+use ExampleCMS\Contract\Responder;
 
 class FrontController implements MiddlewareInterface
 {
@@ -28,7 +28,7 @@ class FrontController implements MiddlewareInterface
 
         $redirect = $request->getAttribute('redirect');
         $context = $request->getAttribute('context', []);
-        $theme = $request->getAttribute('theme');
+        $renderer = $request->getAttribute('renderer');
         $router = $request->getAttribute('router');
         $responder = $request->getAttribute('responder');
         $contentType = $request->getAttribute('contentType');
@@ -44,15 +44,15 @@ class FrontController implements MiddlewareInterface
             $context['request'] = $request;
         }
 
-        $contenxt['module'] = (string) $module;
+        $context['language'] = $request->getAttribute('language');
         
-        if ($responder instanceof Responder && $theme instanceof Theme) {
+        if ($responder instanceof Responder && $renderer instanceof Renderer) {
             $data = $responder($context);
-            $content = $theme($data);
+            $content = $renderer($data);
 
             $response->getBody()->write($content);
         } else {
-            $response->getBody()->write('Error: Undefined responder or theme');
+            $response->getBody()->write('Error: Undefined responder or renderer');
         }
 
         return $response->withHeader('Content-Type', $contentType);

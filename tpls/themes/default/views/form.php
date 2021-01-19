@@ -1,6 +1,6 @@
 <form action="<?= $action; ?>" method="<?= $method; ?>">
     <?php if (!empty($grids)) : ?>
-        <?= $this->render(reset($grids)); ?>
+        <?= $this(reset($grids)); ?>
     <?php else :?>
         Where my grid
     <?php endif; ?>

@@ -1,6 +1,6 @@
 <td colspan="<?= $colspan; ?>">
     <?php foreach ($fields as $field) : ?>
-        <?= $this->render($field); ?>
+        <?= $this($field); ?>
     <?php endforeach; ?>
 </td>
 

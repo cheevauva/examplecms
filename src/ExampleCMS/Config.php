@@ -45,7 +45,7 @@ class Config implements \PDIC\InterfaceMediator
     {
         return array(
             'language' => 'en_US',
-            'theme' => 'default',
+            'renderer' => 'default',
             'module' => 'Default',
             'session' => [
                 'name' => 'EXAMPLECMSID',

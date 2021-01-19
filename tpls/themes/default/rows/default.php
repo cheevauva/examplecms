@@ -1,5 +1,5 @@
 <tr>
     <?php foreach ($columns as $column) : ?>
-        <?= $this->render($column); ?>
+        <?= $this($column); ?>
     <?php endforeach; ?>
 </tr>

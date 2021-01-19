@@ -9,7 +9,7 @@ use Psr\Http\{
     Server\MiddlewareInterface
 };
 
-class PresetThemeBySession implements MiddlewareInterface
+class PresetRendererBySession implements MiddlewareInterface
 {
 
     /**
@@ -18,17 +18,17 @@ class PresetThemeBySession implements MiddlewareInterface
     public $config;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Theme
+     * @var \ExampleCMS\Contract\Factory\Renderer
      */
-    public $themeFactory;
+    public $rendererFactory;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        /* @var $theme string */
-        $theme = $request->getAttribute('theme');
+        /* @var $renderer string */
+        $renderer = $request->getAttribute('renderer');
 
-        if ($theme) {
-            $request = $request->withAttribute('theme', $this->themeFactory->get($theme));
+        if ($renderer) {
+            $request = $request->withAttribute('renderer', $this->rendererFactory->get($renderer));
             
             return $handler->handle($request);
         }
@@ -36,13 +36,13 @@ class PresetThemeBySession implements MiddlewareInterface
         /* @var $session \ExampleCMS\Contract\Session */
         $session = $request->getAttribute('session');
 
-        $theme = $session->get('theme');
+        $renderer = $session->get('renderer');
 
-        if (!$theme) {
-            $theme = $this->config->get('base.theme');
+        if (!$renderer) {
+            $renderer = $this->config->get('base.renderer');
         }
 
-        $request = $request->withAttribute('theme', $this->themeFactory->get($theme));
+        $request = $request->withAttribute('renderer', $this->rendererFactory->get($renderer));
 
         return $handler->handle($request);
     }

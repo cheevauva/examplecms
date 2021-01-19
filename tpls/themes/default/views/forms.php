@@ -1,6 +1,6 @@
 <form action="<?= $action; ?>" method="<?= $method; ?>">
     <?php foreach ($grids as $grid): ?>
-        <?= $this->render($grid); ?>
+        <?= $this($grid); ?>
     <?php endforeach; ?>
 
 </form>

@@ -7,10 +7,10 @@
     <body>
         <div class="container">
             <div><br/></div>
-            <?= $this->render($views['body']); ?>
+            <?= $this($views['body']); ?>
             <div><br/></div>
-            <?= $this->render($views['footer']); ?>
+            <?= $this($views['footer']); ?>
         </div>
-        <?= $this->render($views['asset']); ?>
+        <?= $this($views['asset']); ?>
     </body>
 </html>

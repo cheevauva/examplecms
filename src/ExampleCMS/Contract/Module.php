@@ -9,7 +9,7 @@ interface Module
      * @param string|array $model
      * @return \ExampleCMS\Contract\Application\Model
      */
-    public function model($model = 'model');
+    public function model($model);
 
     /**
      * @param string|array $action

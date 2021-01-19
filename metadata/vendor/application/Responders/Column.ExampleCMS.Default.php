@@ -1,6 +1,6 @@
 <?php
 
-$columns['name_label'] = array(
+$column['name_label'] = array(
     'component' => 'header',
     'fields' => array(
         array(
@@ -9,13 +9,13 @@ $columns['name_label'] = array(
         ),
     ),
 );
-$columns['name'] = array(
+$column['name'] = array(
     'component' => 'default',
     'fields' => array(
         'name',
     ),
 );
-$columns['actions_label'] = array(
+$column['actions_label'] = array(
     'component' => 'default',
     'fields' => array(
         array(
@@ -24,7 +24,7 @@ $columns['actions_label'] = array(
         ),
     ),
 );
-$columns['actions'] = array(
+$column['actions'] = array(
     'component' => 'default',
     'fields' => array(
         'action_edit',

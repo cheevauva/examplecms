@@ -19,16 +19,21 @@ $routes['license'] = array(
     'route' => '/license',
     'target' => array(
         'module' => 'Installer',
-        'layout' => 'setup',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'context' => [
+                'views' => [
+                    'body' => 'license',
+                ],
+            ]
+        ],
         'actions' => [
             [
                 'component' => 'read',
                 'form' => 'license',
             ],
         ],
-        'views' => array(
-            'body' => 'license',
-        ),
     ),
 );
 
@@ -51,23 +56,28 @@ $routes['license_save'] = array(
 );
 
 
-$routes['language'] = array(
+$routes['language'] = [
     'method' => 'GET',
     'route' => '/language',
-    'target' => array(
+    'target' => [
         'module' => 'Installer',
-        'layout' => 'setup',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'context' => [
+                'views' => [
+                    'body' => 'language',
+                ],
+            ]
+        ],
         'actions' => [
             [
                 'component' => 'read',
                 'form' => 'language',
             ],
         ],
-        'views' => array(
-            'body' => 'language',
-        ),
-    ),
-);
+    ],
+];
 
 $routes['language_save'] = array(
     'method' => 'POST',
@@ -98,10 +108,15 @@ $routes['database'] = array(
             ],
         ],
         'module' => 'Installer',
-        'layout' => 'setup',
-        'views' => array(
-            'body' => 'database',
-        ),
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'context' => [
+                'views' => [
+                    'body' => 'database',
+                ],
+            ]
+        ],
     ),
 );
 $routes['database_save'] = array(

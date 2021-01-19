@@ -1,19 +1,19 @@
 <?php
 
-$fields['name'] = array(
+$field['name'] = array(
     'name' => 'name',
     'component' => 'link',
     'route' => 'read',
     'use_label' => false,
 );
-$fields['action_edit'] = array(
+$field['action_edit'] = array(
     'component' => 'link',
     'label' => 'edit',
     'route' => 'edit',
     'use_label' => true,
     'name' => 'Edit',
 );
-$fields['action_read'] = array(
+$field['action_read'] = array(
     'component' => 'link',
     'label' => 'read',
     'route' => 'read',

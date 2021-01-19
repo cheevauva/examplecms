@@ -8,4 +8,4 @@ $components['queries.save'] = ExampleCMS\Module\Installer\Query\Save::class;
 $components['queries.find'] = ExampleCMS\Module\Installer\Query\Find::class;
 $components['queries.findFormModel'] = ExampleCMS\Module\Installer\Query\FindFormModel::class;
 $components['queries.findCollection'] = ExampleCMS\Module\Installer\Query\FindCollection::class;
-$components['fields.text-from-fs'] = ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class;
+$components['field.text-from-fs'] = ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class;

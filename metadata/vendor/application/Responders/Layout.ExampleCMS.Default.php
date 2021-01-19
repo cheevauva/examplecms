@@ -1,6 +1,6 @@
 <?php
 
-$layouts['edit'] = array(
+$layout['edit'] = array(
     'component' => 'basic',
     'views' => array(
         'header' => 'header',
@@ -13,10 +13,10 @@ $layouts['edit'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['rest'] = array(
+$layout['rest'] = array(
     'component' => 'rest',
 );
-$layouts['create'] = array(
+$layout['create'] = array(
     'component' => 'basic',
     'views' => array(
         'header' => 'header',
@@ -29,7 +29,7 @@ $layouts['create'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['update'] = array(
+$layout['update'] = array(
     'component' => 'basic',
     'views' => array(
         'header' => 'header',
@@ -42,7 +42,7 @@ $layouts['update'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['read'] = array(
+$layout['read'] = array(
     'component' => 'basic',
     'views' => array(
         'header' => 'header',
@@ -54,7 +54,7 @@ $layouts['read'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['index'] = array(
+$layout['index'] = array(
     'component' => 'basic',
     'views' => array(
         'header' => 'header',
@@ -66,7 +66,7 @@ $layouts['index'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['exception'] = array(
+$layout['exception'] = array(
     'component' => 'exception',
     'views' => array(
         'body' => array(
@@ -76,7 +76,7 @@ $layouts['exception'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['json-exception'] = array(
+$layout['json-exception'] = array(
     'component' => 'json-exception',
     'views' => array(
         'body' => array(
@@ -84,7 +84,7 @@ $layouts['json-exception'] = array(
         ),
     ),
 );
-$layouts['json'] = array(
+$layout['json'] = array(
     'component' => 'json',
     'views' => array(
         'body' => array(

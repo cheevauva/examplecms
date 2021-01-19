@@ -18,6 +18,10 @@ $di[ExampleCMS\Router::class] = array(
 $di[ExampleCMS\Module::class] = array(
     'metadata' => ExampleCMS\Metadata::class,
     'componentFactory' => ExampleCMS\Factory\Component::class,
+    'responderFactory' => ExampleCMS\Factory\Responder::class,
+);
+$di[ExampleCMS\Responder::class] = array(
+    'responderFactory' => ExampleCMS\Factory\Responder::class,
 );
 $di[ExampleCMS\Application\Theme\Theme::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,

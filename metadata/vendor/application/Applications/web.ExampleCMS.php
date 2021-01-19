@@ -7,5 +7,6 @@ $applications['middleware'][ExampleCMS\Application\Middleware\PresetThemeBySessi
 $applications['middleware'][ExampleCMS\Application\Middleware\Web\OopsHandler::class] = 300;
 $applications['middleware'][ExampleCMS\Application\Middleware\Router::class] = 400;
 $applications['middleware'][ExampleCMS\Application\Middleware\PresetModule::class] = 409;
-$applications['middleware'][ExampleCMS\Application\Middleware\PresetContentTypeHtml::class] = 410;
+$applications['middleware'][ExampleCMS\Application\Middleware\PresetResponder::class] = 410;
+$applications['middleware'][ExampleCMS\Application\Middleware\PresetContentTypeHtml::class] = 411;
 $applications['middleware'][ExampleCMS\Application\Middleware\Web\FrontController::class] = 500;

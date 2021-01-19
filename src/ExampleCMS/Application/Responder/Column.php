@@ -8,31 +8,21 @@
 
 namespace ExampleCMS\Application\Responder;
 
-class Column extends \ExampleCMS\Application\Responder\Responder
+class Column extends \ExampleCMS\Responder
 {
-
-    /**
-     * @var \ExampleCMS\Config
-     */
-    public $config;
 
     /**
      * @var string 
      */
     protected $templateType = 'columns';
 
-    protected function getDefaultData()
-    {
-        return [
-            'grids' => [],
-            'fields' => [],
-            'colspan' => 1,
-        ];
-    }
 
     public function execute(array $context)
     {
         $data = parent::execute($context);
+        $data['grids'] = [];
+        $data['fields'] = [];
+        $data['colspan'] = 1;
 
         if (empty($this->metadata['fields'])) {
             $this->metadata['fields'] = [];
@@ -43,11 +33,11 @@ class Column extends \ExampleCMS\Application\Responder\Responder
         }
 
         foreach ($this->metadata['fields'] as $index => $meta) {
-            $data['fields'][$index] = $this->module->field($meta)->execute($context);
+            $data['fields'][$index] = $this->responder('field', $meta)->execute($context);
         }
 
         foreach ($this->metadata['grids'] as $index => $meta) {
-            $data['grids'][$index] = $this->module->grid($meta)->execute($context);
+            $data['grids'][$index] = $this->responder('grid', $meta)->execute($context);
         }
 
         return $data;

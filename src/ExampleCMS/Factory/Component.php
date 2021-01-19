@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Factory;
 
-class Component extends Factory
+class Component extends Factory implements \ExampleCMS\Contract\Factory\Component
 {
 
     /**
@@ -16,6 +16,10 @@ class Component extends Factory
 
         if (!isset($this->componentMetadata[$moduleName])) {
             $this->componentMetadata[$moduleName] = $this->metadata->get(['components', $moduleName]);
+        }
+
+        if (empty($this->componentMetadata[$moduleName][$id])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('component "%s" not found for module "%s"', $id, $module->getName()));
         }
 
         return $this->container->get($this->componentMetadata[$moduleName][$id]);

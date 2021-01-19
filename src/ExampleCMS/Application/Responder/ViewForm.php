@@ -11,36 +11,24 @@ namespace ExampleCMS\Application\Responder;
 class ViewForm extends View
 {
 
-    /**
-     * @var \ExampleCMS\Contract\Router
-     */
-    public $router;
-
-    protected function getDefaultData()
-    {
-        return [
-            'grids' => [],
-            'module' => $this->module->getName(),
-            'forms' => [],
-        ];
-    }
-
     public function execute($context)
     {
         $data = parent::execute($context);
+        $data['grids'] = [];
 
         $request = $context['request'];
+        $models = $request->getAttribute('model', []);
 
         if (empty($this->metadata['model'])) {
             throw new \RuntimeException('"model" is not defined in metadata');
         }
 
-        if (empty($context['model'][$this->metadata['model']])) {
+        if (empty($models[$this->metadata['model']])) {
             throw new \RuntimeException(sprintf('model "%s" is not defined in context', $this->metadata['model']));
         }
 
         /* @var $model \ExampleCMS\Application\Model\ModelBase */
-        $model = $context['model'][$this->metadata['model']];
+        $model = $models[$this->metadata['model']];
 
         if (empty($this->metadata['method'])) {
             throw new \RuntimeException('"method" is not defined in metadata');
@@ -59,7 +47,7 @@ class ViewForm extends View
         $model->doMappingFromModelToData($context['formData']);
 
         foreach ($this->metadata['grids'] as $index => $meta) {
-            $data['grids'][$index] = $this->module->grid($meta)->execute($context);
+            $data['grids'][$index] = $this->responder('grid', $meta)->execute($context);
         }
 
         return $data;

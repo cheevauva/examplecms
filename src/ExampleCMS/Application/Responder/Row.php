@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Responder;
 
-class Row extends \ExampleCMS\Application\Responder\Responder
+class Row extends \ExampleCMS\Responder
 {
 
     protected $templateType = 'rows';
@@ -19,7 +19,7 @@ class Row extends \ExampleCMS\Application\Responder\Responder
         $data['columns'] = [];
 
         foreach ($this->metadata['columns'] as $meta) {
-            $data['columns'][] = $this->module->column($meta)->execute($context);
+            $data['columns'][] = $this->responder('column', $meta)->execute($context);
         }
 
         return $data;

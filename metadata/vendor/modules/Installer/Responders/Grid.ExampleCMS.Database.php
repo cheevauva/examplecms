@@ -1,6 +1,6 @@
 <?php
 
-$grids['mysql'] = array(
+$grid['mysql'] = array(
     'name' => 'mysql',
     'component' => 'form',
     'rows' => array(
@@ -120,7 +120,7 @@ $grids['mysql'] = array(
     ),
 );
 
-$grids['sqlite'] = array(
+$grid['sqlite'] = array(
     'name' => 'sqlite',
     'component' => 'form',
     'rows' => array(
@@ -167,7 +167,7 @@ $grids['sqlite'] = array(
     ),
 );
 
-$grids['database'] = array(
+$grid['database'] = array(
     'name' => 'form',
     'component' => 'form',
     'rows' => array(

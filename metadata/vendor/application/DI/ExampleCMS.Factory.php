@@ -17,3 +17,6 @@ $di[ExampleCMS\Factory\Cache::class] = array(
     'config' => ExampleCMS\Config::class,
     '^1' => '@cachesMetadata',
 );
+$di[ExampleCMS\Factory\Responder::class] = array(
+    'componentFactory' => ExampleCMS\Factory\Component::class,
+);

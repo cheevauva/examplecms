@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Responder;
 
-class Field extends \ExampleCMS\Application\Responder\Responder implements \ExampleCMS\Contract\Application\Field
+class Field extends \ExampleCMS\Responder implements \ExampleCMS\Contract\Responder
 {
 
     /**
@@ -27,7 +27,7 @@ class Field extends \ExampleCMS\Application\Responder\Responder implements \Exam
         return $templateId;
     }
 
-    protected function getDefaultData()
+    public function execute(array $context)
     {
         $defaultValue = null;
 
@@ -35,12 +35,13 @@ class Field extends \ExampleCMS\Application\Responder\Responder implements \Exam
             $defaultValue = $this->metadata['defaultValue'];
         }
 
-        return [
-            'name' => null,
-            'value' => $defaultValue,
-            'id' => null,
-            'formName' => null,
-        ];
+        $data = parent::execute($context);
+        $data['name'] = null;
+        $data['value'] = $defaultValue;
+        $data['id'] = null;
+        $data['formName'] = null;
+
+        return $data;
     }
 
 }

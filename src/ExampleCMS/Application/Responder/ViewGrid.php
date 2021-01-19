@@ -15,7 +15,7 @@ class ViewGrid extends View
     {
         $metadata = parent::execute($request);
 
-        $gridObject = $this->module->grid($this->metadata['grid']);
+        $gridObject = $this->responder('grid', $this->metadata['grid']);
 
         $metadata['grid'] = $gridObject->execute($request);
 

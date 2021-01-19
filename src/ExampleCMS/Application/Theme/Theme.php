@@ -110,21 +110,9 @@ class Theme implements \ExampleCMS\Contract\Application\Theme
         }
 
         if (empty($this->themes[$theme][$module])) {
-            $this->themes[$theme][$module]['templates'] = $this->metadata->get([
-                'theme_templates',
-                $theme,
-                $module,
-            ]);
-            $this->themes[$theme][$module]['assets'] = $this->metadata->get([
-                'theme_assets',
-                $theme,
-                $module,
-            ]);
-            $this->themes[$theme][$module]['languages'] = $this->metadata->get(array(
-                'languages',
-                $language,
-                $module,
-            ));
+            $this->themes[$theme][$module]['templates'] = $this->metadata->get(['theme_templates', $theme, $module]);
+            $this->themes[$theme][$module]['assets'] = $this->metadata->get(['theme_assets', $theme, $module]);
+            $this->themes[$theme][$module]['languages'] = $this->metadata->get(['languages', $language, $module]);
         }
 
         return $this->themes[$theme][$module][$var];

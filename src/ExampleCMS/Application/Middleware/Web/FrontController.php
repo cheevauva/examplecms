@@ -8,6 +8,8 @@ use Psr\Http\{
     Server\RequestHandlerInterface,
     Server\MiddlewareInterface
 };
+use ExampleCMS\Contract\Application\Theme;
+use ExampleCMS\Responder;
 
 class FrontController implements MiddlewareInterface
 {
@@ -18,31 +20,42 @@ class FrontController implements MiddlewareInterface
         $request = $request->withAttribute('model', new \ArrayObject);
 
         $module = $request->getAttribute('module');
-        $redirect = $request->getAttribute('redirect');
         $actions = $request->getAttribute('actions', []);
-        $layout = $request->getAttribute('layout');
-        $theme = $request->getAttribute('theme');
-        $router = $request->getAttribute('router');
 
         foreach ($actions as $action) {
             $request = $module->action($action)->execute($request);
         }
 
+        $redirect = $request->getAttribute('redirect');
+        $context = $request->getAttribute('context', []);
+        $theme = $request->getAttribute('theme');
+        $router = $request->getAttribute('router');
+        $responder = $request->getAttribute('responder');
+        $contentType = $request->getAttribute('contentType');
+
         if (!empty($redirect)) {
             $location = $router->make($redirect['route'], $redirect['params']);
+            $response = $response->withHeader('Location', $location)->withStatus(301);
 
-            return $response->withHeader('Location', $location)->withStatus(301);
+            return $response;
         }
 
-        if (!empty($layout) && !empty($theme)) {
-            $context = $request->withoutAttribute('session')->getAttributes();
+        if (empty($context['request'])) {
             $context['request'] = $request;
-
-            $data = $module->layout($layout)->execute($context);
-            $response->getBody()->write($theme($data));
         }
 
-        return $response->withHeader('Content-Type', $request->getAttribute('contentType'));
+        $contenxt['module'] = (string) $module;
+        
+        if ($responder instanceof Responder && $theme instanceof Theme) {
+            $data = $responder($context);
+            $content = $theme($data);
+
+            $response->getBody()->write($content);
+        } else {
+            $response->getBody()->write('Error: Undefined responder or theme');
+        }
+
+        return $response->withHeader('Content-Type', $contentType);
     }
 
 }

@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Responder;
 
-class Grid extends \ExampleCMS\Application\Responder\Responder
+class Grid extends \ExampleCMS\Responder
 {
 
     /**
@@ -23,7 +23,7 @@ class Grid extends \ExampleCMS\Application\Responder\Responder
         $data['name'] = $this->metadata['name'];
 
         foreach ($this->metadata['rows'] as $meta) {
-            $data['rows'][] = $this->module->row($meta)->execute($context);
+            $data['rows'][] = $this->responder('row', $meta)->execute($context);
         }
 
         return $data;

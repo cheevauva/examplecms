@@ -28,7 +28,9 @@ class PresetThemeBySession implements MiddlewareInterface
         $theme = $request->getAttribute('theme');
 
         if ($theme) {
-            return $handler->handle($this->themeFactory->get($theme));
+            $request = $request->withAttribute('theme', $this->themeFactory->get($theme));
+            
+            return $handler->handle($request);
         }
 
         /* @var $session \ExampleCMS\Contract\Session */

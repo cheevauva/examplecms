@@ -1,12 +1,12 @@
 <?php
 
-$layouts['empty'] = array(
+$layout['empty'] = array(
     'component' => 'basic',
     'template' => 'empty',
     'views' => array(
     ),
 );
-$layouts['setup'] = array(
+$layout['setup'] = array(
     'component' => 'basic',
     'template' => 'setup',
     'views' => array(
@@ -21,7 +21,7 @@ $layouts['setup'] = array(
         'asset' => 'asset',
     ),
 );
-$layouts['exception'] = array(
+$layout['exception'] = array(
     'component' => 'exception',
     'template' => 'setup',
     'views' => array(

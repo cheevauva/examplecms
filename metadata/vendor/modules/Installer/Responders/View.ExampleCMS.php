@@ -1,6 +1,6 @@
 <?php
 
-$views['database'] = array(
+$view['database'] = array(
     'component' => 'form',
     'model' => 'database',
     'method' => 'POST',
@@ -10,7 +10,7 @@ $views['database'] = array(
     ],
 );
 
-$views['language'] = array(
+$view['language'] = array(
     'component' => 'form',
     'model' => 'language',
     'method' => 'POST',
@@ -20,7 +20,7 @@ $views['language'] = array(
     ],
 );
 
-$views['license'] = array(
+$view['license'] = array(
     'component' => 'form',
     'model' => 'license',
     'method' => 'POST',

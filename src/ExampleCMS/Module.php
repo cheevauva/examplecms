@@ -26,6 +26,11 @@ class Module implements \ExampleCMS\Contract\Module
      */
     public $componentFactory;
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Responder
+     */
+    public $responderFactory;
+
     public function setName($module)
     {
         $this->name = $module;
@@ -35,77 +40,7 @@ class Module implements \ExampleCMS\Contract\Module
     {
         return $this->name;
     }
-
-    /**
-     * @param string $type
-     * @param string $component
-     * @return array|\ArrayAccess
-     * @throws \ExampleCMS\Exception\Metadata
-     */
-    protected function getResponderMetadata($type, $component)
-    {
-        $responderMetadata = $this->metadata->get([
-            'responders',
-            ucfirst($type),
-            $this->name,
-        ]);
-
-        if (empty($responderMetadata[$component]['component'])) {
-            throw new \ExampleCMS\Exception\Metadata(sprintf('"component" for "%s" is not define', implode('.', [
-                $component,
-                'responders',
-                ucfirst($type),
-                $this->name,
-            ])));
-        }
-
-        return $responderMetadata[$component];
-    }
-
-    protected function responder($type, $name)
-    {
-        $metadata = $name;
-
-        if (is_string($name)) {
-            $metadata = $this->getResponderMetadata($type, $name);
-        }
-
-        $component = $this->getComponent($type . '.' . $metadata['component']);
-        $component->setMetadata($metadata);
-
-        return $component;
-    }
-
-    public function view($view)
-    {
-        return $this->responder('views', $view);
-    }
-
-    public function layout($layout)
-    {
-        return $this->responder('layouts', $layout);
-    }
-
-    public function row($row)
-    {
-        return $this->responder('rows', $row);
-    }
-
-    public function field($field)
-    {
-        return $this->responder('fields', $field);
-    }
-
-    public function column($column)
-    {
-        return $this->responder('columns', $column);
-    }
-
-    public function grid($grid)
-    {
-        return $this->responder('grids', $grid);
-    }
-
+    
     public function model($model = 'model')
     {
         $metadata = $model;
@@ -133,7 +68,7 @@ class Module implements \ExampleCMS\Contract\Module
     public function action($action)
     {
         $metadata = [];
-        
+
         if (!is_string($action)) {
             $metadata = $action;
             $action = $metadata['component'];
@@ -165,7 +100,7 @@ class Module implements \ExampleCMS\Contract\Module
 
         return $componentObject;
     }
-    
+
     public function __toString()
     {
         return $this->name;

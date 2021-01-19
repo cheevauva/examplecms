@@ -1,30 +1,30 @@
 <?php
 
-$views['exception'] = array(
+$view['exception'] = array(
     'component' => 'exception',
 );
-$views['header'] = array(
+$view['header'] = array(
     'component' => 'header',
 );
-$views['footer'] = array(
+$view['footer'] = array(
     'component' => 'footer',
 );
-$views['asset'] = array(
+$view['asset'] = array(
     'component' => 'asset',
 );
-$views['json-index'] = array(
+$view['json-index'] = array(
     'component' => 'grid',
     'grid' => 'json-index',
 );
-$views['json-read'] = array(
+$view['json-read'] = array(
     'component' => 'grid',
     'grid' => 'json-read',
 );
-$views['json-designer'] = array(
+$view['json-designer'] = array(
     'component' => 'designer',
     'template' => 'designer-json',
 );
-$views['json-exception'] = array(
+$view['json-exception'] = array(
     'component' => 'exception',
     'template' => 'exception-json',
 );

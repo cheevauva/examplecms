@@ -1,6 +1,6 @@
 <?php
 
-namespace ExampleCMS\Contract\Application;
+namespace ExampleCMS\Contract;
 
 interface Responder
 {

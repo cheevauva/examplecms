@@ -6,9 +6,9 @@
  * @license LICENCE/ExampleCMS
  */
 
-namespace ExampleCMS\Application\Responder;
+namespace ExampleCMS;
 
-abstract class Responder implements \ExampleCMS\Contract\Application\Responder
+abstract class Responder implements \ExampleCMS\Contract\Responder
 {
 
     /**
@@ -25,6 +25,11 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
      * @var string
      */
     protected $templateType;
+    
+    /**
+     * @var \ExampleCMS\Contract\Factory\Responder 
+     */
+    public $responderFactory;
 
     public function setModule($module)
     {
@@ -39,27 +44,13 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
         $this->metadata = $metadata;
     }
 
-    protected function getDefaultData()
-    {
-        return [
-            'module' => $this->module->getName(),
-            'language' => 'en_US',
-        ];
-    }
-
     public function execute(array $context)
     {
         $data = [];
         $data['templateId'] = $this->getTemplateId();
-        $data['module'] = $context['module'] ?? null;
-        $data['language'] = $context['language'] ?? null;
-
-        foreach ($this->getDefaultData() as $property => $value) {
-            if (!isset($data[$property])) {
-                $data[$property] = $value;
-            }
-        }
-
+        $data['module'] = $context['module'] ?? $this->module->getName();
+        $data['language'] = $context['language'] ?? 'en_US';
+        
         return $data;
     }
 
@@ -86,6 +77,22 @@ abstract class Responder implements \ExampleCMS\Contract\Application\Responder
         return [
             $this->metadata,
         ];
+    }
+
+    /**
+     * 
+     * @param string $type
+     * @param string|array $name
+     * @return \ExampleCMS\Contract\Responder
+     */
+    protected function responder($type, $name)
+    {
+        return $this->responderFactory->get($this->module, $type, $name);
+    }
+
+    public function __invoke($context)
+    {
+        return $this->execute($context);
     }
 
 }

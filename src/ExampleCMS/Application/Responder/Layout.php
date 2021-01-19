@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Responder;
 
-class Layout extends \ExampleCMS\Application\Responder\Responder
+class Layout extends \ExampleCMS\Responder
 {
 
     /**
@@ -34,7 +34,7 @@ class Layout extends \ExampleCMS\Application\Responder\Responder
         }
 
         foreach ($views as $name => $view) {
-            $data['views'][$name] = $this->module->view($view)->execute($context);
+            $data['views'][$name] = $this->responder('view', $view)->execute($context);
         }
 
         return $data;

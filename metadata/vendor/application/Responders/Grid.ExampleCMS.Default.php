@@ -1,6 +1,6 @@
 <?php
 
-$grids['read'] = array(
+$grid['read'] = array(
     'component' => 'table',
     'rows' => array(
         array(
@@ -14,7 +14,7 @@ $grids['read'] = array(
         ),
     ),
 );
-$grids['json-index'] = array(
+$grid['json-index'] = array(
     'component' => 'basic',
     'template' => 'json',
     'rows' => array(
@@ -51,7 +51,7 @@ $grids['json-index'] = array(
         ),
     ),
 );
-$grids['index'] = array(
+$grid['index'] = array(
     'component' => 'table',
     'view' => 'view',
     'rows' => array(
@@ -74,11 +74,11 @@ $grids['index'] = array(
         ),
     ),
 );
-$grids['edit'] = array(
+$grid['edit'] = array(
     'component' => 'table',
     'rows' => array(),
 );
-$grids['form'] = array(
+$grid['form'] = array(
     'component' => 'table',
 );
 

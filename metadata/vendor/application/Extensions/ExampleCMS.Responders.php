@@ -1,38 +1,38 @@
 <?php
 
 $extensions['responders_views'] = [
-    'section' => 'views',
+    'section' => 'view',
     'extdir' => 'Responders',
-    'name' => 'Views',
-    'filter' => 'Views',
+    'name' => 'View',
+    'filter' => 'View',
 ];
 $extensions['responders_layouts'] = [
-    'section' => 'layouts',
+    'section' => 'layout',
     'extdir' => 'Responders',
-    'name' => 'Layouts',
-    'filter' => 'Layouts',
+    'name' => 'Layout',
+    'filter' => 'Layout',
 ];
 $extensions['responders_columns'] = [
-    'section' => 'columns',
+    'section' => 'column',
     'extdir' => 'Responders',
-    'name' => 'Columns',
-    'filter' => 'Columns',
+    'name' => 'Column',
+    'filter' => 'Column',
 ];
 $extensions['responders_rows'] = [
-    'section' => 'rows',
+    'section' => 'row',
     'extdir' => 'Responders',
-    'name' => 'Rows',
-    'filter' => 'Rows',
+    'name' => 'Row',
+    'filter' => 'Row',
 ];
 $extensions['responders_grids'] = [
-    'section' => 'grids',
+    'section' => 'grid',
     'extdir' => 'Responders',
-    'name' => 'Grids',
-    'filter' => 'Grids',
+    'name' => 'Grid',
+    'filter' => 'Grid',
 ];
 $extensions['responders_fields'] = [
-    'section' => 'fields',
+    'section' => 'field',
     'extdir' => 'Responders',
-    'name' => 'Fields',
-    'filter' => 'Fields',
+    'name' => 'Field',
+    'filter' => 'Field',
 ];

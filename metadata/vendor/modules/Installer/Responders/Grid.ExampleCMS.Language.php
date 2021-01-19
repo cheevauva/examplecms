@@ -1,7 +1,7 @@
 <?php
 
-$grids['license'] = array(
-    'name' => 'license',
+$grid['language'] = array(
+    'name' => 'language',
     'component' => 'form',
     'rows' => array(
         array(
@@ -12,7 +12,7 @@ $grids['license'] = array(
                     'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'license_text',
+                            'label' => 'language_installer',
                         ),
                     )
                 ),
@@ -20,10 +20,11 @@ $grids['license'] = array(
                     'component' => 'default',
                     'fields' => array(
                         array(
-                            'component' => 'text-from-fs',
-                            'name' => 'license',
-                            'template' => 'view-raw',
-                            'value' => 'LICENSE',
+                            'component' => 'enum',
+                            'name' => 'installer',
+                            'default' => 'en_US',
+                            'template' => 'form',
+                            'options' => 'languages',
                         ),
                     )
                 ),
@@ -37,7 +38,7 @@ $grids['license'] = array(
                     'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'license_is_accept',
+                            'label' => 'language_system',
                         ),
                     )
                 ),
@@ -45,9 +46,11 @@ $grids['license'] = array(
                     'component' => 'default',
                     'fields' => array(
                         array(
-                            'component' => 'bool',
-                            'name' => 'accept',
+                            'component' => 'enum',
+                            'name' => 'system',
+                            'default' => 'en_US',
                             'template' => 'form',
+                            'options' => 'languages',
                         ),
                     )
                 ),

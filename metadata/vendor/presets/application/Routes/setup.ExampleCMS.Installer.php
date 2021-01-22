@@ -16,7 +16,7 @@ $routes['main'] = array(
 
 $routes['license'] = array(
     'method' => 'GET',
-    'route' => '/license',
+    'route' => '/license/',
     'target' => array(
         'module' => 'Installer',
         'responder' => [
@@ -39,7 +39,7 @@ $routes['license'] = array(
 
 $routes['license_save'] = array(
     'method' => 'POST',
-    'route' => '/license',
+    'route' => '/license/',
     'target' => array(
         'actions' => [
             [
@@ -58,7 +58,7 @@ $routes['license_save'] = array(
 
 $routes['language'] = [
     'method' => 'GET',
-    'route' => '/language',
+    'route' => '/language/',
     'target' => [
         'module' => 'Installer',
         'responder' => [
@@ -81,7 +81,7 @@ $routes['language'] = [
 
 $routes['language_save'] = array(
     'method' => 'POST',
-    'route' => '/language',
+    'route' => '/language/',
     'target' => array(
         'redirect' => [
             'route' => 'database',
@@ -99,7 +99,7 @@ $routes['language_save'] = array(
 
 $routes['database'] = array(
     'method' => 'GET',
-    'route' => '/database',
+    'route' => '/database/',
     'target' => array(
         'actions' => [
             [
@@ -121,7 +121,7 @@ $routes['database'] = array(
 );
 $routes['database_save'] = array(
     'method' => 'POST',
-    'route' => '/database',
+    'route' => '/database/',
     'target' => array(
         'module' => 'Installer',
         'actions' => [
@@ -138,7 +138,7 @@ $routes['database_save'] = array(
 );
 $routes['database_list'] = array(
     'method' => 'GET',
-    'route' => '/database/list',
+    'route' => '/database/list/',
     'target' => array(
         'actions' => [
             [

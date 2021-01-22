@@ -26,8 +26,17 @@ class Router implements MiddlewareInterface
     {
         $router = $this->routerFactory->get($request->getAttribute('application'));
         $router->setBaseUrl($request->getAttribute('baseUrl'));
+        
+        
+        $path = $request->getUri()->getPath();
+        
+        if (!$this->config->get(['base', 'semantic_url'])) {
+            if (substr($path, -1) !== '/') {
+                $path .= '/';
+            }
+        }
 
-        $result = $router->match($request->getUri()->getPath(), $request->getMethod());
+        $result = $router->match($path, $request->getMethod());
 
         if (!$result) {
             throw new \ExampleCMS\Exception\Http\NotFound;

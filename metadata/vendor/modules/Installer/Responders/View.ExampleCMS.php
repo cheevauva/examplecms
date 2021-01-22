@@ -29,3 +29,8 @@ $view['license'] = array(
         'license',
     ],
 );
+$view['database_index'] = array(
+    'component' => 'list',
+    'collection' => 'databases',
+
+);

@@ -28,6 +28,11 @@ class OopsHandler implements MiddlewareInterface
     public $rendererFactory;
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Responder
+     */
+    public $responderFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Config
      */
     public $config;
@@ -36,7 +41,7 @@ class OopsHandler implements MiddlewareInterface
     {
         try {
             return $handler->handle($request);
-        } catch (\ExampleCMS\Exception\Http $exception) {
+        } catch (\Exception $exception) {
             try {
                 $request = $request->withAttribute('exception', $exception);
 
@@ -50,17 +55,22 @@ class OopsHandler implements MiddlewareInterface
 
                 $module = $this->moduleFactory->get($request->getAttribute('module'));
 
-                $theme = $request->getAttribute('theme');
+           
+                $responder = $this->responderFactory->get($module, 'layout', 'exception');
+          
+                $renderer = $request->getAttribute('renderer');
+
                 $context = $request->withoutAttribute('session')->getAttributes();
                 $context['exception'] = $exception;
                 $context['request'] = $request;
 
-                $data = $module->layout('exception')->execute($context);
+                $data = $responder($context);
+                $content = $renderer($data);
 
                 $response = $this->response;
-                $response->getBody()->write($theme($data));
+                $response->getBody()->write($content);
             } catch (\Exception $ex) {
-                throw $exception;
+                throw $ex;
             }
         }
 
@@ -71,6 +81,5 @@ class OopsHandler implements MiddlewareInterface
     {
         return $this->moduleFactory->get($request->getAttribute('module'));
     }
-
 
 }

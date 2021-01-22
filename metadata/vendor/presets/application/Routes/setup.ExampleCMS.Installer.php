@@ -136,5 +136,25 @@ $routes['database_save'] = array(
         ],
     ),
 );
-
+$routes['database_list'] = array(
+    'method' => 'GET',
+    'route' => '/database/list',
+    'target' => array(
+        'actions' => [
+            [
+                'component' => 'index',
+            ],
+        ],
+        'module' => 'Installer',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'context' => [
+                'views' => [
+                    'body' => 'database_index',
+                ],
+            ]
+        ],
+    ),
+);
 // end code from preset @presetvar0

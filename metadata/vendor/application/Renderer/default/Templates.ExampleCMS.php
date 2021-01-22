@@ -15,6 +15,7 @@ $templates['views.form'] = 'tpls/themes/default/views/form.php';
 $templates['views.forms'] = 'tpls/themes/default/views/forms.php';
 $templates['views.header'] = 'tpls/themes/default/views/header.php';
 $templates['views.layout'] = 'tpls/themes/default/views/layout.php';
+$templates['views.list'] = 'tpls/themes/default/views/list.php';
 $templates['grids.default'] = 'tpls/themes/default/grids/basic.php';
 $templates['grids.table'] = 'tpls/themes/default/grids/basic.php';
 $templates['grids.json'] = 'tpls/themes/default/grids/json.php';

@@ -14,6 +14,7 @@ $di[ExampleCMS\Application\Middleware\CLI\FrontController::class] = array(
 $di[ExampleCMS\Application\Middleware\Web\OopsHandler::class] = array(
     'moduleFactory' => ExampleCMS\Factory\Module::class,
     'rendererFactory' => ExampleCMS\Factory\Renderer::class,
+    'responderFactory' => ExampleCMS\Factory\Responder::class,
     'config' => ExampleCMS\Config::class,
     'response' => '*' . Laminas\Diactoros\Response::class,
 );

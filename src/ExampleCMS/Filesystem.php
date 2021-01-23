@@ -9,7 +9,10 @@ namespace ExampleCMS;
 class Filesystem implements \ExampleCMS\Contract\Filesystem
 {
 
-    protected $basePath;
+    public function __construct($basePath)
+    {
+        $this->basePath = $basePath;
+    }
 
     public function loadAsPHP($filename)
     {

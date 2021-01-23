@@ -6,7 +6,6 @@ $handlers['responders'] = array(
         'module' => 'responders_mod',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\ApplicationModule',
-    'section' => 'responders',
     'cache' => [
         'disable' => true,
     ]
@@ -16,12 +15,10 @@ $handlers['responders_app'] = array(
         'application' => 'cache/metadata/application/Responders/$1.php',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\Application',
-    'section' => 'responders',
 );
 $handlers['responders_mod'] = array(
     'route' => [
         'module' => 'cache/metadata/modules/$2/Responders/$1.php',
     ],
     'component' => 'ExampleCMS\Metadata\Handler\Module',
-    'section' => 'responders',
 );

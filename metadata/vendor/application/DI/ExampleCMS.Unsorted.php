@@ -35,7 +35,7 @@ $di[ExampleCMS\Config\Local::class] = [
     'filesystem' => \ExampleCMS\Filesystem::class,
 ];
 $di[ExampleCMS\Filesystem::class] = [
-    '!basePath' => '@basePath',
+    '^1' => '@basePath',
 ];
 $di[ExampleCMS\Bootstrap::class] = [
     'config' => \ExampleCMS\Config::class,

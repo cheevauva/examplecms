@@ -8,11 +8,6 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query
     const REQUEST = 'request';
     const FORM = 'form';
 
-    /**
-     * @var \ExampleCMS\Contract\Factory\Cache
-     */
-    public $cacheFactory;
-
     public function fetch(array $params = [])
     {
         /* @var $request \Psr\Http\Message\ServerRequestInterface */

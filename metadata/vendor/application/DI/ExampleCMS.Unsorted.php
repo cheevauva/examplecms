@@ -1,5 +1,6 @@
 <?php
 
+$di['?bootstrap'] = '*' . ExampleCMS\Bootstrap::class;
 $di[ExampleCMS\Application::class] = array(
     'metadata' => ExampleCMS\Metadata::class,
     'middlewareFactory' => \ExampleCMS\Factory\Middleware::class,

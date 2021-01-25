@@ -30,7 +30,7 @@ $container = new \ExampleCMS\Container(require 'cache/metadata/application/DI.ph
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('application', $application);
 $request = $request->withAttribute('examplecms_timestart', microtime(true));
- 
+
 /* @var $bootstrap \ExampleCMS\Bootstrap */
-$bootstrap = $container->get(ExampleCMS\Bootstrap::class);
+$bootstrap = $container->get('bootstrap');
 $bootstrap->sendResponse($bootstrap->getApplication()->run($request));

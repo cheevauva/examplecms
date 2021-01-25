@@ -1,6 +1,6 @@
 <?php
 
-$extensions['caches'] = [
+$extensions['configs'] = [
     'section' => 'configs',
     'extdir' => 'Configs',
     'level' => 'application',

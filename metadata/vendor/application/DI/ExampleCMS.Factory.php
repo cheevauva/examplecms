@@ -20,3 +20,7 @@ $di[ExampleCMS\Factory\Cache::class] = array(
 $di[ExampleCMS\Factory\Responder::class] = array(
     'componentFactory' => ExampleCMS\Factory\Component::class,
 );
+$di[ExampleCMS\Factory\Config::class] = array(
+    'container' => ExampleCMS\Container::class,
+    '^1' => '@configsMetadata',
+);

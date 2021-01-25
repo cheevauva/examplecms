@@ -24,12 +24,13 @@ $container = new \ExampleCMS\Container(require 'cache/metadata/application/DI.ph
     'basePath' => __DIR__ . '/',
     'cachesMetadata' => require 'cache/metadata/application/Caches.php',
     'handlersMetadata' => require 'cache/metadata/application/Handlers.php',
+    'configsMetadata' => require 'cache/metadata/application/Configs.php',
 ], $configuration);
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('application', $application);
 $request = $request->withAttribute('examplecms_timestart', microtime(true));
-
+ 
 /* @var $bootstrap \ExampleCMS\Bootstrap */
 $bootstrap = $container->get(ExampleCMS\Bootstrap::class);
 $bootstrap->sendResponse($bootstrap->getApplication()->run($request));

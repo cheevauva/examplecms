@@ -2,17 +2,27 @@
 
 namespace ExampleCMS\Factory;
 
-class Config extends Factory
+class Config implements \ExampleCMS\Contract\Factory\Config
 {
 
-    public function get($id, $options = [])
-    {
-        $map = [
-            'local' => \ExampleCMS\Config\Local::class,
-            'database' => \ExampleCMS\Config\Database::class,
-        ];
+    /**
+     * @var array
+     */
+    protected $metadata;
 
-        return $this->container->get($map[$id]);
+    /**
+     * @var \Psr\Container\ContainerInterface
+     */
+    public $container;
+
+    public function __construct($metadata)
+    {
+        $this->metadata = $metadata;
+    }
+
+    public function get($id, array $options = [])
+    {
+        return $this->container->get($this->metadata[$id]);
     }
 
 }

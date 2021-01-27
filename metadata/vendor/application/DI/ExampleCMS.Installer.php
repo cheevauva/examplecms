@@ -1,15 +1,15 @@
 <?php
 
 $di[ExampleCMS\Module\Installer\Query\Find::class] = array(
-    'cacheFactory' => ExampleCMS\Factory\Cache::class,
+    'cacheFactory' => '?cacheFactory',
 );
 $di[ExampleCMS\Module\Installer\Query\Save::class] = array(
-    'cacheFactory' => ExampleCMS\Factory\Cache::class,
+    'cacheFactory' => '?cacheFactory',
 );
 $di[ExampleCMS\Module\Installer\Middleware\LicenseAcceptChecker::class] = array(
-    'config' => ExampleCMS\Config::class,
-    'moduleFactory' => ExampleCMS\Factory\Module::class,
+    'config' => '?config',
+    'moduleFactory' => '?moduleFactory',
 );
 $di[ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class] = [
-    'filesystem' => ExampleCMS\Filesystem::class,
+    'filesystem' => '?filesystem',
 ];

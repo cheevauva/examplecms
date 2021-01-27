@@ -1,34 +1,34 @@
 <?php
 
 $di[ExampleCMS\Application\Middleware\Session::class] = array(
-    'sessionFactory' => ExampleCMS\Factory\Session::class,
-    'config' => ExampleCMS\Config::class,
+    'sessionFactory' => '?sessionFactory',
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\Router::class] = array(
-    'routerFactory' => ExampleCMS\Factory\Router::class,
-    'config' => ExampleCMS\Config::class,
+    'routerFactory' => '?routerFactory',
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\CLI\FrontController::class] = array(
-    'config' => ExampleCMS\Config::class,
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\Web\OopsHandler::class] = array(
-    'moduleFactory' => ExampleCMS\Factory\Module::class,
-    'rendererFactory' => ExampleCMS\Factory\Renderer::class,
-    'responderFactory' => ExampleCMS\Factory\Responder::class,
-    'config' => ExampleCMS\Config::class,
-    'response' => '*' . Laminas\Diactoros\Response::class,
+    'moduleFactory' => '?moduleFactory',
+    'rendererFactory' => '?rendererFactory',
+    'responderFactory' => '?responderFactory',
+    'config' => '?config',
+    'response' => '?httpResponse',
 );
 $di[ExampleCMS\Application\Middleware\PresetLanguageBySession::class] = array(
-    'config' => ExampleCMS\Config::class,
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\PresetRendererBySession::class] = array(
-    'rendererFactory' => ExampleCMS\Factory\Renderer::class,
-    'config' => ExampleCMS\Config::class,
+    'rendererFactory' => '?rendererFactory',
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\PresetModule::class] = array(
-    'moduleFactory' => ExampleCMS\Factory\Module::class,
-    'metadata' => ExampleCMS\Metadata::class,
+    'moduleFactory' => '?moduleFactory',
+    'metadata' => '?metadata',
 );
 $di[ExampleCMS\Application\Middleware\PresetResponder::class] = array(
-    'responderFactory' => ExampleCMS\Factory\Responder::class,
+    'responderFactory' => '?responderFactory',
 );

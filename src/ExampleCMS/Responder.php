@@ -8,6 +8,8 @@
 
 namespace ExampleCMS;
 
+use ExampleCMS\Contract\Context;
+
 abstract class Responder implements \ExampleCMS\Contract\Responder
 {
 
@@ -25,7 +27,7 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
      * @var string
      */
     protected $templateType;
-    
+
     /**
      * @var \ExampleCMS\Contract\Factory\Responder 
      */
@@ -44,13 +46,13 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         $this->metadata = $metadata;
     }
 
-    public function execute(array $context)
+    public function execute(Context $context)
     {
         $data = [];
         $data['templateId'] = $this->getTemplateId();
-        $data['module'] = $context['module'] ?? $this->module->getName();
-        $data['language'] = $context['language'] ?? 'en_US';
-        
+        $data['module'] = $context->getAttribute('module', $this->module->getName());
+        $data['language'] = $context->getAttribute('language', 'en_US');
+
         return $data;
     }
 

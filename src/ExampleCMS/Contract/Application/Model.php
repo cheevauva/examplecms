@@ -2,7 +2,9 @@
 
 namespace ExampleCMS\Contract\Application;
 
-interface Model
+use ExampleCMS\Contract\Entity;
+
+interface Model extends Entity
 {
 
     /**

@@ -13,7 +13,7 @@ class Router implements MiddlewareInterface
 {
 
     /**
-     * @var \ExampleCMS\Factory\Router
+     * @var \ExampleCMS\Contract\Factory\Router
      */
     public $routerFactory;
 
@@ -24,12 +24,15 @@ class Router implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /* @var $context \ExampleCMS\Contract\Context */
+        $context = $request->getAttribute('context');
+        
         $router = $this->routerFactory->get($request->getAttribute('application'));
         $router->setBaseUrl($request->getAttribute('baseUrl'));
-        
-        
+
+
         $path = $request->getUri()->getPath();
-        
+
         if (!$this->config->get(['base', 'semantic_url'])) {
             if (substr($path, -1) !== '/') {
                 $path .= '/';
@@ -42,12 +45,11 @@ class Router implements MiddlewareInterface
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
 
-        foreach ($result['target'] as $name => $value) {
-            $request = $request->withAttribute($name, $value);
-        }
+        $context = $context->withAttributes($result['target']);
+        $context = $context->withAttribute('route', $result['name']);
+        $context = $context->withAttribute('router', $router);
 
-        $request = $request->withAttribute('route', $result['name']);
-        $request = $request->withAttribute('router', $router);
+        $request = $request->withAttribute('context', $context);
 
         return $handler->handle($request);
     }

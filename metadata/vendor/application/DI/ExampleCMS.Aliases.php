@@ -1,7 +1,7 @@
 <?php
 
 $di['?bootstrap'] = '*' . ExampleCMS\Bootstrap::class;
-$di['?config'] = ExampleCMS\Config::class;
+$di['?config'] = '~' . ExampleCMS\Config::class;
 $di['?filesystem'] = ExampleCMS\Filesystem::class;
 $di['?arrayHelper'] = \ExampleCMS\Helper\ArrayHelper::class;
 $di['?application'] = '*' . ExampleCMS\Application::class;
@@ -19,6 +19,10 @@ $di['?sessionFactory'] = ExampleCMS\Factory\Session::class;
 $di['?moduleFactory'] = ExampleCMS\Factory\Module::class;
 $di['?middlewareFactory'] = ExampleCMS\Factory\Middleware::class;
 $di['?rendererFactory'] = ExampleCMS\Factory\Renderer::class;
-$di['?sessionFile'] = '*' . ExampleCMS\Session\File::class;
-$di['?sessionMemcached'] = '*' . ExampleCMS\Session\Memcached::class;
-
+$di['?sessionOverFile'] = '*' . ExampleCMS\Session\SessionOverFile::class;
+$di['?sessionOverMemcached'] = '*' . ExampleCMS\Session\SessionOverMemcached::class;
+$di['?context'] = '*' . ExampleCMS\Context::class;
+$di['?cache'] = '~' . ExampleCMS\Cache\Cache::class;
+$di['?cacheFile'] = '~' . ExampleCMS\Cache\File::class;
+$di['?cacheMemcached'] = '~' . ExampleCMS\Cache\Memcached::class;
+$di['?cacheMemory'] = '~' . ExampleCMS\Cache\Memory::class;

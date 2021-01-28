@@ -8,6 +8,8 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class Layout extends \ExampleCMS\Responder
 {
 
@@ -16,10 +18,10 @@ class Layout extends \ExampleCMS\Responder
      */
     protected $templateType = 'layouts';
 
-    public function execute($context)
+    public function execute(Context $context)
     {
         $data = parent::execute($context);
-        $data['basePath'] = $context['basePath'] ?? null;
+        $data['basePath'] = $context->getAttribute('basePath', null);
 
         if (empty($this->metadata['views'])) {
             $this->metadata['views'] = [];
@@ -27,8 +29,8 @@ class Layout extends \ExampleCMS\Responder
 
         $views = $this->metadata['views'];
 
-        if (!empty($context['views'])) {
-            foreach ($context['views'] as $name => $view) {
+        if ($context->hasAttribute('views')) {
+            foreach ($context->getAttribute('views', []) as $name => $view) {
                 $views[$name] = $view;
             }
         }

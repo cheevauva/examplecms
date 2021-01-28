@@ -2,12 +2,13 @@
 
 namespace ExampleCMS;
 
-class Logger implements \PDIC\InterfaceMediator
+class Logger
 {
 
-    public function get()
+    public function __invoke()
     {
         // @todo
         return new \stdClass();
     }
+
 }

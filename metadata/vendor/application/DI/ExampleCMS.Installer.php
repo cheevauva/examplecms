@@ -1,10 +1,10 @@
 <?php
 
 $di[ExampleCMS\Module\Installer\Query\Find::class] = array(
-    'cacheFactory' => '?cacheFactory',
+    'cache' => '?cacheFile',
 );
 $di[ExampleCMS\Module\Installer\Query\Save::class] = array(
-    'cacheFactory' => '?cacheFactory',
+    'cache' => '?cacheFile',
 );
 $di[ExampleCMS\Module\Installer\Middleware\LicenseAcceptChecker::class] = array(
     'config' => '?config',

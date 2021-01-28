@@ -8,6 +8,8 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class Field extends \ExampleCMS\Responder implements \ExampleCMS\Contract\Responder
 {
 
@@ -27,7 +29,7 @@ class Field extends \ExampleCMS\Responder implements \ExampleCMS\Contract\Respon
         return $templateId;
     }
 
-    public function execute(array $context)
+    public function execute(Context $context)
     {
         $defaultValue = null;
 

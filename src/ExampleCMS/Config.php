@@ -2,7 +2,7 @@
 
 namespace ExampleCMS;
 
-class Config implements \PDIC\InterfaceMediator
+class Config
 {
 
     /**
@@ -10,7 +10,7 @@ class Config implements \PDIC\InterfaceMediator
      */
     public $configFactory;
 
-    public function get()
+    public function __invoke()
     {
         /* @var $config \ExampleCMS\Contract\Config */
         $config = null;
@@ -49,7 +49,8 @@ class Config implements \PDIC\InterfaceMediator
             'module' => 'Default',
             'session' => [
                 'name' => 'EXAMPLECMSID',
-                'engine' => 'File',
+                'engine' => 'SessionOverFile',
+                'basePath' => 'cache/sessions/',
             ],
             'xhprof' => array(
                 'enable' => false,

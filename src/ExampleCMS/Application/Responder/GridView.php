@@ -8,10 +8,12 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class GridView extends Grid
 {
 
-    public function execute(array $context)
+    public function execute(Context $context)
     {
         $context = parent::execute($context);
         $context['rows'] = [];

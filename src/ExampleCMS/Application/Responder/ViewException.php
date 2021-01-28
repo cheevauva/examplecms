@@ -8,16 +8,18 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class ViewException extends View
 {
 
     public $application;
 
-    public function execute($context)
+    public function execute(Context $context)
     {
         $metadata = parent::execute($context);
 
-        $exception = $context['exception'];
+        $exception = $context->getAttribute('exception');
 
         $metadata['message'] = '';
 

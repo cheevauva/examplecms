@@ -3,10 +3,12 @@
 /**
  * ExampleCMS
  *
- * @license LICENCE/ExampleCMS
+ * @license LICENCE
  */
 
 namespace ExampleCMS\Application\Responder;
+
+use ExampleCMS\Contract\Context;
 
 class Column extends \ExampleCMS\Responder
 {
@@ -16,8 +18,7 @@ class Column extends \ExampleCMS\Responder
      */
     protected $templateType = 'columns';
 
-
-    public function execute(array $context)
+    public function execute(Context $context)
     {
         $data = parent::execute($context);
         $data['grids'] = [];

@@ -2,8 +2,16 @@
 
 namespace ExampleCMS;
 
+use ExampleCMS\Contract\Entity;
+use ExampleCMS\Contract\Collection;
+
 class Context implements \ExampleCMS\Contract\Context
 {
+
+    /**
+     * @var array
+     */
+    protected $attributes = [];
 
     public function getAttributes()
     {
@@ -54,6 +62,36 @@ class Context implements \ExampleCMS\Contract\Context
         }
 
         return $context;
+    }
+
+    public function getCollection($name)
+    {
+        
+    }
+
+    public function getEntity($name)
+    {
+        return $this->getAttribute('entities:' . $name);
+    }
+
+    public function hasCollection($name): bool
+    {
+        
+    }
+
+    public function hasEntity($name): bool
+    {
+        return $this->hasAttribute('entities:' . $name);
+    }
+
+    public function withCollection($name, Collection $collection)
+    {
+        
+    }
+
+    public function withEntity($name, Entity $value)
+    {
+        return $this->withAttribute('entities:' . $name, $value);
     }
 
 }

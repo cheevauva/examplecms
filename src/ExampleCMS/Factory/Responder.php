@@ -4,7 +4,7 @@ namespace ExampleCMS\Factory;
 
 use ExampleCMS\Contract\Module;
 
-class Responder extends Factory
+class Responder extends Factory implements \ExampleCMS\Contract\Factory\Responder
 {
 
     /**
@@ -12,7 +12,7 @@ class Responder extends Factory
      */
     public $componentFactory;
 
-    public function get(Module $module, $type, $name)
+    public function get(Module $module, $type, $name): \ExampleCMS\Contract\Responder
     {
         $metadata = $name;
 

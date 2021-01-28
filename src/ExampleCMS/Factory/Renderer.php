@@ -27,10 +27,6 @@ class Renderer extends Factory implements \ExampleCMS\Contract\Factory\Renderer
             $this->metadataRenderers = $this->metadata->get(['renderer']);
         }
 
-        if (isset($this->renderers[$id])) {
-            return $this->renderers[$id];
-        }
-
         if (empty($this->metadataRenderers[$id])) {
             throw new \ExampleCMS\Exception\Metadata(sprintf('renderer "%s" is not defined', $id));
         }
@@ -41,8 +37,6 @@ class Renderer extends Factory implements \ExampleCMS\Contract\Factory\Renderer
         /* @var $renderer \ExampleCMS\Contract\Renderer */
         $renderer = $this->container->get($metadata['component']);
         $renderer->setOptions($metadata);
-
-        $this->renderers[$id] = $renderer;
 
         return $renderer;
     }

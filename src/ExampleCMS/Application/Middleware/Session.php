@@ -27,14 +27,23 @@ class Session implements MiddlewareInterface
         $cookies = $request->getCookieParams();
         $sessionId = null;
         $sessionName = $this->config->get(['base', 'session', 'name']);
+        $engine = $this->config->get(['base', 'session', 'engine']);
+
+        if (empty($engine)) {
+            $engine = 'sessionOverFile';
+        }
 
         if (!empty($cookies[$sessionName])) {
             $sessionId = $cookies[$sessionName];
         }
 
-        $session = $this->sessionFactory->get($sessionId);
+        $session = $this->sessionFactory->get($engine);
+        $session->setSessionId($sessionId);
 
-        $request = $request->withAttribute('session', $session);
+        $context = $request->getAttribute('context');
+        $context = $context->withAttribute('session', $session);
+        
+        $request = $request->withAttribute('context', $context);
 
         $response = $handler->handle($request);
 

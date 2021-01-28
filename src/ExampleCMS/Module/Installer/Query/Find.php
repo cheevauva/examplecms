@@ -6,13 +6,13 @@ class Find extends \ExampleCMS\Application\Query\Query
 {
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Cache
+     * @var \ExampleCMS\Contract\Cache\Adapter
      */
-    public $cacheFactory;
+    public $cache;
 
     public function fetch(array $params = array())
     {
-        $install = $this->cacheFactory->get('fileInstaller')->get('options');
+        $install = $this->cache->get('installer:entity');
 
         if (empty($install)) {
             $install = [];

@@ -14,15 +14,35 @@ class Metadata implements \ExampleCMS\Contract\Metadata
      */
     public $metadataHandlerFactory;
 
+    /**
+     * @var array
+     */
+    protected $handlers = [];
+
     public function get(array $path)
     {
         if (empty($path)) {
             throw new \RuntimeException('path must be not empty array');
         }
 
-        $metadataHandler = $this->metadataHandlerFactory->get(array_shift($path));
+        $id = array_shift($path);
 
-        return $metadataHandler->get($path);
+        return $this->getMetadataHandler($id)->get($path);
+    }
+
+    /**
+     * @param string $id
+     * @return \ExampleCMS\Contract\Metadata\Handler
+     */
+    protected function getMetadataHandler($id)
+    {
+        if (!empty($this->handlers[$id])) {
+            return $this->handlers[$id];
+        }
+
+        $this->handlers[$id] = $this->metadataHandlerFactory->get($id);
+
+        return $this->handlers[$id];
     }
 
 }

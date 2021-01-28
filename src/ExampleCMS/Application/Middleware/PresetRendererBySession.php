@@ -24,17 +24,19 @@ class PresetRendererBySession implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $context = $request->getAttribute('context');
         /* @var $renderer string */
-        $renderer = $request->getAttribute('renderer');
+        $renderer = $context->getAttribute('renderer');
 
         if ($renderer) {
-            $request = $request->withAttribute('renderer', $this->rendererFactory->get($renderer));
-            
+            $context = $context->withAttribute('renderer', $this->rendererFactory->get($renderer));
+            $request = $request->withAttribute('context', $context);
+
             return $handler->handle($request);
         }
 
         /* @var $session \ExampleCMS\Contract\Session */
-        $session = $request->getAttribute('session');
+        $session = $context->getAttribute('session');
 
         $renderer = $session->get('renderer');
 
@@ -42,7 +44,8 @@ class PresetRendererBySession implements MiddlewareInterface
             $renderer = $this->config->get('base.renderer');
         }
 
-        $request = $request->withAttribute('renderer', $this->rendererFactory->get($renderer));
+        $context = $context->withAttribute('renderer', $this->rendererFactory->get($renderer));
+        $request = $request->withAttribute('context', $context);
 
         return $handler->handle($request);
     }

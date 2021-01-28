@@ -14,11 +14,6 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
     /**
      * @var array
      */
-    protected $handlers = [];
-
-    /**
-     * @var array
-     */
     protected $handlersMetadata = [];
 
     public function __construct($metadata)
@@ -28,8 +23,8 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
 
     public function get($id)
     {
-        if (!empty($this->handlers[$id])) {
-            return $this->handlers[$id];
+        if (empty($this->handlersMetadata[$id])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('handler "%s" not defined in hanlersMetadata', $id));
         }
 
         $handlerMetadata = $this->handlersMetadata[$id];
@@ -38,20 +33,19 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
         $component = $this->container->get($handlerMetadata['component']);
         $component->setMetadata($handlerMetadata);
 
-        if (empty($handlerMetadata['cache']['disable'])) {
-            $cacheHandlerMetadata = $handlerMetadata;
-            $cacheHandlerMetadata['name'] = $id;
-            $cacheHandlerMetadata['component'] = $component;
-
-            $cacheComponent = $this->container->get('metadataHandlerCache');
-            $cacheComponent->setMetadata($cacheHandlerMetadata);
-
-            $this->handlers[$id] = $cacheComponent;
-        } else {
-            $this->handlers[$id] = $component;
+        if (!empty($handlerMetadata['cache']['disable'])) {
+            return $component;
         }
 
-        return $this->handlers[$id];
+        $cacheHandlerMetadata = $handlerMetadata;
+        $cacheHandlerMetadata['name'] = $id;
+        $cacheHandlerMetadata['component'] = $component;
+
+        /* @var $cacheComponent \ExampleCMS\Contract\Metadata\Handler */
+        $cacheComponent = $this->container->get('metadataHandlerCache');
+        $cacheComponent->setMetadata($cacheHandlerMetadata);
+
+        return $cacheComponent;
     }
 
 }

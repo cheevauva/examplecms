@@ -5,13 +5,13 @@ namespace ExampleCMS\Module\Installer\Action;
 class Update extends \ExampleCMS\Application\Action\Action
 {
 
-    public function execute($request)
+    public function execute(\ExampleCMS\Contract\Context $context)
     {
         /* @var $query \ExampleCMS\Module\Installer\Query\FindFormModel */
         $query = $this->module->query('findFormModel');
 
         $formModel = $query->fetch([
-            $query::REQUEST => $request,
+            $query::REQUEST => $context->getAttribute('request'),
             $query::FORM => $this->metadata['form'],
         ]);
 
@@ -23,10 +23,10 @@ class Update extends \ExampleCMS\Application\Action\Action
             $save::MODEL => $model,
         ]);
 
-        $session = $request->getAttribute('session');
+        $session = $context->getAttribute('session');
         $session->set('language', $model->get('language_installer'));
 
-        return $request;
+        return $context;
     }
 
 }

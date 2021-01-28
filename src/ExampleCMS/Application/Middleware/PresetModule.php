@@ -24,7 +24,9 @@ class PresetModule implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $module = $request->getAttribute('module');
+        /* @var $context \ExampleCMS\Contract\Context */
+        $context = $request->getAttribute('context');
+        $module = $context->getAttribute('module');
 
         if (empty($module)) {
             throw new \ExampleCMS\Exception\Http\NotFound;
@@ -40,8 +42,9 @@ class PresetModule implements MiddlewareInterface
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
 
-        $request = $request->withAttribute('module', $this->moduleFactory->get($module));
-
+        $context = $context->withAttribute('module', $this->moduleFactory->get($module));
+        $request = $request->withAttribute('context', $context);
+        
         return $handler->handle($request);
     }
 

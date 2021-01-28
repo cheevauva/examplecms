@@ -26,7 +26,9 @@ class LicenseAcceptChecker implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $isSetup = $this->config->get(['base', 'setup']);
-        $module = $request->getAttribute('module');
+        
+        $context = $request->getAttribute('context');
+        $module = $context->getAttribute('module');
 
         if (!$isSetup) {
             if ($module === 'Installer') {
@@ -36,17 +38,17 @@ class LicenseAcceptChecker implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        if (in_array($request->getAttribute('route'), ['license', 'license_save'], true)) {
+        if (in_array($context->getAttribute('route'), ['license', 'license_save'], true)) {
             return $handler->handle($request);
         }
         
         $model = $this->moduleFactory->get('Installer')->query('find')->fetch();
-
+        
         if (!$model->get('license_accepted')) {
-            $request = $request->withAttribute('redirect', [
+            $request = $request->withAttribute('context', $context->withAttribute('redirect', [
                 'route' => 'license',
                 'params' => [],
-            ]);
+            ]));
         }
 
         return $handler->handle($request);

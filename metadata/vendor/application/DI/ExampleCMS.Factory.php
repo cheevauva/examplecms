@@ -10,9 +10,6 @@ $di[ExampleCMS\Factory\MetadataHandler::class] = array(
 $di[ExampleCMS\Factory\Router::class] = array(
     'config' => '?config',
 );
-$di[ExampleCMS\Factory\Session::class] = array(
-    'config' => '?config',
-);
 $di[ExampleCMS\Factory\Cache::class] = array(
     'config' => '?config',
     '^1' => '@cachesMetadata',

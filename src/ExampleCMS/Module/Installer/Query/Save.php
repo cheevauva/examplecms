@@ -9,15 +9,15 @@ class Save extends \ExampleCMS\Application\Query\Query
     const REQUEST = 'request';
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Cache
+     * @var \ExampleCMS\Contract\Cache\Adapter
      */
-    public $cacheFactory;
+    public $cache;
 
     public function execute(array $params = [], $autoExecute = true)
     {
         $model = $params[static::MODEL];
 
-        $this->cacheFactory->get('fileInstaller')->set('options', $model->toArray());
+        $this->cache->set('installer:entity', $model->toArray());
     }
 
 }

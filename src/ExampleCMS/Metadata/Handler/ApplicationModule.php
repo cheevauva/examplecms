@@ -13,19 +13,26 @@ class ApplicationModule extends Handler
      * @var \ExampleCMS\Contract\Factory\MetadataHandler 
      */
     public $metadataHandlerFactory;
+    protected $applicationHandler;
+    protected $moduleHandler;
 
     public function get(array $path)
     {
-        $applicationHandler = $this->metadataHandlerFactory->get($this->metadata['route']['application']);
-        $moduleHandler = $this->metadataHandlerFactory->get($this->metadata['route']['module']);
+        if (!$this->applicationHandler) {
+            $this->applicationHandler = $this->metadataHandlerFactory->get($this->metadata['route']['application']);
+        }
 
-        $module = $moduleHandler->get($path);
+        if (!$this->moduleHandler) {
+            $this->moduleHandler = $moduleHandler = $this->metadataHandlerFactory->get($this->metadata['route']['module']);
+        }
+
+        $module = $this->moduleHandler->get($path);
 
         $pathApplication = $path;
 
         array_pop($pathApplication);
 
-        $application = $applicationHandler->get($pathApplication);
+        $application = $this->applicationHandler->get($pathApplication);
 
         if (empty($module) && !empty($application)) {
             $module = $application;

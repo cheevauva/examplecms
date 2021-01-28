@@ -22,11 +22,6 @@ class Cache extends Handler
     public $config;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Cache
-     */
-    public $cacheFactory;
-
-    /**
      * @var \ExampleCMS\Contract\Metadata\Handler
      */
     protected $component;
@@ -36,14 +31,6 @@ class Cache extends Handler
         parent::setMetadata($metadata);
 
         $this->component = $this->metadata['component'];
-
-        $engine = null;
-
-        if (!empty($this->metadata['cache']['engine'])) {
-            $engine = $this->metadata['cache']['engine'];
-        }
-
-        $this->cache = $this->cacheFactory->get($engine);
     }
 
     public function get(array $path)

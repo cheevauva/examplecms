@@ -8,10 +8,12 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class ViewGrid extends View
 {
 
-    public function execute($request)
+    public function execute(Context $request)
     {
         $metadata = parent::execute($request);
 

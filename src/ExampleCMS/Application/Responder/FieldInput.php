@@ -8,16 +8,18 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class FieldInput extends Field
 {
 
-    public function execute($context)
+    public function execute(Context $context)
     {
         $data = parent::execute($context);
 
         $data['name'] = $this->metadata['name'];
-        $data['formName'] = $context['formName'];
-        $data['value'] = $context['formData'][$this->metadata['name']];
+        $data['formName'] = $context->getAttribute('formName', '');
+        $data['value'] = $context->getAttribute('formData', new \ArrayObject)[$this->metadata['name']];
 
         return $data;
     }

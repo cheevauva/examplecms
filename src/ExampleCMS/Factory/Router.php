@@ -6,7 +6,7 @@
 
 namespace ExampleCMS\Factory;
 
-class Router extends Factory
+class Router extends Factory implements \ExampleCMS\Contract\Factory\Router
 {
 
     /**
@@ -14,22 +14,11 @@ class Router extends Factory
      */
     public $config;
 
-    /**
-     * @var array 
-     */
-    protected $routers = [];
-
-    public function get($application)
+    public function get($id)
     {
-        if (!empty($this->routers[$application])) {
-            return $this->routers[$application];
-        }
-
         /** @var \ExampleCMS\Router $router */
         $router = $this->container->get('router');
-        $router->setRoutes($this->getRoutes($application));
-
-        $this->routers[$application] = $router;
+        $router->setRoutes($this->getRoutes($id));
 
         return $router;
     }
@@ -39,7 +28,7 @@ class Router extends Factory
         if ($this->config->get('base.setup')) {
             $application .= 'setup';
         }
-        
+
         return $this->metadata->get(['routes', $application]);
     }
 

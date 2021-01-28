@@ -55,14 +55,14 @@ class OopsHandler implements MiddlewareInterface
 
                 $module = $this->moduleFactory->get($request->getAttribute('module'));
 
-           
                 $responder = $this->responderFactory->get($module, 'layout', 'exception');
-          
-                $renderer = $request->getAttribute('renderer');
 
-                $context = $request->withoutAttribute('session')->getAttributes();
-                $context['exception'] = $exception;
-                $context['request'] = $request;
+
+                /* @var $context \ExampleCMS\Contract\Context */
+                $context = $request->getAttribute('context');
+                $renderer = $context->getAttribute('renderer');
+                $context = $context->withAttribute('exception', $exception);
+                $context = $context->withAttribute('request', $request);
 
                 $data = $responder($context);
                 $content = $renderer($data);

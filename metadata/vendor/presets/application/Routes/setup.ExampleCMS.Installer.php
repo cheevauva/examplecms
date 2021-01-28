@@ -32,6 +32,7 @@ $routes['license'] = array(
             [
                 'component' => 'read',
                 'form' => 'license',
+                'model' => 'license',
             ],
         ],
     ),
@@ -74,6 +75,7 @@ $routes['language'] = [
             [
                 'component' => 'read',
                 'form' => 'language',
+                'model' => 'language',
             ],
         ],
     ],
@@ -105,6 +107,7 @@ $routes['database'] = array(
             [
                 'component' => 'read',
                 'form' => 'database',
+                'model' => 'database',
             ],
         ],
         'module' => 'Installer',

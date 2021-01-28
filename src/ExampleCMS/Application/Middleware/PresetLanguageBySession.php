@@ -11,6 +11,7 @@ use Psr\Http\{
 
 class PresetLanguageBySession implements MiddlewareInterface
 {
+
     /**
      * @var \ExampleCMS\Contract\Config 
      */
@@ -18,15 +19,17 @@ class PresetLanguageBySession implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $context = $request->getAttribute('context');
+
         /* @var $language string */
-        $language = $request->getAttribute('language');
+        $language = $context->getAttribute('language');
 
         if ($language) {
-            return $handler->handle($request);;
+            return $handler->handle($request);
         }
 
         /* @var $session \ExampleCMS\Contract\Session */
-        $session = $request->getAttribute('session');
+        $session = $context->getAttribute('session');
 
         $language = $session->get('language');
 
@@ -34,7 +37,8 @@ class PresetLanguageBySession implements MiddlewareInterface
             $language = $this->config->get('base.language');
         }
 
-        $request = $request->withAttribute('language', $language);
+        $context = $context->withAttribute('language', $language);
+        $request = $request->withAttribute('context', $context);
 
         return $handler->handle($request);
     }

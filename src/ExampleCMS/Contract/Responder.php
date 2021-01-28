@@ -2,7 +2,14 @@
 
 namespace ExampleCMS\Contract;
 
+use ExampleCMS\Contract\Context;
+
 interface Responder
 {
-    public function execute(array $context);
+
+    /**
+     * @param Context $context
+     * @return array
+     */
+    public function execute(Context $context);
 }

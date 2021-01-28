@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Cache;
 
-class Cache implements \PDIC\InterfaceMediator
+abstract class Cache
 {
 
     /**
@@ -15,7 +15,7 @@ class Cache implements \PDIC\InterfaceMediator
      */
     public $config;
 
-    public function get()
+    public function __invoke()
     {
         return $this->cacheFactory->get($this->config->get('base.cache.engine'));
     }

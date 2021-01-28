@@ -8,6 +8,8 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class Grid extends \ExampleCMS\Responder
 {
 
@@ -16,7 +18,7 @@ class Grid extends \ExampleCMS\Responder
      */
     protected $templateType = 'grids';
 
-    public function execute(array $context)
+    public function execute(Context $context)
     {
         $data = parent::execute($context);
         $data['rows'] = [];

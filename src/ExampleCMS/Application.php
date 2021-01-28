@@ -6,6 +6,7 @@
 
 namespace ExampleCMS;
 
+use \ExampleCMS\Contract\Context;
 use Psr\Http\{
     Message\ServerRequestInterface,
     Message\ResponseInterface,
@@ -41,19 +42,23 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
      */
     public $response;
 
-    protected function getMiddlewares($application)
+    /**
+     * @var Context
+     */
+    public $context;
+
+    public function run(ServerRequestInterface $request): ResponseInterface
     {
-        $metadata = $this->metadata->get(['applications', $application]);
+        $metadata = $this->metadata->get(['application', $request->getAttribute('application')]);
+
         $middlewares = array_flip($metadata['middleware']);
 
         ksort($middlewares);
 
-        return array_values($middlewares);
-    }
+        $this->middlewares = array_values($middlewares);
+        $this->contentType = $metadata['contentType'];
 
-    public function run(ServerRequestInterface $request): ResponseInterface
-    {
-        $this->middlewares = $this->getMiddlewares($request->getAttribute('application'));
+        $request = $request->withAttribute('context', $this->context);
 
         return $this->handle($request);
     }
@@ -63,7 +68,7 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
         $this->index++;
 
         if (empty($this->middlewares[$this->index])) {
-            return $this->response;
+            return $this->response->withHeader('Content-Type', $this->contentType);
         }
 
         $middleware = $this->middlewareFactory->get($this->middlewares[$this->index]);

@@ -8,12 +8,14 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class ViewFooter extends View
 {
 
-    public function execute(array $context)
+    public function execute(Context $context)
     {
-        $request = $context['request'];
+        $request = $context->getAttribute('request');
 
         $context = parent::execute($context);
         $context['examplecms_timestart'] = $request->getAttribute('examplecms_timestart');

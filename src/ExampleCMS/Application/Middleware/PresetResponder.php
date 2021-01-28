@@ -19,21 +19,24 @@ class PresetResponder implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $responder = $request->getAttribute('responder');
+        /* @var $context \ExampleCMS\Contract\Context */
+        $context = $request->getAttribute('context');
+        
+        $responder = $context->getAttribute('responder', []);
 
         if (empty($responder)) {
             return $handler->handle($request);
         }
 
-        $module = $request->getAttribute('module');
-        $context = $request->getAttribute('context', []);
+        $module = $context->getAttribute('module');
 
-        if (empty($context) && !empty($responder['context'])) {
-            $context = $responder['context'];
+        if (!empty($responder['context'])) {
+            $context = $context->withAttributes($responder['context']);
         }
+        
+        $context = $context->withAttribute('responder', $this->responderFactory->get($module, $responder['type'], $responder['component']));
 
         $request = $request->withAttribute('context', $context);
-        $request = $request->withAttribute('responder', $this->responderFactory->get($module, $responder['type'], $responder['component']));
 
         return $handler->handle($request);
     }

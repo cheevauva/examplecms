@@ -24,36 +24,27 @@ class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
     /**
      * @var array
      */
-    protected $adapters;
-
-    /**
-     * @var array
-     */
     protected $meta;
-    
+
     public function __construct($metadata)
     {
         $this->meta = $metadata;
     }
 
-    public function get($cache = null)
+    public function get($id = null)
     {
-        if (empty($cache)) {
-            $cache = $this->config->get(['base', 'cache', 'engine']);
+        $metadata = $this->loadMetadata($id);
+        $settings = $this->loadSettings($id);
+        $options = array_merge($metadata, $settings);
+
+        if (empty($metadata['adapter'])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('adapter is not define for "%s" cache', $id));
         }
-
-        if (empty($this->adapters[$cache])) {
-            $metadata = $this->loadMetadata($cache);
-            $settings = $this->loadSettings($cache);
-            $options = array_merge($metadata, $settings);
-
-            $adapter = $this->container->get($metadata['adapter']);
-            $adapter->setOptions($options);
-
-            $this->adapters[$cache] = $adapter;
-        }
-
-        return $this->adapters[$cache];
+        
+        $adapter = $this->container->get($metadata['adapter']);
+        $adapter->setOptions($options);
+        
+        return $adapter;
     }
 
     protected function loadSettings($cache)

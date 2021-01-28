@@ -1,21 +1,21 @@
 <?php
 
 $caches['memory'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\Memory',
+    'adapter' => ExampleCMS\Cache\Adapter\Memory::class,
 ];
 
 $caches['file'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\File',
+    'adapter' => ExampleCMS\Cache\Adapter\File::class,
     'basePath' => 'cache/cache/',
 ];
 
-$caches['fileSession'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\File',
+$caches['sessionFile'] = [
+    'adapter' => ExampleCMS\Cache\Adapter\File::class,
     'basePath' => 'cache/sessions/',
 ];
 
 $caches['memcached'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\Memcached',
+    'adapter' => ExampleCMS\Cache\Adapter\Memcached::class,
     'servers' => array(
         array(
             'host' => 'localhost',
@@ -24,8 +24,8 @@ $caches['memcached'] = [
     ),
 ];
 
-$caches['memcachedSession'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\Memcached',
+$caches['sessionMemcached'] = [
+    'adapter' => ExampleCMS\Cache\Adapter\Memcached::class,
     'servers' => array(
         array(
             'host' => 'localhost',
@@ -35,5 +35,5 @@ $caches['memcachedSession'] = [
 ];
 
 $caches['database'] = [
-    'adapter' => 'ExampleCMS\Cache\Adapter\Database',
+    'adapter' => ExampleCMS\Cache\Adapter\Database::class,
 ];

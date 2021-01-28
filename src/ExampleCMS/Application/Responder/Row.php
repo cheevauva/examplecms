@@ -8,12 +8,14 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class Row extends \ExampleCMS\Responder
 {
 
     protected $templateType = 'rows';
 
-    public function execute($context)
+    public function execute(Context $context)
     {
         $data = parent::execute($context);
         $data['columns'] = [];

@@ -10,8 +10,8 @@ interface Cache
 {
 
     /**
-     * @param string|null $cache
+     * @param string $id
      * @return \ExampleCMS\Contract\Cache\Adapter
      */
-    public function get($cache = null);
+    public function get($id);
 }

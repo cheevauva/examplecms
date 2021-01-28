@@ -8,26 +8,12 @@
 
 namespace ExampleCMS\Factory;
 
-class Session extends Factory
+class Session extends Factory implements \ExampleCMS\Contract\Factory\Session
 {
-
-    /**
-     * @var \ExampleCMS\Contract\Config
-     */
-    public $config;
 
     public function get($id)
     {
-        $engine = $this->config->get(['base', 'session', 'engine']);
-
-        if (empty($engine)) {
-            $engine = 'File';
-        }
-
-        $session = $this->container->get(sprintf('session%s', ucfirst($engine)));
-        $session->setSessionId($id);
-
-        return $session;
+        return $this->container->get($id);
     }
 
 }

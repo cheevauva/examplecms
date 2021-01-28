@@ -4,6 +4,7 @@ $di[ExampleCMS\Application::class] = array(
     'metadata' => '?metadata',
     'middlewareFactory' => '?middlewareFactory',
     'response' => '?httpResponse',
+    'context' => '?context',
 );
 $di[ExampleCMS\Router::class] = array(
     'altoRouter' => '*' . AltoRouter::class,

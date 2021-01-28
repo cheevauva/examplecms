@@ -8,12 +8,14 @@
 
 namespace ExampleCMS\Application\Responder;
 
+use ExampleCMS\Contract\Context;
+
 class FieldLink extends Field
 {
 
     protected $type = 'link';
 
-    public function execute($context)
+    public function execute(Context $context)
     {
         $context = parent::execute($context);
 

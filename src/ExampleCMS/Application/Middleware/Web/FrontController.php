@@ -17,21 +17,24 @@ class FrontController implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
-        $request = $request->withAttribute('model', new \ArrayObject);
 
-        $module = $request->getAttribute('module');
-        $actions = $request->getAttribute('actions', []);
+        /* @var $context \ExampleCMS\Contract\Context */
+        $context = $request->getAttribute('context');
+        $context = $context->withAttribute('request', $request);
+
+        $module = $context->getAttribute('module');
+        $actions = $context->getAttribute('actions', []);
 
         foreach ($actions as $action) {
-            $request = $module->action($action)->execute($request);
+            $context = $module->action($action)->execute($context);
         }
 
-        $redirect = $request->getAttribute('redirect');
-        $context = $request->getAttribute('context', []);
-        $renderer = $request->getAttribute('renderer');
-        $router = $request->getAttribute('router');
-        $responder = $request->getAttribute('responder');
-        $contentType = $request->getAttribute('contentType');
+        $redirect = $context->getAttribute('redirect');
+
+        $renderer = $context->getAttribute('renderer');
+        $router = $context->getAttribute('router');
+        $responder = $context->getAttribute('responder');
+        $contentType = $context->getAttribute('contentType', 'text/html');
 
         if (!empty($redirect)) {
             $location = $router->make($redirect['route'], $redirect['params']);
@@ -40,12 +43,6 @@ class FrontController implements MiddlewareInterface
             return $response;
         }
 
-        if (empty($context['request'])) {
-            $context['request'] = $request;
-        }
-
-        $context['language'] = $request->getAttribute('language');
-        
         if ($responder instanceof Responder && $renderer instanceof Renderer) {
             $data = $responder($context);
             $content = $renderer($data);

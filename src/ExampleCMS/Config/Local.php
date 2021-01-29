@@ -23,7 +23,7 @@ class Local implements \ExampleCMS\Contract\Config
      * @var \ExampleCMS\Contract\Filesystem
      */
     public $filesystem;
-    
+
     /**
      * @var bool 
      */

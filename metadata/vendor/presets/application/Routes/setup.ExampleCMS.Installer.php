@@ -145,6 +145,7 @@ $routes['database_list'] = array(
     'target' => array(
         'actions' => [
             [
+                'collection' => 'databases',
                 'component' => 'index',
             ],
         ],

@@ -42,7 +42,7 @@ class Session implements MiddlewareInterface
 
         $context = $request->getAttribute('context');
         $context = $context->withAttribute('session', $session);
-        
+
         $request = $request->withAttribute('context', $context);
 
         $response = $handler->handle($request);

@@ -4,7 +4,7 @@ namespace ExampleCMS\Contract\Factory;
 
 interface Session
 {
-    
+
     /**
      * @param $id string
      * @return \ExampleCMS\Contract\Session

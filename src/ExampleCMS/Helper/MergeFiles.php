@@ -103,7 +103,7 @@ class MergeFiles
             foreach ($presetCommandLine as $index => $value) {
                 $presetVars[static::PRESETVAR . $index] = $value;
             }
-            
+
             $result[$preset] = strtr(implode(PHP_EOL, $presetExtensions), $presetVars);
         }
 

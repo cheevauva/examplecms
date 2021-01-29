@@ -26,3 +26,4 @@ $di['?cache'] = '~' . ExampleCMS\Cache\Cache::class;
 $di['?cacheFile'] = '~' . ExampleCMS\Cache\File::class;
 $di['?cacheMemcached'] = '~' . ExampleCMS\Cache\Memcached::class;
 $di['?cacheMemory'] = '~' . ExampleCMS\Cache\Memory::class;
+$di['?collection'] = '*' . ExampleCMS\Collection::class;

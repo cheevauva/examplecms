@@ -44,7 +44,7 @@ class PresetModule implements MiddlewareInterface
 
         $context = $context->withAttribute('module', $this->moduleFactory->get($module));
         $request = $request->withAttribute('context', $context);
-        
+
         return $handler->handle($request);
     }
 

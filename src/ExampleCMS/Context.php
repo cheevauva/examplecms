@@ -66,7 +66,7 @@ class Context implements \ExampleCMS\Contract\Context
 
     public function getCollection($name)
     {
-        
+        return $this->getAttribute('collections:' . $name);
     }
 
     public function getEntity($name)
@@ -74,19 +74,19 @@ class Context implements \ExampleCMS\Contract\Context
         return $this->getAttribute('entities:' . $name);
     }
 
-    public function hasCollection($name): bool
+    public function hasCollection($name)
     {
-        
+        return $this->hasAttribute('collections:' . $name);
     }
 
-    public function hasEntity($name): bool
+    public function hasEntity($name)
     {
         return $this->hasAttribute('entities:' . $name);
     }
 
     public function withCollection($name, Collection $collection)
     {
-        
+        return $this->withAttribute('collections:' . $name, $collection);
     }
 
     public function withEntity($name, Entity $value)

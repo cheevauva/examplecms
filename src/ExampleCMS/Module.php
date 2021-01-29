@@ -40,7 +40,7 @@ class Module implements \ExampleCMS\Contract\Module
     {
         return $this->name;
     }
-    
+
     public function model($model)
     {
         $metadata = $model;

@@ -28,7 +28,7 @@ class FrontController extends WebFrontController
         if ($this->config->get('base.setup')) {
             $appName .= 'setup';
         }
-        
+
         return $this->metadata->get(['routes', $appName]);
     }
 

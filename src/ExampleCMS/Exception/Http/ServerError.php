@@ -7,4 +7,5 @@ class ServerError extends \ExampleCMS\Exception\Http
 
     protected $code = 500;
     protected $message = 'Server error';
+
 }

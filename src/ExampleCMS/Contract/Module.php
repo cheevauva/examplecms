@@ -38,5 +38,4 @@ interface Module
      * @return \ExampleCMS\Contract\Application\Mapper
      */
     public function mapper($mapper);
-
 }

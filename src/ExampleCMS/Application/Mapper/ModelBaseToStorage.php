@@ -9,7 +9,7 @@ class ModelBaseToStorage implements \ExampleCMS\Contract\Application\Mapper
     {
         /** @var \ExampleCMS\Contract\Application\Model $model */
         $model = $params[static::FROM];
-        
+
         $params[static::TO] = $model->toArray();
     }
 

@@ -20,7 +20,7 @@ abstract class Http extends \Exception
     {
         $exception = new static($message);
         $exception->request = $request;
-        
+
         return $exception;
     }
 

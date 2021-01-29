@@ -9,7 +9,7 @@ class Memcached extends Adapter
      * @var \Memcached 
      */
     protected $memcached;
-    
+
     public function setOptions(array $options)
     {
         parent::setOptions($options);
@@ -20,7 +20,7 @@ class Memcached extends Adapter
     protected function configure()
     {
         $this->memcached = new \Memcached();
-        
+
         foreach ($this->options['servers'] as $server) {
             $weight = 0;
 

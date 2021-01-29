@@ -13,3 +13,6 @@ $di[ExampleCMS\Module\Installer\Middleware\LicenseAcceptChecker::class] = array(
 $di[ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class] = [
     'filesystem' => '?filesystem',
 ];
+$di[ExampleCMS\Module\Installer\Action\Index::class] = [
+    'collection' => '?collection',
+];

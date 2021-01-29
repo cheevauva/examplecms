@@ -26,7 +26,7 @@ class Router implements MiddlewareInterface
     {
         /* @var $context \ExampleCMS\Contract\Context */
         $context = $request->getAttribute('context');
-        
+
         $router = $this->routerFactory->get($request->getAttribute('application'));
         $router->setBaseUrl($request->getAttribute('baseUrl'));
 

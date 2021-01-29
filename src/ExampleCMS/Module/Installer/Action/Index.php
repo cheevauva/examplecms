@@ -4,10 +4,20 @@ namespace ExampleCMS\Module\Installer\Action;
 
 class Index extends \ExampleCMS\Application\Action\Action
 {
-    
-    public function execute($request)
+
+    /**
+     * @var \ExampleCMS\Contract\Collection
+     */
+    public $collection;
+
+    public function execute(\ExampleCMS\Contract\Context $context)
     {
-        return $request;
+        $model = $this->module->model('base');
+        
+        $collection = $this->collection;
+        $collection->add($model);
+
+        return $context->withCollection($this->metadata['collection'], $collection);
     }
 
 }

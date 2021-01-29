@@ -26,11 +26,11 @@ class UserScopeToModelForm implements \ExampleCMS\Contract\Application\Mapper
 
         foreach ($map as $from => $to) {
             $value = null;
-            
+
             if (isset($form[$from])) {
                 $value = $form[$from];
             }
-            
+
             $data[$to] = $value;
         }
 

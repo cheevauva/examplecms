@@ -11,6 +11,7 @@ use Psr\Http\{
 
 class BasePath implements MiddlewareInterface
 {
+
     /**
      * @var \ExampleCMS\Contract\Config 
      */

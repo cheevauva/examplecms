@@ -105,7 +105,7 @@ abstract class Session implements \ExampleCMS\Contract\Session
         if (empty($this->sessionId)) {
             $this->setSessionId($this->generateSessionId());
         }
-        
+
         $this->writeToStorage();
     }
 
@@ -124,7 +124,7 @@ abstract class Session implements \ExampleCMS\Contract\Session
 
         return $string;
     }
-    
+
     public function __debugInfo()
     {
         return [];

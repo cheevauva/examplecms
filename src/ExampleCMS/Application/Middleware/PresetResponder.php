@@ -21,7 +21,7 @@ class PresetResponder implements MiddlewareInterface
     {
         /* @var $context \ExampleCMS\Contract\Context */
         $context = $request->getAttribute('context');
-        
+
         $responder = $context->getAttribute('responder', []);
 
         if (empty($responder)) {
@@ -33,7 +33,7 @@ class PresetResponder implements MiddlewareInterface
         if (!empty($responder['context'])) {
             $context = $context->withAttributes($responder['context']);
         }
-        
+
         $context = $context->withAttribute('responder', $this->responderFactory->get($module, $responder['type'], $responder['component']));
 
         $request = $request->withAttribute('context', $context);

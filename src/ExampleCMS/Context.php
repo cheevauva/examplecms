@@ -24,6 +24,10 @@ class Context implements \ExampleCMS\Contract\Context
             return $default;
         }
 
+        if ($this->attributes[$attribute] instanceof \Closure) {
+            return $this->attributes[$attribute]->call($this);
+        }
+        
         return $this->attributes[$attribute];
     }
 

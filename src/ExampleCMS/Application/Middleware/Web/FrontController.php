@@ -13,6 +13,7 @@ use ExampleCMS\Contract\Responder;
 
 class FrontController implements MiddlewareInterface
 {
+
     /**
      * @var \ExampleCMS\Contract\Factory\Action 
      */
@@ -24,7 +25,12 @@ class FrontController implements MiddlewareInterface
 
         /* @var $context \ExampleCMS\Contract\Context */
         $context = $request->getAttribute('context');
-        $context = $context->withAttribute('request', $request);
+        $context = $context->withAttribute('forms', function () use ($request) {
+            return $request->getParsedBody();
+        });
+        $context = $context->withAttribute('examplecms_timestart', function () use ($request) {
+            return $request->getAttribute('examplecms_timestart');
+        });
 
         $module = $context->getAttribute('module');
         $actions = $context->getAttribute('actions', []);

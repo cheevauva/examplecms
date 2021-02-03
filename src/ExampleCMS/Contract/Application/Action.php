@@ -6,8 +6,8 @@ interface Action
 {
 
     /**
-     * @param ServerRequestInterface $request
-     * @return ServerRequestInterface
+     * @param \ExampleCMS\Contract\Context $request
+     * @return \ExampleCMS\Contract\Context
      */
     public function execute(\ExampleCMS\Contract\Context $request);
 

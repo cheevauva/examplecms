@@ -11,11 +11,8 @@ class UserScopeToModelForm implements \ExampleCMS\Contract\Application\Mapper
         $model = $params[static::TO];
         $metadata = $model->getMetadata();
 
-        /** @var \Psr\Http\Message\ServerRequestInterface $request */
-        $request = $params[static::FROM];
-        $body = $request->getParsedBody();
-
-        $form = isset($body[$metadata['name']]) ? $body[$metadata['name']] : [];
+        $forms = $params[static::FROM];
+        $form = isset($forms[$metadata['name']]) ? $forms[$metadata['name']] : [];
 
         if (empty($metadata['map'])) {
             $metadata['map'] = [];

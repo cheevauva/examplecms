@@ -13,15 +13,12 @@ use ExampleCMS\Contract\Context;
 class ViewGrid extends View
 {
 
-    public function execute(Context $request)
+    public function execute(Context $context)
     {
-        $metadata = parent::execute($request);
+        $data = parent::execute($context);
+        $data['grid'] = $this->responder('grid', $this->metadata['grid'])->execute($context);
 
-        $gridObject = $this->responder('grid', $this->metadata['grid']);
-
-        $metadata['grid'] = $gridObject->execute($request);
-
-        return $metadata;
+        return $data;
     }
 
 }

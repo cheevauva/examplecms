@@ -14,7 +14,7 @@
     "require": {
         "altorouter/altorouter": "1.1.0",
         "laminas/laminas-diactoros": "1.3.2",
-        "cheevauva/pdic": "^1.1.1",
+        "cheevauva/pdic": "dev-pdic",
         "psr/container": "1.0.0",
         "psr/http-server-handler": "1.0.0",
         "psr/http-server-middleware": "1.0.0",
@@ -22,7 +22,8 @@
     },
     "require-dev": {
         "lox/xhprof": "dev-master",
-        "vimeo/psalm": "4.4.1"
+        "vimeo/psalm": "4.4.1",
+        "phpmetrics/phpmetrics": "^2.7"
     },
     "config": {
         "preferred-install": "dist"

@@ -7,11 +7,11 @@ class Read extends \ExampleCMS\Application\Action\Action
 
     public function execute(\ExampleCMS\Contract\Context $context)
     {
-        /* @var $query \ExampleCMS\Module\Installer\Query\FindFormModel */
+        /* @var $query \ExampleCMS\Contract\Module\Installer\Query\FindFormModel */
         $query = $this->query('findFormModel');
 
         $formModel = $query->fetch([
-            $query::REQUEST => $context->getAttribute('request'),
+            $query::FORMS => $context->getAttribute('forms'),
             $query::FORM => $this->metadata['form'],
         ]);
 

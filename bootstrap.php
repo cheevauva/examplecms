@@ -16,7 +16,6 @@ if (!empty($onlyAutoloadStage)) {
     return;
 }
 $configuration = new \PDIC\Configuration;
-$configuration->isSupportForcedInjactionToProperty = false;
 $configuration->isSupportInheritInterfaces = false;
 $configuration->isSupportInheritTraits = false;
 

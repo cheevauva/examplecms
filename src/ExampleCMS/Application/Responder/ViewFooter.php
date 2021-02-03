@@ -15,12 +15,10 @@ class ViewFooter extends View
 
     public function execute(Context $context)
     {
-        $request = $context->getAttribute('request');
+        $data = parent::execute($context);
+        $data['examplecms_timestart'] = $context->getAttribute('examplecms_timestart');
 
-        $context = parent::execute($context);
-        $context['examplecms_timestart'] = $request->getAttribute('examplecms_timestart');
-
-        return $context;
+        return $data;
     }
 
 }

@@ -11,7 +11,7 @@ class Update extends \ExampleCMS\Application\Action\Action
         $query = $this->query('findFormModel');
 
         $formModel = $query->fetch([
-            $query::REQUEST => $context->getAttribute('request'),
+            $query::FORMS => $context->getAttribute('forms'),
             $query::FORM => $this->metadata['form'],
         ]);
 

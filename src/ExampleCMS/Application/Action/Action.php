@@ -36,6 +36,10 @@ abstract class Action implements \ExampleCMS\Contract\Application\Action
         $this->metadata = $metadata;
     }
 
+    /**
+     * @param string $name
+     * @return \ExampleCMS\Contract\Application\Query
+     */
     protected function query($name)
     {
         return $this->queryFactory->get($name, $this->module);

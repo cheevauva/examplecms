@@ -11,9 +11,6 @@ $di[ExampleCMS\Router::class] = array(
     'metadata' => '?metadata',
 );
 $di[ExampleCMS\Module::class] = array(
-    'metadata' => '?metadata',
-    'componentFactory' => '?componentFactory',
-    'responderFactory' => '?responderFactory',
 );
 $di[ExampleCMS\Responder::class] = array(
     'responderFactory' => '?responderFactory',
@@ -36,3 +33,12 @@ $di[ExampleCMS\Bootstrap::class] = [
     'config' => '?config',
     'application' => '?application',
 ];
+$di[ExampleCMS\Application\Query\Query::class] = array(
+    'modelFactory' => '?modelFactory',
+);
+$di[ExampleCMS\Application\Action\Action::class] = array(
+    'queryFactory' => '?queryFactory',
+);
+$di[ExampleCMS\Application\Model\Model::class] = array(
+    'mapperFactory' => '?mapperFactory',
+);

@@ -13,7 +13,7 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query
         /* @var $request \Psr\Http\Message\ServerRequestInterface */
         $request = $params[static::REQUEST];
 
-        $model = $this->module->model($params[static::FORM]);
+        $model = $this->model($params[static::FORM]);
         $model->doMappingFromDataToModel($request);
 
         return $model;

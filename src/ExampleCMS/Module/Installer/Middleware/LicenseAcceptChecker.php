@@ -23,6 +23,11 @@ class LicenseAcceptChecker implements MiddlewareInterface
      */
     public $moduleFactory;
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Query
+     */
+    public $queryFactory;
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $isSetup = $this->config->get(['base', 'setup']);
@@ -42,7 +47,8 @@ class LicenseAcceptChecker implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $model = $this->moduleFactory->get('Installer')->query('find')->fetch();
+        $module = $this->moduleFactory->get('Installer');
+        $model = $this->queryFactory->get('find', $module)->fetch();
 
         if (!$model->get('license_accepted')) {
             $request = $request->withAttribute('context', $context->withAttribute('redirect', [

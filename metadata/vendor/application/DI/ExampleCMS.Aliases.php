@@ -27,3 +27,7 @@ $di['?cacheFile'] = '~' . ExampleCMS\Cache\File::class;
 $di['?cacheMemcached'] = '~' . ExampleCMS\Cache\Memcached::class;
 $di['?cacheMemory'] = '~' . ExampleCMS\Cache\Memory::class;
 $di['?collection'] = '*' . ExampleCMS\Collection::class;
+$di['?queryFactory'] = ExampleCMS\Factory\Query::class;
+$di['?actionFactory'] = ExampleCMS\Factory\Action::class;
+$di['?mapperFactory'] = ExampleCMS\Factory\Mapper::class;
+$di['?modelFactory'] = ExampleCMS\Factory\Model::class;

@@ -9,6 +9,7 @@ $di[ExampleCMS\Module\Installer\Query\Save::class] = array(
 $di[ExampleCMS\Module\Installer\Middleware\LicenseAcceptChecker::class] = array(
     'config' => '?config',
     'moduleFactory' => '?moduleFactory',
+    'queryFactory' => '?queryFactory',
 );
 $di[ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class] = [
     'filesystem' => '?filesystem',

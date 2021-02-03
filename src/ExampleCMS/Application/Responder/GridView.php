@@ -28,7 +28,7 @@ class GridView extends Grid
             }
 
             foreach ($items as $item) {
-                $context['rows'][] = $this->module->row($meta)->execute($context->withAttribute('model', $item));
+                $context['rows'][] = $this->responder('row', $meta)->execute($context->withAttribute('model', $item));
             }
         }
 

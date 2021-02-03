@@ -11,6 +11,9 @@ $di[ExampleCMS\Application\Middleware\Router::class] = array(
 $di[ExampleCMS\Application\Middleware\CLI\FrontController::class] = array(
     'config' => '?config',
 );
+$di[ExampleCMS\Application\Middleware\Web\FrontController::class] = array(
+    'actionFactory' => '?actionFactory',
+);
 $di[ExampleCMS\Application\Middleware\Web\OopsHandler::class] = array(
     'moduleFactory' => '?moduleFactory',
     'rendererFactory' => '?rendererFactory',

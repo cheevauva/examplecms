@@ -13,6 +13,10 @@ use ExampleCMS\Contract\Responder;
 
 class FrontController implements MiddlewareInterface
 {
+    /**
+     * @var \ExampleCMS\Contract\Factory\Action 
+     */
+    public $actionFactory;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
@@ -26,7 +30,7 @@ class FrontController implements MiddlewareInterface
         $actions = $context->getAttribute('actions', []);
 
         foreach ($actions as $action) {
-            $context = $module->action($action)->execute($context);
+            $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
         $redirect = $context->getAttribute('redirect');

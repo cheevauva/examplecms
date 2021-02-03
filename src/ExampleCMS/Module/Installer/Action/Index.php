@@ -12,7 +12,7 @@ class Index extends \ExampleCMS\Application\Action\Action
 
     public function execute(\ExampleCMS\Contract\Context $context)
     {
-        $model = $this->module->model('base');
+        $model = $this->modelFactory->get('base');
         
         $collection = $this->collection;
         $collection->add($model);

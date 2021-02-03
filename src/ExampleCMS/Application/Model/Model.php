@@ -12,6 +12,11 @@ class Model implements \ExampleCMS\Contract\Application\Model
 {
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Mapper 
+     */
+    public $mapperFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Module
      */
     public $module;
@@ -110,9 +115,18 @@ class Model implements \ExampleCMS\Contract\Application\Model
         $this->attributes = $model->toArray();
     }
 
+    /**
+     * @param string $name
+     * @return \ExampleCMS\Contract\Application\Mapper
+     */
+    protected function mapper($name)
+    {
+        return $this->mapperFactory->get($name, $this->module);
+    }
+
     public function doMappingFromDataToModel($data)
     {
-        $dataMapper = $this->module->mapper($this->metadata[static::MAPPER_TO_MODEL]);
+        $dataMapper = $this->mapper($this->metadata[static::MAPPER_TO_MODEL]);
         $dataMapper->execute([
             $dataMapper::FROM => $data,
             $dataMapper::TO => $this
@@ -121,7 +135,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
 
     public function doMappingFromModelToData($data)
     {
-        $dataMapper = $this->module->mapper($this->metadata[static::MAPPER_FROM_MODEL]);
+        $dataMapper = $this->mapper($this->metadata[static::MAPPER_FROM_MODEL]);
         $dataMapper->execute([
             $dataMapper::FROM => $this,
             $dataMapper::TO => $data

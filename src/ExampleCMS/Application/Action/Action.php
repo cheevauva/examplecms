@@ -12,6 +12,11 @@ abstract class Action implements \ExampleCMS\Contract\Application\Action
 {
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Query
+     */
+    public $queryFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Module
      */
     protected $module;
@@ -29,6 +34,11 @@ abstract class Action implements \ExampleCMS\Contract\Application\Action
     public function setMetadata(array $metadata)
     {
         $this->metadata = $metadata;
+    }
+
+    protected function query($name)
+    {
+        return $this->queryFactory->get($name, $this->module);
     }
 
 }

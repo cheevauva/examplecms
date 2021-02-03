@@ -49,7 +49,7 @@ class Config
             'module' => 'Default',
             'session' => [
                 'name' => 'EXAMPLECMSID',
-                'engine' => 'SessionOverFile',
+                'engine' => 'sessionOverFile',
                 'basePath' => 'cache/sessions/',
             ],
             'xhprof' => array(

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Contract;
 
-use ExampleCMS\Contract\Entity;
+use ExampleCMS\Contract\Application\Entity;
 use ExampleCMS\Contract\Collection;
 
 interface Context

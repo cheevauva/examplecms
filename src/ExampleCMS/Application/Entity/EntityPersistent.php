@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * ExampleCMS
+ *
+ * @license LICENCE
+ */
+
+namespace ExampleCMS\Application\Entity;
+
+class EntityPersistent extends Entity
+{
+
+    public function setMeta($metadata)
+    {
+        parent::setMeta($metadata);
+
+        if (empty($this->meta[static::MAPPER_TO_MODEL])) {
+            $this->meta[static::MAPPER_TO_MODEL] = 'baseFromStorage';
+        }
+
+        if (empty($this->meta[static::MAPPER_FROM_MODEL])) {
+            $this->meta[static::MAPPER_FROM_MODEL] = 'baseToStorage';
+        }
+    }
+
+}

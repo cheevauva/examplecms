@@ -11,9 +11,9 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
     protected $module;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Model 
+     * @var \ExampleCMS\Contract\Factory\Entity 
      */
-    public $modelFactory;
+    public $entityFactory;
 
     /**
      * @param \ExampleCMS\Contract\Module $module
@@ -37,9 +37,9 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
      * @param string $name
      * @return \ExampleCMS\Contract\Application\Model
      */
-    protected function model($name)
+    protected function entity($name)
     {
-        return $this->modelFactory->get($name, $this->module);
+        return $this->entityFactory->get($name, $this->module);
     }
 
 }

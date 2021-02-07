@@ -18,7 +18,7 @@ class Find extends \ExampleCMS\Application\Query\Query
             $install = [];
         }
 
-        $model = $this->model('base');
+        $model = $this->entity('base');
         $model->fromArray($install);
 
         return $model;

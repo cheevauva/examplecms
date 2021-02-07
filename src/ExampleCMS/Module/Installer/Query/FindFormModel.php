@@ -7,7 +7,7 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query implements \Exam
 
     public function fetch(array $params = [])
     {
-        $model = $this->model($params[static::FORM]);
+        $model = $this->entity($params[static::FORM]);
         $model->doMappingFromDataToModel($params[static::FORMS]);
 
         return $model;

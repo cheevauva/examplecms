@@ -6,9 +6,9 @@
  * @license LICENCE
  */
 
-namespace ExampleCMS\Application\Model;
+namespace ExampleCMS\Application\Entity;
 
-class Model implements \ExampleCMS\Contract\Application\Model
+class Entity implements \ExampleCMS\Contract\Application\Entity
 {
 
     /**
@@ -19,7 +19,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
     /**
      * @var \ExampleCMS\Contract\Module
      */
-    public $module;
+    protected $module;
 
     /**
      * @var array
@@ -29,7 +29,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
     /**
      * @var array
      */
-    protected $metadata;
+    protected $meta;
 
     const MAPPER_TO_MODEL = 'mapper_data_to_model';
     const MAPPER_FROM_MODEL = 'mapper_model_to_data';
@@ -46,7 +46,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
 
     public function getModelName()
     {
-        return $this->metadata['name'];
+        return $this->meta['name'];
     }
 
     public function set($name, $value)
@@ -90,27 +90,24 @@ class Model implements \ExampleCMS\Contract\Application\Model
         ];
     }
 
-    /**
-     * @param array $metadata
-     */
-    public function setMetadata($metadata)
+    public function setMeta($metadata)
     {
-        $this->metadata = $metadata;
+        $this->meta = $metadata;
     }
 
-    public function getMetadata()
+    public function getMeta()
     {
-        return $this->metadata;
+        return $this->meta;
     }
 
-    public function bindTo(Model $model)
+    public function bindTo(Entity $model)
     {
         foreach ($this->attributes as $attribute => $value) {
             $model->set($attribute, $value);
         }
     }
 
-    public function bindFrom(Model $model)
+    public function bindFrom(Entity $model)
     {
         $this->attributes = $model->toArray();
     }
@@ -126,7 +123,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
 
     public function doMappingFromDataToModel($data)
     {
-        $dataMapper = $this->mapper($this->metadata[static::MAPPER_TO_MODEL]);
+        $dataMapper = $this->mapper($this->meta[static::MAPPER_TO_MODEL]);
         $dataMapper->execute([
             $dataMapper::FROM => $data,
             $dataMapper::TO => $this
@@ -135,7 +132,7 @@ class Model implements \ExampleCMS\Contract\Application\Model
 
     public function doMappingFromModelToData($data)
     {
-        $dataMapper = $this->mapper($this->metadata[static::MAPPER_FROM_MODEL]);
+        $dataMapper = $this->mapper($this->meta[static::MAPPER_FROM_MODEL]);
         $dataMapper->execute([
             $dataMapper::FROM => $this,
             $dataMapper::TO => $data

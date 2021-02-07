@@ -2,6 +2,8 @@
 
 namespace ExampleCMS\Contract;
 
+use ExampleCMS\Contract\Application\Entity;
+
 interface Collection
 {
 

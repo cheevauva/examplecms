@@ -2,7 +2,7 @@
 
 namespace ExampleCMS;
 
-use ExampleCMS\Contract\Entity;
+use ExampleCMS\Contract\Application\Entity;
 use ExampleCMS\Contract\Collection;
 
 class Context implements \ExampleCMS\Contract\Context

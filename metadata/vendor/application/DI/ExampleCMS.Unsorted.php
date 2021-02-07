@@ -34,11 +34,11 @@ $di[ExampleCMS\Bootstrap::class] = [
     'application' => '?application',
 ];
 $di[ExampleCMS\Application\Query\Query::class] = array(
-    'modelFactory' => '?modelFactory',
+    'entityFactory' => '?entityFactory',
 );
 $di[ExampleCMS\Application\Action\Action::class] = array(
     'queryFactory' => '?queryFactory',
 );
-$di[ExampleCMS\Application\Model\Model::class] = array(
+$di[ExampleCMS\Application\Entity\Entity::class] = array(
     'mapperFactory' => '?mapperFactory',
 );

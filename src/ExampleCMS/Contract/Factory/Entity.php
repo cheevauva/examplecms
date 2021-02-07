@@ -2,13 +2,13 @@
 
 namespace ExampleCMS\Contract\Factory;
 
-interface Model
+interface Entity
 {
 
     /**
      * @param string $id
      * @param \ExampleCMS\Contract\Module $module
-     * @return \ExampleCMS\Contract\Application\Model
+     * @return \ExampleCMS\Contract\Application\Entity
      */
     public function get($id, \ExampleCMS\Contract\Module $module);
 }

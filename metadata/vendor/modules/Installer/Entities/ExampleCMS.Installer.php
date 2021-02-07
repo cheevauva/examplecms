@@ -1,6 +1,6 @@
 <?php
 
-$models['database'] = array(
+$entities['database'] = array(
     'name' => 'database',
     'component' => 'form',
     'map' => array(
@@ -13,7 +13,7 @@ $models['database'] = array(
     ),
 );
 
-$models['language'] = array(
+$entities['language'] = array(
     'name' => 'language',
     'component' => 'form',
     'map' => array(
@@ -22,7 +22,7 @@ $models['language'] = array(
     ),
 );
 
-$models['license'] = array(
+$entities['license'] = array(
     'name' => 'license',
     'component' => 'form',
     'map' => array(
@@ -32,7 +32,7 @@ $models['license'] = array(
         'license' => 'license',
     ),
 );
-$models['base'] = array(
+$entities['base'] = array(
     'name' => 'base',
-    'component' => 'model',
+    'component' => 'persistent',
 );

@@ -2,9 +2,9 @@
 
 namespace ExampleCMS\Contract\Application;
 
-use ExampleCMS\Contract\Entity;
+use ExampleCMS\Contract\Module;
 
-interface Model extends Entity
+interface Entity
 {
 
     /**
@@ -13,14 +13,21 @@ interface Model extends Entity
     public function isNull();
 
     /**
-     * @return \ExampleCMS\Contract\Module
+     * @return Module
      */
     public function getModule();
 
     /**
-     * @param \ExampleCMS\Contract\Module $module
+     * @param Module $module
      */
-    public function setModule($module);
+    public function setModule(Module $module);
+
+    public function setMeta(array $meta);
+
+    /**
+     * @return array
+     */
+    public function getMeta();
 
     /**
      * @param array $array
@@ -41,8 +48,6 @@ interface Model extends Entity
      * @param mixed $data
      */
     public function doMappingFromModelToData($data);
-
-    public function getMetadata();
 
     /**
      * @param string $name

@@ -13,7 +13,7 @@ class Save extends \ExampleCMS\Application\Query\Query
      */
     public $cache;
 
-    public function execute(array $params = [], $autoExecute = true)
+    public function execute(array $params = [])
     {
         $model = $params[static::MODEL];
 

@@ -23,16 +23,6 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
         $this->module = $module;
     }
 
-    public function execute(array $params = [], $autoExecute = true)
-    {
-        
-    }
-
-    public function fetch(array $params = [])
-    {
-        
-    }
-
     /**
      * @param string $name
      * @return \ExampleCMS\Contract\Application\Model
@@ -40,6 +30,16 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
     protected function entity($name)
     {
         return $this->entityFactory->get($name, $this->module);
+    }
+
+    public function execute(array $params = [])
+    {
+        throw new \BadMethodCallException(__METHOD__);
+    }
+
+    public function fetch(array $params = [])
+    {
+        throw new \BadMethodCallException(__METHOD__);
     }
 
 }

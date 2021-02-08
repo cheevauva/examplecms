@@ -2,7 +2,9 @@
 
 namespace ExampleCMS\Module\Installer\Query;
 
-class FindFormModel extends \ExampleCMS\Application\Query\Query implements \ExampleCMS\Contract\Module\Installer\Query\FindFormModel
+use ExampleCMS\Contract\Module\Installer\Query\FindFormModel as FindFormModelInterface;
+
+class FindFormModel extends \ExampleCMS\Application\Query\Query implements FindFormModelInterface
 {
 
     public function fetch(array $params = [])

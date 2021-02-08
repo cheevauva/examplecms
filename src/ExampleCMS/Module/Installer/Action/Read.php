@@ -2,17 +2,16 @@
 
 namespace ExampleCMS\Module\Installer\Action;
 
+use ExampleCMS\Contract\Module\Installer\Query\FindFormModel;
+
 class Read extends \ExampleCMS\Application\Action\Action
 {
 
     public function execute(\ExampleCMS\Contract\Context $context)
     {
-        /* @var $query \ExampleCMS\Contract\Module\Installer\Query\FindFormModel */
-        $query = $this->query('findFormModel');
-
-        $formModel = $query->fetch([
-            $query::FORMS => $context->getAttribute('forms'),
-            $query::FORM => $this->metadata['form'],
+        $formModel = $this->query('findFormModel')->fetch([
+            FindFormModel::FORMS => $context->getAttribute('forms'),
+            FindFormModel::FORM => $this->metadata['form'],
         ]);
 
         $model = $this->query('find')->fetch();

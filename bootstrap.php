@@ -15,16 +15,19 @@ require_once 'vendor/autoload.php';
 if (!empty($onlyAutoloadStage)) {
     return;
 }
-$configuration = new \PDIC\Configuration;
-$configuration->isSupportInheritInterfaces = false;
-$configuration->isSupportInheritTraits = false;
 
-$container = new \ExampleCMS\Container(require 'cache/metadata/application/DI.php', [
+$container = new \PDIC\Container(require 'cache/metadata/application/DI.php', [
     'basePath' => __DIR__ . '/',
     'cachesMetadata' => require 'cache/metadata/application/Caches.php',
     'handlersMetadata' => require 'cache/metadata/application/Handlers.php',
     'configsMetadata' => require 'cache/metadata/application/Configs.php',
-], $configuration);
+]);
+
+/* @var $builder \ExampleCMS\Contract\ComponentBuilder */
+$builder = $container->get('componentBuilder');
+$builder(function ($id) use ($container) {
+    return $container->get($id);
+});
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('application', $application);

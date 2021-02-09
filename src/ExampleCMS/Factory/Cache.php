@@ -41,7 +41,7 @@ class Cache extends Factory implements \ExampleCMS\Contract\Factory\Cache
             throw new \ExampleCMS\Exception\Metadata(sprintf('adapter is not define for "%s" cache', $id));
         }
 
-        $adapter = $this->container->get($metadata['adapter']);
+        $adapter = $this->builder->make($metadata['adapter']);
         $adapter->setOptions($options);
 
         return $adapter;

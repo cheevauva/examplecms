@@ -2,7 +2,7 @@
 
 $di[ExampleCMS\Factory\Factory::class] = array(
     'metadata' => '?metadata',
-    'container' => ExampleCMS\Container::class,
+    'builder' => '?componentBuilder',
 );
 $di[ExampleCMS\Factory\MetadataHandler::class] = array(
     '^1' => '@handlersMetadata',
@@ -18,6 +18,6 @@ $di[ExampleCMS\Factory\Responder::class] = array(
     'componentFactory' => '?componentFactory',
 );
 $di[ExampleCMS\Factory\Config::class] = array(
-    'container' => ExampleCMS\Container::class,
+    'builder' => '?componentBuilder',
     '^1' => '@configsMetadata',
 );

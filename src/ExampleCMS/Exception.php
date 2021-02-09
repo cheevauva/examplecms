@@ -8,7 +8,7 @@
 
 namespace ExampleCMS;
 
-class Exception extends \Exception implements \Psr\Container\NotFoundExceptionInterface
+class Exception extends \Exception
 {
     
 }

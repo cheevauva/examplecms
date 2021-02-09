@@ -12,9 +12,9 @@ class Factory
 {
 
     /**
-     * @var \Psr\Container\ContainerInterface
+     * @var \ExampleCMS\Contract\ComponentBuilder
      */
-    public $container;
+    public $builder;
 
     /**
      * @var \ExampleCMS\Contract\Metadata

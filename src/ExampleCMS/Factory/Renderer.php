@@ -35,7 +35,7 @@ class Renderer extends Factory implements \ExampleCMS\Contract\Factory\Renderer
         $metadata['name'] = $id;
 
         /* @var $renderer \ExampleCMS\Contract\Renderer */
-        $renderer = $this->container->get($metadata['component']);
+        $renderer = $this->builder->make($metadata['component']);
         $renderer->setOptions($metadata);
 
         return $renderer;

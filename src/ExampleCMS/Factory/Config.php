@@ -11,9 +11,9 @@ class Config implements \ExampleCMS\Contract\Factory\Config
     protected $metadata;
 
     /**
-     * @var \Psr\Container\ContainerInterface
+     * @var \ExampleCMS\Contract\ComponentBuilder
      */
-    public $container;
+    public $builder;
 
     public function __construct($metadata)
     {
@@ -22,7 +22,7 @@ class Config implements \ExampleCMS\Contract\Factory\Config
 
     public function get($id, array $options = [])
     {
-        return $this->container->get($this->metadata[$id]);
+        return $this->builder->make($this->metadata[$id]);
     }
 
 }

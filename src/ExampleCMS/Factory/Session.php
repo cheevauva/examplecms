@@ -13,7 +13,7 @@ class Session extends Factory implements \ExampleCMS\Contract\Factory\Session
 
     public function get($id)
     {
-        return $this->container->get($id);
+        return $this->builder->make($id);
     }
 
 }

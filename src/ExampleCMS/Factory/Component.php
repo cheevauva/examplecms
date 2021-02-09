@@ -22,7 +22,7 @@ class Component extends Factory implements \ExampleCMS\Contract\Factory\Componen
             throw new \ExampleCMS\Exception\Metadata(sprintf('component "%s" not found for module "%s"', $id, $module->getName()));
         }
 
-        return $this->container->get($this->componentMetadata[$moduleName][$id]);
+        return $this->builder->make($this->componentMetadata[$moduleName][$id]);
     }
 
 }

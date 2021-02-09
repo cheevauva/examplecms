@@ -24,7 +24,7 @@ abstract class Handler implements \ExampleCMS\Contract\Metadata\Handler
      */
     protected $metadata;
 
-    public function setMetadata(array $metadata)
+    public function __construct(array $metadata)
     {
         $this->metadata = $metadata;
         $this->name = $metadata['name'];

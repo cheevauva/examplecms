@@ -6,9 +6,6 @@ use ExampleCMS\Contract\Application\ResultSet;
 
 interface Query
 {
-
-    public function setModule(\ExampleCMS\Contract\Module $module);
-
     /**
      * @param array $params
      * @return void

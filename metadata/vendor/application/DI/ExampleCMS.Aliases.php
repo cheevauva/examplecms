@@ -9,7 +9,6 @@ $di['?httpResponse'] = '*' . Laminas\Diactoros\Response::class;
 $di['?metadata'] = ExampleCMS\Metadata::class;
 $di['?responderFactory'] = ExampleCMS\Factory\Responder::class;
 $di['?configFactory'] = ExampleCMS\Factory\Config::class;
-$di['?componentFactory'] = ExampleCMS\Factory\Component::class;
 $di['?routerFactory'] = ExampleCMS\Factory\Router::class;
 $di['?metadataHandlerFactory'] = ExampleCMS\Factory\MetadataHandler::class;
 $di['?cacheFactory'] = ExampleCMS\Factory\Cache::class;

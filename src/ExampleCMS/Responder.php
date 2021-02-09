@@ -32,17 +32,10 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
      * @var \ExampleCMS\Contract\Factory\Responder 
      */
     public $responderFactory;
-
-    public function setModule($module)
+    
+    public function __construct(Module $module, array $metadata)
     {
         $this->module = $module;
-    }
-
-    /**
-     * @param array $metadata
-     */
-    public function setMetadata(array $metadata)
-    {
         $this->metadata = $metadata;
     }
 

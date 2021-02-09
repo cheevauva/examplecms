@@ -18,13 +18,6 @@ interface Entity
     public function getModule();
 
     /**
-     * @param Module $module
-     */
-    public function setModule(Module $module);
-
-    public function setMeta(array $meta);
-
-    /**
      * @return array
      */
     public function getMeta();

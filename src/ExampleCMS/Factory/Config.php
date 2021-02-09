@@ -22,7 +22,7 @@ class Config implements \ExampleCMS\Contract\Factory\Config
 
     public function get($id, array $options = [])
     {
-        return $this->builder->make($this->metadata[$id]);
+        return $this->builder->make($this->metadata[$id], $options);
     }
 
 }

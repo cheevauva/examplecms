@@ -10,8 +10,5 @@ interface Module
      */
     public function getName();
 
-    /**
-     * @param string $module
-     */
-    public function setName($module);
+    public function getComponentIdByAlias($alias);
 }

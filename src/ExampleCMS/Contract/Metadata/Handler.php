@@ -9,10 +9,6 @@ namespace ExampleCMS\Contract\Metadata;
 interface Handler
 {
 
-    /**
-     * @param array $metadata
-     */
-    public function setMetadata(array $metadata);
 
     /**
      * @param array $path

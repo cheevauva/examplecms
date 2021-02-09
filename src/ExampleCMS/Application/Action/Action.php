@@ -26,13 +26,9 @@ abstract class Action implements \ExampleCMS\Contract\Application\Action
      */
     protected $metadata;
 
-    public function setModule($module)
+    public function __construct($module, $metadata)
     {
         $this->module = $module;
-    }
-
-    public function setMetadata(array $metadata)
-    {
         $this->metadata = $metadata;
     }
 

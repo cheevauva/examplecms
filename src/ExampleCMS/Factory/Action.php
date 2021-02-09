@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Factory;
 
-class Action extends Component implements \ExampleCMS\Contract\Factory\Action
+class Action extends Factory implements \ExampleCMS\Contract\Factory\Action
 {
 
     public function get($id, \ExampleCMS\Contract\Module $module)
@@ -13,13 +13,11 @@ class Action extends Component implements \ExampleCMS\Contract\Factory\Action
             $metadata = $id;
             $id = $metadata['component'];
         }
-
-        /* @var $action \ExampleCMS\Contract\Application\Action */
-        $action = parent::get('actions.' . $id, $module);
-        $action->setMetadata($metadata);
-        $action->setModule($module);
-
-        return $action;
+        
+        return $this->builder->make($module->getComponentIdByAlias('actions.' . $id), [
+            $module,
+            $metadata
+        ]);
     }
 
 }

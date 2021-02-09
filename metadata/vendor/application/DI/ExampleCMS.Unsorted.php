@@ -42,3 +42,6 @@ $di[ExampleCMS\Application\Action\Action::class] = array(
 $di[ExampleCMS\Application\Entity\Entity::class] = array(
     'mapperFactory' => '?mapperFactory',
 );
+$di[ExampleCMS\Module::class] = [
+    'metadata' => '?metadata',
+];

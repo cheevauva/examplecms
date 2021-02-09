@@ -15,10 +15,7 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
      */
     public $entityFactory;
 
-    /**
-     * @param \ExampleCMS\Contract\Module $module
-     */
-    public function setModule(\ExampleCMS\Contract\Module $module)
+    public function __construct(\ExampleCMS\Contract\Module $module)
     {
         $this->module = $module;
     }

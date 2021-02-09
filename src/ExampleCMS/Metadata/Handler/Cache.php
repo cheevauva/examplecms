@@ -26,11 +26,10 @@ class Cache extends Handler
      */
     protected $component;
 
-    public function setMetadata(array $metadata)
+    public function __construct(array $metadata, $handler)
     {
-        parent::setMetadata($metadata);
-
-        $this->component = $this->metadata['component'];
+        $this->metadata = $metadata;
+        $this->component = $handler;
     }
 
     public function get(array $path)

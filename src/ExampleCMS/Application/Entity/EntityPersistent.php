@@ -11,17 +11,17 @@ namespace ExampleCMS\Application\Entity;
 class EntityPersistent extends Entity
 {
 
-    public function setMeta($metadata)
+    public function __construct(\ExampleCMS\Contract\Module $module, array $metadata)
     {
-        parent::setMeta($metadata);
-
-        if (empty($this->meta[static::MAPPER_TO_MODEL])) {
-            $this->meta[static::MAPPER_TO_MODEL] = 'baseFromStorage';
+        if (empty($metadata[static::MAPPER_TO_MODEL])) {
+            $metadata[static::MAPPER_TO_MODEL] = 'baseFromStorage';
         }
 
-        if (empty($this->meta[static::MAPPER_FROM_MODEL])) {
-            $this->meta[static::MAPPER_FROM_MODEL] = 'baseToStorage';
+        if (empty($metadata[static::MAPPER_FROM_MODEL])) {
+            $metadata[static::MAPPER_FROM_MODEL] = 'baseToStorage';
         }
+        
+        parent::__construct($module, $metadata);
     }
 
 }

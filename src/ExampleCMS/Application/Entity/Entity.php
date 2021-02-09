@@ -39,9 +39,10 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
         return $this->module;
     }
 
-    public function setModule($module)
+    public function __construct(\ExampleCMS\Contract\Module $module, array $metadata)
     {
         $this->module = $module;
+        $this->meta = $metadata;
     }
 
     public function getModelName()
@@ -88,11 +89,6 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
         return [
             'attributes' => $this->attributes
         ];
-    }
-
-    public function setMeta($metadata)
-    {
-        $this->meta = $metadata;
     }
 
     public function getMeta()

@@ -33,8 +33,9 @@ class Module extends Factory implements \ExampleCMS\Contract\Factory\Module
         }
 
         /** @var \ExampleCMS\Module $module */
-        $module = $this->builder->make($component);
-        $module->setName($id);
+        $module = $this->builder->make($component, [
+            $id
+        ]);
 
         return $module;
     }

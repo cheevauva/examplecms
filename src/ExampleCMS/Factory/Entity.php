@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Factory;
 
-class Entity extends Component implements \ExampleCMS\Contract\Factory\Entity
+class Entity extends Factory implements \ExampleCMS\Contract\Factory\Entity
 {
 
     public function get($id, \ExampleCMS\Contract\Module $module)
@@ -11,7 +11,7 @@ class Entity extends Component implements \ExampleCMS\Contract\Factory\Entity
 
         if (is_string($id)) {
             $meta = $this->metadata->get(['entities', $module->getName()]);
-            
+
             if (is_null($meta[$id])) {
                 throw new \ExampleCMS\Exception\Metadata(sprintf('entity "%s" is not define', $id));
             }
@@ -22,13 +22,11 @@ class Entity extends Component implements \ExampleCMS\Contract\Factory\Entity
 
             $meta = $meta[$id];
         }
-
-        /* @var $model \ExampleCMS\Contract\Application\Entity */
-        $model = parent::get('entity.' . $meta['component'], $module);
-        $model->setMeta($meta);
-        $model->setModule($module);
-
-        return $model;
+        
+        return $this->builder->make($module->getComponentIdByAlias('entity.' . $meta['component']), [
+            $module,
+            $meta,
+        ]);
     }
 
 }

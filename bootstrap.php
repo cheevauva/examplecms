@@ -23,8 +23,8 @@ $container = new \PDIC\Container(require 'cache/metadata/application/DI.php', [
     'configsMetadata' => require 'cache/metadata/application/Configs.php',
 ]);
 
-/* @var $builder \ExampleCMS\Contract\ComponentBuilder */
-$builder = $container->get('componentBuilder');
+/* @var $builder \ExampleCMS\Contract\Builder */
+$builder = $container->get('builder');
 $builder($container());
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();

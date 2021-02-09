@@ -2,15 +2,15 @@
 
 namespace ExampleCMS;
 
-class ComponentBuilder implements \ExampleCMS\Contract\ComponentBuilder
+class Builder implements \ExampleCMS\Contract\Builder
 {
 
     protected $closure;
 
-    public function make($id, $args = [])
+    public function make($id, array $args = [])
     {
         $closure = $this->closure;
-        
+
         return $closure($id, $args);
     }
 

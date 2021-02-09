@@ -26,4 +26,4 @@ $di['?queryFactory'] = ExampleCMS\Factory\Query::class;
 $di['?actionFactory'] = ExampleCMS\Factory\Action::class;
 $di['?mapperFactory'] = ExampleCMS\Factory\Mapper::class;
 $di['?entityFactory'] = ExampleCMS\Factory\Entity::class;
-$di['?componentBuilder'] = ExampleCMS\ComponentBuilder::class;
+$di['?builder'] = ExampleCMS\Builder::class;

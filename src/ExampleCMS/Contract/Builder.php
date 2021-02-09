@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Contract;
 
-interface ComponentBuilder
+interface Builder
 {
 
     /**
@@ -10,5 +10,5 @@ interface ComponentBuilder
      * @param array $args
      * @return object
      */
-    public function make($id, $args = []);
+    public function make($id, array $args = []);
 }

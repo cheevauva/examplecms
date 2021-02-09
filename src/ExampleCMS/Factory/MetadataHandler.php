@@ -41,8 +41,14 @@ class MetadataHandler extends Factory implements \ExampleCMS\Contract\Factory\Me
         $cacheHandlerMetadata['name'] = $id;
         $cacheHandlerMetadata['component'] = $component;
 
+        $id = \ExampleCMS\Metadata\Handler\Cache::class;
+
+        if (!empty($handlerMetadata['cacheComponent'])) {
+            $id = $handlerMetadata['cacheComponent'];
+        }
+
         /* @var $cacheComponent \ExampleCMS\Contract\Metadata\Handler */
-        $cacheComponent = $this->builder->make('metadataHandlerCache');
+        $cacheComponent = $this->builder->make($id);
         $cacheComponent->setMetadata($cacheHandlerMetadata);
 
         return $cacheComponent;

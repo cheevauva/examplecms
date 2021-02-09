@@ -7,9 +7,11 @@ class ComponentBuilder implements \ExampleCMS\Contract\ComponentBuilder
 
     protected $closure;
 
-    public function make($id)
+    public function make($id, $args = [])
     {
-        return $this->closure->call($this, $id);
+        $closure = $this->closure;
+        
+        return $closure($id, $args);
     }
 
     public function __invoke(callable $closure)

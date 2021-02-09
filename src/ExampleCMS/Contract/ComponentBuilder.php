@@ -6,7 +6,9 @@ interface ComponentBuilder
 {
 
     /**
-     * @param object $id
+     * @param string $id
+     * @param array $args
+     * @return object
      */
-    public function make($id);
+    public function make($id, $args = []);
 }

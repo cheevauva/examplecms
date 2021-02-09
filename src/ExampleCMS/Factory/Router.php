@@ -17,7 +17,7 @@ class Router extends Factory implements \ExampleCMS\Contract\Factory\Router
     public function get($id)
     {
         /** @var \ExampleCMS\Router $router */
-        $router = $this->builder->make('router');
+        $router = $this->builder->make(\ExampleCMS\Router::class);
         $router->setRoutes($this->getRoutes($id));
 
         return $router;

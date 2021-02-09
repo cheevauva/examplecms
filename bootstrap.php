@@ -25,14 +25,12 @@ $container = new \PDIC\Container(require 'cache/metadata/application/DI.php', [
 
 /* @var $builder \ExampleCMS\Contract\ComponentBuilder */
 $builder = $container->get('componentBuilder');
-$builder(function ($id) use ($container) {
-    return $container->get($id);
-});
+$builder($container());
 
 $request = Laminas\Diactoros\ServerRequestFactory::fromGlobals();
 $request = $request->withAttribute('application', $application);
 $request = $request->withAttribute('examplecms_timestart', microtime(true));
 
 /* @var $bootstrap \ExampleCMS\Bootstrap */
-$bootstrap = $container->get('bootstrap');
+$bootstrap = $builder->make(ExampleCMS\Bootstrap::class);
 $bootstrap->sendResponse($bootstrap->getApplication()->run($request));

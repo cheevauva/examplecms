@@ -14,16 +14,16 @@ class Update extends \ExampleCMS\Application\Action\Action
             FindFormModel::FORM => $this->metadata['form'],
         ]);
 
+        /* @var $entity \ExampleCMS\Contract\Application\Entity */
         $entity = $this->query('find')->fetch();
         $entity->pull($entityForm);
+        $entity->apply();
 
-        $save = $this->query('save');
-        $save->execute([
-            $save::MODEL => $entity,
-        ]);
+        $context = $context->withAttribute($this->metadata['form'], $entityForm);
 
-        $session = $context->getAttribute('session');
-        $session->set('language', $entity->attribute('language_installer'));
+        if ($context->getAttribute('language') !== $entity->attribute('language_installer')) {
+            $context = $context->withAttribute('language', $entity->attribute('language_installer'));
+        }
 
         return $context;
     }

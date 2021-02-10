@@ -2,11 +2,8 @@
 
 namespace ExampleCMS\Module\Installer\Query;
 
-class Save extends \ExampleCMS\Application\Query\Query
+class Save extends \ExampleCMS\Application\Query\QueryWithEntity
 {
-
-    const MODEL = 'model';
-    const REQUEST = 'request';
 
     /**
      * @var \ExampleCMS\Contract\Cache\Adapter
@@ -15,10 +12,7 @@ class Save extends \ExampleCMS\Application\Query\Query
 
     public function execute(array $params = [])
     {
-        /* @var $entity \ExampleCMS\Contract\Application\Entity */
-        $entity = $params[static::MODEL];
-
-        $this->cache->set('installer:entity', $entity->attributes());
+        $this->cache->set('installer:entity', $this->entity->attributes());
     }
 
 }

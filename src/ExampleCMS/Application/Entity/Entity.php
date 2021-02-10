@@ -17,6 +17,11 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
     public $mapperFactory;
 
     /**
+     * @var \ExampleCMS\Contract\Factory\QueryWithEntity
+     */
+    public $queryFactory;
+
+    /**
      * @var \ExampleCMS\Contract\Module
      */
     protected $module;
@@ -39,6 +44,8 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
     protected const META_MAPPER_DECODE = 'mapper_encode';
     protected const META_MAPPER_ENCODE = 'mapper_decode';
     protected const META_ENTITY_NAME = 'name';
+    protected const META_APPLY_QUERY = 'query_apply';
+    protected const META_RELATIONS = 'relations';
 
     public function getModule()
     {
@@ -57,6 +64,7 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
             throw new \Exception(sprintf('%s undefined in metadata for %s', static::META_ENTITY_NAME, __CLASS__));
         }
 
+        $this->meta[self::META_APPLY_QUERY] = $this->meta[self::META_APPLY_QUERY] ?? $this->applyQueryName();
         $this->meta[static::META_ENTITY_NAME] = $this->meta[static::META_ENTITY_NAME];
     }
 
@@ -68,6 +76,11 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
     protected abstract function encodeMapperName();
 
     protected abstract function decodeMapperName();
+
+    protected function applyQueryName()
+    {
+        return 'save';
+    }
 
     public function __debugInfo()
     {
@@ -141,6 +154,38 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
     public function attribute($attribute)
     {
         return $this->attributes[$attribute];
+    }
+
+    public function isValid()
+    {
+        return true;
+    }
+
+    /**
+     * @param string $relation
+     * @return \ExampleCMS\Contract\Application\Query
+     */
+    public function relation($relation)
+    {
+        if (isset($this->relations)) {
+            $this->relations[$relation] = $this->query($this->meta[static::META_RELATIONS][$relation]);
+        }
+
+        return $this->relations[$relation];
+    }
+
+    public function apply()
+    {
+        $this->query($this->meta[self::META_APPLY_QUERY])->execute();
+    }
+
+    /**
+     * @param string $name
+     * @return \ExampleCMS\Contract\Application\Query
+     */
+    protected function query($name)
+    {
+        return $this->queryFactory->get($name, $this);
     }
 
 }

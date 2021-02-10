@@ -46,4 +46,12 @@ interface Entity
     public function attribute($attribute);
 
     public function entityName();
+
+    public function apply();
+
+    /**
+     * @param string $relation
+     * @return Query
+     */
+    public function relation($relation);
 }

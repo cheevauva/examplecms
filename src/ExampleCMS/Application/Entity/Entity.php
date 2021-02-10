@@ -50,40 +50,6 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
         return $this->meta['name'];
     }
 
-    public function set($name, $value)
-    {
-        $this->attributes[$name] = $value;
-    }
-
-    public function get($name)
-    {
-        if (!isset($this->attributes[$name])) {
-            return null;
-        }
-
-        return $this->attributes[$name];
-    }
-
-    public function fromArray(array $array)
-    {
-        $this->attributes = $array;
-    }
-
-    public function toArray()
-    {
-        return $this->attributes;
-    }
-
-    public function isNull()
-    {
-        return !$this->module || !$this->attributes;
-    }
-
-    public function reset()
-    {
-        $this->attributes = array();
-    }
-
     public function __debugInfo()
     {
         return [
@@ -96,43 +62,62 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
         return $this->meta;
     }
 
-    public function bindTo(Entity $model)
+    public function pull($data)
     {
-        foreach ($this->attributes as $attribute => $value) {
-            $model->set($attribute, $value);
+        if (is_array($data)) {
+            $attributes = $data;
         }
-    }
 
-    public function bindFrom(Entity $model)
-    {
-        $this->attributes = $model->toArray();
+        if ($data instanceof \ExampleCMS\Contract\Application\Entity) {
+            $attributes = $data->attributes();
+        }
+
+        foreach ($attributes as $attribute => $value) {
+            $this->attributes[$attribute] = $value;
+        }
     }
 
     /**
      * @param string $name
-     * @return \ExampleCMS\Contract\Application\Mapper
+     * @return \ExampleCMS\Contract\Application\EntityMapper
      */
     protected function mapper($name)
     {
-        return $this->mapperFactory->get($name, $this->module);
+        return $this->mapperFactory->get($name, $this);
     }
 
-    public function doMappingFromDataToModel($data)
+    public function decode($data)
     {
-        $dataMapper = $this->mapper($this->meta[static::MAPPER_TO_MODEL]);
-        $dataMapper->execute([
-            $dataMapper::FROM => $data,
-            $dataMapper::TO => $this
-        ]);
+        $this->mapper($this->meta[static::MAPPER_TO_MODEL])->execute($data);
     }
 
-    public function doMappingFromModelToData($data)
+    public function encode()
     {
-        $dataMapper = $this->mapper($this->meta[static::MAPPER_FROM_MODEL]);
-        $dataMapper->execute([
-            $dataMapper::FROM => $this,
-            $dataMapper::TO => $data
-        ]);
+        return $this->mapper($this->meta[static::MAPPER_FROM_MODEL])->execute();
+    }
+
+    public function attributes(array $attributes = null)
+    {
+        if (is_array($attributes)) {
+            $this->attributes = $attributes;
+        }
+        
+        return $this->attributes;
+    }
+
+    public function isEmpty($attribute)
+    {
+        return empty($this->attributes[$attribute]);
+    }
+
+    public function isNotEmpty($attribute): bool
+    {
+        return !empty($this->attributes[$attribute]);
+    }
+
+    public function attribute($attribute)
+    {
+        return $this->attributes[$attribute];
     }
 
 }

@@ -26,8 +26,8 @@ class ViewForm extends View
             throw new \RuntimeException(sprintf('model "%s" is not defined in context', $this->metadata['model']));
         }
 
-        /* @var $model \ExampleCMS\Application\Model\ModelBase */
-        $model = $context->getEntity($this->metadata['model']);
+        /* @var $enity \ExampleCMS\Application\Model\ModelBase */
+        $enity = $context->getEntity($this->metadata['model']);
 
         if (empty($this->metadata['method'])) {
             throw new \RuntimeException('"method" is not defined in metadata');
@@ -38,14 +38,10 @@ class ViewForm extends View
         }
 
         $data['method'] = $this->metadata['method'];
-        $data['action'] = $context->getAttribute('router')->make($this->metadata['route'], $model->toArray());
+        $data['action'] = $context->getAttribute('router')->make($this->metadata['route'], $enity->attributes());
 
-        $formData = new \ArrayObject();
-
-        $model->doMappingFromModelToData($formData);
-
-        $context = $context->withAttribute('formName', $model->getModelName());
-        $context = $context->withAttribute('formData', $formData);
+        $context = $context->withAttribute('formName', $enity->getModelName());
+        $context = $context->withAttribute('formData', $enity->encode());
 
         foreach ($this->metadata['grids'] as $index => $meta) {
             $data['grids'][$index] = $this->responder('grid', $meta)->execute($context);

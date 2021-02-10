@@ -16,7 +16,7 @@ class Read extends \ExampleCMS\Application\Action\Action
 
         $model = $this->query('find')->fetch();
 
-        $formModel->bindFrom($model);
+        $formModel->pull($model);
 
         return $context->withEntity($this->metadata['model'], $formModel);
     }

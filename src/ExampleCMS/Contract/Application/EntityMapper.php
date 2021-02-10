@@ -2,11 +2,11 @@
 
 namespace ExampleCMS\Contract\Application;
 
-interface Mapper
+interface EntityMapper
 {
 
     const FROM = 'from';
     const TO = 'to';
 
-    public function execute(array $params);
+    public function execute($data = null);
 }

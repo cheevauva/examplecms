@@ -9,10 +9,10 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query implements FindF
 
     public function fetch(array $params = [])
     {
-        $model = $this->entity($params[static::FORM]);
-        $model->doMappingFromDataToModel($params[static::FORMS]);
+        $entity = $this->entity($params[static::FORM]);
+        $entity->decode($params[static::FORMS]);
 
-        return $model;
+        return $entity;
     }
 
 }

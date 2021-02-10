@@ -9,10 +9,10 @@ foreach (array(
     'tables.database' => 'ExampleCMS\Table\Database',
     'modules.base' => 'ExampleCMS\Module',
     'themes.default' => 'ExampleCMS\Application\Theme\Basic',
-    'mappers.userScopeToModelForm' => 'ExampleCMS\Application\Mapper\UserScopeToModelForm',
-    'mappers.userScopeFromModelForm' => 'ExampleCMS\Application\Mapper\UserScopeFromModelForm',
-    'mappers.baseToStorage' => 'ExampleCMS\Application\Mapper\ModelBaseToStorage',
-    'mappers.baseFromStorage' => 'ExampleCMS\Application\Mapper\ModelBaseFromStorage',
+    'mappers.userScopeToModelForm' => 'ExampleCMS\Application\EntityMapper\UserScopeToModelForm',
+    'mappers.userScopeFromModelForm' => 'ExampleCMS\Application\EntityMapper\UserScopeFromModelForm',
+    'mappers.baseToStorage' => 'ExampleCMS\Application\EntityMapper\ModelBaseToStorage',
+    'mappers.baseFromStorage' => 'ExampleCMS\Application\EntityMapper\ModelBaseFromStorage',
 ) as $name => $value) {
     $components[$name] = $value;
 }

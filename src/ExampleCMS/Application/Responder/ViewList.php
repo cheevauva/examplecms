@@ -20,9 +20,12 @@ class ViewList extends View
         $collection = $context->getCollection($this->metadata['collection']);
 
         foreach ($collection as $entity) {
-            $data['entities'] = $entity->toArray();
+            $entityForm = $this->entity('form');
+            $entityForm->bind($entity);
+
+            $data['entities'][] = $entityForm->encode();
         }
-        
+
         return $data;
     }
 

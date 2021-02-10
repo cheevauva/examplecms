@@ -8,11 +8,6 @@ interface Entity
 {
 
     /**
-     * @return bool
-     */
-    public function isNull();
-
-    /**
      * @return Module
      */
     public function getModule();
@@ -23,34 +18,30 @@ interface Entity
     public function getMeta();
 
     /**
-     * @param array $array
-     */
-    public function fromArray(array $array);
-
-    /**
-     * @return array
-     */
-    public function toArray();
-
-    /**
      * @param mixed $data
      */
-    public function doMappingFromDataToModel($data);
+    public function decode($data);
 
     /**
-     * @param mixed $data
+     * @return mixed 
      */
-    public function doMappingFromModelToData($data);
+    public function encode();
 
     /**
-     * @param string $name
-     * @param mixed $value
+     * @param string $attribute
+     * @return bool
      */
-    public function set($name, $value);
+    public function isEmpty($attribute);
 
     /**
-     * @param string $name
-     * @return mixed
+     * @param string $attribute
+     * @return bool
      */
-    public function get($name);
+    public function isNotEmpty($attribute);
+
+    public function pull($data);
+
+    public function attributes(array $attributes = null);
+
+    public function attribute($attribute);
 }

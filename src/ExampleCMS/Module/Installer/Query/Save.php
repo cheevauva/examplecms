@@ -15,9 +15,10 @@ class Save extends \ExampleCMS\Application\Query\Query
 
     public function execute(array $params = [])
     {
-        $model = $params[static::MODEL];
+        /* @var $entity \ExampleCMS\Contract\Application\Entity */
+        $entity = $params[static::MODEL];
 
-        $this->cache->set('installer:entity', $model->toArray());
+        $this->cache->set('installer:entity', $entity->attributes());
     }
 
 }

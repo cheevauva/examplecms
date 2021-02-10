@@ -40,7 +40,7 @@ class ViewForm extends View
         $data['method'] = $this->metadata['method'];
         $data['action'] = $context->getAttribute('router')->make($this->metadata['route'], $enity->attributes());
 
-        $context = $context->withAttribute('formName', $enity->getEntityName());
+        $context = $context->withAttribute('formName', $enity->entityName());
         $context = $context->withAttribute('formData', $enity->encode());
 
         foreach ($this->metadata['grids'] as $index => $meta) {

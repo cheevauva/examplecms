@@ -44,4 +44,6 @@ interface Entity
     public function attributes(array $attributes = null);
 
     public function attribute($attribute);
+
+    public function entityName();
 }

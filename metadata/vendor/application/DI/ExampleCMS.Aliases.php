@@ -24,6 +24,6 @@ $di['?cacheMemory'] = '~' . ExampleCMS\Cache\Memory::class;
 $di['?collection'] = '*' . ExampleCMS\Collection::class;
 $di['?queryFactory'] = ExampleCMS\Factory\Query::class;
 $di['?actionFactory'] = ExampleCMS\Factory\Action::class;
-$di['?mapperFactory'] = ExampleCMS\Factory\Mapper::class;
+$di['?entityMapperFactory'] = ExampleCMS\Factory\EntityMapper::class;
 $di['?entityFactory'] = ExampleCMS\Factory\Entity::class;
 $di['?builder'] = ExampleCMS\Builder::class;

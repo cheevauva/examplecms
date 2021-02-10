@@ -40,7 +40,7 @@ $di[ExampleCMS\Application\Action\Action::class] = array(
     'queryFactory' => '?queryFactory',
 );
 $di[ExampleCMS\Application\Entity\Entity::class] = array(
-    'mapperFactory' => '?mapperFactory',
+    'mapperFactory' => '?entityMapperFactory',
 );
 $di[ExampleCMS\Module::class] = [
     'metadata' => '?metadata',

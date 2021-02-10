@@ -11,17 +11,14 @@ namespace ExampleCMS\Application\Entity;
 class EntityPersistent extends Entity
 {
 
-    public function __construct(\ExampleCMS\Contract\Module $module, array $metadata)
+    protected function decodeMapperName()
     {
-        if (empty($metadata[static::MAPPER_TO_MODEL])) {
-            $metadata[static::MAPPER_TO_MODEL] = 'baseFromStorage';
-        }
+        return 'decodeStorage';
+    }
 
-        if (empty($metadata[static::MAPPER_FROM_MODEL])) {
-            $metadata[static::MAPPER_FROM_MODEL] = 'baseToStorage';
-        }
-        
-        parent::__construct($module, $metadata);
+    protected function encodeMapperName()
+    {
+        return 'encodeStorage';
     }
 
 }

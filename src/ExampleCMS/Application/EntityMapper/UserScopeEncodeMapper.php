@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\EntityMapper;
 
-class UserScopeFromModelForm extends EntityMapper
+class UserScopeEncodeMapper extends EntityMapper
 {
 
     public function execute($data = null)
@@ -16,8 +16,8 @@ class UserScopeFromModelForm extends EntityMapper
             $result[$to] = $attributes[$from];
         }
 
-        if (!empty($metadata['map_out'])) {
-            foreach ($metadata['map_out'] as $to => $from) {
+        if (!empty($metadata['map_encode'])) {
+            foreach ($metadata['map_encode'] as $to => $from) {
                 $result[$to] = $attributes[$from];
             }
         }

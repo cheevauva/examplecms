@@ -17,9 +17,11 @@ class FieldInput extends Field
     {
         $data = parent::execute($context);
 
+        $formData = $context->getAttribute('formData', []);
+
         $data['name'] = $this->metadata['name'];
         $data['formName'] = $context->getAttribute('formName', '');
-        $data['value'] = $context->getAttribute('formData', new \ArrayObject)[$this->metadata['name']];
+        $data['value'] = $formData[$this->metadata['name']] ?? $data['value'];
 
         return $data;
     }

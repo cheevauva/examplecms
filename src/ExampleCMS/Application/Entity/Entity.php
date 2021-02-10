@@ -8,7 +8,7 @@
 
 namespace ExampleCMS\Application\Entity;
 
-class Entity implements \ExampleCMS\Contract\Application\Entity
+abstract class Entity implements \ExampleCMS\Contract\Application\Entity
 {
 
     /**
@@ -24,15 +24,16 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
     /**
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * @var array
      */
     protected $meta;
 
-    const MAPPER_TO_MODEL = 'mapper_data_to_model';
-    const MAPPER_FROM_MODEL = 'mapper_model_to_data';
+    protected const META_MAPPER_DECODE = 'mapper_encode';
+    protected const META_MAPPER_ENCODE = 'mapper_decode';
+    protected const META_ENITY_NAME = 'name';
 
     public function getModule()
     {
@@ -43,12 +44,24 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
     {
         $this->module = $module;
         $this->meta = $metadata;
+
+        if (empty($this->meta[static::META_MAPPER_ENCODE])) {
+            $this->meta[static::META_MAPPER_ENCODE] = $this->encodeMapperName();
+        }
+
+        if (empty($this->meta[static::META_MAPPER_DECODE])) {
+            $this->meta[static::META_MAPPER_DECODE] = $this->decodeMapperName();
+        }
     }
 
-    public function getModelName()
+    public function getEntityName()
     {
-        return $this->meta['name'];
+        return $this->meta[static::META_ENITY_NAME];
     }
+
+    protected abstract function encodeMapperName();
+
+    protected abstract function decodeMapperName();
 
     public function __debugInfo()
     {
@@ -88,12 +101,12 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
 
     public function decode($data)
     {
-        $this->mapper($this->meta[static::MAPPER_TO_MODEL])->execute($data);
+        $this->mapper($this->meta[static::META_MAPPER_DECODE])->execute($data);
     }
 
     public function encode()
     {
-        return $this->mapper($this->meta[static::MAPPER_FROM_MODEL])->execute();
+        return $this->mapper($this->meta[static::META_MAPPER_ENCODE])->execute();
     }
 
     public function attributes(array $attributes = null)
@@ -101,7 +114,7 @@ class Entity implements \ExampleCMS\Contract\Application\Entity
         if (is_array($attributes)) {
             $this->attributes = $attributes;
         }
-        
+
         return $this->attributes;
     }
 

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\EntityMapper;
 
-class ModelBaseFromStorage extends EntityMapper
+class StorageDecodeMapper extends EntityMapper
 {
 
     public function execute($data = null)

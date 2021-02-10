@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Application\EntityMapper;
 
-class UserScopeToModelForm extends EntityMapper
+class UserScopeDecodeMapper extends EntityMapper
 {
 
     public function execute($data = null)

@@ -28,9 +28,6 @@ $entities['license'] = array(
     'map' => array(
         'accept' => 'license_accepted',
     ),
-    'map_out' => array(
-        'license' => 'license',
-    ),
 );
 $entities['base'] = array(
     'name' => 'base',

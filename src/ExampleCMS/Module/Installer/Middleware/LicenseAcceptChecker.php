@@ -48,8 +48,7 @@ class LicenseAcceptChecker implements MiddlewareInterface
         }
 
         $module = $this->moduleFactory->get('Installer');
-        /* @var $enity \ExampleCMS\Contract\Application\Entity */
-        $enity = $this->queryFactory->get('find', $module)->fetch();
+        $enity = $this->queryFactory->get('find', $module)->fetch()->entity();
 
         if ($enity->isEmpty('license_accepted')) {
             $request = $request->withAttribute('context', $context->withAttribute('redirect', [

@@ -104,6 +104,8 @@ abstract class Entity implements EntityInterface
 
     public function pull($data)
     {
+        $attributes = [];
+        
         if (is_array($data)) {
             $attributes = $data;
         }

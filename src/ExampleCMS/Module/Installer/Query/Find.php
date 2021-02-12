@@ -21,7 +21,7 @@ class Find extends \ExampleCMS\Application\Query\Query
         $entity = $this->entity('base');
         $entity->pull($install);
 
-        return $entity;
+        return new \ExampleCMS\Application\ResultSet\Entity($entity);
     }
 
 }

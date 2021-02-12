@@ -12,10 +12,9 @@ class Update extends \ExampleCMS\Application\Action\Action
         $entityForm = $this->query('findFormModel')->fetch([
             FindFormModel::FORMS => $context->getAttribute('forms'),
             FindFormModel::FORM => $this->metadata['form'],
-        ]);
+        ])->entity();
 
-        /* @var $entity \ExampleCMS\Contract\Application\Entity */
-        $entity = $this->query('find')->fetch();
+        $entity = $this->query('find')->fetch()->entity();
         $entity->pull($entityForm);
         $entity->apply();
 

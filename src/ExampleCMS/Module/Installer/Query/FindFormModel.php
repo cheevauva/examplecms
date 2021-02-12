@@ -12,7 +12,7 @@ class FindFormModel extends \ExampleCMS\Application\Query\Query implements FindF
         $entity = $this->entity($params[static::FORM]);
         $entity->decode($params[static::FORMS]);
 
-        return $entity;
+        return new \ExampleCMS\Application\ResultSet\Entity($entity);
     }
 
 }

@@ -9,13 +9,12 @@ class Read extends \ExampleCMS\Application\Action\Action
 
     public function execute(\ExampleCMS\Contract\Context $context)
     {
-        /* @var $entity \ExampleCMS\Contract\Application\Entity */
-        $entity = $this->query('find')->fetch();
-
+        $entity = $this->query('find')->fetch()->entity();
+        
         $entityForm = $this->query('findFormModel')->fetch([
             FindFormModel::FORMS => $context->getAttribute('forms'),
             FindFormModel::FORM => $this->metadata['form'],
-        ]);
+        ])->entity();
         $entityForm->pull($entity);
         
         return $context->withEntity($this->metadata['model'], $entityForm);

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS;
 
-use ExampleCMS\Contract\Entity;
+use ExampleCMS\Contract\Application\Entity;
 
 class Collection extends \SplObjectStorage implements \ExampleCMS\Contract\Collection
 {

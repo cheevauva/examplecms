@@ -2,13 +2,13 @@
 
 namespace ExampleCMS\Helper;
 
-class GUID
+class UUID implements \ExampleCMS\Contract\Helper\UUID
 {
 
     /**
      * @return string
      */
-    public static function generate()
+    public function guid()
     {
         $guid = '';
 

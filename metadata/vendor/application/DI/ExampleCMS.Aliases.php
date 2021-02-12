@@ -28,3 +28,4 @@ $di['?actionFactory'] = ExampleCMS\Factory\Action::class;
 $di['?entityMapperFactory'] = ExampleCMS\Factory\EntityMapper::class;
 $di['?entityFactory'] = ExampleCMS\Factory\Entity::class;
 $di['?builder'] = ExampleCMS\Builder::class;
+$di['?uuid'] = ExampleCMS\Helper\UUID::class;

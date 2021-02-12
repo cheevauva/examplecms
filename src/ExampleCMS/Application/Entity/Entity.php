@@ -25,6 +25,16 @@ abstract class Entity implements EntityInterface
     public $queryFactory;
 
     /**
+     * @var \ExampleCMS\Contract\Factory\Entity
+     */
+    public $entityFactory;
+    
+    /**
+     * @var \ExampleCMS\Contract\Helper\UUID
+     */
+    public $uuid;
+
+    /**
      * @var \ExampleCMS\Contract\Module
      */
     protected $module;
@@ -49,6 +59,7 @@ abstract class Entity implements EntityInterface
     const META_ENTITY_NAME = 'name';
     const META_APPLY_QUERY = 'query_apply';
     const META_RELATIONS = 'relations';
+    const META_RELATION_TYPE = 'type';
 
     /**
      * @var EntityRelation[]
@@ -81,6 +92,15 @@ abstract class Entity implements EntityInterface
         return $this->meta[static::META_ENTITY_NAME];
     }
 
+    public function getId()
+    {
+        if (empty($this->attributes['id'])) {
+            $this->attributes['id'] = $this->uuid->guid();
+        }
+
+        return $this->attributes['id'];
+    }
+
     protected abstract function encodeMapperName();
 
     protected abstract function decodeMapperName();
@@ -105,7 +125,7 @@ abstract class Entity implements EntityInterface
     public function pull($data)
     {
         $attributes = [];
-        
+
         if (is_array($data)) {
             $attributes = $data;
         }
@@ -197,7 +217,8 @@ abstract class Entity implements EntityInterface
 
     public function attach($relation, EntityInterface $entity)
     {
-        $entityRelation = $this->entityFactory->get($this->metadata[static::META_RELATIONS][$relation][static::META_RELATION_TYPE]);
+        /* @var $entityRelation EntityRelation */
+        $entityRelation = $this->entityFactory->makeByMetadata($this->meta[static::META_RELATIONS][$relation], $this->module);
         $entityRelation->current($this);
         $entityRelation->related($entity);
         $entityRelation->markAsUndeleted();
@@ -209,7 +230,8 @@ abstract class Entity implements EntityInterface
 
     public function detach($relation, EntityInterface $entity)
     {
-        $entityRelation = $this->entityFactory->get($this->metadata[static::META_RELATIONS][$relation][static::META_RELATION_TYPE]);
+        /* @var $entityRelation EntityRelation */
+        $entityRelation = $this->entityFactory->makeByMetadata($this->meta[static::META_RELATIONS][$relation], $this->module);
         $entityRelation->current($this);
         $entityRelation->related($entity);
         $entityRelation->markAsDeleted();

@@ -26,7 +26,7 @@ abstract class Query implements \ExampleCMS\Contract\Application\Query
      */
     protected function entity($name)
     {
-        return $this->entityFactory->get($name, $this->module);
+        return $this->entityFactory->makeById($name, $this->module);
     }
 
     public function execute(array $params = [])

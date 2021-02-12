@@ -32,4 +32,10 @@ $entities['license'] = array(
 $entities['base'] = array(
     'name' => 'base',
     'component' => 'persistent',
+    'relations' => [
+        'items' => [
+            'name' => 'items',
+            'component' => 'relation',
+        ],
+    ],
 );

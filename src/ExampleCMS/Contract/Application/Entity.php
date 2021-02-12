@@ -61,4 +61,9 @@ interface Entity
      * @return EntityRelation
      */
     public function attach($relation, Entity $entity);
+
+    /**
+     * @return string
+     */
+    public function getId();
 }

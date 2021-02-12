@@ -8,7 +8,10 @@
 
 namespace ExampleCMS\Application\Entity;
 
-abstract class Entity implements \ExampleCMS\Contract\Application\Entity
+use ExampleCMS\Contract\Application\Entity\EntityRelation;
+use ExampleCMS\Contract\Application\Entity as EntityInterface;
+
+abstract class Entity implements EntityInterface
 {
 
     /**
@@ -41,11 +44,16 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
      */
     protected $mappers = [];
 
-    protected const META_MAPPER_DECODE = 'mapper_encode';
-    protected const META_MAPPER_ENCODE = 'mapper_decode';
-    protected const META_ENTITY_NAME = 'name';
-    protected const META_APPLY_QUERY = 'query_apply';
-    protected const META_RELATIONS = 'relations';
+    const META_MAPPER_DECODE = 'mapper_encode';
+    const META_MAPPER_ENCODE = 'mapper_decode';
+    const META_ENTITY_NAME = 'name';
+    const META_APPLY_QUERY = 'query_apply';
+    const META_RELATIONS = 'relations';
+
+    /**
+     * @var EntityRelation[]
+     */
+    protected $relationEntitiesNotApplied = [];
 
     public function getModule()
     {
@@ -151,9 +159,13 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
         return !empty($this->attributes[$attribute]);
     }
 
-    public function attribute($attribute)
+    public function attribute($attribute, $value = null)
     {
-        return $this->attributes[$attribute];
+        if (is_null($value)) {
+            return $this->attributes[$attribute];
+        }
+
+        $this->attributes[$attribute] = $value;
     }
 
     public function isValid()
@@ -161,10 +173,6 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
         return true;
     }
 
-    /**
-     * @param string $relation
-     * @return \ExampleCMS\Contract\Application\Query
-     */
     public function relation($relation)
     {
         if (isset($this->relations)) {
@@ -176,7 +184,37 @@ abstract class Entity implements \ExampleCMS\Contract\Application\Entity
 
     public function apply()
     {
+        foreach ($this->relationEntitiesNotApplied as $relationEntity) {
+            $relationEntity->apply();
+        }
+
+        $this->relationEntitiesNotApplied = [];
+
         $this->query($this->meta[self::META_APPLY_QUERY])->execute();
+    }
+
+    public function attach($relation, EntityInterface $entity)
+    {
+        $entityRelation = $this->entityFactory->get($this->metadata[static::META_RELATIONS][$relation][static::META_RELATION_TYPE]);
+        $entityRelation->current($this);
+        $entityRelation->related($entity);
+        $entityRelation->markAsUndeleted();
+
+        $this->relationEntitiesNotApplied[] = $entityRelation;
+
+        return $entityRelation;
+    }
+
+    public function detach($relation, EntityInterface $entity)
+    {
+        $entityRelation = $this->entityFactory->get($this->metadata[static::META_RELATIONS][$relation][static::META_RELATION_TYPE]);
+        $entityRelation->current($this);
+        $entityRelation->related($entity);
+        $entityRelation->markAsDeleted();
+
+        $this->relationEntitiesNotApplied[] = $entityRelation;
+
+        return $entityRelation;
     }
 
     /**

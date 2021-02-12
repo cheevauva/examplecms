@@ -3,6 +3,7 @@
 namespace ExampleCMS\Contract\Application;
 
 use ExampleCMS\Contract\Module;
+use ExampleCMS\Contract\Application\Entity\EntityRelation;
 
 interface Entity
 {
@@ -43,15 +44,21 @@ interface Entity
 
     public function attributes(array $attributes = null);
 
-    public function attribute($attribute);
+    public function attribute($attribute, $value = null);
 
     public function entityName();
 
     public function apply();
 
     /**
-     * @param string $relation
-     * @return Query
+     * @param Entity $entity
+     * @return EntityRelation
      */
-    public function relation($relation);
+    public function detach($relation, Entity $entity);
+
+    /**
+     * @param Entity $entity
+     * @return EntityRelation
+     */
+    public function attach($relation, Entity $entity);
 }

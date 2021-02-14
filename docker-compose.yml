@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+    examplecms-php8:
+        build: ./
+        container_name: examplecms-php8
+        restart: unless-stopped
+        volumes:
+            - ./:/app
+        working_dir: /app
+        entrypoint: "php -S 0.0.0.0:8000"
+        ports:
+            - "127.0.0.1:3214:8000"
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "1024k"
+                max-file: "2"

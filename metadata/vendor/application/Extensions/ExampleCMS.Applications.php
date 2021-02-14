@@ -21,3 +21,11 @@ $extensions['applications_rest'] = [
     'filter' => 'rest',
     'name' => 'rest',
 ];
+
+$extensions['applications_preload'] = [
+    'section' => 'application',
+    'extdir' => 'Application',
+    'level' => 'application',
+    'filter' => 'preload',
+    'name' => 'preload',
+];

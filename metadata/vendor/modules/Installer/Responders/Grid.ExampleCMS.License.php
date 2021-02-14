@@ -14,30 +14,11 @@ $grid['license'] = array(
                             'component' => 'label',
                             'label' => 'license_text',
                         ),
-                    )
-                ),
-                array(
-                    'component' => 'default',
-                    'fields' => array(
                         array(
                             'component' => 'text-from-fs',
                             'name' => 'license',
                             'template' => 'view-raw',
                             'value' => 'LICENSE',
-                        ),
-                    )
-                ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'fields' => array(
-                        array(
-                            'component' => 'label',
-                            'label' => 'license_is_accept',
                         ),
                     )
                 ),
@@ -49,15 +30,13 @@ $grid['license'] = array(
                             'name' => 'accept',
                             'template' => 'form',
                         ),
+                        array(
+                            'component' => 'label',
+                            'label' => 'license_is_accept',
+                        ),
                     )
                 ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
                 array(
-                    'colspan' => 2,
                     'component' => 'default',
                     'fields' => array(
                         array(

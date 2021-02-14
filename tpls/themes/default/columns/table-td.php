@@ -1,5 +1,5 @@
-<th colspan="<?= $colspan; ?>">
+<td colspan="<?= $colspan; ?>">
     <?php foreach ($fields as $field) : ?>
         <?= $this($field); ?>
     <?php endforeach; ?>
-</th>
+</td>

@@ -38,7 +38,7 @@ class FrontController implements MiddlewareInterface
         foreach ($actions as $action) {
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
-        
+
         $session = $context->getAttribute('session');
         $session->set('language', $context->getAttribute('language'));
 

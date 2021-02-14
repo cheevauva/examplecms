@@ -32,7 +32,7 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
      * @var \ExampleCMS\Contract\Factory\Responder 
      */
     public $responderFactory;
-    
+
     public function __construct(Module $module, array $metadata)
     {
         $this->module = $module;
@@ -41,9 +41,13 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
 
     public function execute(Context $context)
     {
+        $module = $context->getAttribute('module', $this->module);
+
         $data = [];
+        $data['templateType'] = $this->getTemplateType();
+        $data['templateName'] = $this->getTemplateName();
         $data['templateId'] = $this->getTemplateId();
-        $data['module'] = $context->getAttribute('module', $this->module->getName());
+        $data['module'] = $module->getName();
         $data['language'] = $context->getAttribute('language', 'en_US');
 
         return $data;
@@ -55,16 +59,26 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
             return $this->metadata['templateId'];
         }
 
+        return [
+            $this->getTemplateType(),
+            $this->getTemplateName()
+        ];
+    }
+
+    protected function getTemplateType()
+    {
+        return $this->templateType;
+    }
+
+    protected function getTemplateName()
+    {
         $template = $this->metadata['component'];
 
         if (isset($this->metadata['template'])) {
             $template = $this->metadata['template'];
         }
 
-        return [
-            $this->templateType,
-            $template
-        ];
+        return $template;
     }
 
     public function __debugInfo()

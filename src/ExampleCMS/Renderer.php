@@ -52,6 +52,9 @@ class Renderer implements \ExampleCMS\Contract\Renderer
 
         $callback = function ($data) use ($filename) {
             $_ = $this->getVarByData('languages', $data);
+            $e = function ($string) {
+                return htmlspecialchars($string);
+            };
 
             if (!is_array($data)) {
                 echo '<pre>';
@@ -102,7 +105,7 @@ class Renderer implements \ExampleCMS\Contract\Renderer
     protected function getVarByData($var, $data)
     {
         $language = $data['language'];
-        $module = (string) $data['module'];
+        $module = $data['module'];
         $renderer = $this->options['name'];
 
         if (!empty($data['renderer'])) {

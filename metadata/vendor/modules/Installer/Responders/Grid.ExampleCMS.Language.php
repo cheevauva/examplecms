@@ -9,15 +9,10 @@ $grid['language'] = array(
             'columns' => array(
                 array(
                     'component' => 'default',
-                    'fields' => array(
-                        array(
-                            'component' => 'label',
-                            'label' => 'language_installer',
-                        ),
-                    )
-                ),
-                array(
-                    'component' => 'default',
+                    'extra' => [
+                        'floating' => true,
+                        'colspan' => 12,
+                    ],
                     'fields' => array(
                         array(
                             'component' => 'enum',
@@ -26,24 +21,18 @@ $grid['language'] = array(
                             'template' => 'form',
                             'options' => 'languages',
                         ),
-                    )
-                ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'fields' => array(
                         array(
                             'component' => 'label',
-                            'label' => 'language_system',
+                            'label' => 'language_installer',
                         ),
                     )
                 ),
                 array(
                     'component' => 'default',
+                    'extra' => [
+                        'floating' => true,
+                        'colspan' => 12,
+                    ],
                     'fields' => array(
                         array(
                             'component' => 'enum',
@@ -52,15 +41,16 @@ $grid['language'] = array(
                             'template' => 'form',
                             'options' => 'languages',
                         ),
+                        array(
+                            'component' => 'label',
+                            'label' => 'language_system',
+                        ),
                     )
                 ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
                 array(
-                    'colspan' => 2,
+                    'extra' => [
+                        'colspan' => 12,
+                    ],
                     'component' => 'default',
                     'fields' => array(
                         array(

@@ -23,7 +23,10 @@ class Column extends \ExampleCMS\Responder
         $data = parent::execute($context);
         $data['grids'] = [];
         $data['fields'] = [];
-        $data['colspan'] = 1;
+
+        if (!empty($this->metadata['extra'])) {
+            $data['extra'] = $this->metadata['extra'];
+        }
 
         if (empty($this->metadata['fields'])) {
             $this->metadata['fields'] = [];

@@ -18,12 +18,12 @@ class Update extends \ExampleCMS\Application\Action\Action
         $entity->pull($entityForm);
         $entity->apply();
 
-        $context = $context->withAttribute($this->metadata['form'], $entityForm);
+        $context = $context->withEntity($this->metadata['form'], $entityForm);
 
         if ($context->getAttribute('language') !== $entity->attribute('language_installer')) {
             $context = $context->withAttribute('language', $entity->attribute('language_installer'));
         }
-
+        
         return $context;
     }
 

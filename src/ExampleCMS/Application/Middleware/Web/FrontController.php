@@ -39,14 +39,14 @@ class FrontController implements MiddlewareInterface
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
-        $location = $context->getAttribute('location');
+        $session = $request->getAttribute('session');
+        $session->set('language', $context->getAttribute('language'));
         
+        $location = $context->getAttribute('location');
+
         if ($location) {
             return $response->withHeader('Location', $location)->withStatus(301);
         }
-
-        $session = $request->getAttribute('session');
-        $session->set('language', $context->getAttribute('language'));
 
         $renderer = $context->getAttribute('renderer');
         $responder = $context->getAttribute('responder');

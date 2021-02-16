@@ -66,4 +66,6 @@ interface Entity
      * @return string
      */
     public function getId();
+    
+    public function isValid();
 }

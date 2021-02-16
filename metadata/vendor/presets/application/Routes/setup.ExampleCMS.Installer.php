@@ -35,7 +35,7 @@ $routes['license'] = array(
             [
                 'component' => 'read',
                 'form' => 'license',
-                'model' => 'license',
+                'entity' => 'license',
             ],
         ],
     ),
@@ -79,7 +79,7 @@ $routes['language'] = [
             [
                 'component' => 'read',
                 'form' => 'language',
-                'model' => 'language',
+                'entity' => 'language',
             ],
         ],
     ],
@@ -112,7 +112,7 @@ $routes['database'] = array(
             [
                 'component' => 'read',
                 'form' => 'database',
-                'model' => 'database',
+                'entity' => 'database',
             ],
         ],
         'module' => 'Installer',
@@ -132,16 +132,25 @@ $routes['database_save'] = array(
     'route' => '/database/',
     'target' => [
         'module' => 'Installer',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'context' => [
+                'views' => [
+                    'body' => 'database',
+                ],
+            ]
+        ],
         'actions' => [
             [
                 'component' => 'save',
                 'form' => 'database',
             ],
             [
-                'component' => 'redirect',
+                'component' => 'redirect-when-valid-entity',
                 'route' => 'language',
-                'params' => [],
-            ],
+                'entity' => 'database',
+            ]
         ],
     ],
 );

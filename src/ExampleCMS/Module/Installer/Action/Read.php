@@ -13,11 +13,11 @@ class Read extends \ExampleCMS\Application\Action\Action
 
         $entityForm = $this->query('findFormModel')->fetch([
             FindFormModel::FORMS => $context->getAttribute('forms'),
-            FindFormModel::FORM => $this->metadata['form'],
+            FindFormModel::FORM => $this->metadata['entity'],
         ])->entity();
         $entityForm->pull($entity);
         
-        return $context->withEntity($this->metadata['model'], $entityForm);
+        return $context->withEntity($this->metadata['entity'], $entityForm);
     }
 
 }

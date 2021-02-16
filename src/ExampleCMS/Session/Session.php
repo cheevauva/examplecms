@@ -116,14 +116,6 @@ abstract class Session implements \ExampleCMS\Contract\Session
     /**
      * @return string
      */
-    protected function generateSessionId()
-    {
-        $file = fopen('/dev/urandom', 'r');
-        $string = base64_encode(fread($file, 40) . microtime(true));
-        fclose($file);
-
-        return $string;
-    }
 
     public function __debugInfo()
     {

@@ -26,6 +26,12 @@ class Session implements MiddlewareInterface
     {
         $sessionEngine = $this->config->get('base.session.engine', 'sessionOverFile');
         $sessionId = $this->getSessionIdByRequest($request);
+        $sessionIdIsNew = false;
+
+        if (!$sessionId) {
+            $sessionId = $this->generateSessionId();
+            $sessionIdIsNew = true;
+        }
 
         $session = $this->sessionFactory->get($sessionEngine);
         $session->setSessionId($sessionId);
@@ -34,24 +40,35 @@ class Session implements MiddlewareInterface
 
         $session->write();
 
-        return $this->addSessionIdToResponse($session, $response);
+        if (!$session->getSessionId()) {
+            return $response;
+        }
+
+        if ($sessionIdIsNew) {
+            return $this->addSessionToResponse($session, $response);
+        }
+
+        return $response;
+    }
+
+    protected function addSessionToResponse(\ExampleCMS\Contract\Session $session, ResponseInterface $response)
+    {
+        $cookie = "";
+        $cookie .= sprintf('%s=%s;', $this->getSessionName(), $session->getSessionId());
+        $cookie .= sprintf('%s=%s;', 'Expires', 'Wed, 09 Jun 2038 10:18:14 GMT');
+        $cookie .= sprintf('%s=%s;', 'Path', $this->getPath($request));
+
+        return $response->withHeader('Set-Cookie', $cookie);
+    }
+
+    protected function getPath(ServerRequestInterface $request)
+    {
+        return $request->getAttribute('basePath');
     }
 
     protected function getSessionName()
     {
-        return $this->config->get('base.session.name', 'EXAMPLECMS_SID');
-    }
-
-    protected function addSessionIdToResponse(\ExampleCMS\Contract\Session $session, ResponseInterface $response)
-    {
-        $sessionName = $this->getSessionName();
-        $sessionId = $session->getSessionId();
-
-        if (empty($sessionId) || $sessionId !== $session->getSessionId()) {
-            $response = $response->withHeader('Set-Cookie', $sessionName . '=' . $session->getSessionId() . '; Expires=Wed, 09 Jun 2038 10:18:14 GMT');
-        }
-
-        return $response;
+        return $this->config->get('base.session.name', 'EXAMPLECMSID');
     }
 
     protected function getSessionIdByRequest(ServerRequestInterface $request)
@@ -66,6 +83,11 @@ class Session implements MiddlewareInterface
         }
 
         return $sessionId;
+    }
+
+    protected function generateSessionId()
+    {
+        return random_bytes(200) . microtime(true);
     }
 
 }

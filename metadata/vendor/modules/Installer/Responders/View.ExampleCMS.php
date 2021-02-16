@@ -2,7 +2,7 @@
 
 $view['database'] = array(
     'component' => 'form',
-    'model' => 'database',
+    'entity' => 'database',
     'method' => 'POST',
     'route' => 'database_save',
     'grids' => [
@@ -12,7 +12,7 @@ $view['database'] = array(
 
 $view['language'] = array(
     'component' => 'form',
-    'model' => 'language',
+    'entity' => 'language',
     'method' => 'POST',
     'route' => 'language_save',
     'grids' => [
@@ -22,7 +22,7 @@ $view['language'] = array(
 
 $view['license'] = array(
     'component' => 'form',
-    'model' => 'license',
+    'entity' => 'license',
     'method' => 'POST',
     'route' => 'license_save',
     'grids' => [

@@ -18,16 +18,16 @@ class ViewForm extends View
         $data = parent::execute($context);
         $data['grids'] = [];
 
-        if (empty($this->metadata['model'])) {
-            throw new \RuntimeException('"model" is not defined in metadata');
+        if (empty($this->metadata['entity'])) {
+            throw new \RuntimeException('"entity" is not defined in metadata');
         }
 
-        if (!$context->hasEntity($this->metadata['model'])) {
-            throw new \RuntimeException(sprintf('model "%s" is not defined in context', $this->metadata['model']));
+        if (!$context->hasEntity($this->metadata['entity'])) {
+            throw new \RuntimeException(sprintf('entity "%s" is not defined in context', $this->metadata['entity']));
         }
 
-        /* @var $enity \ExampleCMS\Application\Model\ModelBase */
-        $enity = $context->getEntity($this->metadata['model']);
+        /* @var $enity \ExampleCMS\Contract\Application\Entity */
+        $enity = $context->getEntity($this->metadata['entity']);
 
         if (empty($this->metadata['method'])) {
             throw new \RuntimeException('"method" is not defined in metadata');

@@ -22,14 +22,14 @@ $routes['license'] = array(
     'route' => '/license/',
     'target' => array(
         'module' => 'Installer',
+        'context' => [
+            'views' => [
+                'body' => 'license',
+            ],
+        ],
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
-            'context' => [
-                'views' => [
-                    'body' => 'license',
-                ],
-            ]
         ],
         'actions' => [
             [
@@ -66,14 +66,14 @@ $routes['language'] = [
     'route' => '/language/',
     'target' => [
         'module' => 'Installer',
+        'context' => [
+            'views' => [
+                'body' => 'language',
+            ],
+        ],
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
-            'context' => [
-                'views' => [
-                    'body' => 'language',
-                ],
-            ]
         ],
         'actions' => [
             [
@@ -122,12 +122,12 @@ $routes['database'] = array(
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
-            'context' => [
-                'views' => [
-                    'body' => 'database',
-                ],
-            ]
         ],
+        'context' => [
+            'views' => [
+                'body' => 'database',
+            ],
+        ]
     ),
 );
 $routes['database_save'] = array(
@@ -138,11 +138,6 @@ $routes['database_save'] = array(
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
-            'context' => [
-                'views' => [
-                    'body' => 'database',
-                ],
-            ]
         ],
         'actions' => [
             [
@@ -155,6 +150,11 @@ $routes['database_save'] = array(
                 'entity' => 'database',
             ]
         ],
+        'context' => [
+            'views' => [
+                'body' => 'database',
+            ],
+        ]
     ],
 );
 $routes['database_list'] = array(
@@ -171,11 +171,11 @@ $routes['database_list'] = array(
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
-            'context' => [
-                'views' => [
-                    'body' => 'database_index',
-                ],
-            ]
+        ],
+        'context' => [
+            'views' => [
+                'body' => 'database_index',
+            ],
         ],
     ),
 );

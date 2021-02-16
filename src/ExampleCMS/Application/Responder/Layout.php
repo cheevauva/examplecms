@@ -23,11 +23,7 @@ class Layout extends \ExampleCMS\Responder
         $data = parent::execute($context);
         $data['basePath'] = $context->getAttribute('basePath', null);
 
-        if (empty($this->metadata['views'])) {
-            $this->metadata['views'] = [];
-        }
-
-        $views = $this->metadata['views'];
+        $views = $this->metadata['views'] ?? [];
 
         if ($context->hasAttribute('views')) {
             foreach ($context->getAttribute('views', []) as $name => $view) {

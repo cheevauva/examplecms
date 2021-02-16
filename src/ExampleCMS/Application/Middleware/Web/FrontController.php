@@ -53,7 +53,7 @@ class FrontController implements MiddlewareInterface
         }
 
         $renderer = $context->getAttribute('renderer');
-        $responder = $context->getAttribute('responder');
+        $responder = $request->getAttribute('responder');
         $contentType = $context->getAttribute('contentType', 'text/html');
 
         if ($responder instanceof Responder && $renderer instanceof Renderer) {

@@ -25,8 +25,8 @@ class Layout extends \ExampleCMS\Responder
 
         $views = $this->metadata['views'] ?? [];
 
-        if ($context->hasAttribute('views')) {
-            foreach ($context->getAttribute('views', []) as $name => $view) {
+        if (!empty($this->metadata['extra']['views'])) {
+            foreach ($this->metadata['extra']['views'] as $name => $view) {
                 $views[$name] = $view;
             }
         }

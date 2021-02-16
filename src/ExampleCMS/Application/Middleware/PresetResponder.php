@@ -26,7 +26,7 @@ class PresetResponder implements MiddlewareInterface
         }
 
         $module = $request->getAttribute('context')->getAttribute('module');
-        $request = $request->withAttribute('responder', $this->responderFactory->get($module, $responder['type'], $responder['component']));
+        $request = $request->withAttribute('responder', $this->responderFactory->getByMeta($module, $responder));
 
         return $handler->handle($request);
     }

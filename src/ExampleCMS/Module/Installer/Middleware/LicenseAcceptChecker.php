@@ -24,22 +24,37 @@ class LicenseAcceptChecker implements MiddlewareInterface
     public $moduleFactory;
 
     /**
-     * @var \ExampleCMS\Contract\Factory\Query
+     * @var \ExampleCMS\Contract\Factory\Action
      */
-    public $queryFactory;
+    public $actionFactory;
+    
+    /**
+     * @var array
+     */
+    protected $metadata;
+    
+    /**
+     * @var ResponseInterface 
+     */
+    public $response;
+
+    public function __construct($metadata)
+    {
+        $this->metadata = $metadata;
+    }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $isSetup = $this->config->get(['base', 'setup']);
+        $isSetup = $this->config->get('base.setup');
 
         $context = $request->getAttribute('context');
         $module = $context->getAttribute('module');
 
-        if (!$isSetup) {
-            if ($module === 'Installer') {
-                NotFoundException::withRequest($request);
-            }
+        if (!$isSetup && $module === 'Installer') {
+            NotFoundException::withRequest($request);
+        }
 
+        if (!$isSetup) {
             return $handler->handle($request);
         }
 
@@ -48,18 +63,17 @@ class LicenseAcceptChecker implements MiddlewareInterface
         }
 
         $installer = $this->moduleFactory->get('Installer');
-        $enity = $this->queryFactory->get('find', $installer)->fetch()->entity();
 
-        if ($enity->isEmpty('license_accepted')) {
-            $context = $context->withAttribute('actions', [
-                [
-                    'component' => 'redirect',
-                    'route' => 'license',
-                ]
-            ]);
-            $request = $request->withAttribute('context', $context);
+        foreach ($this->metadata['actions'] as $action) {
+            $context = $this->actionFactory->get($action, $installer)->execute($context);
         }
+        
+        $location = $context->getAttribute('location');
 
+        if ($location) {
+            return $this->response->withHeader('Location', $location)->withStatus(301);
+        }
+        
         return $handler->handle($request);
     }
 

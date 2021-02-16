@@ -24,7 +24,7 @@ $entities['language'] = array(
 
 $entities['license'] = array(
     'name' => 'license',
-    'component' => 'form',
+    'component' => 'form-license',
     'map' => array(
         'accept' => 'license_accepted',
     ),

@@ -14,4 +14,11 @@ class Middleware extends Factory implements \ExampleCMS\Contract\Factory\Middlew
         return $this->builder->make($id);
     }
 
+    public function getByMeta($meta): \Psr\Http\Server\MiddlewareInterface
+    {
+        return $this->builder->make($meta['component'], [
+            $meta
+        ]);
+    }
+
 }

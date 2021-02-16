@@ -51,9 +51,7 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
     {
         $metadata = $this->metadata->get(['application', $request->getAttribute('application')]);
 
-        $middlewares = array_flip($metadata['middleware']);
-
-        ksort($middlewares);
+        $middlewares = $this->prepareMiddlewares($metadata);
 
         $this->middlewares = array_values($middlewares);
         $this->contentType = $metadata['contentType'];
@@ -71,9 +69,24 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
             return $this->response->withHeader('Content-Type', $this->contentType);
         }
 
-        $middleware = $this->middlewareFactory->get($this->middlewares[$this->index]);
+        $middleware = $this->middlewareFactory->getByMeta($this->middlewares[$this->index]);
 
         return $middleware->process($request, $this);
+    }
+
+    protected function prepareMiddlewares($metadata)
+    {
+        $middlewares = $metadata['middleware'];
+
+        uasort($middlewares, function ($a, $b) {
+            if ($a['order'] === $b['order']) {
+                return 0;
+            }
+
+            return $a['order'] < $b['order'] ? -1 : 1;
+        });
+
+        return $middlewares;
     }
 
 }

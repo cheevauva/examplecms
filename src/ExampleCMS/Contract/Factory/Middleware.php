@@ -14,4 +14,6 @@ interface Middleware
      * @return \Psr\Http\Server\MiddlewareInterface
      */
     public function get($id);
+
+    public function getByMeta($meta);
 }

@@ -10,3 +10,4 @@ $components['queries.findFormModel'] = ExampleCMS\Module\Installer\Query\FindFor
 $components['queries.findCollection'] = ExampleCMS\Module\Installer\Query\FindCollection::class;
 $components['field.text-from-fs'] = ExampleCMS\Module\Installer\Responder\FieldTextFromFilesystem::class;
 $components['view.list'] = ExampleCMS\Application\Responder\ViewList::class;
+$components['entity.form-license'] = ExampleCMS\Module\Installer\Entity\EntityFormLicense::class;

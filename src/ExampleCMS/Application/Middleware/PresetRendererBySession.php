@@ -36,7 +36,7 @@ class PresetRendererBySession implements MiddlewareInterface
         }
 
         /* @var $session \ExampleCMS\Contract\Session */
-        $session = $context->getAttribute('session');
+        $session = $request->getAttribute('session');
 
         $renderer = $session->get('renderer');
 

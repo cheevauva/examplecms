@@ -34,7 +34,7 @@ class Local implements \ExampleCMS\Contract\Config
      * @param mixed $default
      * @return mixed
      */
-    public function get($path)
+    public function get($path, $default = null)
     {
         $this->load();
 
@@ -48,7 +48,7 @@ class Local implements \ExampleCMS\Contract\Config
             $cursors[] = $cursor;
 
             if (!isset($value[$cursor])) {
-                return null;
+                return $default;
             }
 
             $value = & $value[$cursor];

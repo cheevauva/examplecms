@@ -18,7 +18,7 @@ interface Config
      * @param string|array $path
      * @return mixed
      */
-    public function get($path);
+    public function get($path, $default = null);
 
     public function load();
 

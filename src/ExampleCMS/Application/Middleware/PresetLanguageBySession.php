@@ -29,7 +29,7 @@ class PresetLanguageBySession implements MiddlewareInterface
         }
 
         /* @var $session \ExampleCMS\Contract\Session */
-        $session = $context->getAttribute('session');
+        $session = $request->getAttribute('session');
 
         $language = $session->get('language');
 

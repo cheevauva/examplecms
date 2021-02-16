@@ -24,40 +24,48 @@ class Session implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $cookies = $request->getCookieParams();
-        $sessionId = null;
-        $sessionName = $this->config->get(['base', 'session', 'name']);
-        $engine = $this->config->get(['base', 'session', 'engine']);
+        $sessionEngine = $this->config->get('base.session.engine', 'sessionOverFile');
+        $sessionId = $this->getSessionIdByRequest($request);
 
-        if (empty($engine)) {
-            $engine = 'sessionOverFile';
-        }
-
-        if (!empty($cookies[$sessionName])) {
-            $sessionId = $cookies[$sessionName];
-        }
-
-        $session = $this->sessionFactory->get($engine);
+        $session = $this->sessionFactory->get($sessionEngine);
         $session->setSessionId($sessionId);
 
-        $context = $request->getAttribute('context');
-        $context = $context->withAttribute('session', $session);
-
-        $request = $request->withAttribute('context', $context);
-
-        $response = $handler->handle($request);
+        $response = $handler->handle($request->withAttribute('session', $session));
 
         $session->write();
 
-        if (!$session->getSessionId()) {
-            return $response;
-        }
+        return $this->addSessionIdToResponse($session, $response);
+    }
+
+    protected function getSessionName()
+    {
+        return $this->config->get('base.session.name', 'EXAMPLECMS_SID');
+    }
+
+    protected function addSessionIdToResponse(\ExampleCMS\Contract\Session $session, ResponseInterface $response)
+    {
+        $sessionName = $this->getSessionName();
+        $sessionId = $session->getSessionId();
 
         if (empty($sessionId) || $sessionId !== $session->getSessionId()) {
             $response = $response->withHeader('Set-Cookie', $sessionName . '=' . $session->getSessionId() . '; Expires=Wed, 09 Jun 2038 10:18:14 GMT');
         }
 
         return $response;
+    }
+
+    protected function getSessionIdByRequest(ServerRequestInterface $request)
+    {
+        $sessionName = $this->getSessionName();
+        $sessionId = null;
+
+        $cookies = $request->getCookieParams($request);
+
+        if (!empty($cookies[$sessionName])) {
+            $sessionId = $cookies[$sessionName];
+        }
+
+        return $sessionId;
     }
 
 }

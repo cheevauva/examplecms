@@ -39,7 +39,7 @@ class FrontController implements MiddlewareInterface
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
-        $session = $context->getAttribute('session');
+        $session = $request->getAttribute('session');
         $session->set('language', $context->getAttribute('language'));
 
         $redirect = $context->getAttribute('redirect');

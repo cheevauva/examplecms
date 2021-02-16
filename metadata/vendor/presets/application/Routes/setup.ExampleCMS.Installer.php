@@ -101,6 +101,9 @@ $routes['language_save'] = array(
             ]
         ],
         'module' => 'Installer',
+        'session_from_context' => [
+            'language' => 'language',
+        ],
     ),
 );
 

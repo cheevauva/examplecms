@@ -39,9 +39,13 @@ class FrontController implements MiddlewareInterface
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
+        $sessionFromContext = $request->getAttribute('session_from_context', []);
         $session = $request->getAttribute('session');
-        $session->set('language', $context->getAttribute('language'));
-        
+
+        foreach ($sessionFromContext as $toSession => $fromContext) {
+            $session->set($toSession, $context->getAttribute($fromContext));
+        }
+
         $location = $context->getAttribute('location');
 
         if ($location) {

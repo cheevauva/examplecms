@@ -45,6 +45,11 @@ class Router implements MiddlewareInterface
             throw new \ExampleCMS\Exception\Http\NotFound;
         }
 
+        if (!empty($result['target']['session_from_context'])) {
+            $request = $request->withAttribute('session_from_context', $result['target']['session_from_context']);
+            unset($result['target']['session_from_context']);
+        }
+
         $context = $context->withAttributes($result['target']);
         $context = $context->withAttribute('route', $result['name']);
         $context = $context->withAttribute('router', $router);

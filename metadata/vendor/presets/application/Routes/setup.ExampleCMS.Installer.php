@@ -7,10 +7,13 @@ $routes['main'] = array(
     'route' => '/',
     'target' => array(
         'module' => 'Installer',
-        'redirect' => [
-            'route' => 'license',
-            'params' => [],
-        ]
+        'actions' => [
+            [
+                'component' => 'redirect',
+                'route' => 'license',
+                'params' => [],
+            ]
+        ],
     ),
 );
 
@@ -41,19 +44,20 @@ $routes['license'] = array(
 $routes['license_save'] = array(
     'method' => 'POST',
     'route' => '/license/',
-    'target' => array(
+    'target' => [
+        'module' => 'Installer',
         'actions' => [
             [
                 'component' => 'save',
                 'form' => 'license',
             ],
+            [
+                'component' => 'redirect',
+                'route' => 'language',
+                'params' => [],
+            ]
         ],
-        'module' => 'Installer',
-        'redirect' => [
-            'route' => 'language',
-            'params' => [],
-        ],
-    ),
+    ],
 );
 
 
@@ -85,15 +89,16 @@ $routes['language_save'] = array(
     'method' => 'POST',
     'route' => '/language/',
     'target' => array(
-        'redirect' => [
-            'route' => 'database',
-            'params' => [],
-        ],
         'actions' => [
             [
                 'component' => 'save',
                 'form' => 'language',
             ],
+            [
+                'component' => 'redirect',
+                'route' => 'database',
+                'params' => [],
+            ]
         ],
         'module' => 'Installer',
     ),
@@ -125,19 +130,20 @@ $routes['database'] = array(
 $routes['database_save'] = array(
     'method' => 'POST',
     'route' => '/database/',
-    'target' => array(
+    'target' => [
         'module' => 'Installer',
         'actions' => [
             [
                 'component' => 'save',
                 'form' => 'database',
             ],
+            [
+                'component' => 'redirect',
+                'route' => 'language',
+                'params' => [],
+            ],
         ],
-        'redirect' => [
-            'route' => 'language',
-            'params' => [],
-        ],
-    ),
+    ],
 );
 $routes['database_list'] = array(
     'method' => 'GET',

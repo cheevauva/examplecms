@@ -39,33 +39,30 @@ class FrontController implements MiddlewareInterface
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
+        $location = $context->getAttribute('location');
+        
+        if ($location) {
+            return $response->withHeader('Location', $location)->withStatus(301);
+        }
+
         $session = $request->getAttribute('session');
         $session->set('language', $context->getAttribute('language'));
 
-        $redirect = $context->getAttribute('redirect');
-
         $renderer = $context->getAttribute('renderer');
-        $router = $context->getAttribute('router');
         $responder = $context->getAttribute('responder');
         $contentType = $context->getAttribute('contentType', 'text/html');
-
-        if (!empty($redirect)) {
-            $location = $router->make($redirect['route'], $redirect['params']);
-            $response = $response->withHeader('Location', $location)->withStatus(301);
-
-            return $response;
-        }
 
         if ($responder instanceof Responder && $renderer instanceof Renderer) {
             $data = $responder($context);
             $content = $renderer($data);
 
             $response->getBody()->write($content);
+            $response = $response->withHeader('Content-Type', $contentType);
         } else {
             $response->getBody()->write('Error: Undefined responder or renderer');
         }
 
-        return $response->withHeader('Content-Type', $contentType);
+        return $response;
     }
 
 }

@@ -36,7 +36,7 @@ abstract class Session implements \ExampleCMS\Contract\Session
         $this->sessionId = preg_replace('/\W+/', '', $sessionId);
     }
 
-    public function get($path)
+    public function get($path, $default = null)
     {
         $this->read();
 
@@ -48,7 +48,7 @@ abstract class Session implements \ExampleCMS\Contract\Session
 
         foreach ($path as $cursor) {
             if (empty($tmp[$cursor])) {
-                return null;
+                return $default;
             }
             $tmp = $tmp[$cursor];
         }

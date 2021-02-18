@@ -40,6 +40,9 @@ class Renderer implements \ExampleCMS\Contract\Renderer
      * @var array 
      */
     protected $renderers = [];
+    
+    protected $request;
+
 
     public function setOptions(array $options)
     {
@@ -51,16 +54,15 @@ class Renderer implements \ExampleCMS\Contract\Renderer
         $filename = $this->filesystem->preparePath($filename);
 
         $callback = function ($data) use ($filename) {
+            if (!is_array($data)) {
+                return sprintf('<pre>%s: %s</pre>', $filename, print_r($data, 1));
+            }
+
             $_ = $this->getVarByData('languages', $data);
             $e = function ($string) {
                 return htmlspecialchars($string);
             };
-
-            if (!is_array($data)) {
-                echo '<pre>';
-                print_r($data);
-                die;
-            }
+            $router = $this->request->getAttribute('router');
 
             ob_start();
             extract($data);
@@ -73,6 +75,11 @@ class Renderer implements \ExampleCMS\Contract\Renderer
         \Closure::bind($callback, $this);
 
         return $callback;
+    }
+
+    public function setRequest(\Psr\Http\Message\ServerRequestInterface $request)
+    {
+        $this->request = $request;
     }
 
     public function execute(array $data)

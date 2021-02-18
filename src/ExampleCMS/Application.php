@@ -56,9 +56,7 @@ class Application implements RequestHandlerInterface, \ExampleCMS\Contract\Appli
         $this->middlewares = array_values($middlewares);
         $this->contentType = $metadata['contentType'];
 
-        $request = $request->withAttribute('context', $this->context);
-
-        return $this->handle($request);
+        return $this->handle($request->withAttribute('context', $this->context));
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface

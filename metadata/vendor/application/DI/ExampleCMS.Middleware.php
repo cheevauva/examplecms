@@ -13,6 +13,10 @@ $di[ExampleCMS\Application\Middleware\CLI\FrontController::class] = array(
 );
 $di[ExampleCMS\Application\Middleware\Web\FrontController::class] = array(
     'actionFactory' => '?actionFactory',
+    'moduleFactory' => '?moduleFactory',
+    'responderFactory' => '?responderFactory',
+    'rendererFactory' => '?rendererFactory',
+    'config' => '?config',
 );
 $di[ExampleCMS\Application\Middleware\Web\OopsHandler::class] = array(
     'moduleFactory' => '?moduleFactory',
@@ -20,18 +24,4 @@ $di[ExampleCMS\Application\Middleware\Web\OopsHandler::class] = array(
     'responderFactory' => '?responderFactory',
     'config' => '?config',
     'response' => '?httpResponse',
-);
-$di[ExampleCMS\Application\Middleware\PresetLanguageBySession::class] = array(
-    'config' => '?config',
-);
-$di[ExampleCMS\Application\Middleware\PresetRendererBySession::class] = array(
-    'rendererFactory' => '?rendererFactory',
-    'config' => '?config',
-);
-$di[ExampleCMS\Application\Middleware\PresetModule::class] = array(
-    'moduleFactory' => '?moduleFactory',
-    'metadata' => '?metadata',
-);
-$di[ExampleCMS\Application\Middleware\PresetResponder::class] = array(
-    'responderFactory' => '?responderFactory',
 );

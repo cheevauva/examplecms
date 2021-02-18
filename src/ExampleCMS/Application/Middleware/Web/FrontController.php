@@ -19,49 +19,91 @@ class FrontController implements MiddlewareInterface
      */
     public $actionFactory;
 
+    /**
+     * @var \ExampleCMS\Contract\Factory\Module
+     */
+    public $moduleFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Factory\Responder
+     */
+    public $responderFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Factory\Renderer
+     */
+    public $rendererFactory;
+
+    /**
+     * @var \ExampleCMS\Contract\Config 
+     */
+    public $config;
+
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = $handler->handle($request);
 
+        // module
+
+        $moduleName = $request->getAttribute('module');
+
+        if (empty($moduleName)) {
+            throw new \ExampleCMS\Exception\Http\NotFound;
+        }
+
+        $module = $this->moduleFactory->get($moduleName);
+
+        // context helpers
+
         /* @var $context \ExampleCMS\Contract\Context */
-        $context = $request->getAttribute('context');
-        $context = $context->withAttribute('forms', function () use ($request) {
-            return $request->getParsedBody();
-        });
-        $context = $context->withAttribute('examplecms_timestart', function () use ($request) {
-            return $request->getAttribute('examplecms_timestart');
-        });
+        $context = $request->getAttribute('context')->withAttributes([
+            'forms' => function () use ($request) {
+                return $request->getParsedBody();
+            },
+            'examplecms_timestart' => function () use ($request) {
+                return $request->getAttribute('examplecms_timestart');
+            }
+        ]);
 
-        $module = $context->getAttribute('module');
-        $actions = $context->getAttribute('actions', []);
+        // actions
 
-        foreach ($actions as $action) {
+        foreach ($request->getAttribute('actions', []) as $action) {
             $context = $this->actionFactory->get($action, $module)->execute($context);
         }
 
-        $sessionFromContext = $request->getAttribute('session_from_context', []);
+        // session
+
         $session = $request->getAttribute('session');
 
-        foreach ($sessionFromContext as $toSession => $fromContext) {
-            $session->set($toSession, $context->getAttribute($fromContext));
+        foreach ($request->getAttribute('context-to-session', []) as $contextAttribute => $sessionAttribute) {
+            $session->set($sessionAttribute, $context->getAttribute($contextAttribute));
         }
+
+        // redirect
 
         $location = $context->getAttribute('location');
 
         if ($location) {
-            return $response->withHeader('Location', $location)->withStatus(301);
+            return $response->withHeader('Location', $request->getAttribute('router')($location))->withStatus(301);
         }
 
-        $renderer = $context->getAttribute('renderer');
-        $responder = $request->getAttribute('responder');
-        $contentType = $context->getAttribute('contentType', 'text/html');
+        // responder and renderer
+
+        $rendererName = $session->get('renderer', $this->config->get('base.renderer'));
+
+        $renderer = $this->rendererFactory->get($rendererName);
+        $responder = $this->responderFactory->getByMeta($module, $request->getAttribute('responder', []));
+
+        $language = $session->get('language', $this->config->get('base.language'));
 
         if ($responder instanceof Responder && $renderer instanceof Renderer) {
-            $data = $responder($context);
+            $renderer->setRequest($request);
+
+            $data = $responder($context->withAttribute('language', $language));
             $content = $renderer($data);
 
             $response->getBody()->write($content);
-            $response = $response->withHeader('Content-Type', $contentType);
+            $response = $response->withHeader('Content-Type', $request->getAttribute('content-type', 'text/html'));
         } else {
             $response->getBody()->write('Error: Undefined responder or renderer');
         }

@@ -1,4 +1,4 @@
-<form action="<?= $action; ?>" method="<?= $method; ?>">
+<form action="<?= $router($action); ?>" method="<?= $method; ?>">
     <?php if (!empty($grids)) : ?>
         <?= $this(reset($grids)); ?>
     <?php else :?>

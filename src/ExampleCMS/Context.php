@@ -98,4 +98,17 @@ class Context implements \ExampleCMS\Contract\Context
         return $this->withAttribute('entities:' . $name, $value);
     }
 
+    public function __debugInfo()
+    {
+        $attributes = $this->getAttributes();
+
+        foreach ($attributes as $attribute => $value) {
+            if (is_object($value)) {
+                $attributes[$attribute] = sprintf('%s:%s', get_class($value), spl_object_hash($value));
+            }
+        }
+        
+        return $attributes;
+    }
+
 }

@@ -2,7 +2,7 @@
 
 namespace ExampleCMS;
 
-class Router
+class Router implements \ExampleCMS\Contract\Router
 {
 
     /**
@@ -40,9 +40,13 @@ class Router
         $this->altoRouter->setBasePath($baseUrl);
     }
 
-    public function make($route, array $params = array())
+    public function make(array $location)
     {
-        return $this->altoRouter->generate($route, $params);
+        if (count($location) !== 2) {
+            throw new \Exception(sprintf('incorrect route: %s', print_r($location)));
+        }
+        
+        return $this->altoRouter->generate($location[0], $location[1]);
     }
 
     public function generate($route, array $params = array())

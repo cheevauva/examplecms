@@ -41,13 +41,11 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
 
     public function execute(Context $context)
     {
-        $module = $context->getAttribute('module', $this->module);
-
         $data = [];
         $data['templateType'] = $this->getTemplateType();
         $data['templateName'] = $this->getTemplateName();
         $data['templateId'] = $this->getTemplateId();
-        $data['module'] = $module->getName();
+        $data['module'] = $this->metadata['module'] ?? $context->getAttribute('module', $this->module->getName());
         $data['language'] = $context->getAttribute('language', 'en_US');
 
         return $data;

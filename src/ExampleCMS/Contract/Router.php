@@ -5,9 +5,9 @@ namespace ExampleCMS\Contract;
 interface Router
 {
 
-    public function make($route, array $params = array());
+    public function setBaseUrl($baseUrl);
 
-    public function process($request);
+    public function make(array $location);
 
-    public function getRoute($route);
+    public function match($requestUrl, $method);
 }

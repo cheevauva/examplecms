@@ -38,7 +38,7 @@ class ViewForm extends View
         }
 
         $data['method'] = $this->metadata['method'];
-        $data['action'] = $context->getAttribute('router')->make($this->metadata['route'], $enity->attributes());
+        $data['action'] = [$this->metadata['route'], $enity->attributes()];
 
         $context = $context->withAttribute('formName', $enity->entityName());
         $context = $context->withAttribute('formData', $enity->encode());

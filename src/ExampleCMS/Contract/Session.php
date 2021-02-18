@@ -11,6 +11,8 @@ interface Session
     public function getSessionId();
     
     public function setSessionId($sessionId);
+    
+    public function get($path, $default = null);
 
     public function write();
 }

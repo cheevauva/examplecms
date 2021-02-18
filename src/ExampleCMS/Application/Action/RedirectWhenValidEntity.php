@@ -17,11 +17,10 @@ class RedirectWhenValidEntity extends Redirect
             return $context;
         }
 
-        /* @var $router \ExampleCMS\Contract\Router */
-        $router = $context->getAttribute('router');
-        $location = $router->make($this->metadata['route'], $entity->attributes());
-
-        return $context->withAttribute('location', $location);
+        return $context->withAttribute('location', [
+            $this->metadata['route'], 
+            $entity->attributes()
+        ]);
     }
 
 }

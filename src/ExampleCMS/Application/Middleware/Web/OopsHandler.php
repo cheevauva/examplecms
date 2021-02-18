@@ -39,6 +39,7 @@ class OopsHandler implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        return $handler->handle($request);
         try {
             return $handler->handle($request);
         } catch (\Exception $exception) {
@@ -62,7 +63,6 @@ class OopsHandler implements MiddlewareInterface
                 $context = $request->getAttribute('context');
                 $renderer = $context->getAttribute('renderer');
                 $context = $context->withAttribute('exception', $exception);
-                $context = $context->withAttribute('request', $request);
 
                 $data = $responder($context);
                 $content = $renderer($data);

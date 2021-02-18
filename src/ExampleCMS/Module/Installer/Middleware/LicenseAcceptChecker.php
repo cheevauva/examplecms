@@ -27,12 +27,12 @@ class LicenseAcceptChecker implements MiddlewareInterface
      * @var \ExampleCMS\Contract\Factory\Action
      */
     public $actionFactory;
-    
+
     /**
      * @var array
      */
     protected $metadata;
-    
+
     /**
      * @var ResponseInterface 
      */
@@ -46,9 +46,7 @@ class LicenseAcceptChecker implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $isSetup = $this->config->get('base.setup');
-
-        $context = $request->getAttribute('context');
-        $module = $context->getAttribute('module');
+        $module = $request->getAttribute('module');
 
         if (!$isSetup && $module === 'Installer') {
             NotFoundException::withRequest($request);
@@ -58,22 +56,24 @@ class LicenseAcceptChecker implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        if (in_array($context->getAttribute('route'), ['license', 'license_save'], true)) {
+        if (in_array($request->getAttribute('route'), ['license', 'license_save'], true)) {
             return $handler->handle($request);
         }
 
         $installer = $this->moduleFactory->get('Installer');
 
+        $context = $request->getAttribute('context');
+
         foreach ($this->metadata['actions'] as $action) {
             $context = $this->actionFactory->get($action, $installer)->execute($context);
         }
-        
+
         $location = $context->getAttribute('location');
 
         if ($location) {
-            return $this->response->withHeader('Location', $location)->withStatus(301);
+            return $this->response->withHeader('Location', $request->getAttribute('router')($location))->withStatus(301);
         }
-        
+
         return $handler->handle($request);
     }
 

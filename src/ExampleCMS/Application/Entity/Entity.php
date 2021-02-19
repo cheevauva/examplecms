@@ -28,7 +28,7 @@ abstract class Entity implements EntityInterface
      * @var \ExampleCMS\Contract\Factory\Entity
      */
     public $entityFactory;
-    
+
     /**
      * @var \ExampleCMS\Contract\Helper\UUID
      */
@@ -54,10 +54,10 @@ abstract class Entity implements EntityInterface
      */
     protected $mappers = [];
 
-    const META_MAPPER_DECODE = 'mapper_encode';
-    const META_MAPPER_ENCODE = 'mapper_decode';
+    const META_MAPPER_DECODE = 'mapper-encode';
+    const META_MAPPER_ENCODE = 'mapper-decode';
     const META_ENTITY_NAME = 'name';
-    const META_APPLY_QUERY = 'query_apply';
+    const META_APPLY_QUERY = 'query-apply';
     const META_RELATIONS = 'relations';
     const META_RELATION_TYPE = 'type';
 
@@ -195,15 +195,6 @@ abstract class Entity implements EntityInterface
         return true;
     }
 
-    public function relation($relation)
-    {
-        if (isset($this->relations)) {
-            $this->relations[$relation] = $this->query($this->meta[static::META_RELATIONS][$relation]);
-        }
-
-        return $this->relations[$relation];
-    }
-
     public function apply()
     {
         foreach ($this->relationEntitiesNotApplied as $relationEntity) {
@@ -241,11 +232,7 @@ abstract class Entity implements EntityInterface
         return $entityRelation;
     }
 
-    /**
-     * @param string $name
-     * @return \ExampleCMS\Contract\Application\Query
-     */
-    protected function query($name)
+    protected function query(string $name)
     {
         return $this->queryFactory->get($name, $this);
     }

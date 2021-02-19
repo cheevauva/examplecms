@@ -11,11 +11,11 @@ namespace ExampleCMS\Application\Entity;
 use ExampleCMS\Contract\Application\Entity\EntityRelation;
 use ExampleCMS\Contract\Application\Entity as EntityInterface;
 
-abstract class Entity implements EntityInterface
+class Entity implements EntityInterface
 {
 
     /**
-     * @var \ExampleCMS\Contract\Factory\EntityMapper 
+     * @var \ExampleCMS\Contract\Factory\Mapper 
      */
     public $mapperFactory;
 
@@ -54,8 +54,9 @@ abstract class Entity implements EntityInterface
      */
     protected $mappers = [];
 
-    const META_MAPPER_DECODE = 'mapper-encode';
-    const META_MAPPER_ENCODE = 'mapper-decode';
+    const META_MAPPERS = 'mappers';
+    const META_MAPPER_DECODE = 'decode';
+    const META_MAPPER_ENCODE = 'encode';
     const META_ENTITY_NAME = 'name';
     const META_APPLY_QUERY = 'query-apply';
     const META_RELATIONS = 'relations';
@@ -66,18 +67,10 @@ abstract class Entity implements EntityInterface
      */
     protected $relationEntitiesNotApplied = [];
 
-    public function getModule()
-    {
-        return $this->module;
-    }
-
     public function __construct(\ExampleCMS\Contract\Module $module, array $metadata)
     {
         $this->module = $module;
         $this->meta = $metadata;
-
-        $this->meta[static::META_MAPPER_ENCODE] = $this->meta[static::META_MAPPER_ENCODE] ?? $this->encodeMapperName();
-        $this->meta[static::META_MAPPER_DECODE] = $this->meta[static::META_MAPPER_DECODE] ?? $this->decodeMapperName();
 
         if (empty($this->meta[static::META_ENTITY_NAME])) {
             throw new \Exception(sprintf('%s undefined in metadata for %s', static::META_ENTITY_NAME, __CLASS__));
@@ -101,10 +94,6 @@ abstract class Entity implements EntityInterface
         return $this->attributes['id'];
     }
 
-    protected abstract function encodeMapperName();
-
-    protected abstract function decodeMapperName();
-
     protected function applyQueryName()
     {
         return 'save';
@@ -119,7 +108,7 @@ abstract class Entity implements EntityInterface
 
     public function getMeta()
     {
-        return $this->meta;
+        throw new \Exception;
     }
 
     public function pull($data)
@@ -141,52 +130,56 @@ abstract class Entity implements EntityInterface
 
     /**
      * @param string $name
-     * @return \ExampleCMS\Contract\Application\EntityMapper
+     * @return \ExampleCMS\Contract\Application\Mapper
      */
     protected function mapper($name)
     {
-        if (!isset($this->mappers[$name])) {
-            $this->mappers[$name] = $this->mapperFactory->get($name, $this);
+        if (empty($this->meta[static::META_MAPPERS][$name])) {
+            throw new \ExampleCMS\Exception\Metadata(sprintf('mapper "%s" not defined for "%s" entity', $name, $this->entityName()));
         }
 
-        return $this->mappers[$name];
+        return $this->mapperFactory->getByMeta($this->meta[static::META_MAPPERS][$name], $this->module);
     }
 
     public function decode($data)
     {
-        $this->mapper($this->meta[static::META_MAPPER_DECODE])->execute($data);
+        $attributes = $this->mapper(static::META_MAPPER_DECODE)->execute($data);
+
+        foreach ($attributes as $attribute => $value) {
+            $this->attribute($attribute, $value);
+        }
+    }
+
+    public function mapping(string $mapper, array $data = [])
+    {
+        $data['entity'] = $this;
+        $data['attributes'] = $this->attributes;
+
+        return $this->mapper($mapper)->execute($data);
     }
 
     public function encode()
     {
-        return $this->mapper($this->meta[static::META_MAPPER_ENCODE])->execute();
+        return $this->mapper(static::META_MAPPER_ENCODE)->execute($this->attributes);
     }
 
-    public function attributes(array $attributes = null)
+    protected function attributes()
     {
-        if (is_array($attributes)) {
-            $this->attributes = $attributes;
-        }
-
         return $this->attributes;
     }
 
-    public function isEmpty($attribute)
+    protected function isEmpty($attribute)
     {
         return empty($this->attributes[$attribute]);
     }
 
-    public function isNotEmpty($attribute): bool
+    protected function isNotEmpty($attribute): bool
     {
         return !empty($this->attributes[$attribute]);
     }
 
-    public function attribute($attribute, $value = null)
+    protected function attribute($attribute, $value = null)
     {
-        if (is_null($value)) {
-            return $this->attributes[$attribute];
-        }
-
         $this->attributes[$attribute] = $value;
     }
 
@@ -234,7 +227,7 @@ abstract class Entity implements EntityInterface
 
     protected function query(string $name)
     {
-        return $this->queryFactory->get($name, $this);
+        return $this->queryFactory->get($name, $this->module, $this);
     }
 
 }

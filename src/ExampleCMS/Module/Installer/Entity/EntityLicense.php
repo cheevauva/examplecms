@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Module\Installer\Entity;
 
-class EntityFormLicense extends \ExampleCMS\Application\Entity\EntityForm
+class EntityLicense extends \ExampleCMS\Application\Entity\Entity
 {
 
     public function isValid()

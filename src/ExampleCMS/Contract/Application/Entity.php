@@ -2,21 +2,10 @@
 
 namespace ExampleCMS\Contract\Application;
 
-use ExampleCMS\Contract\Module;
 use ExampleCMS\Contract\Application\Entity\EntityRelation;
 
 interface Entity
 {
-
-    /**
-     * @return Module
-     */
-    public function getModule();
-
-    /**
-     * @return array
-     */
-    public function getMeta();
 
     /**
      * @param mixed $data
@@ -28,23 +17,9 @@ interface Entity
      */
     public function encode();
 
-    /**
-     * @param string $attribute
-     * @return bool
-     */
-    public function isEmpty($attribute);
-
-    /**
-     * @param string $attribute
-     * @return bool
-     */
-    public function isNotEmpty($attribute);
-
     public function pull($data);
 
-    public function attributes(array $attributes = null);
-
-    public function attribute($attribute, $value = null);
+    public function mapping(string $mapper, array $data = []);
 
     public function entityName();
 
@@ -66,6 +41,6 @@ interface Entity
      * @return string
      */
     public function getId();
-    
+
     public function isValid();
 }

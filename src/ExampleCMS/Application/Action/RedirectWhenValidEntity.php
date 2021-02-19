@@ -19,7 +19,7 @@ class RedirectWhenValidEntity extends Redirect
 
         return $context->withAttribute('location', [
             $this->metadata['route'], 
-            $entity->attributes()
+            $entity->encode()
         ]);
     }
 

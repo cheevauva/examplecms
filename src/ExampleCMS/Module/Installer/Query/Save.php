@@ -12,7 +12,7 @@ class Save extends \ExampleCMS\Application\Query\QueryWithEntity
 
     public function execute(array $params = [])
     {
-        $this->cache->set('installer:entity', $this->entity->attributes());
+        $this->cache->set('installer:entity', $this->entity->encode());
     }
 
 }

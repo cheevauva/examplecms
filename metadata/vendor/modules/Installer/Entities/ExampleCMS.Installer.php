@@ -1,37 +1,94 @@
 <?php
 
-$entities['database'] = array(
+$entities['database'] = [
     'name' => 'database',
     'component' => 'form',
-    'map' => array(
-        'sql_engine' => 'engine',
-        'mysql_host' => 'host',
-        'sqlite_filename' => 'filename',
-        'mysql_username' => 'username',
-        'mysql_password' => 'password',
-        'mysql_database' => 'database',
-    ),
-);
+    'mappers' => [
+        'decode' => [
+            'component' => 'decodeUserScope',
+            'map' => [
+                'engine' => 'sql_engine',
+                'host' => 'mysql_host',
+                'filename' => 'sqlite_filename',
+                'username' => 'mysql_username',
+                'password' => 'mysql_password',
+                'database' => 'mysql_database',
+            ],
+        ],
+        'encode' => [
+            'component' => 'encodeUserScope',
+            'map' => [
+                'engine' => 'sql_engine',
+                'host' => 'mysql_host',
+                'filename' => 'sqlite_filename',
+                'username' => 'mysql_username',
+                'password' => 'mysql_password',
+                'database' => 'mysql_database',
+            ],
+        ],
+    ],
+];
 
-$entities['language'] = array(
+$entities['language'] = [
     'name' => 'language',
     'component' => 'form',
-    'map' => array(
-        'installer' => 'language_installer',
-        'system' => 'language_system'
-    ),
-);
+    'mappers' => [
+        'decode' => [
+            'component' => 'decodeUserScope',
+            'map' => [
+                'language_installer' => 'installer',
+                'language_system' => 'system'
+            ],
+        ],
+        'encode' => [
+            'component' => 'encodeUserScope',
+            'map' => [
+                'language_installer' => 'installer',
+                'language_system' => 'system'
+            ],
+        ],
+    ],
+];
 
-$entities['license'] = array(
+$entities['license'] = [
     'name' => 'license',
-    'component' => 'form-license',
-    'map' => array(
-        'accept' => 'license_accepted',
-    ),
-);
+    'component' => 'license',
+    'mappers' => [
+        'decode' => [
+            'component' => 'decodeUserScope',
+            'map' => [
+                'license_accepted' => 'accept',
+            ],
+        ],
+        'encode' => [
+            'component' => 'encodeUserScope',
+            'map' => [
+                'license_accepted' => 'accept',
+            ],
+        ],
+    ]
+];
 $entities['base'] = array(
     'name' => 'base',
     'component' => 'persistent',
+    'mappers' => [
+        'decode' => [
+            'component' => 'decodeStorage',
+            'map' => [
+            ],
+        ],
+        'encode' => [
+            'component' => 'encodeStorage',
+            'map' => [
+            ],
+        ],
+        'language2context' => [
+            'component' => 'entity-to-context',
+            'map' => [
+                'language_installer' => 'language',
+            ],
+        ],
+    ],
     'relations' => [
         'items' => [
             'name' => 'items',

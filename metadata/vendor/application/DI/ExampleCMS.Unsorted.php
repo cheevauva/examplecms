@@ -40,7 +40,7 @@ $di[ExampleCMS\Application\Action\Action::class] = array(
     'queryFactory' => '?queryFactory',
 );
 $di[ExampleCMS\Application\Entity\Entity::class] = array(
-    'mapperFactory' => '?entityMapperFactory',
+    'mapperFactory' => '?mapperFactory',
     'queryFactory' => '?queryFactoryWithEntity',
     'entityFactory' => '?entityFactory',
     'uuid' => '?uuid',

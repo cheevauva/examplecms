@@ -37,11 +37,13 @@ class ViewForm extends View
             throw new \RuntimeException('"route" is not defined in metadata');
         }
 
+        $encodedEntity = $enity->encode();
+        
         $data['method'] = $this->metadata['method'];
-        $data['action'] = [$this->metadata['route'], $enity->attributes()];
+        $data['action'] = [$this->metadata['route'], $encodedEntity];
 
         $context = $context->withAttribute('formName', $enity->entityName());
-        $context = $context->withAttribute('formData', $enity->encode());
+        $context = $context->withAttribute('formData', $encodedEntity);
 
         foreach ($this->metadata['grids'] as $index => $meta) {
             $data['grids'][$index] = $this->responder('grid', $meta)->execute($context);

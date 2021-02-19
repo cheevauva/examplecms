@@ -2,10 +2,10 @@
 
 namespace ExampleCMS\Application\Entity;
 
-use ExampleCMS\Contract\Application\Entity;
+use ExampleCMS\Application\Entity\Entity;
 use ExampleCMS\Contract\Application\Entity\EntityRelation as EntityRelationInterface;
 
-class EntityRelation extends EntityPersistent implements EntityRelationInterface
+class EntityRelation extends Entity implements EntityRelationInterface
 {
 
     /**

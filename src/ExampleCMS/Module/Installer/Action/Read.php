@@ -2,7 +2,7 @@
 
 namespace ExampleCMS\Module\Installer\Action;
 
-use ExampleCMS\Contract\Module\Installer\Query\FindFormModel;
+use ExampleCMS\Contract\Module\Installer\Query\FindInContext;
 
 class Read extends \ExampleCMS\Application\Action\Action
 {
@@ -11,9 +11,9 @@ class Read extends \ExampleCMS\Application\Action\Action
     {
         $entity = $this->query('find')->fetch()->entity();
 
-        $entityForm = $this->query('findFormModel')->fetch([
-            FindFormModel::FORMS => $context->getAttribute('forms'),
-            FindFormModel::FORM => $this->metadata['entity'],
+        $entityForm = $this->query('find-in-context')->fetch([
+            FindInContext::FORMS => $context->getAttribute('forms'),
+            FindInContext::FORM => $this->metadata['entity'],
         ])->entity();
         $entityForm->pull($entity);
         

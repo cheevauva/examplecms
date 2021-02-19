@@ -10,8 +10,8 @@ class Update extends \ExampleCMS\Application\Action\Action
     public function execute(\ExampleCMS\Contract\Context $context)
     {
         $entityForm = $this->query('find-in-context')->fetch([
-            FindInContext::FORMS => $context->getAttribute('forms'),
-            FindInContext::FORM => $this->metadata['form'],
+            FindInContext::CONTEXT => $context,
+            FindInContext::ID => $this->metadata['form'],
         ])->entity();
 
         $entity = $this->query('find')->fetch()->entity();

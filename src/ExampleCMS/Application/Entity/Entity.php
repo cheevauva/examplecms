@@ -85,7 +85,7 @@ class Entity implements EntityInterface
         return $this->meta[static::META_ENTITY_NAME];
     }
 
-    public function getId()
+    protected function getId()
     {
         if (empty($this->attributes['id'])) {
             $this->attributes['id'] = $this->uuid->guid();
@@ -106,24 +106,9 @@ class Entity implements EntityInterface
         ];
     }
 
-    public function getMeta()
+    public function pull(\ExampleCMS\Contract\Application\Entity $entity)
     {
-        throw new \Exception;
-    }
-
-    public function pull($data)
-    {
-        $attributes = [];
-
-        if (is_array($data)) {
-            $attributes = $data;
-        }
-
-        if ($data instanceof \ExampleCMS\Contract\Application\Entity) {
-            $attributes = $data->attributes();
-        }
-
-        foreach ($attributes as $attribute => $value) {
+        foreach ($entity->attributes as $attribute => $value) {
             $this->attributes[$attribute] = $value;
         }
     }
@@ -163,11 +148,6 @@ class Entity implements EntityInterface
         return $this->mapper(static::META_MAPPER_ENCODE)->execute($this->attributes);
     }
 
-    protected function attributes()
-    {
-        return $this->attributes;
-    }
-
     protected function isEmpty($attribute)
     {
         return empty($this->attributes[$attribute]);
@@ -178,7 +158,7 @@ class Entity implements EntityInterface
         return !empty($this->attributes[$attribute]);
     }
 
-    protected function attribute($attribute, $value = null)
+    protected function attribute($attribute, $value)
     {
         $this->attributes[$attribute] = $value;
     }

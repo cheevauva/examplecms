@@ -19,7 +19,7 @@ class Find extends \ExampleCMS\Application\Query\Query
         }
 
         $entity = $this->entity('base');
-        $entity->pull($install);
+        $entity->decode($install);
 
         return new \ExampleCMS\Application\ResultSet\Entity($entity);
     }

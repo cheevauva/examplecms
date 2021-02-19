@@ -9,8 +9,12 @@ class FindInContext extends \ExampleCMS\Application\Query\Query implements FindF
 
     public function fetch(array $params = [])
     {
-        $entity = $this->entity($params[static::FORM]);
-        $entity->decode($params[static::FORMS][$entity->entityName()] ?? null);
+        /* @var $context \ExampleCMS\Contract\Context */
+        $context = $params[static::CONTEXT];
+        $forms = $context->getAttribute('forms', []);
+        
+        $entity = $this->entity($params[static::ID]);
+        $entity->decode($forms[$entity->entityName()] ?? null);
 
         return new \ExampleCMS\Application\ResultSet\Entity($entity);
     }

@@ -17,7 +17,7 @@ interface Entity
      */
     public function encode();
 
-    public function pull($data);
+    public function pull(\ExampleCMS\Contract\Application\Entity $entity);
 
     public function mapping(string $mapper, array $data = []);
 
@@ -37,10 +37,6 @@ interface Entity
      */
     public function attach($relation, Entity $entity);
 
-    /**
-     * @return string
-     */
-    public function getId();
 
     public function isValid();
 }

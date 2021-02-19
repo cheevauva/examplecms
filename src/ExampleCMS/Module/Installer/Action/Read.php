@@ -12,8 +12,8 @@ class Read extends \ExampleCMS\Application\Action\Action
         $entity = $this->query('find')->fetch()->entity();
 
         $entityForm = $this->query('find-in-context')->fetch([
-            FindInContext::FORMS => $context->getAttribute('forms'),
-            FindInContext::FORM => $this->metadata['entity'],
+            FindInContext::CONTEXT => $context,
+            FindInContext::ID => $this->metadata['entity'],
         ])->entity();
         $entityForm->pull($entity);
         

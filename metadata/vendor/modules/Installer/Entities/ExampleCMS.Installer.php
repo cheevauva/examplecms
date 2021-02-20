@@ -93,6 +93,14 @@ $entities['base'] = array(
         'items' => [
             'name' => 'items',
             'component' => 'relation',
+            'id-current' => 'entity_id',
+            'id-related' => 'entity_related_id',
+            'mappers' => [
+                'encode' => [
+                    'component' => 'encodeStorage',
+                    'map' => [],
+                ],
+            ],
         ],
     ],
 );

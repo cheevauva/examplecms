@@ -2,8 +2,6 @@
 
 namespace ExampleCMS\Contract\Application;
 
-use ExampleCMS\Contract\Application\Entity\EntityRelation;
-
 interface Entity
 {
 
@@ -19,24 +17,20 @@ interface Entity
 
     public function pull(\ExampleCMS\Contract\Application\Entity $entity);
 
+    /**
+     * @return mixed 
+     */
     public function mapping(string $mapper, array $data = []);
 
-    public function entityName();
+    public function entityName(): string;
 
-    public function apply();
+    public function apply(): void;
 
-    /**
-     * @param Entity $entity
-     * @return EntityRelation
-     */
-    public function detach($relation, Entity $entity);
+    public function detach(string $relation, \ExampleCMS\Contract\Application\Entity $entity): \ExampleCMS\Contract\Application\Entity\EntityRelation;
 
-    /**
-     * @param Entity $entity
-     * @return EntityRelation
-     */
-    public function attach($relation, Entity $entity);
+    public function attach(string $relation, \ExampleCMS\Contract\Application\Entity $entity): \ExampleCMS\Contract\Application\Entity\EntityRelation;
 
+    public function isValid(): bool;
 
-    public function isValid();
+    public function identify(\Closure $callback): void;
 }

@@ -2,34 +2,29 @@
 
 namespace ExampleCMS\Application\Entity;
 
-use ExampleCMS\Application\Entity\Entity;
-use ExampleCMS\Contract\Application\Entity\EntityRelation as EntityRelationInterface;
-
-class EntityRelation extends Entity implements EntityRelationInterface
+class EntityRelation extends Entity implements \ExampleCMS\Contract\Application\Entity\EntityRelation
 {
 
-    /**
-     * @var Entity 
-     */
-    protected $currentEntity;
+    const META_CURRENT_ID = 'id-current';
+    const META_RELATED_ID = 'id-related';
 
-    /**
-     * @var Entity 
-     */
-    protected $relatedEntity;
-
-    public function current(Entity $entity)
+    protected function applyQueryName()
     {
-        $this->currentEntity = $entity;
-
-        $this->attribute('current_id', $entity->getId());
+        return 'save-relation';
     }
 
-    public function related(Entity $entity)
+    public function current(\ExampleCMS\Contract\Application\Entity $entity): void
     {
-        $this->relatedEntity = $entity;
+        $entity->identify(function ($value) {
+            $this->attribute($this->meta[static::META_CURRENT_ID], $value);
+        });
+    }
 
-        $this->attribute('related_id', $entity->getId());
+    public function related(\ExampleCMS\Contract\Application\Entity $entity): void
+    {
+        $entity->identify(function ($value) {
+            $this->attribute($this->meta[static::META_RELATED_ID], $value);
+        });
     }
 
     public function markAsDeleted()

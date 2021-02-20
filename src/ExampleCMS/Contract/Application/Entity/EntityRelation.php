@@ -7,9 +7,9 @@ use ExampleCMS\Contract\Application\Entity;
 interface EntityRelation extends Entity
 {
 
-    public function current(Entity $entity);
+    public function current(Entity $entity): void;
 
-    public function related(Entity $entity);
+    public function related(Entity $entity): void;
 
     public function markAsDeleted();
 

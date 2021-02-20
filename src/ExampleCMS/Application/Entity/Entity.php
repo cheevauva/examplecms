@@ -10,6 +10,7 @@ namespace ExampleCMS\Application\Entity;
 
 use ExampleCMS\Contract\Application\Entity\EntityRelation;
 use ExampleCMS\Contract\Application\Entity as EntityInterface;
+use ExampleCMS\Contract\Helper\UUID;
 
 class Entity implements EntityInterface
 {
@@ -30,11 +31,6 @@ class Entity implements EntityInterface
     public $entityFactory;
 
     /**
-     * @var \ExampleCMS\Contract\Helper\UUID
-     */
-    public $uuid;
-
-    /**
      * @var \ExampleCMS\Contract\Module
      */
     protected $module;
@@ -53,6 +49,7 @@ class Entity implements EntityInterface
      * @var array
      */
     protected $mappers = [];
+    protected $isDecoded = false;
 
     const META_MAPPERS = 'mappers';
     const META_MAPPER_DECODE = 'decode';
@@ -61,13 +58,14 @@ class Entity implements EntityInterface
     const META_APPLY_QUERY = 'query-apply';
     const META_RELATIONS = 'relations';
     const META_RELATION_TYPE = 'type';
+    const ID = 'id';
 
     /**
      * @var EntityRelation[]
      */
     protected $relationEntitiesNotApplied = [];
 
-    public function __construct(\ExampleCMS\Contract\Module $module, array $metadata)
+    public function __construct(\ExampleCMS\Contract\Module $module, array $metadata, UUID $uuid)
     {
         $this->module = $module;
         $this->meta = $metadata;
@@ -78,20 +76,13 @@ class Entity implements EntityInterface
 
         $this->meta[self::META_APPLY_QUERY] = $this->meta[self::META_APPLY_QUERY] ?? $this->applyQueryName();
         $this->meta[static::META_ENTITY_NAME] = $this->meta[static::META_ENTITY_NAME];
+
+        $this->attributes[static::ID] = $uuid->guid();
     }
 
-    public function entityName()
+    public function entityName(): string
     {
         return $this->meta[static::META_ENTITY_NAME];
-    }
-
-    protected function getId()
-    {
-        if (empty($this->attributes['id'])) {
-            $this->attributes['id'] = $this->uuid->guid();
-        }
-
-        return $this->attributes['id'];
     }
 
     protected function applyQueryName()
@@ -128,11 +119,17 @@ class Entity implements EntityInterface
 
     public function decode($data)
     {
+        if ($this->isDecoded) {
+            throw new \Exception('already decoded');
+        }
+
         $attributes = $this->mapper(static::META_MAPPER_DECODE)->execute($data);
 
         foreach ($attributes as $attribute => $value) {
             $this->attribute($attribute, $value);
         }
+
+        $this->isDecoded = true;
     }
 
     public function mapping(string $mapper, array $data = [])
@@ -163,12 +160,12 @@ class Entity implements EntityInterface
         $this->attributes[$attribute] = $value;
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         return true;
     }
 
-    public function apply()
+    public function apply(): void
     {
         foreach ($this->relationEntitiesNotApplied as $relationEntity) {
             $relationEntity->apply();
@@ -179,7 +176,7 @@ class Entity implements EntityInterface
         $this->query($this->meta[self::META_APPLY_QUERY])->execute();
     }
 
-    public function attach($relation, EntityInterface $entity)
+    public function attach(string $relation, EntityInterface $entity): EntityRelation
     {
         /* @var $entityRelation EntityRelation */
         $entityRelation = $this->entityFactory->makeByMetadata($this->meta[static::META_RELATIONS][$relation], $this->module);
@@ -192,7 +189,12 @@ class Entity implements EntityInterface
         return $entityRelation;
     }
 
-    public function detach($relation, EntityInterface $entity)
+    public function identify(\Closure $callback): void
+    {
+        $callback($this->attributes[static::ID]);
+    }
+
+    public function detach(string $relation, EntityInterface $entity): EntityRelation
     {
         /* @var $entityRelation EntityRelation */
         $entityRelation = $this->entityFactory->makeByMetadata($this->meta[static::META_RELATIONS][$relation], $this->module);

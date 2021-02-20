@@ -43,7 +43,7 @@ $di[ExampleCMS\Application\Entity\Entity::class] = array(
     'mapperFactory' => '?mapperFactory',
     'queryFactory' => '?queryFactoryWithEntity',
     'entityFactory' => '?entityFactory',
-    'uuid' => '?uuid',
+    '^2' => '?uuid',
 );
 $di[ExampleCMS\Module::class] = [
     'metadata' => '?metadata',

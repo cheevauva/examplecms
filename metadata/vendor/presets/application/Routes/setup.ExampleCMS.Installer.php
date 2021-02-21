@@ -21,6 +21,9 @@ $routes['license'] = array(
     'method' => 'GET',
     'route' => '/license/',
     'target' => array(
+        'context' => [
+            'id' => 'installer',
+        ],
         'module' => 'Installer',
         'responder' => [
             'type' => 'layout',
@@ -43,6 +46,9 @@ $routes['license_save'] = array(
     'method' => 'POST',
     'route' => '/license/',
     'target' => [
+        'context' => [
+            'id' => 'installer',
+        ],
         'module' => 'Installer',
         'actions' => [
             [
@@ -63,6 +69,9 @@ $routes['language'] = [
     'method' => 'GET',
     'route' => '/language/',
     'target' => [
+        'context' => [
+            'id' => 'installer',
+        ],
         'module' => 'Installer',
         'responder' => [
             'type' => 'layout',
@@ -85,6 +94,9 @@ $routes['language_save'] = array(
     'method' => 'POST',
     'route' => '/language/',
     'target' => array(
+        'context' => [
+            'id' => 'installer',
+        ],
         'actions' => [
             [
                 'component' => 'save',
@@ -92,7 +104,7 @@ $routes['language_save'] = array(
             ],
             [
                 'component' => 'redirect',
-                'route' => 'database',
+                'route' => 'database_list',
                 'params' => [],
             ]
         ],
@@ -103,9 +115,9 @@ $routes['language_save'] = array(
     ),
 );
 
-$routes['database'] = array(
+$routes['database_mysql'] = array(
     'method' => 'GET',
-    'route' => '/database/',
+    'route' => '/database/mysql',
     'target' => array(
         'module' => 'Installer',
         'responder' => [
@@ -120,6 +132,51 @@ $routes['database'] = array(
                 'component' => 'read',
                 'form' => 'database',
                 'entity' => 'database',
+            ],
+        ],
+    ),
+);
+$routes['database_sqlite'] = array(
+    'method' => 'GET',
+    'route' => '/database/sqlite',
+    'target' => array(
+        'module' => 'Installer',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'views' => [
+                'body' => 'database',
+            ],
+        ],
+        'actions' => [
+            [
+                'component' => 'read',
+                'form' => 'database',
+                'entity' => 'database',
+            ],
+        ],
+    ),
+);
+$routes['database_list'] = array(
+    'method' => 'GET',
+    'route' => '/database/',
+    'target' => array(
+        'context' => [
+            'id' => 'installer',
+        ],
+        'actions' => [
+            [
+                'collection' => 'databases',
+                'component' => 'index',
+                'query' => 'find-databases',
+            ],
+        ],
+        'module' => 'Installer',
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'views' => [
+                'body' => 'database_index',
             ],
         ],
     ),
@@ -149,24 +206,5 @@ $routes['database_save'] = array(
         ],
     ],
 );
-$routes['database_list'] = array(
-    'method' => 'GET',
-    'route' => '/database/list/',
-    'target' => array(
-        'actions' => [
-            [
-                'collection' => 'databases',
-                'component' => 'index',
-            ],
-        ],
-        'module' => 'Installer',
-        'responder' => [
-            'type' => 'layout',
-            'component' => 'setup',
-            'views' => [
-                'body' => 'database_index',
-            ],
-        ],
-    ),
-);
+
 // end code from preset @presetvar0

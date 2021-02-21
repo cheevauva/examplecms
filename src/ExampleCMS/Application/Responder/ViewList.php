@@ -16,14 +16,16 @@ class ViewList extends View
     public function execute(Context $context)
     {
         $data = parent::execute($context);
+        $data['rows'] = [];
 
         $collection = $context->getCollection($this->metadata['collection']);
 
         foreach ($collection as $entity) {
-            $entityForm = $this->entity('form');
-            $entityForm->bind($entity);
-
-            $data['entities'][] = $entityForm->encode();
+            $newContext = $context->withAttribute('formData', $entity->encode());
+            
+            foreach ($this->metadata['rows'] as $meta) {
+                $data['rows'][] = $this->responder('row', $meta)->execute($newContext);
+            }
         }
 
         return $data;

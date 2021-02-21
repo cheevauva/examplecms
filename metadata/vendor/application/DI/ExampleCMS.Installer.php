@@ -1,6 +1,6 @@
 <?php
 
-$di[ExampleCMS\Module\Installer\Query\Find::class] = array(
+$di[ExampleCMS\Module\Installer\Query\CacheTrait::class] = array(
     'cache' => '?cacheFile',
 );
 $di[ExampleCMS\Module\Installer\Query\Save::class] = array(

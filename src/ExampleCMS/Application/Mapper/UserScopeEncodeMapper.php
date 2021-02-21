@@ -10,7 +10,7 @@ class UserScopeEncodeMapper extends Mapper
         $result = [];
 
         $map = $this->metadata['map'] ?? array_keys($data);
-
+        
         foreach ($map as $entityAttribute => $userScopeAttribute) {
             $result[$userScopeAttribute] = $data[$entityAttribute] ?? null;
         }

@@ -57,7 +57,6 @@ class Entity implements EntityInterface
     const META_ENTITY_NAME = 'name';
     const META_APPLY_QUERY = 'query-apply';
     const META_RELATIONS = 'relations';
-    const META_RELATION_TYPE = 'type';
     const ID = 'id';
 
     /**
@@ -80,6 +79,11 @@ class Entity implements EntityInterface
         $this->attributes[static::ID] = $uuid->guid();
     }
 
+    public function getId()
+    {
+        return $this->attributes['id'];
+    }
+
     public function entityName(): string
     {
         return $this->meta[static::META_ENTITY_NAME];
@@ -100,6 +104,9 @@ class Entity implements EntityInterface
     public function pull(\ExampleCMS\Contract\Application\Entity $entity)
     {
         foreach ($entity->attributes as $attribute => $value) {
+            if ($attribute === 'id' && !empty($this->attributes['id'])) {
+                continue;
+            }
             $this->attributes[$attribute] = $value;
         }
     }

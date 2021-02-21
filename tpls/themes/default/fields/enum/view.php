@@ -1,3 +1,3 @@
-<?php return function ($template, $field) { ?>
-    <?= htmlspecialchars($field['label']); ?>
-<?php }; ?>
+<span>
+    <?= $_[$options][$value] ?? $value; ?>
+</span>

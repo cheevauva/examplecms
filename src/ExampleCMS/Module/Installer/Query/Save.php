@@ -5,14 +5,11 @@ namespace ExampleCMS\Module\Installer\Query;
 class Save extends \ExampleCMS\Application\Query\QueryWithEntity
 {
 
-    /**
-     * @var \ExampleCMS\Contract\Cache\Adapter
-     */
-    public $cache;
+    use CacheTrait;
 
     public function execute(array $params = [])
     {
-        $this->cache->set('installer:entity', $this->entity->encode());
+        $this->set('installer', $this->entity->encode());
     }
 
 }

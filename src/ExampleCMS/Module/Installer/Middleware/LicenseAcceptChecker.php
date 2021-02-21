@@ -62,7 +62,7 @@ class LicenseAcceptChecker implements MiddlewareInterface
 
         $installer = $this->moduleFactory->get('Installer');
 
-        $context = $request->getAttribute('context');
+        $context = $request->getAttribute('context')->withAttributes($this->metadata['context']);
 
         foreach ($this->metadata['actions'] as $action) {
             $context = $this->actionFactory->get($action, $installer)->execute($context);

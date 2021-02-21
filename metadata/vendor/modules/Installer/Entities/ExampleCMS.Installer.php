@@ -2,7 +2,7 @@
 
 $entities['database'] = [
     'name' => 'database',
-    'component' => 'form',
+    'component' => 'database',
     'mappers' => [
         'decode' => [
             'component' => 'decodeUserScope',

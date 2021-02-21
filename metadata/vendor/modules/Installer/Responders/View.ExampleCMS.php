@@ -29,8 +29,27 @@ $view['license'] = array(
         'license',
     ],
 );
-$view['database_index'] = array(
+$view['database_index'] = [
     'component' => 'list',
     'collection' => 'databases',
-
-);
+    'rows' => [
+        [
+            'component' => 'default',
+            'template' => 'table-row',
+            'columns' => [
+                [
+                    'component' => 'default',
+                    'template' => 'table-column-data',
+                    'fields' => [
+                        [
+                            'component' => 'enum',
+                            'template' => 'view',
+                            'name' => 'sql_engine',
+                            'options' => 'sql_engines',
+                        ]
+                    ],
+                ],
+            ],
+        ],
+    ],
+];

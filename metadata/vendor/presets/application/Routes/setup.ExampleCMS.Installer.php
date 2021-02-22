@@ -117,14 +117,41 @@ $routes['language_save'] = array(
 
 $routes['database_mysql'] = array(
     'method' => 'GET',
-    'route' => '/database/mysql',
+    'route' => '/database/mysql/',
     'target' => array(
         'module' => 'Installer',
+        'context' => [
+            'id' => 'installer',
+        ],
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
             'views' => [
-                'body' => 'database',
+                'body' => 'database_mysql',
+            ],
+        ],
+        'actions' => [
+            [
+                'component' => 'read',
+                'form' => 'database',
+                'entity' => 'database',
+            ],
+        ],
+    ),
+);
+$routes['database_postgresql'] = array(
+    'method' => 'GET',
+    'route' => '/database/postgresql/',
+    'target' => array(
+        'module' => 'Installer',
+        'context' => [
+            'id' => 'installer',
+        ],
+        'responder' => [
+            'type' => 'layout',
+            'component' => 'setup',
+            'views' => [
+                'body' => 'database_postgresql',
             ],
         ],
         'actions' => [
@@ -138,14 +165,17 @@ $routes['database_mysql'] = array(
 );
 $routes['database_sqlite'] = array(
     'method' => 'GET',
-    'route' => '/database/sqlite',
+    'route' => '/database/sqlite/',
     'target' => array(
         'module' => 'Installer',
+        'context' => [
+            'id' => 'installer',
+        ],
         'responder' => [
             'type' => 'layout',
             'component' => 'setup',
             'views' => [
-                'body' => 'database',
+                'body' => 'database_sqlite',
             ],
         ],
         'actions' => [

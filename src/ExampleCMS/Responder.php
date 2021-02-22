@@ -47,6 +47,10 @@ abstract class Responder implements \ExampleCMS\Contract\Responder
         $data['templateId'] = $this->getTemplateId();
         $data['module'] = $this->metadata['module'] ?? $context->getAttribute('module', $this->module->getName());
         $data['language'] = $context->getAttribute('language', 'en_US');
+        
+        if (!empty($this->metadata['extra'])) {
+            $data['extra'] = $this->metadata['extra'];
+        }
 
         return $data;
     }

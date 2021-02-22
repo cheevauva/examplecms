@@ -24,10 +24,6 @@ class Column extends \ExampleCMS\Responder
         $data['grids'] = [];
         $data['fields'] = [];
 
-        if (!empty($this->metadata['extra'])) {
-            $data['extra'] = $this->metadata['extra'];
-        }
-
         if (empty($this->metadata['fields'])) {
             $this->metadata['fields'] = [];
         }

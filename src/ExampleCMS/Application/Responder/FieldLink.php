@@ -17,27 +17,12 @@ class FieldLink extends Field
 
     public function execute(Context $context)
     {
-        $context = parent::execute($context);
+        $data = parent::execute($context);
 
-        $context['label'] = $context['name'];
-        $context['url'] = '';
+        $data['label'] = $this->metadata['label'] ?? 'undefined';
+        $data['route'] = $this->metadata['route'] ?? '';
 
-        if (!empty($context['modelForms'][$context['form']])) {
-            /* @var $model \ExampleCMS\Contract\Application\Model */
-            $model = $context['modelForms'][$context['form']];
-
-            $context['url'] = $context['request']->getAttribute('router')->make($context['route'], array(
-                'module' => $model->getModule()->getName(),
-                'id' => $model->get('id'),
-            ));
-
-            if (empty($context['use_label'])) {
-                $context['label'] = $model->get($context['label']);
-            }
-        }
-
-
-        return $context;
+        return $data;
     }
 
 }

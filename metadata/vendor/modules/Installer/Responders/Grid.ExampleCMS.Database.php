@@ -1,6 +1,66 @@
 <?php
 
-$grid['mysql'] = array(
+$grid['database_sqlite'] = array(
+    'name' => 'sqlite',
+    'component' => 'form',
+    'rows' => array(
+        array(
+            'component' => 'default',
+            'columns' => array(
+                array(
+                    'component' => 'default',
+                    'colspan' => '2',
+                    'fields' => array(
+                        array(
+                            'component' => 'label',
+                            'label' => 'sqlite_settings',
+                        ),
+                    )
+                ),
+            )
+        ),
+        array(
+            'component' => 'default',
+            'columns' => array(
+                array(
+                    'component' => 'default',
+                    'extra' => [
+                        'floating' => true,
+                        'colspan' => 12,
+                    ],
+                    'fields' => array(
+                        array(
+                            'component' => 'string',
+                            'name' => 'sqlite_filename',
+                            'default' => 'cache/db',
+                            'template' => 'form',
+                        ), array(
+                            'component' => 'label',
+                            'label' => 'sqlite_filename',
+                        ),
+                    )
+                ),
+            )
+        ),
+        array(
+            'component' => 'default',
+            'columns' => array(
+                array(
+                    'colspan' => 2,
+                    'component' => 'default',
+                    'fields' => array(
+                        array(
+                            'component' => 'button',
+                            'label' => 'send',
+                        ),
+                    )
+                ),
+            )
+        ),
+    ),
+);
+
+$grid['database_mysql'] = array(
     'name' => 'mysql',
     'component' => 'form',
     'rows' => array(
@@ -94,111 +154,6 @@ $grid['mysql'] = array(
                             'component' => 'label',
                             'label' => 'mysql_password',
                         ),
-                    )
-                ),
-            )
-        ),
-    ),
-);
-
-$grid['sqlite'] = array(
-    'name' => 'sqlite',
-    'component' => 'form',
-    'rows' => array(
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'colspan' => '2',
-                    'fields' => array(
-                        array(
-                            'component' => 'label',
-                            'label' => 'sqlite_settings',
-                        ),
-                    )
-                ),
-            )
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'extra' => [
-                        'floating' => true,
-                        'colspan' => 12,
-                    ],
-                    'fields' => array(
-                        array(
-                            'component' => 'string',
-                            'name' => 'sqlite_filename',
-                            'default' => 'cache/db',
-                            'template' => 'form',
-                        ), array(
-                            'component' => 'label',
-                            'label' => 'sqlite_filename',
-                        ),
-                    )
-                ),
-            )
-        ),
-    ),
-);
-
-$grid['database'] = array(
-    'name' => 'form',
-    'component' => 'form',
-    'rows' => array(
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'extra' => [
-                        'floating' => true,
-                        'colspan' => 12,
-                    ],
-                    'fields' => array(
-                        array(
-                            'component' => 'enum',
-                            'name' => 'sql_engine',
-                            'default' => 'sqlite',
-                            'template' => 'form',
-                            'options' => 'sql_engines',
-                        ),
-                        array(
-                            'component' => 'label',
-                            'label' => 'sql_engine',
-                        ),
-                    )
-                ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'fields' => array(
-                        array(
-                            'component' => 'grid',
-                            'grid' => 'mysql',
-                        ),
-                    ),
-                ),
-            ),
-        ),
-        array(
-            'component' => 'default',
-            'columns' => array(
-                array(
-                    'component' => 'default',
-                    'fields' => array(
-                        array(
-                            'component' => 'grid',
-                            'grid' => 'sqlite',
-                        )
                     )
                 ),
             )

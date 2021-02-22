@@ -13,3 +13,6 @@ $language['language_installer'] = 'Язык установщика';
 $language['language_system'] = 'Основной язык системы';
 $language['license_is_accept'] = 'Поставьте галочку чтобы принять лицензионное соглашение';
 $language['license_text'] = 'Лицензионное соглашение';
+$language['add_mysql_connections'] = 'Добавить соединение с MySQL';
+$language['add_postgresql_connections'] = 'Добавить соединение с PostgreSQL';
+$language['add_sqlite_connections'] = 'Добавить соединение с SQLite';
